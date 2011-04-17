@@ -1,9 +1,0 @@
-        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 31 09:10:34 2010
-        MODULE DISNAN__genmod
-          INTERFACE 
-            FUNCTION DISNAN(DIN) RESULT(DISNAN_0)
-              REAL(KIND=8) :: DIN
-              LOGICAL(KIND=4) :: DISNAN_0
-            END FUNCTION DISNAN
-          END INTERFACE 
-        END MODULE DISNAN__genmod

@@ -1,9 +1,0 @@
-        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 31 09:10:36 2010
-        MODULE NBLNK__genmod
-          INTERFACE 
-            FUNCTION NBLNK(ASTRNG) RESULT(NBLNK_0)
-              CHARACTER(*) :: ASTRNG
-              INTEGER(KIND=4) :: NBLNK_0
-            END FUNCTION NBLNK
-          END INTERFACE 
-        END MODULE NBLNK__genmod
