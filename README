@@ -1,0 +1,12 @@
+bgaPEST: a Bayesian Geostatistical Version of PEST
+
+Authors: Mike Fienen (USGS)
+	 Marco D'Oria (University of Parma)
+
+contact: mnfienen@usgs.gov
+
+This code employs a basic version of Bayesian Geostatistical Inversion
+in the framework of PEST: a model-independent parameter estimation code.
+More information about PEST in general available at: pesthomepage.org
+
+
