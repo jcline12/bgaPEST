@@ -1,0 +1,9 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 31 09:10:33 2010
+        MODULE DLAMCH__genmod
+          INTERFACE 
+            FUNCTION DLAMCH(CMACH) RESULT(DLAMCH_0)
+              CHARACTER(LEN=1) :: CMACH
+              REAL(KIND=8) :: DLAMCH_0
+            END FUNCTION DLAMCH
+          END INTERFACE 
+        END MODULE DLAMCH__genmod

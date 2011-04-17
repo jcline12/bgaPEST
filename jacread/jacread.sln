@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "jacread_test", "jacread_test.vfproj", "{433BF11F-5F32-442C-B4C2-4DCAA53CE5BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6C0890D6-8101-4044-8389-757DFE914550}"
+	ProjectSection(SolutionItems) = preProject
+		src\jacread.f90 = src\jacread.f90
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{433BF11F-5F32-442C-B4C2-4DCAA53CE5BF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{433BF11F-5F32-442C-B4C2-4DCAA53CE5BF}.Debug|Win32.Build.0 = Debug|Win32
+		{433BF11F-5F32-442C-B4C2-4DCAA53CE5BF}.Release|Win32.ActiveCfg = Release|Win32
+		{433BF11F-5F32-442C-B4C2-4DCAA53CE5BF}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 31 09:10:34 2010
+        MODULE DLAISNAN__genmod
+          INTERFACE 
+            FUNCTION DLAISNAN(DIN1,DIN2) RESULT(DLAISNAN_0)
+              REAL(KIND=8) :: DIN1
+              REAL(KIND=8) :: DIN2
+              LOGICAL(KIND=4) :: DLAISNAN_0
+            END FUNCTION DLAISNAN
+          END INTERFACE 
+        END MODULE DLAISNAN__genmod
