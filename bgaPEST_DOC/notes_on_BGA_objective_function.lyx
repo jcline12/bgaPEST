@@ -1,0 +1,397 @@
+#LyX 1.6.4.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\renewcommand\[{\begin{equation}}
+\renewcommand\]{\end{equation}}
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\float_placement H
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Subsection*
+Unknown Mean
+\end_layout
+
+\begin_layout Standard
+We need to establish equality between the following two objective function
+ calculation methods, labelled 
+\begin_inset Formula $J_{std}$
+\end_inset
+
+ for the standard version, and 
+\begin_inset Formula $J_{eff}$
+\end_inset
+
+ for the efficient version.
+\begin_inset Formula \begin{eqnarray*}
+J_{std} & = & \frac{1}{2}\mathbf{s}^{T}\mathbf{G}\mathbf{s}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\\
+J_{eff} & = & \frac{1}{2}\xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For these two formulations to be equivalent, it is only necessary for the
+ following to hold (removing the 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ terms
+\begin_inset Formula \begin{equation}
+\xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi=\mathbf{s}^{T}\mathbf{G}\mathbf{s}\label{eq:equiv1}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Recalling that
+\begin_inset Formula \begin{equation}
+\mathbf{G}=\mathbf{Q}^{-1}-\mathbf{Q}^{-1}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q}^{-1}\label{eq:G}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and
+\begin_inset Formula \begin{equation}
+\mathbf{s}=\mathbf{X}\beta+\mathbf{Q}\mathbf{H}^{T}\xi\label{eq:s}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can expand the right-hand term of Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:equiv1"
+
+\end_inset
+
+ incorporating both Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:G"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:s"
+
+\end_inset
+
+ into four terms
+\begin_inset Formula \begin{eqnarray}
+\mathbf{s}^{T}\mathbf{Gs} & = & \beta^{T}\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\beta\nonumber \\
+ & + & \xi^{T}\mathbf{HQ}\mathbf{Q}^{-1}\mathbf{QH}^{T}\xi\nonumber \\
+ & - & \beta^{T}\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X\beta}\label{eq:stGs}\\
+ & - & \xi^{T}\mathbf{H}\mathbf{Q}\mathbf{Q}^{-1}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{Q}\mathbf{H}^{T}\xi\nonumber \end{eqnarray}
+
+\end_inset
+
+
+\begin_inset Formula \[
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Simplifying all inverses, immediately the first and third terms cancel.
+ Furthermore, the second term
+\begin_inset Formula \[
+\xi^{T}\mathbf{HQ}\mathbf{Q}^{-1}\mathbf{QH}^{T}\xi=\xi^{T}\mathbf{HQ}\mathbf{H}\xi\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which is our goal from Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:equiv1"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, then, for Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:equiv1"
+
+\end_inset
+
+ to hold, the fourth term from Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:stGs"
+
+\end_inset
+
+ must completely cancel.
+ To evaluate this, we first simplify through inverses resulting in our new
+ goal
+\begin_inset Formula \begin{equation}
+\xi^{T}\mathbf{H}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{H}^{T}\xi=0\label{eq:simple1}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, we must expand this using the definition 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+\xi=\mathbf{Q}_{yy}^{-1}\left(\mathbf{y}-\mathbf{HX\beta}\right)\label{eq:xi}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{Q}_{yy}^{-1}\mathbf{=}\mathbf{\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}+\mathbf{R}\right)}^{-1}$
+\end_inset
+
+ is substituted because early inspection indicates that 
+\begin_inset Formula $\mathbf{Q}_{yy}^{-1}$
+\end_inset
+
+ cannot be reduced further.
+\end_layout
+
+\begin_layout Standard
+Substituting Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:xi"
+
+\end_inset
+
+ into Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:simple1"
+
+\end_inset
+
+ is accomplished by first making some temporary definitions, noting the
+ property that for an arbitrary symmetix matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(\mathbf{A}^{-1}\right)^{T}=\mathbf{A}^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+First
+\begin_inset Formula \begin{eqnarray*}
+\xi & = & \mathbf{Q}_{yy}^{-1}\mathbf{y}-\mathbf{Q}_{yy}^{-1}\mathbf{HX\beta}\\
+\xi^{T} & = & -\beta^{T}\mathbf{X}^{T}\mathbf{H}^{T}\mathbf{Q}_{yy}^{-1}+\mathbf{y}^{T}\mathbf{Q}_{yy}^{-1}\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula \[
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With these definitions, we can assign
+\begin_inset Formula \begin{eqnarray}
+A & = & \mathbf{Q}_{yy}^{-1}\mathbf{y}\label{eq:alphabet}\\
+B & = & \mathbf{Q}_{yy}^{-1}\mathbf{HX}\beta\nonumber \\
+C & = & \beta^{T}\mathbf{X}^{T}\mathbf{H}^{T}\mathbf{Q}_{yy}^{-1}\nonumber \\
+D & = & \mathbf{y}^{T}\mathbf{Q}_{yy}^{-1}\nonumber \\
+E & = & \mathbf{H}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{H}^{T}\nonumber \end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Returning to Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:simple1"
+
+\end_inset
+
+, substituting the assignations in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:alphabet"
+
+\end_inset
+
+
+\begin_inset Formula \begin{eqnarray}
+\xi^{T}\mathbf{H}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{H}^{T}\xi & = & \left(-C+D\right)E\left(A-B\right)\label{eq:almost}\\
+ & = & \left(-CE+DE\right)\left(A-B\right)\nonumber \\
+ & = & -CEA-DEA+DEA+DEB\nonumber \\
+ & = & DEB-CEA\nonumber \end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To conclude, we can expand Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:almost"
+
+\end_inset
+
+ using Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:alphabet"
+
+\end_inset
+
+
+\begin_inset Formula \begin{eqnarray}
+DEB-CEA & = & \mathbf{y}^{T}\mathbf{Q}_{yy}^{-1}\mathbf{HX}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{H}^{T}\mathbf{Q}_{yy}^{-1}\mathbf{HX\beta}\nonumber \\
+ &  & -\beta^{T}\mathbf{X}^{T}\mathbf{H}^{T}\mathbf{Q}_{yy}^{-1}\mathbf{HX}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{H}^{T}\mathbf{Q}_{yy}^{-1}\label{eq:zero}\\
+ & = & 0\nonumber \end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:zero"
+
+\end_inset
+
+ is correct by virtue of the fact that both terms are equal scalars.
+\end_layout
+
+\begin_layout Subsection*
+Diffuse Mean
+\end_layout
+
+\begin_layout Standard
+To expand the above simplification of the objective function to cases with
+ diffuse information about the mean, we make the following substitution
+\begin_inset Formula \[
+\mathbf{Q}=\mathbf{Q}_{ss}+\mathbf{X}\mathbf{Q}_{\beta\beta}\mathbf{X}^{T}.\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By virtue of this new version of 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ having the same dimensions as in the previous derivation, by direct substitutio
+n, the equation for 
+\begin_inset Formula $J_{eff}$
+\end_inset
+
+ can be used directly as 
+\begin_inset Formula \[
+J_{eff}=\frac{1}{2}\xi^{T}\left(\mathbf{H}\left(\mathbf{Q}+\mathbf{X}\mathbf{Q}_{\beta\beta}\mathbf{X}^{T}\right)\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document
