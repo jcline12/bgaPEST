@@ -86,21 +86,265 @@ M.
 \end_layout
 
 \begin_layout Section
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:appendix"
+Introduction
+\end_layout
+
+\begin_layout Standard
+Environmental modeling serves many purposes for managing natural resources.
+ In most cases, models are made to represent physical processes such as
+ groundwater flow, contaminant transport, surface water flood routing, and
+ others.
+ The challenge to simulate the governing equations and concepts such as
+ conservation of mass and momentum is only part of the challenge.
+ Once a model adequately represents the physical characteristics of the
+ problem, it is still a general tool until it is calibrated to observations
+ at the specific site to be managed.
+ Parameter estimation and calibration are both terms describing the process
+ of incorporating the site-specific information into a model making it suitable
+ to be applied to management decisions.
+ 
+\end_layout
+
+\begin_layout Standard
+This concept is so important, that one may interpret a model as a data-processin
+g tool as much as a simulator of physical processes; the data processing
+ being a pipeline from field observation to model parameters and ultimately
+ to predictions.
+ Another interpretation is a Bayesian one in which the model is a vehicle
+ for updating an 
+\emph on
+a priori
+\emph default
+ understanding of the system to a conditional 
+\emph on
+a posteriori
+\emph default
+ understanding.
+ This is the approach adopted in this work and will be discussed in more
+ detail.
+ First, however, the concept of conditionality must be emphasized.
+\end_layout
+
+\begin_layout Standard
+Bayes' theorem is at the heart of the techniques in this report:
+\begin_inset Formula 
+\begin{equation}
+p\left(\mathbf{s}|\mathbf{y}\right)\propto L\left(\mathbf{y}|\mathbf{s}\right)p\left(\mathbf{s}\right)\label{eq:bayes1}
+\end{equation}
 
 \end_inset
 
+where: 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ is a vector of parameter values, 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is a vector of observations, 
+\begin_inset Formula $p\left(\cdot\right)$
+\end_inset
+
+ indicates a probability density function (pdf), 
+\begin_inset Formula $L\left(\cdot\right)$
+\end_inset
+
+ indicates a likelihood function, and 
+\begin_inset Formula $|$
+\end_inset
+
+ indicates conditionality.
+ In words, Bayes' theorem states that the posterior probability of parameters
+ conditional on the data 
+\begin_inset Formula $p\left(\mathbf{s}|\mathbf{y}\right)$
+\end_inset
+
+, is proportional to the prior probability of the parameters 
+\begin_inset Formula $p\left(\mathbf{s}\right)$
+\end_inset
+
+ updated with the likelihood function 
+\begin_inset Formula $L\left(\mathbf{y}|\mathbf{s}\right)$
+\end_inset
+
+ that expresses how well 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is estimated using the model and a candidate parameter set 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+.
+ The pdfs in all cases are assumed to follow Gaussian distributions.
+ This assumption is important and somewhat restrictive, but it is made for
+ reasons of computational simplicity.
+ Active research is ongoing on alternatives to this approach, but the Gaussian
+ assumption is adopted in this report.
+\end_layout
+
+\begin_layout Standard
+In the Bayesian context, by expressing the parameters and the likelihood
+ function as probability distributions, they formally incorporate an estimate
+ of their uncertainty rather than being treated as perfectly known values.
+ All 
+\emph on
+a posteriori 
+\emph default
+(also called posterior) distributions are conditional upon the specific
+ data used in the calibration process.
+ Implicitly, they are also conditional on all other modeling and data decisions
+ that go into formulating the problem: which model and what packages are
+ chosen, numerical considerations such as discretization and solver convergence
+ criteria, boundary conditions that may or may not be considered static
+ and known, variance values and weights given to individual observations
+ and parameters, and others.
+ The point is, if any of these things change, it is expected, in the Bayesian
+ context, that the parameters estimated will also change.
+ 
+\end_layout
+
+\begin_layout Standard
+As discussed in the previous paragraph, the conditionality includes 
+\emph on
+all 
+\emph default
+decisions made in the process of constructing a model and incorporating
+ data.
+ Not all of this information is explicit, however.
+ In fact, the only 
+\emph on
+explicit 
+\emph default
+conditionality is on the data.
+ The information contained in the prior pdf (
+\begin_inset Formula $p\left(\mathbf{s}\right)$
+\end_inset
+
+) in eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes1"
+
+\end_inset
+
+ is critical as well because this represents the state of knowledge about
+ the parameters in the system prior to updating through the calibration
+ process.
+ In BGA, the assumptions made prior calibration are limited to an assumption
+ of the mean value of each facies association, and a characteristic about
+ continuity or smoothness of the parameter field.
+ The degree to which this characteristic is enforced is dictated by the
+ data and the subsequent performance of the model.
+ This is very similar (and in some cases, mathematically equivalent) to
+ Tikhonov regularization.
+ Limiting the information assumed 
+\emph on
+a priori 
+\emph default
+is similar to assuming an ignorance prior (REF JAYNES) such that the driver
+ of the problem is more the data than prior assumptions.
+ Additionally, so-called structural parameters that enforce the characteristic
+ are estimated using restricted maximum likelihood.
+ All of these aspects of the algorithm, taken together, may be considered
+ an Empirical Bayes approach.
+\end_layout
+
+\begin_layout Standard
+The likelihood function in eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes1"
+
+\end_inset
+
+, 
+\begin_inset Formula $L\text{\left(\mathbf{y}|\mathbf{s}\right) }$
+\end_inset
+
+, expresses the correspondence of model outcomes with field observations
+ collocated in space and time.
+ This correspondence is expressed as the sum of the squared differences
+ between outcomes and observations, weighted by a covariance matrix.
+ This is effectively equivalent to the weighted measurement objective function
+ in PEST.
+ 
+\end_layout
+
+\begin_layout Section
+Purpose and Scope
+\end_layout
+
+\begin_layout Standard
+This Report is intended to serve two main purposes.
+ First, a Bayesian approach to parameter estimation--expressing in the context
+ of the Bayesian Geostatistical Inverse Method (BGA)--is introduced to provide
+ a framework for moving a model from a general simulator of a physical process
+ to a specific tool, based on a set of calibration information, that can
+ be used for management of a particular site and issue.
+ Second, a computer code--bgaPEST--is introduced and documented in which
+ BGA is deployed in a framework based on the free and open-source PEST suite
+ of software 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PEST"
+
+\end_inset
+
+.
+ The input framework is consistent with the JUPITER project 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BantaEtAl2006"
+
+\end_inset
+
+.
+ This marks the first implementation of BGA available for general use.
+\end_layout
+
+\begin_layout Standard
+This initial implementation is written in FORTRAN-90 with limited capabilities
+ in Python.
+ For users on the Windows operating system, installation of Python is optional
+ as the Python codes are compiled into executables using py2exe that can
+ be called by the main program.
+ For users on Macintosh or Linux systems, all the code must be compiled
+ for the native platform and Python should already be installed so the Python
+ scripts may be called directly without need to compile them separately.
+\end_layout
+
+\begin_layout Standard
+Part of the approach, as discussed elsewhere in this Report, is based on
+ a distributed paramaterization scheme meant to be flexible in that certain
+ regions of the model (called facies associations) are assigned a unique
+ parameter value to be estimated for each model node or cell.
+ This leads to a large number of parameters which is accompanied by computationa
+l challenges.
+ Some of these challenges are alleviated by restricting facies associations
+ in which distributed parameterization schema are implemented to have constant
+ spacing in both lateral directions and must have consistent layer thickness.
+ These three value need only be constant in their respective dimensions
+ but they may differ from dimension to dimension.
+ This restriction allows for implementation of a Toeplitz compression making
+ it possible to use many more parameters than would otherwise be possible.
+ The partitioning into facies associations makes it easy to combine distributed
+ parameters in areas of most interest and where data are more available,
+ and homogeneous zones in areas surrounding the main focus.
+\end_layout
+
+\begin_layout Section
 Bayesian Geostatistical Inversion Background
 \end_layout
 
 \begin_layout Standard
 The Bayesian geostatistical inverse method was described qualitatively in
- the main paper.
- In this supplementary appendix, we present a summary of the mathematical
- details pertaining to the probability density functions and the solution
- method.
+ the Introduction.
+ In this section, we present a summary of the mathematical details pertaining
+ to the probability density functions and the solution method.
  Further details are found in 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -328,8 +572,8 @@ key "FienenWRR2008"
 
 \end_inset
 
- which enforces continuity at a scale determined by the single free parameter
- 
+ which enforces continuity at a scale determined by the single free structural
+ parameter 
 \begin_inset Formula $\theta.$
 \end_inset
 

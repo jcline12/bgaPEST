@@ -49,7 +49,17 @@
         deriv_mode:          0
  
        1 Beta Association was defined:
-     No Compression Requested, so no further details about Beta Associations
+     No Compression Requested.  No further details provided about Beta Associations
  
+ 
+ No Prior Information Provided for Betas
  Structural parameter control variables:-
+    Flag determining whether structural parameters are optimized or fixed:
+        struct_par_opt:          0
  
+ *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+                    MNF --- FILL IN THESE VARIABLES!      
+ *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+ 
+ 
+ Initial Parameter Definitions:-

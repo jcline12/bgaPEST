@@ -6,7 +6,7 @@ module extern_derivs
 
 contains
 
-subroutine bxd_wConst_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
+subroutine bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
 
 implicit none
 
@@ -61,7 +61,7 @@ implicit none
 65      format(A50,' ',ES18.8,' ',A12,' ',ES18.8)
        close(iunit)
        
- end subroutine bxd_wConst_ext_PEST_files      
+ end subroutine bxd_write_ext_PEST_files      
       
       
       

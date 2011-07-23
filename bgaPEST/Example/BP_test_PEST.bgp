@@ -3,7 +3,7 @@ BEGIN algorithmic_cv KEYWORDS
  it_max_structural=11 it_max_phi=12 it_max_bga=13 
  linesearch=1         it_max_linesearch=25
  theta_cov_form=0 Q_compression_flag=0
- deriv_mode =0
+ deriv_mode = 0
 END algorithmic_cv 
 
 BEGIN prior_mean_cv KEYWORDS

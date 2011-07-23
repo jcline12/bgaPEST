@@ -1,0 +1,1468 @@
+
+                      PEST RUN RECORD: CASE scratch
+
+
+PEST run mode:-
+
+   Parameter estimation mode
+
+
+Case dimensions:-
+
+   Number of parameters                           :   441
+   Number of adjustable parameters                :   441
+   Number of parameter groups                     :     1
+   Number of observations                         :    12
+   Number of prior estimates                      :     0
+
+
+Model command line(s):-
+
+   modflow.bat > nul
+
+
+Jacobian command line:-
+
+   na
+
+
+Model interface files:-
+
+   Templates:
+      S1_mul.tpl
+   for model input files:
+      S1_.mul
+
+   (Parameter values written using single precision protocol.)
+   (Decimal point always included.)
+
+   Instruction files:
+      S1_1_hbs.ins
+   for reading model output files:
+      S1_1.hbs
+
+
+PEST-to-model message file:-
+
+   na
+
+
+Derivatives calculation:-
+
+Param        Increment   Increment   Increment   Forward or   Multiplier  Method
+group        type                    low bound   central      (central)   (central)
+pargp_uno    relative    1.0000E-02   none       always_2        na         na
+
+
+Parameter definitions:-
+
+Name         Trans-            Change       Initial        Lower          Upper
+             formation         limit        value          bound          bound
+p1           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p2           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p3           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p4           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p5           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p6           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p7           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p8           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p9           none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p10          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p11          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p12          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p13          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p14          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p15          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p16          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p17          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p18          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p19          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p20          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p21          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p22          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p23          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p24          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p25          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p26          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p27          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p28          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p29          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p30          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p31          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p32          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p33          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p34          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p35          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p36          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p37          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p38          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p39          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p40          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p41          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p42          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p43          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p44          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p45          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p46          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p47          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p48          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p49          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p50          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p51          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p52          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p53          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p54          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p55          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p56          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p57          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p58          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p59          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p60          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p61          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p62          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p63          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p64          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p65          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p66          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p67          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p68          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p69          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p70          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p71          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p72          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p73          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p74          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p75          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p76          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p77          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p78          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p79          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p80          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p81          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p82          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p83          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p84          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p85          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p86          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p87          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p88          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p89          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p90          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p91          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p92          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p93          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p94          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p95          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p96          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p97          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p98          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p99          none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p100         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p101         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p102         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p103         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p104         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p105         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p106         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p107         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p108         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p109         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p110         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p111         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p112         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p113         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p114         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p115         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p116         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p117         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p118         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p119         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p120         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p121         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p122         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p123         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p124         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p125         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p126         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p127         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p128         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p129         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p130         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p131         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p132         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p133         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p134         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p135         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p136         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p137         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p138         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p139         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p140         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p141         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p142         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p143         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p144         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p145         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p146         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p147         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p148         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p149         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p150         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p151         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p152         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p153         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p154         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p155         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p156         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p157         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p158         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p159         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p160         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p161         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p162         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p163         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p164         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p165         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p166         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p167         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p168         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p169         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p170         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p171         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p172         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p173         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p174         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p175         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p176         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p177         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p178         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p179         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p180         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p181         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p182         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p183         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p184         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p185         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p186         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p187         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p188         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p189         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p190         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p191         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p192         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p193         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p194         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p195         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p196         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p197         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p198         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p199         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p200         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p201         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p202         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p203         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p204         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p205         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p206         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p207         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p208         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p209         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p210         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p211         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p212         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p213         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p214         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p215         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p216         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p217         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p218         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p219         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p220         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p221         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p222         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p223         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p224         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p225         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p226         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p227         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p228         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p229         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p230         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p231         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p232         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p233         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p234         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p235         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p236         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p237         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p238         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p239         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p240         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p241         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p242         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p243         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p244         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p245         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p246         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p247         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p248         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p249         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p250         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p251         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p252         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p253         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p254         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p255         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p256         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p257         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p258         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p259         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p260         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p261         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p262         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p263         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p264         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p265         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p266         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p267         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p268         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p269         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p270         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p271         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p272         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p273         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p274         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p275         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p276         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p277         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p278         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p279         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p280         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p281         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p282         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p283         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p284         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p285         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p286         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p287         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p288         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p289         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p290         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p291         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p292         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p293         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p294         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p295         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p296         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p297         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p298         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p299         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p300         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p301         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p302         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p303         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p304         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p305         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p306         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p307         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p308         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p309         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p310         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p311         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p312         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p313         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p314         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p315         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p316         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p317         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p318         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p319         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p320         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p321         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p322         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p323         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p324         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p325         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p326         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p327         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p328         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p329         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p330         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p331         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p332         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p333         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p334         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p335         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p336         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p337         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p338         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p339         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p340         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p341         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p342         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p343         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p344         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p345         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p346         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p347         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p348         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p349         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p350         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p351         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p352         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p353         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p354         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p355         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p356         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p357         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p358         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p359         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p360         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p361         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p362         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p363         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p364         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p365         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p366         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p367         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p368         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p369         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p370         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p371         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p372         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p373         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p374         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p375         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p376         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p377         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p378         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p379         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p380         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p381         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p382         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p383         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p384         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p385         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p386         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p387         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p388         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p389         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p390         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p391         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p392         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p393         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p394         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p395         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p396         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p397         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p398         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p399         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p400         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p401         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p402         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p403         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p404         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p405         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p406         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p407         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p408         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p409         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p410         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p411         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p412         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p413         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p414         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p415         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p416         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p417         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p418         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p419         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p420         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p421         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p422         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p423         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p424         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p425         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p426         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p427         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p428         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p429         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p430         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p431         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p432         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p433         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p434         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p435         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p436         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p437         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p438         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p439         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p440         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+p441         none              relative   2.000557E-04  -1.000000E-10   1.000000E+10
+
+Name         Group          Scale         Offset        Model command number
+p1           pargp_uno     1.00000        0.00000            1
+p2           pargp_uno     1.00000        0.00000            1
+p3           pargp_uno     1.00000        0.00000            1
+p4           pargp_uno     1.00000        0.00000            1
+p5           pargp_uno     1.00000        0.00000            1
+p6           pargp_uno     1.00000        0.00000            1
+p7           pargp_uno     1.00000        0.00000            1
+p8           pargp_uno     1.00000        0.00000            1
+p9           pargp_uno     1.00000        0.00000            1
+p10          pargp_uno     1.00000        0.00000            1
+p11          pargp_uno     1.00000        0.00000            1
+p12          pargp_uno     1.00000        0.00000            1
+p13          pargp_uno     1.00000        0.00000            1
+p14          pargp_uno     1.00000        0.00000            1
+p15          pargp_uno     1.00000        0.00000            1
+p16          pargp_uno     1.00000        0.00000            1
+p17          pargp_uno     1.00000        0.00000            1
+p18          pargp_uno     1.00000        0.00000            1
+p19          pargp_uno     1.00000        0.00000            1
+p20          pargp_uno     1.00000        0.00000            1
+p21          pargp_uno     1.00000        0.00000            1
+p22          pargp_uno     1.00000        0.00000            1
+p23          pargp_uno     1.00000        0.00000            1
+p24          pargp_uno     1.00000        0.00000            1
+p25          pargp_uno     1.00000        0.00000            1
+p26          pargp_uno     1.00000        0.00000            1
+p27          pargp_uno     1.00000        0.00000            1
+p28          pargp_uno     1.00000        0.00000            1
+p29          pargp_uno     1.00000        0.00000            1
+p30          pargp_uno     1.00000        0.00000            1
+p31          pargp_uno     1.00000        0.00000            1
+p32          pargp_uno     1.00000        0.00000            1
+p33          pargp_uno     1.00000        0.00000            1
+p34          pargp_uno     1.00000        0.00000            1
+p35          pargp_uno     1.00000        0.00000            1
+p36          pargp_uno     1.00000        0.00000            1
+p37          pargp_uno     1.00000        0.00000            1
+p38          pargp_uno     1.00000        0.00000            1
+p39          pargp_uno     1.00000        0.00000            1
+p40          pargp_uno     1.00000        0.00000            1
+p41          pargp_uno     1.00000        0.00000            1
+p42          pargp_uno     1.00000        0.00000            1
+p43          pargp_uno     1.00000        0.00000            1
+p44          pargp_uno     1.00000        0.00000            1
+p45          pargp_uno     1.00000        0.00000            1
+p46          pargp_uno     1.00000        0.00000            1
+p47          pargp_uno     1.00000        0.00000            1
+p48          pargp_uno     1.00000        0.00000            1
+p49          pargp_uno     1.00000        0.00000            1
+p50          pargp_uno     1.00000        0.00000            1
+p51          pargp_uno     1.00000        0.00000            1
+p52          pargp_uno     1.00000        0.00000            1
+p53          pargp_uno     1.00000        0.00000            1
+p54          pargp_uno     1.00000        0.00000            1
+p55          pargp_uno     1.00000        0.00000            1
+p56          pargp_uno     1.00000        0.00000            1
+p57          pargp_uno     1.00000        0.00000            1
+p58          pargp_uno     1.00000        0.00000            1
+p59          pargp_uno     1.00000        0.00000            1
+p60          pargp_uno     1.00000        0.00000            1
+p61          pargp_uno     1.00000        0.00000            1
+p62          pargp_uno     1.00000        0.00000            1
+p63          pargp_uno     1.00000        0.00000            1
+p64          pargp_uno     1.00000        0.00000            1
+p65          pargp_uno     1.00000        0.00000            1
+p66          pargp_uno     1.00000        0.00000            1
+p67          pargp_uno     1.00000        0.00000            1
+p68          pargp_uno     1.00000        0.00000            1
+p69          pargp_uno     1.00000        0.00000            1
+p70          pargp_uno     1.00000        0.00000            1
+p71          pargp_uno     1.00000        0.00000            1
+p72          pargp_uno     1.00000        0.00000            1
+p73          pargp_uno     1.00000        0.00000            1
+p74          pargp_uno     1.00000        0.00000            1
+p75          pargp_uno     1.00000        0.00000            1
+p76          pargp_uno     1.00000        0.00000            1
+p77          pargp_uno     1.00000        0.00000            1
+p78          pargp_uno     1.00000        0.00000            1
+p79          pargp_uno     1.00000        0.00000            1
+p80          pargp_uno     1.00000        0.00000            1
+p81          pargp_uno     1.00000        0.00000            1
+p82          pargp_uno     1.00000        0.00000            1
+p83          pargp_uno     1.00000        0.00000            1
+p84          pargp_uno     1.00000        0.00000            1
+p85          pargp_uno     1.00000        0.00000            1
+p86          pargp_uno     1.00000        0.00000            1
+p87          pargp_uno     1.00000        0.00000            1
+p88          pargp_uno     1.00000        0.00000            1
+p89          pargp_uno     1.00000        0.00000            1
+p90          pargp_uno     1.00000        0.00000            1
+p91          pargp_uno     1.00000        0.00000            1
+p92          pargp_uno     1.00000        0.00000            1
+p93          pargp_uno     1.00000        0.00000            1
+p94          pargp_uno     1.00000        0.00000            1
+p95          pargp_uno     1.00000        0.00000            1
+p96          pargp_uno     1.00000        0.00000            1
+p97          pargp_uno     1.00000        0.00000            1
+p98          pargp_uno     1.00000        0.00000            1
+p99          pargp_uno     1.00000        0.00000            1
+p100         pargp_uno     1.00000        0.00000            1
+p101         pargp_uno     1.00000        0.00000            1
+p102         pargp_uno     1.00000        0.00000            1
+p103         pargp_uno     1.00000        0.00000            1
+p104         pargp_uno     1.00000        0.00000            1
+p105         pargp_uno     1.00000        0.00000            1
+p106         pargp_uno     1.00000        0.00000            1
+p107         pargp_uno     1.00000        0.00000            1
+p108         pargp_uno     1.00000        0.00000            1
+p109         pargp_uno     1.00000        0.00000            1
+p110         pargp_uno     1.00000        0.00000            1
+p111         pargp_uno     1.00000        0.00000            1
+p112         pargp_uno     1.00000        0.00000            1
+p113         pargp_uno     1.00000        0.00000            1
+p114         pargp_uno     1.00000        0.00000            1
+p115         pargp_uno     1.00000        0.00000            1
+p116         pargp_uno     1.00000        0.00000            1
+p117         pargp_uno     1.00000        0.00000            1
+p118         pargp_uno     1.00000        0.00000            1
+p119         pargp_uno     1.00000        0.00000            1
+p120         pargp_uno     1.00000        0.00000            1
+p121         pargp_uno     1.00000        0.00000            1
+p122         pargp_uno     1.00000        0.00000            1
+p123         pargp_uno     1.00000        0.00000            1
+p124         pargp_uno     1.00000        0.00000            1
+p125         pargp_uno     1.00000        0.00000            1
+p126         pargp_uno     1.00000        0.00000            1
+p127         pargp_uno     1.00000        0.00000            1
+p128         pargp_uno     1.00000        0.00000            1
+p129         pargp_uno     1.00000        0.00000            1
+p130         pargp_uno     1.00000        0.00000            1
+p131         pargp_uno     1.00000        0.00000            1
+p132         pargp_uno     1.00000        0.00000            1
+p133         pargp_uno     1.00000        0.00000            1
+p134         pargp_uno     1.00000        0.00000            1
+p135         pargp_uno     1.00000        0.00000            1
+p136         pargp_uno     1.00000        0.00000            1
+p137         pargp_uno     1.00000        0.00000            1
+p138         pargp_uno     1.00000        0.00000            1
+p139         pargp_uno     1.00000        0.00000            1
+p140         pargp_uno     1.00000        0.00000            1
+p141         pargp_uno     1.00000        0.00000            1
+p142         pargp_uno     1.00000        0.00000            1
+p143         pargp_uno     1.00000        0.00000            1
+p144         pargp_uno     1.00000        0.00000            1
+p145         pargp_uno     1.00000        0.00000            1
+p146         pargp_uno     1.00000        0.00000            1
+p147         pargp_uno     1.00000        0.00000            1
+p148         pargp_uno     1.00000        0.00000            1
+p149         pargp_uno     1.00000        0.00000            1
+p150         pargp_uno     1.00000        0.00000            1
+p151         pargp_uno     1.00000        0.00000            1
+p152         pargp_uno     1.00000        0.00000            1
+p153         pargp_uno     1.00000        0.00000            1
+p154         pargp_uno     1.00000        0.00000            1
+p155         pargp_uno     1.00000        0.00000            1
+p156         pargp_uno     1.00000        0.00000            1
+p157         pargp_uno     1.00000        0.00000            1
+p158         pargp_uno     1.00000        0.00000            1
+p159         pargp_uno     1.00000        0.00000            1
+p160         pargp_uno     1.00000        0.00000            1
+p161         pargp_uno     1.00000        0.00000            1
+p162         pargp_uno     1.00000        0.00000            1
+p163         pargp_uno     1.00000        0.00000            1
+p164         pargp_uno     1.00000        0.00000            1
+p165         pargp_uno     1.00000        0.00000            1
+p166         pargp_uno     1.00000        0.00000            1
+p167         pargp_uno     1.00000        0.00000            1
+p168         pargp_uno     1.00000        0.00000            1
+p169         pargp_uno     1.00000        0.00000            1
+p170         pargp_uno     1.00000        0.00000            1
+p171         pargp_uno     1.00000        0.00000            1
+p172         pargp_uno     1.00000        0.00000            1
+p173         pargp_uno     1.00000        0.00000            1
+p174         pargp_uno     1.00000        0.00000            1
+p175         pargp_uno     1.00000        0.00000            1
+p176         pargp_uno     1.00000        0.00000            1
+p177         pargp_uno     1.00000        0.00000            1
+p178         pargp_uno     1.00000        0.00000            1
+p179         pargp_uno     1.00000        0.00000            1
+p180         pargp_uno     1.00000        0.00000            1
+p181         pargp_uno     1.00000        0.00000            1
+p182         pargp_uno     1.00000        0.00000            1
+p183         pargp_uno     1.00000        0.00000            1
+p184         pargp_uno     1.00000        0.00000            1
+p185         pargp_uno     1.00000        0.00000            1
+p186         pargp_uno     1.00000        0.00000            1
+p187         pargp_uno     1.00000        0.00000            1
+p188         pargp_uno     1.00000        0.00000            1
+p189         pargp_uno     1.00000        0.00000            1
+p190         pargp_uno     1.00000        0.00000            1
+p191         pargp_uno     1.00000        0.00000            1
+p192         pargp_uno     1.00000        0.00000            1
+p193         pargp_uno     1.00000        0.00000            1
+p194         pargp_uno     1.00000        0.00000            1
+p195         pargp_uno     1.00000        0.00000            1
+p196         pargp_uno     1.00000        0.00000            1
+p197         pargp_uno     1.00000        0.00000            1
+p198         pargp_uno     1.00000        0.00000            1
+p199         pargp_uno     1.00000        0.00000            1
+p200         pargp_uno     1.00000        0.00000            1
+p201         pargp_uno     1.00000        0.00000            1
+p202         pargp_uno     1.00000        0.00000            1
+p203         pargp_uno     1.00000        0.00000            1
+p204         pargp_uno     1.00000        0.00000            1
+p205         pargp_uno     1.00000        0.00000            1
+p206         pargp_uno     1.00000        0.00000            1
+p207         pargp_uno     1.00000        0.00000            1
+p208         pargp_uno     1.00000        0.00000            1
+p209         pargp_uno     1.00000        0.00000            1
+p210         pargp_uno     1.00000        0.00000            1
+p211         pargp_uno     1.00000        0.00000            1
+p212         pargp_uno     1.00000        0.00000            1
+p213         pargp_uno     1.00000        0.00000            1
+p214         pargp_uno     1.00000        0.00000            1
+p215         pargp_uno     1.00000        0.00000            1
+p216         pargp_uno     1.00000        0.00000            1
+p217         pargp_uno     1.00000        0.00000            1
+p218         pargp_uno     1.00000        0.00000            1
+p219         pargp_uno     1.00000        0.00000            1
+p220         pargp_uno     1.00000        0.00000            1
+p221         pargp_uno     1.00000        0.00000            1
+p222         pargp_uno     1.00000        0.00000            1
+p223         pargp_uno     1.00000        0.00000            1
+p224         pargp_uno     1.00000        0.00000            1
+p225         pargp_uno     1.00000        0.00000            1
+p226         pargp_uno     1.00000        0.00000            1
+p227         pargp_uno     1.00000        0.00000            1
+p228         pargp_uno     1.00000        0.00000            1
+p229         pargp_uno     1.00000        0.00000            1
+p230         pargp_uno     1.00000        0.00000            1
+p231         pargp_uno     1.00000        0.00000            1
+p232         pargp_uno     1.00000        0.00000            1
+p233         pargp_uno     1.00000        0.00000            1
+p234         pargp_uno     1.00000        0.00000            1
+p235         pargp_uno     1.00000        0.00000            1
+p236         pargp_uno     1.00000        0.00000            1
+p237         pargp_uno     1.00000        0.00000            1
+p238         pargp_uno     1.00000        0.00000            1
+p239         pargp_uno     1.00000        0.00000            1
+p240         pargp_uno     1.00000        0.00000            1
+p241         pargp_uno     1.00000        0.00000            1
+p242         pargp_uno     1.00000        0.00000            1
+p243         pargp_uno     1.00000        0.00000            1
+p244         pargp_uno     1.00000        0.00000            1
+p245         pargp_uno     1.00000        0.00000            1
+p246         pargp_uno     1.00000        0.00000            1
+p247         pargp_uno     1.00000        0.00000            1
+p248         pargp_uno     1.00000        0.00000            1
+p249         pargp_uno     1.00000        0.00000            1
+p250         pargp_uno     1.00000        0.00000            1
+p251         pargp_uno     1.00000        0.00000            1
+p252         pargp_uno     1.00000        0.00000            1
+p253         pargp_uno     1.00000        0.00000            1
+p254         pargp_uno     1.00000        0.00000            1
+p255         pargp_uno     1.00000        0.00000            1
+p256         pargp_uno     1.00000        0.00000            1
+p257         pargp_uno     1.00000        0.00000            1
+p258         pargp_uno     1.00000        0.00000            1
+p259         pargp_uno     1.00000        0.00000            1
+p260         pargp_uno     1.00000        0.00000            1
+p261         pargp_uno     1.00000        0.00000            1
+p262         pargp_uno     1.00000        0.00000            1
+p263         pargp_uno     1.00000        0.00000            1
+p264         pargp_uno     1.00000        0.00000            1
+p265         pargp_uno     1.00000        0.00000            1
+p266         pargp_uno     1.00000        0.00000            1
+p267         pargp_uno     1.00000        0.00000            1
+p268         pargp_uno     1.00000        0.00000            1
+p269         pargp_uno     1.00000        0.00000            1
+p270         pargp_uno     1.00000        0.00000            1
+p271         pargp_uno     1.00000        0.00000            1
+p272         pargp_uno     1.00000        0.00000            1
+p273         pargp_uno     1.00000        0.00000            1
+p274         pargp_uno     1.00000        0.00000            1
+p275         pargp_uno     1.00000        0.00000            1
+p276         pargp_uno     1.00000        0.00000            1
+p277         pargp_uno     1.00000        0.00000            1
+p278         pargp_uno     1.00000        0.00000            1
+p279         pargp_uno     1.00000        0.00000            1
+p280         pargp_uno     1.00000        0.00000            1
+p281         pargp_uno     1.00000        0.00000            1
+p282         pargp_uno     1.00000        0.00000            1
+p283         pargp_uno     1.00000        0.00000            1
+p284         pargp_uno     1.00000        0.00000            1
+p285         pargp_uno     1.00000        0.00000            1
+p286         pargp_uno     1.00000        0.00000            1
+p287         pargp_uno     1.00000        0.00000            1
+p288         pargp_uno     1.00000        0.00000            1
+p289         pargp_uno     1.00000        0.00000            1
+p290         pargp_uno     1.00000        0.00000            1
+p291         pargp_uno     1.00000        0.00000            1
+p292         pargp_uno     1.00000        0.00000            1
+p293         pargp_uno     1.00000        0.00000            1
+p294         pargp_uno     1.00000        0.00000            1
+p295         pargp_uno     1.00000        0.00000            1
+p296         pargp_uno     1.00000        0.00000            1
+p297         pargp_uno     1.00000        0.00000            1
+p298         pargp_uno     1.00000        0.00000            1
+p299         pargp_uno     1.00000        0.00000            1
+p300         pargp_uno     1.00000        0.00000            1
+p301         pargp_uno     1.00000        0.00000            1
+p302         pargp_uno     1.00000        0.00000            1
+p303         pargp_uno     1.00000        0.00000            1
+p304         pargp_uno     1.00000        0.00000            1
+p305         pargp_uno     1.00000        0.00000            1
+p306         pargp_uno     1.00000        0.00000            1
+p307         pargp_uno     1.00000        0.00000            1
+p308         pargp_uno     1.00000        0.00000            1
+p309         pargp_uno     1.00000        0.00000            1
+p310         pargp_uno     1.00000        0.00000            1
+p311         pargp_uno     1.00000        0.00000            1
+p312         pargp_uno     1.00000        0.00000            1
+p313         pargp_uno     1.00000        0.00000            1
+p314         pargp_uno     1.00000        0.00000            1
+p315         pargp_uno     1.00000        0.00000            1
+p316         pargp_uno     1.00000        0.00000            1
+p317         pargp_uno     1.00000        0.00000            1
+p318         pargp_uno     1.00000        0.00000            1
+p319         pargp_uno     1.00000        0.00000            1
+p320         pargp_uno     1.00000        0.00000            1
+p321         pargp_uno     1.00000        0.00000            1
+p322         pargp_uno     1.00000        0.00000            1
+p323         pargp_uno     1.00000        0.00000            1
+p324         pargp_uno     1.00000        0.00000            1
+p325         pargp_uno     1.00000        0.00000            1
+p326         pargp_uno     1.00000        0.00000            1
+p327         pargp_uno     1.00000        0.00000            1
+p328         pargp_uno     1.00000        0.00000            1
+p329         pargp_uno     1.00000        0.00000            1
+p330         pargp_uno     1.00000        0.00000            1
+p331         pargp_uno     1.00000        0.00000            1
+p332         pargp_uno     1.00000        0.00000            1
+p333         pargp_uno     1.00000        0.00000            1
+p334         pargp_uno     1.00000        0.00000            1
+p335         pargp_uno     1.00000        0.00000            1
+p336         pargp_uno     1.00000        0.00000            1
+p337         pargp_uno     1.00000        0.00000            1
+p338         pargp_uno     1.00000        0.00000            1
+p339         pargp_uno     1.00000        0.00000            1
+p340         pargp_uno     1.00000        0.00000            1
+p341         pargp_uno     1.00000        0.00000            1
+p342         pargp_uno     1.00000        0.00000            1
+p343         pargp_uno     1.00000        0.00000            1
+p344         pargp_uno     1.00000        0.00000            1
+p345         pargp_uno     1.00000        0.00000            1
+p346         pargp_uno     1.00000        0.00000            1
+p347         pargp_uno     1.00000        0.00000            1
+p348         pargp_uno     1.00000        0.00000            1
+p349         pargp_uno     1.00000        0.00000            1
+p350         pargp_uno     1.00000        0.00000            1
+p351         pargp_uno     1.00000        0.00000            1
+p352         pargp_uno     1.00000        0.00000            1
+p353         pargp_uno     1.00000        0.00000            1
+p354         pargp_uno     1.00000        0.00000            1
+p355         pargp_uno     1.00000        0.00000            1
+p356         pargp_uno     1.00000        0.00000            1
+p357         pargp_uno     1.00000        0.00000            1
+p358         pargp_uno     1.00000        0.00000            1
+p359         pargp_uno     1.00000        0.00000            1
+p360         pargp_uno     1.00000        0.00000            1
+p361         pargp_uno     1.00000        0.00000            1
+p362         pargp_uno     1.00000        0.00000            1
+p363         pargp_uno     1.00000        0.00000            1
+p364         pargp_uno     1.00000        0.00000            1
+p365         pargp_uno     1.00000        0.00000            1
+p366         pargp_uno     1.00000        0.00000            1
+p367         pargp_uno     1.00000        0.00000            1
+p368         pargp_uno     1.00000        0.00000            1
+p369         pargp_uno     1.00000        0.00000            1
+p370         pargp_uno     1.00000        0.00000            1
+p371         pargp_uno     1.00000        0.00000            1
+p372         pargp_uno     1.00000        0.00000            1
+p373         pargp_uno     1.00000        0.00000            1
+p374         pargp_uno     1.00000        0.00000            1
+p375         pargp_uno     1.00000        0.00000            1
+p376         pargp_uno     1.00000        0.00000            1
+p377         pargp_uno     1.00000        0.00000            1
+p378         pargp_uno     1.00000        0.00000            1
+p379         pargp_uno     1.00000        0.00000            1
+p380         pargp_uno     1.00000        0.00000            1
+p381         pargp_uno     1.00000        0.00000            1
+p382         pargp_uno     1.00000        0.00000            1
+p383         pargp_uno     1.00000        0.00000            1
+p384         pargp_uno     1.00000        0.00000            1
+p385         pargp_uno     1.00000        0.00000            1
+p386         pargp_uno     1.00000        0.00000            1
+p387         pargp_uno     1.00000        0.00000            1
+p388         pargp_uno     1.00000        0.00000            1
+p389         pargp_uno     1.00000        0.00000            1
+p390         pargp_uno     1.00000        0.00000            1
+p391         pargp_uno     1.00000        0.00000            1
+p392         pargp_uno     1.00000        0.00000            1
+p393         pargp_uno     1.00000        0.00000            1
+p394         pargp_uno     1.00000        0.00000            1
+p395         pargp_uno     1.00000        0.00000            1
+p396         pargp_uno     1.00000        0.00000            1
+p397         pargp_uno     1.00000        0.00000            1
+p398         pargp_uno     1.00000        0.00000            1
+p399         pargp_uno     1.00000        0.00000            1
+p400         pargp_uno     1.00000        0.00000            1
+p401         pargp_uno     1.00000        0.00000            1
+p402         pargp_uno     1.00000        0.00000            1
+p403         pargp_uno     1.00000        0.00000            1
+p404         pargp_uno     1.00000        0.00000            1
+p405         pargp_uno     1.00000        0.00000            1
+p406         pargp_uno     1.00000        0.00000            1
+p407         pargp_uno     1.00000        0.00000            1
+p408         pargp_uno     1.00000        0.00000            1
+p409         pargp_uno     1.00000        0.00000            1
+p410         pargp_uno     1.00000        0.00000            1
+p411         pargp_uno     1.00000        0.00000            1
+p412         pargp_uno     1.00000        0.00000            1
+p413         pargp_uno     1.00000        0.00000            1
+p414         pargp_uno     1.00000        0.00000            1
+p415         pargp_uno     1.00000        0.00000            1
+p416         pargp_uno     1.00000        0.00000            1
+p417         pargp_uno     1.00000        0.00000            1
+p418         pargp_uno     1.00000        0.00000            1
+p419         pargp_uno     1.00000        0.00000            1
+p420         pargp_uno     1.00000        0.00000            1
+p421         pargp_uno     1.00000        0.00000            1
+p422         pargp_uno     1.00000        0.00000            1
+p423         pargp_uno     1.00000        0.00000            1
+p424         pargp_uno     1.00000        0.00000            1
+p425         pargp_uno     1.00000        0.00000            1
+p426         pargp_uno     1.00000        0.00000            1
+p427         pargp_uno     1.00000        0.00000            1
+p428         pargp_uno     1.00000        0.00000            1
+p429         pargp_uno     1.00000        0.00000            1
+p430         pargp_uno     1.00000        0.00000            1
+p431         pargp_uno     1.00000        0.00000            1
+p432         pargp_uno     1.00000        0.00000            1
+p433         pargp_uno     1.00000        0.00000            1
+p434         pargp_uno     1.00000        0.00000            1
+p435         pargp_uno     1.00000        0.00000            1
+p436         pargp_uno     1.00000        0.00000            1
+p437         pargp_uno     1.00000        0.00000            1
+p438         pargp_uno     1.00000        0.00000            1
+p439         pargp_uno     1.00000        0.00000            1
+p440         pargp_uno     1.00000        0.00000            1
+p441         pargp_uno     1.00000        0.00000            1
+
+
+Prior information:-
+
+   No prior information supplied
+
+
+Observations:-
+
+Observation name        Observation       Weight       Group
+ p001t0000               34.9141          1.000       obsgp_oden  
+ p002t0000               34.8330          1.000       obsgp_oden  
+ p003t0000               34.9185          1.000       obsgp_oden  
+ p004t0000               34.7939          1.000       obsgp_oden  
+ p005t0000               34.8185          1.000       obsgp_oden  
+ p006t0000               34.8331          1.000       obsgp_oden  
+ p007t0000               34.8520          1.000       obsgp_oden  
+ p008t0000               34.8183          1.000       obsgp_oden  
+ p009t0000               34.8345          1.000       obsgp_oden  
+ p010t0000               34.9187          1.000       obsgp_oden  
+ p011t0000               34.8520          1.000       obsgp_oden  
+ p012t0000               34.9202          1.000       obsgp_oden  
+
+
+Control settings:-
+
+   Initial lambda                                               :  5.0000    
+   Lambda adjustment factor                                     : iteration-dependent
+   Value of variable governing adjustment                       : -3.0000    
+   Sufficient new/old phi ratio per optimisation iteration      : 0.30000    
+   Limiting relative phi reduction between lambdas              : 3.00000E-02
+   Maximum trial lambdas per iteration                          :  10
+   Forgive model run failure during lamda testing               : no
+
+   Perform Broyden's update of Jacobian matrix                  : no
+
+   Maximum  factor  parameter change (factor-limited changes)   : na
+   Maximum relative parameter change (relative-limited changes) :  3.0000
+   Fraction of initial parameter values used in computing
+   change limit for near-zero parameters                        : 1.00000E-03
+   Allow bending of parameter upgrade vector                    : no
+   Allow parameters to stick to their bounds                    : no
+
+   Relative phi reduction below which to begin use of
+   central derivatives                                          : na                  
+   Iteration at which to first consider derivatives switch      : na
+
+   Relative phi reduction indicating convergence                : 0.10000E-01
+   Number of phi values required within this range              :   3
+   Maximum number of consecutive failures to lower phi          :   3
+   Minimal relative parameter change indicating convergence     : 0.10000E-01
+   Number of consecutive iterations with minimal param change   :   3
+   Maximum number of optimisation iterations                    :  -2 (only compute Jacobian)
+
+   Attempt automatic user intervention                          : no
+
+   Attempt reuse of parameter sensitivities                     : no
+
+
+File saving options: -
+
+   Save best JCO file                                           : yes
+   Save multiple JCO files                                      : no
+   Save multiple REI files                                      : no
+   Save multiple PAR files                                      : no
+
+
+                            OPTIMISATION RECORD
+
+
+INITIAL CONDITIONS: 
+   Sum of squared weighted residuals (ie phi) =  0.59436    
+
+      Current parameter values
+      p1              2.000557E-04
+      p2              2.000557E-04
+      p3              2.000557E-04
+      p4              2.000557E-04
+      p5              2.000557E-04
+      p6              2.000557E-04
+      p7              2.000557E-04
+      p8              2.000557E-04
+      p9              2.000557E-04
+      p10             2.000557E-04
+      p11             2.000557E-04
+      p12             2.000557E-04
+      p13             2.000557E-04
+      p14             2.000557E-04
+      p15             2.000557E-04
+      p16             2.000557E-04
+      p17             2.000557E-04
+      p18             2.000557E-04
+      p19             2.000557E-04
+      p20             2.000557E-04
+      p21             2.000557E-04
+      p22             2.000557E-04
+      p23             2.000557E-04
+      p24             2.000557E-04
+      p25             2.000557E-04
+      p26             2.000557E-04
+      p27             2.000557E-04
+      p28             2.000557E-04
+      p29             2.000557E-04
+      p30             2.000557E-04
+      p31             2.000557E-04
+      p32             2.000557E-04
+      p33             2.000557E-04
+      p34             2.000557E-04
+      p35             2.000557E-04
+      p36             2.000557E-04
+      p37             2.000557E-04
+      p38             2.000557E-04
+      p39             2.000557E-04
+      p40             2.000557E-04
+      p41             2.000557E-04
+      p42             2.000557E-04
+      p43             2.000557E-04
+      p44             2.000557E-04
+      p45             2.000557E-04
+      p46             2.000557E-04
+      p47             2.000557E-04
+      p48             2.000557E-04
+      p49             2.000557E-04
+      p50             2.000557E-04
+      p51             2.000557E-04
+      p52             2.000557E-04
+      p53             2.000557E-04
+      p54             2.000557E-04
+      p55             2.000557E-04
+      p56             2.000557E-04
+      p57             2.000557E-04
+      p58             2.000557E-04
+      p59             2.000557E-04
+      p60             2.000557E-04
+      p61             2.000557E-04
+      p62             2.000557E-04
+      p63             2.000557E-04
+      p64             2.000557E-04
+      p65             2.000557E-04
+      p66             2.000557E-04
+      p67             2.000557E-04
+      p68             2.000557E-04
+      p69             2.000557E-04
+      p70             2.000557E-04
+      p71             2.000557E-04
+      p72             2.000557E-04
+      p73             2.000557E-04
+      p74             2.000557E-04
+      p75             2.000557E-04
+      p76             2.000557E-04
+      p77             2.000557E-04
+      p78             2.000557E-04
+      p79             2.000557E-04
+      p80             2.000557E-04
+      p81             2.000557E-04
+      p82             2.000557E-04
+      p83             2.000557E-04
+      p84             2.000557E-04
+      p85             2.000557E-04
+      p86             2.000557E-04
+      p87             2.000557E-04
+      p88             2.000557E-04
+      p89             2.000557E-04
+      p90             2.000557E-04
+      p91             2.000557E-04
+      p92             2.000557E-04
+      p93             2.000557E-04
+      p94             2.000557E-04
+      p95             2.000557E-04
+      p96             2.000557E-04
+      p97             2.000557E-04
+      p98             2.000557E-04
+      p99             2.000557E-04
+      p100            2.000557E-04
+      p101            2.000557E-04
+      p102            2.000557E-04
+      p103            2.000557E-04
+      p104            2.000557E-04
+      p105            2.000557E-04
+      p106            2.000557E-04
+      p107            2.000557E-04
+      p108            2.000557E-04
+      p109            2.000557E-04
+      p110            2.000557E-04
+      p111            2.000557E-04
+      p112            2.000557E-04
+      p113            2.000557E-04
+      p114            2.000557E-04
+      p115            2.000557E-04
+      p116            2.000557E-04
+      p117            2.000557E-04
+      p118            2.000557E-04
+      p119            2.000557E-04
+      p120            2.000557E-04
+      p121            2.000557E-04
+      p122            2.000557E-04
+      p123            2.000557E-04
+      p124            2.000557E-04
+      p125            2.000557E-04
+      p126            2.000557E-04
+      p127            2.000557E-04
+      p128            2.000557E-04
+      p129            2.000557E-04
+      p130            2.000557E-04
+      p131            2.000557E-04
+      p132            2.000557E-04
+      p133            2.000557E-04
+      p134            2.000557E-04
+      p135            2.000557E-04
+      p136            2.000557E-04
+      p137            2.000557E-04
+      p138            2.000557E-04
+      p139            2.000557E-04
+      p140            2.000557E-04
+      p141            2.000557E-04
+      p142            2.000557E-04
+      p143            2.000557E-04
+      p144            2.000557E-04
+      p145            2.000557E-04
+      p146            2.000557E-04
+      p147            2.000557E-04
+      p148            2.000557E-04
+      p149            2.000557E-04
+      p150            2.000557E-04
+      p151            2.000557E-04
+      p152            2.000557E-04
+      p153            2.000557E-04
+      p154            2.000557E-04
+      p155            2.000557E-04
+      p156            2.000557E-04
+      p157            2.000557E-04
+      p158            2.000557E-04
+      p159            2.000557E-04
+      p160            2.000557E-04
+      p161            2.000557E-04
+      p162            2.000557E-04
+      p163            2.000557E-04
+      p164            2.000557E-04
+      p165            2.000557E-04
+      p166            2.000557E-04
+      p167            2.000557E-04
+      p168            2.000557E-04
+      p169            2.000557E-04
+      p170            2.000557E-04
+      p171            2.000557E-04
+      p172            2.000557E-04
+      p173            2.000557E-04
+      p174            2.000557E-04
+      p175            2.000557E-04
+      p176            2.000557E-04
+      p177            2.000557E-04
+      p178            2.000557E-04
+      p179            2.000557E-04
+      p180            2.000557E-04
+      p181            2.000557E-04
+      p182            2.000557E-04
+      p183            2.000557E-04
+      p184            2.000557E-04
+      p185            2.000557E-04
+      p186            2.000557E-04
+      p187            2.000557E-04
+      p188            2.000557E-04
+      p189            2.000557E-04
+      p190            2.000557E-04
+      p191            2.000557E-04
+      p192            2.000557E-04
+      p193            2.000557E-04
+      p194            2.000557E-04
+      p195            2.000557E-04
+      p196            2.000557E-04
+      p197            2.000557E-04
+      p198            2.000557E-04
+      p199            2.000557E-04
+      p200            2.000557E-04
+      p201            2.000557E-04
+      p202            2.000557E-04
+      p203            2.000557E-04
+      p204            2.000557E-04
+      p205            2.000557E-04
+      p206            2.000557E-04
+      p207            2.000557E-04
+      p208            2.000557E-04
+      p209            2.000557E-04
+      p210            2.000557E-04
+      p211            2.000557E-04
+      p212            2.000557E-04
+      p213            2.000557E-04
+      p214            2.000557E-04
+      p215            2.000557E-04
+      p216            2.000557E-04
+      p217            2.000557E-04
+      p218            2.000557E-04
+      p219            2.000557E-04
+      p220            2.000557E-04
+      p221            2.000557E-04
+      p222            2.000557E-04
+      p223            2.000557E-04
+      p224            2.000557E-04
+      p225            2.000557E-04
+      p226            2.000557E-04
+      p227            2.000557E-04
+      p228            2.000557E-04
+      p229            2.000557E-04
+      p230            2.000557E-04
+      p231            2.000557E-04
+      p232            2.000557E-04
+      p233            2.000557E-04
+      p234            2.000557E-04
+      p235            2.000557E-04
+      p236            2.000557E-04
+      p237            2.000557E-04
+      p238            2.000557E-04
+      p239            2.000557E-04
+      p240            2.000557E-04
+      p241            2.000557E-04
+      p242            2.000557E-04
+      p243            2.000557E-04
+      p244            2.000557E-04
+      p245            2.000557E-04
+      p246            2.000557E-04
+      p247            2.000557E-04
+      p248            2.000557E-04
+      p249            2.000557E-04
+      p250            2.000557E-04
+      p251            2.000557E-04
+      p252            2.000557E-04
+      p253            2.000557E-04
+      p254            2.000557E-04
+      p255            2.000557E-04
+      p256            2.000557E-04
+      p257            2.000557E-04
+      p258            2.000557E-04
+      p259            2.000557E-04
+      p260            2.000557E-04
+      p261            2.000557E-04
+      p262            2.000557E-04
+      p263            2.000557E-04
+      p264            2.000557E-04
+      p265            2.000557E-04
+      p266            2.000557E-04
+      p267            2.000557E-04
+      p268            2.000557E-04
+      p269            2.000557E-04
+      p270            2.000557E-04
+      p271            2.000557E-04
+      p272            2.000557E-04
+      p273            2.000557E-04
+      p274            2.000557E-04
+      p275            2.000557E-04
+      p276            2.000557E-04
+      p277            2.000557E-04
+      p278            2.000557E-04
+      p279            2.000557E-04
+      p280            2.000557E-04
+      p281            2.000557E-04
+      p282            2.000557E-04
+      p283            2.000557E-04
+      p284            2.000557E-04
+      p285            2.000557E-04
+      p286            2.000557E-04
+      p287            2.000557E-04
+      p288            2.000557E-04
+      p289            2.000557E-04
+      p290            2.000557E-04
+      p291            2.000557E-04
+      p292            2.000557E-04
+      p293            2.000557E-04
+      p294            2.000557E-04
+      p295            2.000557E-04
+      p296            2.000557E-04
+      p297            2.000557E-04
+      p298            2.000557E-04
+      p299            2.000557E-04
+      p300            2.000557E-04
+      p301            2.000557E-04
+      p302            2.000557E-04
+      p303            2.000557E-04
+      p304            2.000557E-04
+      p305            2.000557E-04
+      p306            2.000557E-04
+      p307            2.000557E-04
+      p308            2.000557E-04
+      p309            2.000557E-04
+      p310            2.000557E-04
+      p311            2.000557E-04
+      p312            2.000557E-04
+      p313            2.000557E-04
+      p314            2.000557E-04
+      p315            2.000557E-04
+      p316            2.000557E-04
+      p317            2.000557E-04
+      p318            2.000557E-04
+      p319            2.000557E-04
+      p320            2.000557E-04
+      p321            2.000557E-04
+      p322            2.000557E-04
+      p323            2.000557E-04
+      p324            2.000557E-04
+      p325            2.000557E-04
+      p326            2.000557E-04
+      p327            2.000557E-04
+      p328            2.000557E-04
+      p329            2.000557E-04
+      p330            2.000557E-04
+      p331            2.000557E-04
+      p332            2.000557E-04
+      p333            2.000557E-04
+      p334            2.000557E-04
+      p335            2.000557E-04
+      p336            2.000557E-04
+      p337            2.000557E-04
+      p338            2.000557E-04
+      p339            2.000557E-04
+      p340            2.000557E-04
+      p341            2.000557E-04
+      p342            2.000557E-04
+      p343            2.000557E-04
+      p344            2.000557E-04
+      p345            2.000557E-04
+      p346            2.000557E-04
+      p347            2.000557E-04
+      p348            2.000557E-04
+      p349            2.000557E-04
+      p350            2.000557E-04
+      p351            2.000557E-04
+      p352            2.000557E-04
+      p353            2.000557E-04
+      p354            2.000557E-04
+      p355            2.000557E-04
+      p356            2.000557E-04
+      p357            2.000557E-04
+      p358            2.000557E-04
+      p359            2.000557E-04
+      p360            2.000557E-04
+      p361            2.000557E-04
+      p362            2.000557E-04
+      p363            2.000557E-04
+      p364            2.000557E-04
+      p365            2.000557E-04
+      p366            2.000557E-04
+      p367            2.000557E-04
+      p368            2.000557E-04
+      p369            2.000557E-04
+      p370            2.000557E-04
+      p371            2.000557E-04
+      p372            2.000557E-04
+      p373            2.000557E-04
+      p374            2.000557E-04
+      p375            2.000557E-04
+      p376            2.000557E-04
+      p377            2.000557E-04
+      p378            2.000557E-04
+      p379            2.000557E-04
+      p380            2.000557E-04
+      p381            2.000557E-04
+      p382            2.000557E-04
+      p383            2.000557E-04
+      p384            2.000557E-04
+      p385            2.000557E-04
+      p386            2.000557E-04
+      p387            2.000557E-04
+      p388            2.000557E-04
+      p389            2.000557E-04
+      p390            2.000557E-04
+      p391            2.000557E-04
+      p392            2.000557E-04
+      p393            2.000557E-04
+      p394            2.000557E-04
+      p395            2.000557E-04
+      p396            2.000557E-04
+      p397            2.000557E-04
+      p398            2.000557E-04
+      p399            2.000557E-04
+      p400            2.000557E-04
+      p401            2.000557E-04
+      p402            2.000557E-04
+      p403            2.000557E-04
+      p404            2.000557E-04
+      p405            2.000557E-04
+      p406            2.000557E-04
+      p407            2.000557E-04
+      p408            2.000557E-04
+      p409            2.000557E-04
+      p410            2.000557E-04
+      p411            2.000557E-04
+      p412            2.000557E-04
+      p413            2.000557E-04
+      p414            2.000557E-04
+      p415            2.000557E-04
+      p416            2.000557E-04
+      p417            2.000557E-04
+      p418            2.000557E-04
+      p419            2.000557E-04
+      p420            2.000557E-04
+      p421            2.000557E-04
+      p422            2.000557E-04
+      p423            2.000557E-04
+      p424            2.000557E-04
+      p425            2.000557E-04
+      p426            2.000557E-04
+      p427            2.000557E-04
+      p428            2.000557E-04
+      p429            2.000557E-04
+      p430            2.000557E-04
+      p431            2.000557E-04
+      p432            2.000557E-04
+      p433            2.000557E-04
+      p434            2.000557E-04
+      p435            2.000557E-04
+      p436            2.000557E-04
+      p437            2.000557E-04
+      p438            2.000557E-04
+      p439            2.000557E-04
+      p440            2.000557E-04
+      p441            2.000557E-04
+
+
+OPTIMISATION ITERATION NO.        : 1
+   Model calls so far             : 1
+   Starting phi for this iteration:  0.59436    
+
+   Optimisation complete: NOPTMAX supplied as -2 indicating that only the
+                          Jacobian for the initial parameter set is required.
+   Total model calls:    442

@@ -34,6 +34,7 @@ program bp_main
 
 !--  Main Data Arrays for OBS and PARS and ALGORITHM   
        integer                      :: n1, i, j
+       integer                      :: forward_flag_der
        integer                      :: s_ind, p_ind, b_ind  !Indices for structural parameters, quasi-linear and bga method loops
        type (mio_struc)             :: miostruc
        type (err_failure_struc)     :: errstruc  
@@ -118,13 +119,13 @@ program bp_main
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
     if (cv_A%deriv_mode .eq. 1) then
-        call bxd_wConst_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
+        call bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
     end if
     
 !-- WRITE THE HEADER INFORMATION TO THE REC FILE
     call bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS,d_MOD, cv_A, &
                 cv_MIO, d_MIO,Q0_all,cv_PM,cv_S)
-    stop !MNF_DEBUG STOP
+   ! stop !MNF_DEBUG STOP
     do b_ind = 1, cv_A%it_max_bga  !*********************************************************************** (more external loop)
     
     !***************************************************************************************************************************  
@@ -137,7 +138,14 @@ program bp_main
                                         !********** quasi-liner parameter estimation for given structural parameters ***********
       
              !-- RUN THE FORWARD MODEL (INCLUDES DELETING OLD OUTPUT, WRITING NEW INPUT, RUNNING MODEL, AND READING NEW OUTPUT)
-             call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS,  d_OBS%h, d_A%H, 2, miostruc)
+             select case(cv_A%deriv_mode)
+                case (0)
+                    forward_flag_der = 1
+                case (1)
+                    forward_flag_der = 2
+                    
+             end select
+             call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS,  d_OBS%h, d_A%H, forward_flag_der, miostruc)
   
   
    
