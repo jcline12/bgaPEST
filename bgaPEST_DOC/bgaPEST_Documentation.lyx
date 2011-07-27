@@ -80,7 +80,8 @@ bgaPEST Documentation
 M.
  N.
  Fienen, M.
- D'Oria, and R.
+ D'Oria, J.E.
+ Doherty, and R.
  J.
  Hunt, 
 \end_layout
@@ -1889,6 +1890,147 @@ J_{eff}=\frac{1}{2}\xi^{T}\left(\mathbf{H}\left(\mathbf{Q}+\mathbf{X}\mathbf{Q}_
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Input Instructions
+\end_layout
+
+\begin_layout Standard
+In this section, first the general strategy for input instructions is described.
+ This is followed by subsections in which specific input blocks are discussed
+ including variables and data that can be input in them.
+\end_layout
+
+\begin_layout Subsection
+General Structure of Input
+\end_layout
+
+\begin_layout Standard
+TALK HERE ABOUT HOW JUPITER-STYLE INPUT IS HANDLED
+\end_layout
+
+\begin_layout Subsubsection
+Keywords
+\end_layout
+
+\begin_layout Standard
+HERE ARE KEYWORD VARIABLES
+\end_layout
+
+\begin_layout Subsubsection
+Tables
+\end_layout
+
+\begin_layout Standard
+HERE ARE TABLES DESCRIBED
+\end_layout
+
+\begin_layout Subsection
+bgaPEST Input Blocks
+\end_layout
+
+\begin_layout Subsubsection
+Algorithmic Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+The following KEYWORDS variables are in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ block.
+\end_layout
+
+\begin_layout Description
+structural_conv 
+\emph on
+float
+\emph default
+ Convergence criterion for structural parameter convergence.
+ 
+\emph on
+default=0.002
+\end_layout
+
+\begin_layout Description
+phi_conv 
+\emph on
+float 
+\emph default
+Convergence criterion for objective function convergence.
+ 
+\emph on
+default=0.002
+\end_layout
+
+\begin_layout Description
+bga_conv
+\emph on
+ float 
+\emph default
+Convergence criterion for objective function convergence.
+ 
+\emph on
+default=0.002
+\end_layout
+
+\begin_layout Description
+it_max_structural
+\end_layout
+
+\begin_layout Description
+it_max_phi
+\end_layout
+
+\begin_layout Description
+it_max_bga
+\end_layout
+
+\begin_layout Description
+linesearch
+\end_layout
+
+\begin_layout Description
+it_max_linesearch
+\end_layout
+
+\begin_layout Description
+theta_cov_form
+\end_layout
+
+\begin_layout Description
+Q_compression_flag
+\end_layout
+
+\begin_layout Description
+deriv_mode
 \end_layout
 
 \begin_layout Standard
