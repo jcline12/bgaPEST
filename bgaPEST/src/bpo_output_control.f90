@@ -184,14 +184,16 @@ contains
         write(bprunit,*) 'Prior Information on Betas:-'
         write(bprunit,20) indent,'Prior information format on prior menas (betas)'
         write(bprunit,20) indent,'[0] none, [1] diagonal only, [2] full covariance matrix'
-        write(bprunit,45) indent,indent,'Qbb_form: ',cv_PM %Qbb_form
         do i = 1,cv_PAR%p
-            
+            if (cv_PM%betas_flag .eq. 1) then
+                write(bprunit,70) i
+                write(bprunit,45) indent,indent,'Qbb_form: ',cv_PM%Qbb_form(i)    
+            end if                
         end do
     else
-        write(bprunit,*) 'No Prior Information Provided for Betas'
+        write(bprunit,20) indent,'No Prior Information Provided for Betas'
     end if
-
+70 format('Prior mean information for beta association ', I2, ' supplied')
 !!! Structural Parameter Definitions
     write(bprunit,*) 'Structural parameter control variables:-'
     write(bprunit,20) indent,'Flag determining whether structural parameters are optimized or fixed:'
