@@ -184,12 +184,7 @@ contains
         write(bprunit,*) 'Prior Information on Betas:-'
         write(bprunit,20) indent,'Prior information format on prior menas (betas)'
         write(bprunit,20) indent,'[0] none, [1] diagonal only, [2] full covariance matrix'
-        do i = 1,cv_PAR%p
-            if (cv_PM%betas_flag .eq. 1) then
-                write(bprunit,70) i
-                write(bprunit,45) indent,indent,'Qbb_form: ',cv_PM%Qbb_form(i)    
-            end if                
-        end do
+        write(bprunit,45) indent,indent,'Qbb_form: ', cv_PM%Qbb_form    
     else
         write(bprunit,20) indent,'No Prior Information Provided for Betas'
     end if

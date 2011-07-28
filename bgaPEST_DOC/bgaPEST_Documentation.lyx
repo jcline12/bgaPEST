@@ -245,8 +245,16 @@ reference "eq:bayes1"
 \emph on
 a priori 
 \emph default
-is similar to assuming an ignorance prior (REF JAYNES) such that the driver
- of the problem is more the data than prior assumptions.
+is similar to assuming an ignorance prior (e.g.
+ 
+\begin_inset CommandInset citation
+LatexCommand citealt
+after "chapter 12"
+key "jaynesBook"
+
+\end_inset
+
+) such that the driver of the problem is more the data than prior assumptions.
  Additionally, so-called structural parameters that enforce the characteristic
  are estimated using restricted maximum likelihood.
  All of these aspects of the algorithm, taken together, may be considered
@@ -1897,9 +1905,16 @@ Input Instructions
 \end_layout
 
 \begin_layout Standard
-In this section, first the general strategy for input instructions is described.
- This is followed by subsections in which specific input blocks are discussed
- including variables and data that can be input in them.
+In this section, the general strategy for input instructions is described.
+ The input is arranged in a file called 
+\family typewriter
+<casename>.bgp
+\family default
+, which is made up of input blocks, as discussed below.
+ Following a discussion of more detail of the general input protocols, subsectio
+ns in which specific input blocks are discussed including variables and
+ data that can be input in them are presented.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -1907,7 +1922,93 @@ General Structure of Input
 \end_layout
 
 \begin_layout Standard
-TALK HERE ABOUT HOW JUPITER-STYLE INPUT IS HANDLED
+The general input structure is designed on a subset of the JUPITER protocol
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BantaEtAl2006"
+
+\end_inset
+
+.
+ The advantage of this protocol over XML or the previous input format for
+ PEST is that annotations that are easily read by humans are part of the
+ input protocol.
+ The full JUPITER protocol, however, has memory and computational overhead
+ that can become a problem for large and complicated data sets.
+ The protocol used here, therefore, is simplified but should be easily recogniza
+ble to users of other JUPITER-compatible programs.
+\end_layout
+
+\begin_layout Standard
+The strategy for input is designed to use 
+\family typewriter
+BLOCKS
+\family default
+ that are made up of either 
+\family typewriter
+KEYWORDS
+\family default
+ for individual variables or 
+\family typewriter
+TABLES
+\family default
+ for a series of data.
+ The specification of whether a given block uses 
+\family typewriter
+KEYWORDS
+\family default
+ or 
+\family typewriter
+TABLES
+\family default
+ is preordained and the input blocks defined below indicate which is required.
+\end_layout
+
+\begin_layout Subsubsection
+Blocks
+\end_layout
+
+\begin_layout Standard
+Input Blocks are allowed to take one of two forms: either 
+\family typewriter
+KEYWORDS 
+\family default
+or
+\family typewriter
+ TABLES
+\family default
+.
+ All input blocks are delineated by the words 
+\family typewriter
+BEGIN
+\family default
+ and 
+\family typewriter
+END
+\family default
+.
+ The header line also includes the name and type of the block and the final
+ line contains the name of the block.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN prior_mean_cv KEYWORDS
+\begin_inset Newline newline
+\end_inset
+
+prior_betas=1
+\begin_inset Newline newline
+\end_inset
+
+beta_cov_form = 0
+\begin_inset Newline newline
+\end_inset
+
+END prior_mean_cv
 \end_layout
 
 \begin_layout Subsubsection
@@ -1915,7 +2016,28 @@ Keywords
 \end_layout
 
 \begin_layout Standard
-HERE ARE KEYWORD VARIABLES
+Keyword variables correspond to single values identifies with an 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+ sign.
+ Multiple 
+\family typewriter
+KEYWORDS
+\family default
+ can be entered on each line in an input file but no spaces are allowed
+ in 
+\family typewriter
+KEYWORDS
+\family default
+ names or variable values.
+ An example is: 
+\family typewriter
+prior_betas=1.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1923,11 +2045,158 @@ Tables
 \end_layout
 
 \begin_layout Standard
-HERE ARE TABLES DESCRIBED
+Table variables are used for tabular data series that have multiple values
+ in categories.
+ Tables are identified by listing the number of rows (
+\family typewriter
+nrow
+\family default
+), number of columns (
+\family typewriter
+ncol
+\family default
+), and providing the keyword 
+\family typewriter
+columnlabels
+\family default
+.
+ This is followed by 
+\family typewriter
+nrow
+\family default
+ rows of data, with values arranged in 
+\family typewriter
+ncol
+\family default
+ columns, corresponding to the same order as the 
+\family typewriter
+columnlabels
+\family default
+, and delimited by one or more spaces.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv TABLE 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+nrow=2 ncol=5 columnlabels 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BetaAssoc Toep_flag Nrow Ncol Nlay 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+1 0 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+2 1 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+END Q_compression_cv
 \end_layout
 
 \begin_layout Subsection
 bgaPEST Input Blocks
+\end_layout
+
+\begin_layout Standard
+The specific input blocks used in bgaPEST are discussed, in order of appearance
+ in the 
+\family typewriter
+<casename>.bgp
+\family default
+ file.
+ For each block, data types are identified either as 
+\emph on
+float
+\emph default
+, 
+\emph on
+integer
+\emph default
+, or 
+\emph on
+string
+\emph default
+.
+ Values entered as 
+\emph on
+float
+\emph default
+ can include scientific/engineering notation, but in all cases should contain
+ a 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+ even if no fractional detail is included.
+ Conversely, 
+\emph on
+integers
+\emph default
+ must not contain 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Variables identified as 
+\emph on
+string
+\emph default
+ may not include spaces because whitespace is used as the delimiter for
+ rows in tables and separating keywords.
+\end_layout
+
+\begin_layout Standard
+Each block is also defined with a suffix of 
+\begin_inset Quotes eld
+\end_inset
+
+cv
+\begin_inset Quotes erd
+\end_inset
+
+ for 
+\begin_inset Quotes eld
+\end_inset
+
+control variables,
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+data
+\begin_inset Quotes erd
+\end_inset
+
+ for data.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1950,7 +2219,11 @@ _cv}
 \end_layout
 
 \begin_layout Standard
-The following KEYWORDS variables are in the 
+The following 
+\family typewriter
+KEYWORDS
+\family default
+ variables are in the 
 \begin_inset ERT
 status open
 
@@ -1976,7 +2249,7 @@ float
  Convergence criterion for structural parameter convergence.
  
 \emph on
-default=0.002
+default=0.001
 \end_layout
 
 \begin_layout Description
@@ -1987,7 +2260,7 @@ float
 Convergence criterion for objective function convergence.
  
 \emph on
-default=0.002
+default=0.001
 \end_layout
 
 \begin_layout Description
@@ -1995,49 +2268,182 @@ bga_conv
 \emph on
  float 
 \emph default
-Convergence criterion for objective function convergence.
+Convergence criterion for the entire algorithm.
  
 \emph on
-default=0.002
+default=0.001
 \end_layout
 
 \begin_layout Description
-it_max_structural
+it_max_structural 
+\emph on
+integer 
+\emph default
+Total number of iterations allowed in structural parameter optimization.
+ 
+\emph on
+default=10
 \end_layout
 
 \begin_layout Description
-it_max_phi
+it_max_phi 
+\emph on
+integer 
+\emph default
+Total number of iterations allowed in each quasi-linear estimation optimization.
+ 
+\emph on
+default=10
 \end_layout
 
 \begin_layout Description
-it_max_bga
+it_max_bga 
+\emph on
+integer 
+\emph default
+Total number of outer iterations allowed for the entire algorithm.
+ 
+\emph on
+default=10
 \end_layout
 
 \begin_layout Description
-linesearch
+linesearch 
+\emph on
+integer 
+\emph default
+Flag to determine whether a line search should be conducted.
+ 
+\emph on
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+should probably change this to boolean, but must do so in the code too
+\end_layout
+
+\end_inset
+
+default=0
 \end_layout
 
 \begin_layout Description
 it_max_linesearch
+\emph on
+ integer 
+\emph default
+Total number of outer iterations allowed for the line search.
+ 
+\emph on
+default=10
 \end_layout
 
 \begin_layout Description
-theta_cov_form
+theta_cov_form 
+\emph on
+integer
+\emph default
+ Form of the theta covariance matrix.
+ [0] = none, [1] = diagonal, [2] = full matrix.
+ 
+\emph on
+default = 0
 \end_layout
 
 \begin_layout Description
 Q_compression_flag
+\emph on
+ integer 
+\emph default
+Flag to determine how to calculate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ [0] = no compression--calculate full 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix, [1] = Calculate separate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix for each beta association.
+ 
+\emph on
+default=0
 \end_layout
 
 \begin_layout Description
 deriv_mode
+\emph on
+ integer 
+\emph default
+Total number of outer iterations allowed for the line search.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Subsubsection
+Prior Mean Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{prior
+\backslash
+_mean
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+The following 
+\family typewriter
+KEYWORDS
+\family default
+ variables are in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ block.
+\end_layout
+
+\begin_layout Description
+prior_betas 
+\emph on
+integer
+\emph default
+ Number of beta associations 
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-bibfiles "/Users/mnfienen1/Library/lyX/Ground_Water"
-options "/Users/mnfienen1/Library/lyX/agufull08"
+bibfiles "Ground_Water"
+options "agufull08"
 
 \end_inset
 

@@ -52,7 +52,7 @@
      No Compression Requested.  No further details provided about Beta Associations
  
  
- No Prior Information Provided for Betas
+    No Prior Information Provided for Betas
  Structural parameter control variables:-
     Flag determining whether structural parameters are optimized or fixed:
         struct_par_opt:          0
