@@ -1,0 +1,11 @@
+Things we need to do:
+
+1) make sure model input and output files are deleted prior to runs
+
+2) handling weights?
+
+3) for example model, looks like too poorly constrained. Sensitive to initial
+   values. Perhaps we should make the "true" field more heterogeneous and also
+   be sure the well is sufficiently stressing or maybe add recharge.
+
+4) clean up the "not currently being used" variables

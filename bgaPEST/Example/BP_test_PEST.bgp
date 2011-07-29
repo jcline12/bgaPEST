@@ -7,7 +7,7 @@ BEGIN algorithmic_cv KEYWORDS
 END algorithmic_cv 
 
 BEGIN prior_mean_cv KEYWORDS
- prior_betas=1
+ prior_betas=		
  beta_cov_form=0
 END prior_mean_cv 
 

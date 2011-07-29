@@ -73,7 +73,8 @@
 \begin_layout Title
 
 \emph on
-bgaPEST Documentation
+bgaPEST: A Bayesian Geostatistical Inverse Implementation with PEST--Documentati
+on and Instructions
 \end_layout
 
 \begin_layout Author
@@ -2112,6 +2113,23 @@ BetaAssoc Toep_flag Nrow Ncol Nlay
 END Q_compression_cv
 \end_layout
 
+\begin_layout Subsubsection
+Files 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+need to add this in
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 bgaPEST Input Blocks
 \end_layout
@@ -2381,10 +2399,16 @@ deriv_mode
 \emph on
  integer 
 \emph default
-Total number of outer iterations allowed for the line search.
+Flag to determine whether sensitivities are calculated using an external
+ call to PEST or using a user-supplied program (such as adjoint state).
+ [0] = use PEST, [1] = use external program identified below in the 
+\family typewriter
+model_command_lines
+\family default
+ block.
  
 \emph on
-default=10
+default=0
 \end_layout
 
 \begin_layout Subsubsection
@@ -2501,6 +2525,8 @@ _data}
 This table must contain the same number of rows as there are beta associations
  to be defined.
  The rows must be in ascending order of beta association numbers.
+ This is also the block where beta associations are defined, even if prior
+ means are not defined.
 \end_layout
 
 \begin_layout Description
@@ -2509,7 +2535,7 @@ BetaAssoc
 integer 
 \emph default
 Identifier of each beta association (one per row).
- These typically are sequential int egers.
+ These should be sequential integers.
 \end_layout
 
 \begin_layout Description
@@ -2607,7 +2633,7 @@ BetaAssoc
 integer 
 \emph default
 Identified of each beta association (one per row).
- These typically are sequential integers.
+ These should be sequential integers.
 \end_layout
 
 \begin_layout Description
@@ -2735,7 +2761,7 @@ BetaAssoc
 integer 
 \emph default
 Identified of each beta association (one per row).
- These typically are sequential integers.
+ These should be sequential integers.
 \end_layout
 
 \begin_layout Description
@@ -2877,6 +2903,531 @@ Prior variance on
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsubsection
+Parameter Control Values 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Description
+ndim 
+\emph on
+integer
+\emph default
+ Number of dimensions over which parameters span.
+\end_layout
+
+\begin_layout Subsubsection
+Prior Covariance Compression Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Q
+\backslash
+_compression
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identified of each beta association (one per row).
+ These typically are sequential integers.
+\end_layout
+
+\begin_layout Description
+Toep_flag 
+\emph on
+integer
+\emph default
+ This is a flag to determine whether a Toeplitz transformation should be
+ applied to the prior covariance matrix 
+\begin_inset Formula $\mbox{\left(\mathbf{Q_{ss}}\right)  }$
+\end_inset
+
+.
+ [0] = do not use Toeplitz transformation, [1] = do use Toeplitz transformation.
+\end_layout
+
+\begin_layout Description
+Nrow 
+\emph on
+integer 
+\emph default
+Number of rows in the current Beta association (only read if Toep_flag =
+ 1).
+\end_layout
+
+\begin_layout Description
+Ncol 
+\emph on
+integer 
+\emph default
+Number of columns in the current Beta association (only read if Toep_flag
+ = 1).
+\end_layout
+
+\begin_layout Description
+Nlay 
+\emph on
+integer 
+\emph default
+Number of layers in the current Beta association (only read if Toep_flag
+ = 1).
+\end_layout
+
+\begin_layout Subsubsection
+Parameter Groups 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_groups}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table corresponds to one of the parameter groups.
+ These groups are used to group together parameters by type and are not
+ the same as beta associations.
+\end_layout
+
+\begin_layout Description
+groupname 
+\emph on
+string
+\emph default
+ Name of the group in the current row.
+ Note that these cannot contain spaces.
+\end_layout
+
+\begin_layout Description
+grouptype 
+\emph on
+integer
+\emph default
+ Type of group in the current row.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+It does not appear that we are using this for anything at the moment.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Parameter Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Description
+ParamName 
+\emph on
+string
+\emph default
+ Name for the parameter.
+\end_layout
+
+\begin_layout Description
+StartValue 
+\emph on
+float 
+\emph default
+Staring parameter value.
+\end_layout
+
+\begin_layout Description
+GroupName 
+\emph on
+string
+\emph default
+ Name of the group to which the parameter belongs.
+ This name must be defined in the 
+\family typewriter
+parameter_groups
+\family default
+ block.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer
+\emph default
+ Beta association to which this parameter belongs.
+\end_layout
+
+\begin_layout Description
+SenMethod 
+\emph on
+integer
+\emph default
+ Senstivity method used for this parameter type.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+not currently being used
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+x1 
+\emph on
+float
+\emph default
+ Location in the first dimension.
+\end_layout
+
+\begin_layout Description
+x2 
+\emph on
+float
+\emph default
+ Location in the second dimension.
+ Only read if 
+\family typewriter
+ndim
+\family default
+ >= 2.
+\end_layout
+
+\begin_layout Description
+x3 
+\emph on
+float
+\emph default
+ Location in the third dimension.
+ Only read if 
+\family typewriter
+ndim
+\family default
+ = 3.
+\end_layout
+
+\begin_layout Subsubsection
+Observation Groups 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{observation
+\backslash
+_groups}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table corresponds to one of the observation groups.
+ These groups are used to group together observations by type and are used
+ to report portions of the objective function.
+\end_layout
+
+\begin_layout Description
+groupname 
+\emph on
+string
+\emph default
+ Name of the group in the current row.
+ Note that these cannot contain spaces.
+\end_layout
+
+\begin_layout Subsubsection
+Observation Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{observation
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+One observation is presented on each line.
+\end_layout
+
+\begin_layout Description
+ObsName 
+\emph on
+string
+\emph default
+ Name of an observation.
+\end_layout
+
+\begin_layout Description
+ObsValue 
+\emph on
+float
+\emph default
+ Value of the observation.
+\end_layout
+
+\begin_layout Description
+GroupName 
+\emph on
+string
+\emph default
+ Name of the group to which the observation belongs.
+ This name must be defined in the 
+\family typewriter
+observation_groups
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Description
+Weight 
+\emph on
+float
+\emph default
+ A relative weight that gets applied to the epistemic error.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+default to 1.0? Allow this to be optional?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Model Command Lines
+ 
+\lang english
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{model
+\backslash
+_command
+\backslash
+_lines}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+Currently a single forward model command and an option derivative model
+ command can be supplied here.
+ These string keywords can include path information if the command line
+ batch files or shell scripts are not located in the current working directory,
+ but spaces are not allowed.
+\end_layout
+
+\begin_layout Description
+Command 
+\emph on
+string
+\emph default
+ This is the batch file or shell script that runs the forward model.
+\end_layout
+
+\begin_layout Description
+DerivCommand 
+\emph on
+string
+\emph default
+ This is the optional batch file or shell script that is used to calculate
+ derivatives.
+ This is only used if 
+\family typewriter
+deriv_method
+\family default
+ = 1 in the 
+\family typewriter
+algorithmic_cv
+\family default
+ block.
+\end_layout
+
+\begin_layout Subsubsection
+Model Input Files 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{model
+\backslash
+_input
+\backslash
+_files}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table includes a matched template file and model input
+ file.
+ This allows the program to create the correct input files for the model.
+\end_layout
+
+\begin_layout Description
+TemplateFile 
+\emph on
+string
+\emph default
+ Name of a template file for making model input.
+ Must end in 
+\family typewriter
+.tpl
+\family default
+.
+\end_layout
+
+\begin_layout Description
+ModInFile 
+\emph on
+string
+\emph default
+ Name of the model input file corresponding to the TemplateFile identified
+ on the same row.
+\end_layout
+
+\begin_layout Subsubsection
+Model Output Files 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{model
+\backslash
+_output
+\backslash
+_files}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table includes a matched instruction file and model output
+ file.
+ This allows the program to read the results of model runs correctly.
+\end_layout
+
+\begin_layout Description
+InstructionFile 
+\emph on
+string
+\emph default
+ Name of an instruction file for reading model output.
+ Must end in 
+\family typewriter
+.ins
+\family default
+.
+\end_layout
+
+\begin_layout Description
+ModOutFile 
+\emph on
+string
+\emph default
+ Name of the model output file corresponding to the InstructionFile identified
+ on the same row.
 \end_layout
 
 \begin_layout Standard
