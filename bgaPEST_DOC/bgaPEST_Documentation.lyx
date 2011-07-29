@@ -2436,7 +2436,447 @@ prior_betas
 \emph on
 integer
 \emph default
- Number of beta associations 
+ Flag indicating whether information about prior mean 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+will be supplied.
+ [0] = no, [1] = yes.
+\end_layout
+
+\begin_layout Description
+beta_cov_form 
+\emph on
+integer 
+\emph default
+Form of the prior mean 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ covariance matrix 
+\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
+\end_inset
+
+.
+ [0] = none, [1] = diagonal, [2] = full matrix.
+ 
+\emph on
+default = 0
+\end_layout
+
+\begin_layout Subsubsection
+Prior Mean Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{prior
+\backslash
+_mean
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identifier of each beta association (one per row).
+ These typically are sequential int egers.
+\end_layout
+
+\begin_layout Description
+Partrans 
+\emph on
+string 
+\emph default
+Transformation indicator.
+ Acceptable values are 
+\family typewriter
+log
+\family default
+ and 
+\family typewriter
+none
+\family default
+.
+\end_layout
+
+\begin_layout Description
+beta_0 
+\emph on
+float
+\emph default
+ Value of prior mean value 
+\begin_inset Formula $\left(\beta_{0}\right)$
+\end_inset
+
+ for the row's beta association.
+\end_layout
+
+\begin_layout Description
+beta_cov_# 
+\emph on
+float 
+\emph default
+The number of values provided is based on the value of beta_cov_form specified
+ above:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+
+\series medium
+If
+\series default
+ beta_cov_form=1, one value is provided.
+ 
+\end_layout
+
+\begin_layout Description
+
+\series medium
+If
+\series default
+ beta_cov_form=2, nrow values are provided, corresponding to the current
+ row of the beta covariance matrix 
+\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+Structural Parameter Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{structural
+\backslash
+_parameter
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identified of each beta association (one per row).
+ These typically are sequential integers.
+\end_layout
+
+\begin_layout Description
+prior_cov_mode 
+\emph on
+integer 
+\emph default
+Flag to indicate whether prior covariance of parameters 
+\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
+\end_inset
+
+ is supplied or calculated.
+ This is reserved for future use - currently 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ is always calculated, so this value is ignored if present.
+\end_layout
+
+\begin_layout Description
+var_type 
+\emph on
+integer 
+\emph default
+This is a flag to indicate which variogram type is used to express the prior
+ covariance 
+\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
+\end_inset
+
+.
+ Acceptable choices are [0] = pure nugget, [1] = linear, [2] = exponential.
+ Note that choosing linear is equivalent to choosing exponential with fixed
+ integral scale 10 times the maximum distance between nodes.
+\end_layout
+
+\begin_layout Description
+num_theta_type 
+\emph on
+integer 
+\emph default
+Number of structural parameters to be supplied based on 
+\family typewriter
+var_type:
+\family default
+ 1 for nugget or linear, 2 for exponential.
+\end_layout
+
+\begin_layout Description
+struct_par_opr 
+\emph on
+integer 
+\emph default
+Flag for whether structural parameters are meant to be optimized or not.
+ This can be chosen for each structural parameter individually.
+ [0] = do not optimize (hold at initial value), [1] = optimize using a marginal
+ distribution.
+\end_layout
+
+\begin_layout Description
+trans_theta 
+\emph on
+integer 
+\emph default
+Flag for whether a power transformation should be applied to the structural
+ parameters in the current row.
+ [0] = do not transform, [1] = transform.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+somewhere need to indicate which alpha value corresponds to the log in the
+ limit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+alpha_trans 
+\emph on
+float
+\emph default
+ Exponent of the power transformation if 
+\family typewriter
+trans_theta
+\family default
+ = 1.
+ default = 50.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Structural Parameter Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{structural
+\backslash
+_parameter
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identified of each beta association (one per row).
+ These typically are sequential integers.
+\end_layout
+
+\begin_layout Description
+theta_0_1 
+\emph on
+float 
+\emph default
+Initial value of 
+\begin_inset Formula $\theta_{1,0}$
+\end_inset
+
+ which is the starting value of the first structural parameter for prior
+ covariance.
+\end_layout
+
+\begin_layout Description
+theta_0_2 
+\emph on
+float 
+\emph default
+Initial value of 
+\begin_inset Formula $\theta_{2,0}$
+\end_inset
+
+ which is the starting value of the second structural parameter for prior
+ covariance
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+need to sort out this negative value business
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Structural Parameter Covariance Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{structural
+\backslash
+_parameter
+\backslash
+_cov}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+The only covariance model currently supported is diagonal, so there must
+ be one covariance value for each 
+\begin_inset Formula $\theta$
+\end_inset
+
+ parameter.
+\end_layout
+
+\begin_layout Description
+theta_cov_1 
+\emph on
+float 
+\emph default
+Variance of the current row's 
+\begin_inset Formula $\theta$
+\end_inset
+
+ parameter.
+\end_layout
+
+\begin_layout Subsubsection
+Epistemic Error Term 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{epistemic
+\backslash
+_error
+\backslash
+_term}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Description
+sig_0 
+\emph on
+float 
+\emph default
+Initial value of the epistemic error 
+\begin_inset Formula $\left(\sigma_{o}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+sig_opt 
+\emph on
+integer 
+\emph default
+Flag indicating whether epistemic error should be optimized for or not.
+ [0] = do not optimize, [1] = optimize.
+ If 
+\family typewriter
+sig_opt
+\family default
+ = 0, then the value of 
+\family typewriter
+sig_0
+\family default
+ is used throughout the inversion.
+\end_layout
+
+\begin_layout Description
+sig_p_var 
+\emph on
+float 
+\emph default
+Prior variance on 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
