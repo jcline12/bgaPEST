@@ -1,0 +1,280 @@
+                                  MODFLOW-2005     
+      U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                            VERSION 1.5.00 4/28/2008
+
+ LIST FILE: Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.lst                                                                                                                                                                                                               
+                         UNIT    2
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.bas                                                                                                                                                                                                               
+ FILE TYPE:BAS6   UNIT    1   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.lpf                                                                                                                                                                                                               
+ FILE TYPE:LPF   UNIT   11   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.dis                                                                                                                                                                                                               
+ FILE TYPE:DIS   UNIT   29   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.zone                                                                                                                                                                                                             
+ FILE TYPE:ZONE   UNIT   40   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.wel                                                                                                                                                                                                               
+ FILE TYPE:WEL   UNIT   12   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.oc                                                                                                                                                                                                                 
+ FILE TYPE:OC   UNIT   22   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.pcg                                                                                                                                                                                                               
+ FILE TYPE:PCG   UNIT   19   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.cbb                                                                                                                                                                                                      
+ FILE TYPE:DATA(BINARY)   UNIT   50   STATUS:UNKNOWN
+ FORMAT:BINARY                 ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.cbw                                                                                                                                                                                                      
+ FILE TYPE:DATA(BINARY)   UNIT   54   STATUS:UNKNOWN
+ FORMAT:BINARY                 ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.hds                                                                                                                                                                                                      
+ FILE TYPE:DATA(BINARY)   UNIT   30   STATUS:UNKNOWN
+ FORMAT:BINARY                 ACCESS:SEQUENTIAL          
+
+ OPENING Y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\New_Reality_Example_Model\vistas\gv1.ddn                                                                                                                                                                                                      
+ FILE TYPE:DATA(BINARY)   UNIT   31   STATUS:UNKNOWN
+ FORMAT:BINARY                 ACCESS:SEQUENTIAL          
+
+ BAS -- BASIC PACKAGE, VERSION 7, 5/2/2005 INPUT READ FROM UNIT    1
+
+ DISCRETIZATION INPUT DATA READ FROM UNIT   29
+ # MODFLOW2000 Discretization File
+    1 LAYERS        21 ROWS        21 COLUMNS
+    1 STRESS PERIOD(S) IN SIMULATION
+ MODEL TIME UNIT IS DAYS
+ MODEL LENGTH UNIT IS UNDEFINED
+  Confining bed flag for each layer:
+   0
+
+                     DELR =   1.00000    
+
+                     DELC =   1.00000    
+
+ TOP ELEVATION OF LAYER 1 =   20.0000    
+
+   MODEL LAYER BOTTOM EL. =   0.00000     FOR LAYER   1
+
+
+ STRESS PERIOD     LENGTH       TIME STEPS     MULTIPLIER FOR DELT    SS FLAG
+ ----------------------------------------------------------------------------
+        1         10.00000          1                    1.200         SS
+
+ STEADY-STATE SIMULATION
+
+
+
+ 
+ # MODFLOW2005 Basic Package                                                     
+ #MODFLOW Data Set Created by Groundwater Vistas                                 
+ #
+
+
+
+                     BOUNDARY ARRAY FOR LAYER   1
+ READING ON UNIT    1 WITH FORMAT: (25I3)              
+
+ AQUIFER HEAD WILL BE SET TO  999.00     AT ALL NO-FLOW NODES (IBOUND=0).
+
+
+
+                       INITIAL HEAD FOR LAYER   1
+ READING ON UNIT    1 WITH FORMAT: (10e12.4)           
+
+ OUTPUT CONTROL IS SPECIFIED EVERY TIME STEP
+ HEAD PRINT FORMAT CODE IS   0    DRAWDOWN PRINT FORMAT CODE IS   0
+ HEADS WILL BE SAVED ON UNIT   30    DRAWDOWNS WILL BE SAVED ON UNIT   31
+
+ ZONE OPTION, INPUT READ FROM UNIT   40
+ # MODFLOW2000 Zone File
+ # Groundwater Vistas writes all zones regardless of whether
+ # they are being used.  These zones include:
+ #     kxzone##, kzzone##, szone##, rzone, and etzone, where
+ #     ## is the layer number
+     2 ZONE ARRAYS
+
+
+
+             ZONE ARRAY: kxzone1   
+ READING ON UNIT   40 WITH FORMAT: (50I4)              
+
+   ZONE ARRAY: szone1     =              1
+
+ LPF -- LAYER-PROPERTY FLOW PACKAGE, VERSION 7, 5/2/2005
+         INPUT READ FROM UNIT   11
+ # MODFLOW2000 Layer Property Flow (LPF) Package
+ CELL-BY-CELL FLOWS WILL BE SAVED ON UNIT   50
+ HEAD AT CELLS THAT CONVERT TO DRY= -1.00000E+30
+ No named parameters
+
+   LAYER FLAGS:
+ LAYER       LAYTYP        LAYAVG         CHANI        LAYVKA        LAYWET
+ ---------------------------------------------------------------------------
+    1             1             0     1.000E+00             0             0
+
+   INTERPRETATION OF LAYER FLAGS:
+                        INTERBLOCK     HORIZONTAL    DATA IN
+         LAYER TYPE   TRANSMISSIVITY   ANISOTROPY   ARRAY VKA   WETTABILITY
+ LAYER      (LAYTYP)      (LAYAVG)       (CHANI)      (LAYVKA)      (LAYWET)
+ ---------------------------------------------------------------------------
+    1   CONVERTIBLE      HARMONIC     1.000E+00    VERTICAL K  NON-WETTABLE
+
+ WETTING CAPABILITY IS NOT ACTIVE IN ANY LAYER
+
+
+
+              HYD. COND. ALONG ROWS FOR LAYER   1
+ READING ON UNIT   11 WITH FORMAT: (10e12.4)           
+
+
+
+                VERTICAL HYD. COND. FOR LAYER   1
+ READING ON UNIT   11 WITH FORMAT: (10e12.4)           
+
+ WEL -- WELL PACKAGE, VERSION 7, 5/2/2005 INPUT READ FROM UNIT   12
+ # MODFLOW2000 Well Package
+     0 Named Parameters         0 List entries
+ MAXIMUM OF      1 ACTIVE WELLS AT ONE TIME
+ CELL-BY-CELL FLOWS WILL BE SAVED ON UNIT   54
+
+
+     0 Well parameters
+
+ PCG -- CONJUGATE-GRADIENT SOLUTION PACKAGE, VERSION 7, 5/2/2005
+ MAXIMUM OF    100 CALLS OF SOLUTION ROUTINE
+ MAXIMUM OF     25 INTERNAL ITERATIONS PER CALL TO SOLUTION ROUTINE
+ MATRIX PRECONDITIONING TYPE :    1
+
+
+
+                                    SOLUTION BY THE CONJUGATE-GRADIENT METHOD
+                                   -------------------------------------------
+                    MAXIMUM NUMBER OF CALLS TO PCG ROUTINE =      100
+                        MAXIMUM ITERATIONS PER CALL TO PCG =       25
+                               MATRIX PRECONDITIONING TYPE =        1
+        RELAXATION FACTOR (ONLY USED WITH PRECOND. TYPE 1) =    0.10000E+01
+ PARAMETER OF POLYNOMIAL PRECOND. = 2 (2) OR IS CALCULATED :        2
+                         HEAD CHANGE CRITERION FOR CLOSURE =    0.10000E-02
+                     RESIDUAL CHANGE CRITERION FOR CLOSURE =    0.10000E+01
+            PCG HEAD AND RESIDUAL CHANGE PRINTOUT INTERVAL =        5
+     PRINTING FROM SOLVER IS LIMITED(1) OR SUPPRESSED (>1) =        0
+                                         DAMPING PARAMETER =    0.10000E+01
+1
+                            STRESS PERIOD NO.    1, LENGTH =   10.00000    
+                            -----------------------------------------------
+
+                              NUMBER OF TIME STEPS =     1
+
+                               MULTIPLIER FOR DELT =     1.200
+
+                            INITIAL TIME STEP SIZE =   10.00000    
+
+ WELL NO.  LAYER   ROW   COL   STRESS RATE         
+ --------------------------------------------------
+      1      1     13      6      -3.000    
+
+      1 WELL 
+ SOLVING FOR HEAD 
+
+
+     2 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    14 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   12.24      0   11.86      0   5.666      0  -2.741      0  0.9030    
+   (  1, 20, 13)  (  1, 14,  8)  (  1, 10, 11)  (  1, 10, 11)  (  1, 10, 12)
+  0 -0.5038      0  0.2311      0  0.1017      0 -0.5177E-01  0  0.1920E-01
+   (  1,  8, 12)  (  1,  8, 12)  (  1, 17, 14)  (  1, 10, 13)  (  1, 15, 17)
+  0 -0.7494E-02  0  0.3699E-02  0 -0.7544E-03  1  0.2954E-03
+   (  1, 13, 15)  (  1, 17, 15)  (  1, 14, 14)  (  1, 15, 15)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1  -2.284      0 -0.6581      0  0.3339      0  0.2022      0  0.9630E-01
+   (  1, 13,  6)  (  1, 20,  2)  (  1, 20,  3)  (  1, 20,  3)  (  1, 20,  3)
+  0  0.4191E-01  0  0.1480E-01  0 -0.5020E-02  0  0.2107E-02  0  0.8153E-03
+   (  1, 20,  3)  (  1, 20,  3)  (  1, 19,  3)  (  1, 20,  2)  (  1, 20,  2)
+  0  0.2593E-03  0  0.6382E-04  0  0.2257E-04  1  0.1389E-04
+   (  1, 20,  2)  (  1, 20,  2)  (  1, 18,  5)  (  1, 18,  5)
+
+
+
+ HEAD/DRAWDOWN PRINTOUT FLAG = 1     TOTAL BUDGET PRINTOUT FLAG = 1
+ CELL-BY-CELL FLOW TERM FLAG = 1
+
+ OUTPUT FLAGS FOR ALL LAYERS ARE THE SAME:
+   HEAD    DRAWDOWN  HEAD  DRAWDOWN
+ PRINTOUT  PRINTOUT  SAVE    SAVE
+ ----------------------------------
+     0         0       1       1
+ UBUDSV SAVING "   CONSTANT HEAD" ON UNIT 50 AT TIME STEP  1, STRESS PERIOD    1
+ UBUDSV SAVING "FLOW RIGHT FACE " ON UNIT 50 AT TIME STEP  1, STRESS PERIOD    1
+ UBUDSV SAVING "FLOW FRONT FACE " ON UNIT 50 AT TIME STEP  1, STRESS PERIOD    1
+ UBUDSV SAVING "           WELLS" ON UNIT 54 AT TIME STEP  1, STRESS PERIOD    1
+
+ HEAD WILL BE SAVED ON UNIT   30 AT END OF TIME STEP   1, STRESS PERIOD    1
+
+ DRAWDOWN WILL BE SAVED ON UNIT   31 AT END OF TIME STEP   1, STRESS PERIOD    1
+1
+  VOLUMETRIC BUDGET FOR ENTIRE MODEL AT END OF TIME STEP  1 IN STRESS PERIOD   1
+  ------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUMES      L**3       RATES FOR THIS TIME STEP      L**3/T
+     ------------------                 ------------------------
+
+           IN:                                      IN:
+           ---                                      ---
+             STORAGE =           0.0000               STORAGE =           0.0000
+       CONSTANT HEAD =          31.4530         CONSTANT HEAD =           3.1453
+               WELLS =           0.0000                 WELLS =           0.0000
+
+            TOTAL IN =          31.4530              TOTAL IN =           3.1453
+
+          OUT:                                     OUT:
+          ----                                     ----
+             STORAGE =           0.0000               STORAGE =           0.0000
+       CONSTANT HEAD =           1.4530         CONSTANT HEAD =           0.1453
+               WELLS =          30.0000                 WELLS =           3.0000
+
+           TOTAL OUT =          31.4530             TOTAL OUT =           3.1453
+
+            IN - OUT =      -2.0981E-05              IN - OUT =      -2.1458E-06
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+
+
+
+          TIME SUMMARY AT END OF TIME STEP   1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH 8.64000E+05  14400.      240.00      10.000     2.73785E-02
+ STRESS PERIOD TIME 8.64000E+05  14400.      240.00      10.000     2.73785E-02
+         TOTAL TIME 8.64000E+05  14400.      240.00      10.000     2.73785E-02
+1
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2011/07/29 16:01:16
+ Elapsed run time:  0.016 Seconds
+

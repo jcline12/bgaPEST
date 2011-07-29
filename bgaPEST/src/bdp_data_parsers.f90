@@ -212,7 +212,9 @@ end subroutine bdp_read_cv_prior_mean
               end do
             end do
         end select
-        deallocate (columnname, columnstring)
+          if (associated(columnname))           deallocate(columnname)
+          if (associated(columnstring))         deallocate(columnstring)
+          
     endif  !(cv_PM%betas_flag.ne.0)
           
 end subroutine bdp_read_data_prior_mean
@@ -500,8 +502,8 @@ end subroutine bdp_read_data_prior_mean
                 end where
               enddo 
                               
-             deallocate (columnname,columnstring)
-             
+          if (associated(columnname))           deallocate(columnname)
+          if (associated(columnstring))         deallocate(columnstring)             
     end subroutine bdp_read_data_parameters  
 
 !********  subroutine bdp_read_cv_structural_parameters_tbl(BL,cv_S,inunit)
@@ -599,8 +601,9 @@ end subroutine bdp_read_data_prior_mean
              end do
            enddo  
            d_S%theta(:,:) = d_S%theta_0  ! start out with theta_0 as the first values of theta MD The third column is the iteration
-       deallocate (columnname, columnstring)                     
-end subroutine bdp_read_data_structural_parameters  
+          if (associated(columnname))           deallocate(columnname)
+          if (associated(columnstring))         deallocate(columnstring)
+          end subroutine bdp_read_data_structural_parameters  
           
 !********  subroutine bdp_read_structural_parameters_cov    (BL,cv_S,d_S,theta_cov_form,inunit,retmsg)
 ! Read the prior covariance of the structural parameter
@@ -650,7 +653,8 @@ end subroutine bdp_read_data_structural_parameters
              enddo
            end do
      
-     deallocate (columnname, columnstring)                     
+          if (associated(columnname))           deallocate(columnname)
+          if (associated(columnstring))         deallocate(columnstring)                     
 end subroutine bdp_read_structural_parameters_cov  
 
 !**********subroutine bdp_read_epistemic_error (BL,cv_S,d_S,theta_cov_form,inunit,retmsg)
@@ -810,7 +814,8 @@ end subroutine bdp_read_data_model_command_line
           d_MIO%ins(i) = trim(adjustl(columnstring(1)))
           d_MIO%outfle(i) = trim(adjustl(columnstring(2)))
          end do
-        deallocate (columnname,columnstring)
+          if (associated(columnname))           deallocate(columnname)
+          if (associated(columnstring))         deallocate(columnstring)
          
 end subroutine bdp_read_data_model_input_output  
 
@@ -922,8 +927,8 @@ end subroutine bdp_read_observation_groups
            
            k = k + 1
           end do
-        deallocate (columnname,columnstring)
-         
+          if (associated(columnname))           deallocate(columnname)
+          if (associated(columnstring))         deallocate(columnstring)
 end subroutine bdp_read_data_observations  
 
 !********  subroutine bdp_alloc_d_S

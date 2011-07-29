@@ -1,0 +1,12 @@
+LIST 7 gv1.lst
+BAS6  1 gv1.bas
+DIS  29 gv1.dis
+LPF 11 gv1.lpf
+ZONE 40 gv1.zone
+WEL 12 gv1.wel
+OC  22 gv1.oc
+PCG 19 gv1.pcg
+DATA(BINARY) 50 gv1.cbb
+DATA(BINARY) 54 gv1.cbw
+DATA(BINARY) 30 gv1.hds
+DATA(BINARY) 31 gv1.ddn

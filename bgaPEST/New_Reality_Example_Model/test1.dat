@@ -1,0 +1,727 @@
+
+c:\bgaPEST\bgaPEST\Example>copy ..\Debug\bgaPEST.exe . 
+        1 file(s) copied.
+
+c:\bgaPEST\bgaPEST\Example>bgaPEST.exe BP_test_PEST.bgp 
+ 
+ *******************************************
+ *          Welcome to bgaPEST             *
+ *******************************************
+            Brought to you by:             
+      United States Geological Survey      
+       Watermark Numerical Computing       
+             University of Parma           
+ *******************************************
+ 
+ 
+Warning: No structural parameter opimization requested. it_max_bga in 
+  algorithmic_cv block must be 1. The entered value will be ignored.
+ Number of template files        =      1
+ Number of instruction files     =      1
+ Number of parameter             =    441
+ Number of observations          =     12
+ 
+
+c:\bgaPEST\bgaPEST\Example>pest scratch 
+
+PEST Version 12.0. Watermark Numerical Computing.
+
+PEST is running in parameter estimation mode.
+
+PEST run record: case scratch
+(See file scratch.rec for full details.)
+
+Model command line: 
+modflow.bat > nul
+
+Running model .....
+   Sum of squared weighted residuals (ie phi) =  0.59492    
+
+
+OPTIMISATION ITERATION NO.        : 1
+   Model calls so far             : 1
+   Starting phi for this iteration:  0.59492    
+
+   Calculating Jacobian matrix: running model 441 times .....
+   1 runs completed.    2 runs completed.    3 runs completed.    4 runs completed.    5 runs completed.    6 runs completed.    7 runs completed.    8 runs completed.    9 runs completed.    10 runs completed.    11 runs completed.    12 runs completed.    13 runs completed.    14 runs completed.    15 runs completed.    16 runs completed.    17 runs completed.    18 runs completed.    19 runs completed.    20 runs completed.    21 runs completed.    22 runs completed.    23 runs completed.    24 runs completed.    25 runs completed.    26 runs completed.    27 runs completed.    28 runs completed.    29 runs completed.    30 runs completed.    31 runs completed.    32 runs completed.    33 runs completed.    34 runs completed.    35 runs completed.    36 runs completed.    37 runs completed.    38 runs completed.    39 runs completed.    40 runs completed.    41 runs completed.    42 runs completed.    43 runs completed.    44 runs completed.    45 runs completed.    46 runs completed.    47 runs completed.    48 runs completed.    49 runs completed.    50 runs completed.    51 runs completed.    52 runs completed.    53 runs completed.    54 runs completed.    55 runs completed.    56 runs completed.    57 runs completed.    58 runs completed.    59 runs completed.    60 runs completed.    61 runs completed.    62 runs completed.    63 runs completed.    64 runs completed.    65 runs completed.    66 runs completed.    67 runs completed.    68 runs completed.    69 runs completed.    70 runs completed.    71 runs completed.    72 runs completed.    73 runs completed.    74 runs completed.    75 runs completed.    76 runs completed.    77 runs completed.    78 runs completed.    79 runs completed.    80 runs completed.    81 runs completed.    82 runs completed.    83 runs completed.    84 runs completed.    85 runs completed.    86 runs completed.    87 runs completed.    88 runs completed.    89 runs completed.    90 runs completed.    91 runs completed.    92 runs completed.    93 runs completed.    94 runs completed.    95 runs completed.    96 runs completed.    97 runs completed.    98 runs completed.    99 runs completed.    100 runs completed.    101 runs completed.    102 runs completed.    103 runs completed.    104 runs completed.    105 runs completed.    106 runs completed.    107 runs completed.    108 runs completed.    109 runs completed.    110 runs completed.    111 runs completed.    112 runs completed.    113 runs completed.    114 runs completed.    115 runs completed.    116 runs completed.    117 runs completed.    118 runs completed.    119 runs completed.    120 runs completed.    121 runs completed.    122 runs completed.    123 runs completed.    124 runs completed.    125 runs completed.    126 runs completed.    127 runs completed.    128 runs completed.    129 runs completed.    130 runs completed.    131 runs completed.    132 runs completed.    133 runs completed.    134 runs completed.    135 runs completed.    136 runs completed.    137 runs completed.    138 runs completed.    139 runs completed.    140 runs completed.    141 runs completed.    142 runs completed.    143 runs completed.    144 runs completed.    145 runs completed.    146 runs completed.    147 runs completed.    148 runs completed.    149 runs completed.    150 runs completed.    151 runs completed.    152 runs completed.    153 runs completed.    154 runs completed.    155 runs completed.    156 runs completed.    157 runs completed.    158 runs completed.    159 runs completed.    160 runs completed.    161 runs completed.    162 runs completed.    163 runs completed.    164 runs completed.    165 runs completed.    166 runs completed.    167 runs completed.    168 runs completed.    169 runs completed.    170 runs completed.    171 runs completed.    172 runs completed.    173 runs completed.    174 runs completed.    175 runs completed.    176 runs completed.    177 runs completed.    178 runs completed.    179 runs completed.    180 runs completed.    181 runs completed.    182 runs completed.    183 runs completed.    184 runs completed.    185 runs completed.    186 runs completed.    187 runs completed.    188 runs completed.    189 runs completed.    190 runs completed.    191 runs completed.    192 runs completed.    193 runs completed.    194 runs completed.    195 runs completed.    196 runs completed.    197 runs completed.    198 runs completed.    199 runs completed.    200 runs completed.    201 runs completed.    202 runs completed.    203 runs completed.    204 runs completed.    205 runs completed.    206 runs completed.    207 runs completed.    208 runs completed.    209 runs completed.    210 runs completed.    211 runs completed.    212 runs completed.    213 runs completed.    214 runs completed.    215 runs completed.    216 runs completed.    217 runs completed.    218 runs completed.    219 runs completed.    220 runs completed.    221 runs completed.    222 runs completed.    223 runs completed.    224 runs completed.    225 runs completed.    226 runs completed.    227 runs completed.    228 runs completed.    229 runs completed.    230 runs completed.    231 runs completed.    232 runs completed.    233 runs completed.    234 runs completed.    235 runs completed.    236 runs completed.    237 runs completed.    238 runs completed.    239 runs completed.    240 runs completed.    241 runs completed.    242 runs completed.    243 runs completed.    244 runs completed.    245 runs completed.    246 runs completed.    247 runs completed.    248 runs completed.    249 runs completed.    250 runs completed.    251 runs completed.    252 runs completed.    253 runs completed.    254 runs completed.    255 runs completed.    256 runs completed.    257 runs completed.    258 runs completed.    259 runs completed.    260 runs completed.    261 runs completed.    262 runs completed.    263 runs completed.    264 runs completed.    265 runs completed.    266 runs completed.    267 runs completed.    268 runs completed.    269 runs completed.    270 runs completed.    271 runs completed.    272 runs completed.    273 runs completed.    274 runs completed.    275 runs completed.    276 runs completed.    277 runs completed.    278 runs completed.    279 runs completed.    280 runs completed.    281 runs completed.    282 runs completed.    283 runs completed.    284 runs completed.    285 runs completed.    286 runs completed.    287 runs completed.    288 runs completed.    289 runs completed.    290 runs completed.    291 runs completed.    292 runs completed.    293 runs completed.    294 runs completed.    295 runs completed.    296 runs completed.    297 runs completed.    298 runs completed.    299 runs completed.    300 runs completed.    301 runs completed.    302 runs completed.    303 runs completed.    304 runs completed.    305 runs completed.    306 runs completed.    307 runs completed.    308 runs completed.    309 runs completed.    310 runs completed.    311 runs completed.    312 runs completed.    313 runs completed.    314 runs completed.    315 runs completed.    316 runs completed.    317 runs completed.    318 runs completed.    319 runs completed.    320 runs completed.    321 runs completed.    322 runs completed.    323 runs completed.    324 runs completed.    325 runs completed.    326 runs completed.    327 runs completed.    328 runs completed.    329 runs completed.    330 runs completed.    331 runs completed.    332 runs completed.    333 runs completed.    334 runs completed.    335 runs completed.    336 runs completed.    337 runs completed.    338 runs completed.    339 runs completed.    340 runs completed.    341 runs completed.    342 runs completed.    343 runs completed.    344 runs completed.    345 runs completed.    346 runs completed.    347 runs completed.    348 runs completed.    349 runs completed.    350 runs completed.    351 runs completed.    352 runs completed.    353 runs completed.    354 runs completed.    355 runs completed.    356 runs completed.    357 runs completed.    358 runs completed.    359 runs completed.    360 runs completed.    361 runs completed.    362 runs completed.    363 runs completed.    364 runs completed.    365 runs completed.    366 runs completed.    367 runs completed.    368 runs completed.    369 runs completed.    370 runs completed.    371 runs completed.    372 runs completed.    373 runs completed.    374 runs completed.    375 runs completed.    376 runs completed.    377 runs completed.    378 runs completed.    379 runs completed.    380 runs completed.    381 runs completed.    382 runs completed.    383 runs completed.    384 runs completed.    385 runs completed.    386 runs completed.    387 runs completed.    388 runs completed.    389 runs completed.    390 runs completed.    391 runs completed.    392 runs completed.    393 runs completed.    394 runs completed.    395 runs completed.    396 runs completed.    397 runs completed.    398 runs completed.    399 runs completed.    400 runs completed.    401 runs completed.    402 runs completed.    403 runs completed.    404 runs completed.    405 runs completed.    406 runs completed.    407 runs completed.    408 runs completed.    409 runs completed.    410 runs completed.    411 runs completed.    412 runs completed.    413 runs completed.    414 runs completed.    415 runs completed.    416 runs completed.    417 runs completed.    418 runs completed.    419 runs completed.    420 runs completed.    421 runs completed.    422 runs completed.    423 runs completed.    424 runs completed.    425 runs completed.    426 runs completed.    427 runs completed.    428 runs completed.    429 runs completed.    430 runs completed.    431 runs completed.    432 runs completed.    433 runs completed.    434 runs completed.    435 runs completed.    436 runs completed.    437 runs completed.    438 runs completed.    439 runs completed.    440 runs completed.    441 runs completed. 
+
+   Optimisation complete: NOPTMAX supplied as -2 indicating that only the
+                          Jacobian for the initial parameter set is required.
+   Total model calls:    442
+           0
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+ Elapsed run time:  0.015 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+ Elapsed run time:  0.000 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+ Elapsed run time:  0.000 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+ Elapsed run time:  0.016 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+ Elapsed run time:  0.000 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:04:57
+ Elapsed run time:  0.016 Seconds
+
+  Normal termination of simulation
+  5.000000000000000E-004
+
+c:\bgaPEST\bgaPEST\Example>pest scratch 
+
+PEST Version 12.0. Watermark Numerical Computing.
+
+PEST is running in parameter estimation mode.
+
+PEST run record: case scratch
+(See file scratch.rec for full details.)
+
+Model command line: 
+modflow.bat > nul
+
+Running model .....
+   Sum of squared weighted residuals (ie phi) =  0.59436    
+
+
+OPTIMISATION ITERATION NO.        : 1
+   Model calls so far             : 1
+   Starting phi for this iteration:  0.59436    
+
+   Calculating Jacobian matrix: running model 441 times .....
+   1 runs completed.    2 runs completed.    3 runs completed.    4 runs completed.    5 runs completed.    6 runs completed.    7 runs completed.    8 runs completed.    9 runs completed.    10 runs completed.    11 runs completed.    12 runs completed.    13 runs completed.    14 runs completed.    15 runs completed.    16 runs completed.    17 runs completed.    18 runs completed.    19 runs completed.    20 runs completed.    21 runs completed.    22 runs completed.    23 runs completed.    24 runs completed.    25 runs completed.    26 runs completed.    27 runs completed.    28 runs completed.    29 runs completed.    30 runs completed.    31 runs completed.    32 runs completed.    33 runs completed.    34 runs completed.    35 runs completed.    36 runs completed.    37 runs completed.    38 runs completed.    39 runs completed.    40 runs completed.    41 runs completed.    42 runs completed.    43 runs completed.    44 runs completed.    45 runs completed.    46 runs completed.    47 runs completed.    48 runs completed.    49 runs completed.    50 runs completed.    51 runs completed.    52 runs completed.    53 runs completed.    54 runs completed.    55 runs completed.    56 runs completed.    57 runs completed.    58 runs completed.    59 runs completed.    60 runs completed.    61 runs completed.    62 runs completed.    63 runs completed.    64 runs completed.    65 runs completed.    66 runs completed.    67 runs completed.    68 runs completed.    69 runs completed.    70 runs completed.    71 runs completed.    72 runs completed.    73 runs completed.    74 runs completed.    75 runs completed.    76 runs completed.    77 runs completed.    78 runs completed.    79 runs completed.    80 runs completed.    81 runs completed.    82 runs completed.    83 runs completed.    84 runs completed.    85 runs completed.    86 runs completed.    87 runs completed.    88 runs completed.    89 runs completed.    90 runs completed.    91 runs completed.    92 runs completed.    93 runs completed.    94 runs completed.    95 runs completed.    96 runs completed.    97 runs completed.    98 runs completed.    99 runs completed.    100 runs completed.    101 runs completed.    102 runs completed.    103 runs completed.    104 runs completed.    105 runs completed.    106 runs completed.    107 runs completed.    108 runs completed.    109 runs completed.    110 runs completed.    111 runs completed.    112 runs completed.    113 runs completed.    114 runs completed.    115 runs completed.    116 runs completed.    117 runs completed.    118 runs completed.    119 runs completed.    120 runs completed.    121 runs completed.    122 runs completed.    123 runs completed.    124 runs completed.    125 runs completed.    126 runs completed.    127 runs completed.    128 runs completed.    129 runs completed.    130 runs completed.    131 runs completed.    132 runs completed.    133 runs completed.    134 runs completed.    135 runs completed.    136 runs completed.    137 runs completed.    138 runs completed.    139 runs completed.    140 runs completed.    141 runs completed.    142 runs completed.    143 runs completed.    144 runs completed.    145 runs completed.    146 runs completed.    147 runs completed.    148 runs completed.    149 runs completed.    150 runs completed.    151 runs completed.    152 runs completed.    153 runs completed.    154 runs completed.    155 runs completed.    156 runs completed.    157 runs completed.    158 runs completed.    159 runs completed.    160 runs completed.    161 runs completed.    162 runs completed.    163 runs completed.    164 runs completed.    165 runs completed.    166 runs completed.    167 runs completed.    168 runs completed.    169 runs completed.    170 runs completed.    171 runs completed.    172 runs completed.    173 runs completed.    174 runs completed.    175 runs completed.    176 runs completed.    177 runs completed.    178 runs completed.    179 runs completed.    180 runs completed.    181 runs completed.    182 runs completed.    183 runs completed.    184 runs completed.    185 runs completed.    186 runs completed.    187 runs completed.    188 runs completed.    189 runs completed.    190 runs completed.    191 runs completed.    192 runs completed.    193 runs completed.    194 runs completed.    195 runs completed.    196 runs completed.    197 runs completed.    198 runs completed.    199 runs completed.    200 runs completed.    201 runs completed.    202 runs completed.    203 runs completed.    204 runs completed.    205 runs completed.    206 runs completed.    207 runs completed.    208 runs completed.    209 runs completed.    210 runs completed.    211 runs completed.    212 runs completed.    213 runs completed.    214 runs completed.    215 runs completed.    216 runs completed.    217 runs completed.    218 runs completed.    219 runs completed.    220 runs completed.    221 runs completed.    222 runs completed.    223 runs completed.    224 runs completed.    225 runs completed.    226 runs completed.    227 runs completed.    228 runs completed.    229 runs completed.    230 runs completed.    231 runs completed.    232 runs completed.    233 runs completed.    234 runs completed.    235 runs completed.    236 runs completed.    237 runs completed.    238 runs completed.    239 runs completed.    240 runs completed.    241 runs completed.    242 runs completed.    243 runs completed.    244 runs completed.    245 runs completed.    246 runs completed.    247 runs completed.    248 runs completed.    249 runs completed.    250 runs completed.    251 runs completed.    252 runs completed.    253 runs completed.    254 runs completed.    255 runs completed.    256 runs completed.    257 runs completed.    258 runs completed.    259 runs completed.    260 runs completed.    261 runs completed.    262 runs completed.    263 runs completed.    264 runs completed.    265 runs completed.    266 runs completed.    267 runs completed.    268 runs completed.    269 runs completed.    270 runs completed.    271 runs completed.    272 runs completed.    273 runs completed.    274 runs completed.    275 runs completed.    276 runs completed.    277 runs completed.    278 runs completed.    279 runs completed.    280 runs completed.    281 runs completed.    282 runs completed.    283 runs completed.    284 runs completed.    285 runs completed.    286 runs completed.    287 runs completed.    288 runs completed.    289 runs completed.    290 runs completed.    291 runs completed.    292 runs completed.    293 runs completed.    294 runs completed.    295 runs completed.    296 runs completed.    297 runs completed.    298 runs completed.    299 runs completed.    300 runs completed.    301 runs completed.    302 runs completed.    303 runs completed.    304 runs completed.    305 runs completed.    306 runs completed.    307 runs completed.    308 runs completed.    309 runs completed.    310 runs completed.    311 runs completed.    312 runs completed.    313 runs completed.    314 runs completed.    315 runs completed.    316 runs completed.    317 runs completed.    318 runs completed.    319 runs completed.    320 runs completed.    321 runs completed.    322 runs completed.    323 runs completed.    324 runs completed.    325 runs completed.    326 runs completed.    327 runs completed.    328 runs completed.    329 runs completed.    330 runs completed.    331 runs completed.    332 runs completed.    333 runs completed.    334 runs completed.    335 runs completed.    336 runs completed.    337 runs completed.    338 runs completed.    339 runs completed.    340 runs completed.    341 runs completed.    342 runs completed.    343 runs completed.    344 runs completed.    345 runs completed.    346 runs completed.    347 runs completed.    348 runs completed.    349 runs completed.    350 runs completed.    351 runs completed.    352 runs completed.    353 runs completed.    354 runs completed.    355 runs completed.    356 runs completed.    357 runs completed.    358 runs completed.    359 runs completed.    360 runs completed.    361 runs completed.    362 runs completed.    363 runs completed.    364 runs completed.    365 runs completed.    366 runs completed.    367 runs completed.    368 runs completed.    369 runs completed.    370 runs completed.    371 runs completed.    372 runs completed.    373 runs completed.    374 runs completed.    375 runs completed.    376 runs completed.    377 runs completed.    378 runs completed.    379 runs completed.    380 runs completed.    381 runs completed.    382 runs completed.    383 runs completed.    384 runs completed.    385 runs completed.    386 runs completed.    387 runs completed.    388 runs completed.    389 runs completed.    390 runs completed.    391 runs completed.    392 runs completed.    393 runs completed.    394 runs completed.    395 runs completed.    396 runs completed.    397 runs completed.    398 runs completed.    399 runs completed.    400 runs completed.    401 runs completed.    402 runs completed.    403 runs completed.    404 runs completed.    405 runs completed.    406 runs completed.    407 runs completed.    408 runs completed.    409 runs completed.    410 runs completed.    411 runs completed.    412 runs completed.    413 runs completed.    414 runs completed.    415 runs completed.    416 runs completed.    417 runs completed.    418 runs completed.    419 runs completed.    420 runs completed.    421 runs completed.    422 runs completed.    423 runs completed.    424 runs completed.    425 runs completed.    426 runs completed.    427 runs completed.    428 runs completed.    429 runs completed.    430 runs completed.    431 runs completed.    432 runs completed.    433 runs completed.    434 runs completed.    435 runs completed.    436 runs completed.    437 runs completed.    438 runs completed.    439 runs completed.    440 runs completed.    441 runs completed. 
+
+   Optimisation complete: NOPTMAX supplied as -2 indicating that only the
+                          Jacobian for the initial parameter set is required.
+   Total model calls:    442
+           0
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+ Elapsed run time:  0.016 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+ Elapsed run time:  0.016 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+ Elapsed run time:  0.000 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+ Elapsed run time:  0.016 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+ Elapsed run time:  0.000 Seconds
+
+  Normal termination of simulation
+
+c:\bgaPEST\bgaPEST\Example>MF05a_O2.exe S1_1_forward.nam 
+
+                      MODFLOW-ADJOINT Version 0.96 07/14/2007
+         SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+
+    U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                        MODFLOW-2005 Version 1.1 05/18/2006                          
+
+ Using NAME file: S1_1_forward.nam 
+ Run start date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+
+ Solving:  Stress period:     1    Time step:     1    Ground-Water Flow Eqn.
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2010/12/30 16:05:14
+ Elapsed run time:  0.015 Seconds
+
+  Normal termination of simulation
+  5.000000000000000E-004
+ Good Job!
+  2.001137693086338E-004
+  2.001137693082769E-004
+  2.001137693075326E-004
+  2.001137693063570E-004
+  2.001137693046852E-004
+  2.001137693025044E-004
+  2.001137692997566E-004
+  2.001137692963056E-004
+  2.001137692919354E-004
+  2.001137692864409E-004
+  2.001137692797676E-004
+  2.001137692720922E-004
+  2.001137692637752E-004
+  2.001137692552125E-004
+  2.001137692467732E-004
+  2.001137692387943E-004
+  2.001137692315032E-004
+  2.001137692250097E-004
+  2.001137692192795E-004
+  2.001137692142528E-004
+  2.001137692098381E-004
+  2.001137693082815E-004
+  2.001137693079694E-004
+  2.001137693072169E-004
+  2.001137693059599E-004
+  2.001137693041833E-004
+  2.001137693018762E-004
+  2.001137692990101E-004
+  2.001137692955126E-004
+  2.001137692911705E-004
+  2.001137692856283E-004
+  2.001137692786681E-004
+  2.001137692705445E-004
+  2.001137692617291E-004
+  2.001137692526247E-004
+  2.001137692436312E-004
+  2.001137692351102E-004
+  2.001137692274206E-004
+  2.001137692206826E-004
+  2.001137692148389E-004
+  2.001137692097912E-004
+  2.001137692054494E-004
+  2.001137693075418E-004
+  2.001137693072218E-004
+  2.001137693063250E-004
+  2.001137693048178E-004
+  2.001137693026498E-004
+  2.001137692998877E-004
+  2.001137692966199E-004
+  2.001137692928742E-004
+  2.001137692884852E-004
+  2.001137692830376E-004
+  2.001137692759967E-004
+  2.001137692678212E-004
+  2.001137692589663E-004
+  2.001137692497212E-004
+  2.001137692404031E-004
+  2.001137692314210E-004
+  2.001137692233269E-004
+  2.001137692162935E-004
+  2.001137692102750E-004
+  2.001137692051818E-004
+  2.001137692009051E-004
+  2.001137693063712E-004
+  2.001137693059702E-004
+  2.001137693048231E-004
+  2.001137693028271E-004
+  2.001137692999567E-004
+  2.001137692963454E-004
+  2.001137692923254E-004
+  2.001137692879854E-004
+  2.001137692832964E-004
+  2.001137692780211E-004
+  2.001137692711616E-004
+  2.001137692635918E-004
+  2.001137692553711E-004
+  2.001137692465219E-004
+  2.001137692372433E-004
+  2.001137692278894E-004
+  2.001137692193605E-004
+  2.001137692119404E-004
+  2.001137692056926E-004
+  2.001137692005066E-004
+  2.001137691962985E-004
+  2.001137693047055E-004
+  2.001137693041993E-004
+  2.001137693026611E-004
+  2.001137692999627E-004
+  2.001137692960771E-004
+  2.001137692913713E-004
+  2.001137692863221E-004
+  2.001137692810220E-004
+  2.001137692754315E-004
+  2.001137692696796E-004
+  2.001137692640151E-004
+  2.001137692579408E-004
+  2.001137692509895E-004
+  2.001137692430365E-004
+  2.001137692341785E-004
+  2.001137692246813E-004
+  2.001137692155502E-004
+  2.001137692077060E-004
+  2.001137692011692E-004
+  2.001137691958773E-004
+  2.001137691917062E-004
+  2.001137693025307E-004
+  2.001137693018986E-004
+  2.001137692999055E-004
+  2.001137692963586E-004
+  2.001137692913788E-004
+  2.001137692855351E-004
+  2.001137692793492E-004
+  2.001137692730207E-004
+  2.001137692664626E-004
+  2.001137692603242E-004
+  2.001137692560902E-004
+  2.001137692517335E-004
+  2.001137692461686E-004
+  2.001137692390893E-004
+  2.001137692306234E-004
+  2.001137692212684E-004
+  2.001137692118544E-004
+  2.001137692035807E-004
+  2.001137691967354E-004
+  2.001137691913172E-004
+  2.001137691871781E-004
+  2.001137692997900E-004
+  2.001137692990396E-004
+  2.001137692966455E-004
+  2.001137692923467E-004
+  2.001137692863382E-004
+  2.001137692793581E-004
+  2.001137692723058E-004
+  2.001137692653254E-004
+  2.001137692585085E-004
+  2.001137692529638E-004
+  2.001137692494699E-004
+  2.001137692461586E-004
+  2.001137692414539E-004
+  2.001137692348375E-004
+  2.001137692265145E-004
+  2.001137692171353E-004
+  2.001137692077149E-004
+  2.001137691992916E-004
+  2.001137691922991E-004
+  2.001137691868290E-004
+  2.001137691827514E-004
+  2.001137692963462E-004
+  2.001137692955502E-004
+  2.001137692929087E-004
+  2.001137692880160E-004
+  2.001137692810483E-004
+  2.001137692730410E-004
+  2.001137692653364E-004
+  2.001137692581381E-004
+  2.001137692518274E-004
+  2.001137692472467E-004
+  2.001137692446219E-004
+  2.001137692417867E-004
+  2.001137692372132E-004
+  2.001137692305270E-004
+  2.001137692220597E-004
+  2.001137692125539E-004
+  2.001137692031264E-004
+  2.001137691947252E-004
+  2.001137691877917E-004
+  2.001137691824069E-004
+  2.001137691784576E-004
+  2.001137692919845E-004
+  2.001137692912170E-004
+  2.001137692885293E-004
+  2.001137692833380E-004
+  2.001137692754699E-004
+  2.001137692664949E-004
+  2.001137692585309E-004
+  2.001137692518377E-004
+  2.001137692465688E-004
+  2.001137692431968E-004
+  2.001137692414625E-004
+  2.001137692384491E-004
+  2.001137692333434E-004
+  2.001137692261906E-004
+  2.001137692174008E-004
+  2.001137692076619E-004
+  2.001137691981779E-004
+  2.001137691899419E-004
+  2.001137691832295E-004
+  2.001137691780595E-004
+  2.001137691742947E-004
+  2.001137692864995E-004
+  2.001137692856855E-004
+  2.001137692830934E-004
+  2.001137692780752E-004
+  2.001137692697315E-004
+  2.001137692603701E-004
+  2.001137692529969E-004
+  2.001137692472649E-004
+  2.001137692432025E-004
+  2.001137692413217E-004
+  2.001137692394619E-004
+  2.001137692352520E-004
+  2.001137692291062E-004
+  2.001137692213228E-004
+  2.001137692122898E-004
+  2.001137692024134E-004
+  2.001137691929873E-004
+  2.001137691850940E-004
+  2.001137691787214E-004
+  2.001137691738290E-004
+  2.001137691703070E-004
+  2.001137692798358E-004
+  2.001137692787371E-004
+  2.001137692760657E-004
+  2.001137692712305E-004
+  2.001137692640816E-004
+  2.001137692561485E-004
+  2.001137692495129E-004
+  2.001137692446475E-004
+  2.001137692414735E-004
+  2.001137692394651E-004
+  2.001137692360269E-004
+  2.001137692306849E-004
+  2.001137692236430E-004
+  2.001137692153551E-004
+  2.001137692061871E-004
+  2.001137691967091E-004
+  2.001137691878606E-004
+  2.001137691803765E-004
+  2.001137691743740E-004
+  2.001137691698036E-004
+  2.001137691665166E-004
+  2.001137692721697E-004
+  2.001137692706244E-004
+  2.001137692679040E-004
+  2.001137692636767E-004
+  2.001137692580236E-004
+  2.001137692518068E-004
+  2.001137692462134E-004
+  2.001137692418226E-004
+  2.001137692384704E-004
+  2.001137692352648E-004
+  2.001137692306920E-004
+  2.001137692244605E-004
+  2.001137692168964E-004
+  2.001137692084273E-004
+  2.001137691995013E-004
+  2.001137691906916E-004
+  2.001137691826195E-004
+  2.001137691757390E-004
+  2.001137691702107E-004
+  2.001137691660008E-004
+  2.001137691629821E-004
+  2.001137692638612E-004
+  2.001137692618190E-004
+  2.001137692590616E-004
+  2.001137692554710E-004
+  2.001137692510901E-004
+  2.001137692462607E-004
+  2.001137692415265E-004
+  2.001137692372661E-004
+  2.001137692333819E-004
+  2.001137692291343E-004
+  2.001137692236632E-004
+  2.001137692169074E-004
+  2.001137692092033E-004
+  2.001137692009161E-004
+  2.001137691925067E-004
+  2.001137691845242E-004
+  2.001137691773237E-004
+  2.001137691711814E-004
+  2.001137691662112E-004
+  2.001137691624155E-004
+  2.001137691596862E-004
+  2.001137692553043E-004
+  2.001137692527217E-004
+  2.001137692498246E-004
+  2.001137692466335E-004
+  2.001137692431531E-004
+  2.001137692392024E-004
+  2.001137692349342E-004
+  2.001137692306027E-004
+  2.001137692262500E-004
+  2.001137692213697E-004
+  2.001137692153906E-004
+  2.001137692084514E-004
+  2.001137692009285E-004
+  2.001137691931202E-004
+  2.001137691854733E-004
+  2.001137691784338E-004
+  2.001137691721572E-004
+  2.001137691667793E-004
+  2.001137691623959E-004
+  2.001137691590456E-004
+  2.001137691566362E-004
+  2.001137692468692E-004
+  2.001137692437322E-004
+  2.001137692405112E-004
+  2.001137692373603E-004
+  2.001137692343039E-004
+  2.001137692307499E-004
+  2.001137692266310E-004
+  2.001137692221581E-004
+  2.001137692174812E-004
+  2.001137692123549E-004
+  2.001137692062379E-004
+  2.001137691995386E-004
+  2.001137691925308E-004
+  2.001137691854854E-004
+  2.001137691788110E-004
+  2.001137691727043E-004
+  2.001137691672968E-004
+  2.001137691626512E-004
+  2.001137691588568E-004
+  2.001137691559491E-004
+  2.001137691538628E-004
+  2.001137692388931E-004
+  2.001137692352132E-004
+  2.001137692315298E-004
+  2.001137692280057E-004
+  2.001137692248064E-004
+  2.001137692213974E-004
+  2.001137692172590E-004
+  2.001137692126641E-004
+  2.001137692077558E-004
+  2.001137692024916E-004
+  2.001137691967720E-004
+  2.001137691907403E-004
+  2.001137691845593E-004
+  2.001137691784562E-004
+  2.001137691727150E-004
+  2.001137691674934E-004
+  2.001137691628549E-004
+  2.001137691588906E-004
+  2.001137691556665E-004
+  2.001137691531902E-004
+  2.001137691514111E-004
+  2.001137692316038E-004
+  2.001137692275243E-004
+  2.001137692234357E-004
+  2.001137692194750E-004
+  2.001137692156704E-004
+  2.001137692119788E-004
+  2.001137692078368E-004
+  2.001137692032395E-004
+  2.001137691982778E-004
+  2.001137691930733E-004
+  2.001137691879321E-004
+  2.001137691826771E-004
+  2.001137691773681E-004
+  2.001137691721892E-004
+  2.001137691673171E-004
+  2.001137691628648E-004
+  2.001137691589354E-004
+  2.001137691555932E-004
+  2.001137691528834E-004
+  2.001137691507990E-004
+  2.001137691492793E-004
+  2.001137692251117E-004
+  2.001137692207871E-004
+  2.001137692164016E-004
+  2.001137692120524E-004
+  2.001137692078222E-004
+  2.001137692036995E-004
+  2.001137691994092E-004
+  2.001137691948364E-004
+  2.001137691900432E-004
+  2.001137691851832E-004
+  2.001137691804533E-004
+  2.001137691758033E-004
+  2.001137691712330E-004
+  2.001137691668187E-004
+  2.001137691626796E-004
+  2.001137691589087E-004
+  2.001137691556018E-004
+  2.001137691528095E-004
+  2.001137691505416E-004
+  2.001137691487859E-004
+  2.001137691474628E-004
+  2.001137692193822E-004
+  2.001137692149438E-004
+  2.001137692103823E-004
+  2.001137692058024E-004
+  2.001137692012815E-004
+  2.001137691968495E-004
+  2.001137691924118E-004
+  2.001137691878997E-004
+  2.001137691833298E-004
+  2.001137691788117E-004
+  2.001137691744536E-004
+  2.001137691702789E-004
+  2.001137691662681E-004
+  2.001137691624418E-004
+  2.001137691588920E-004
+  2.001137691556917E-004
+  2.001137691528995E-004
+  2.001137691505491E-004
+  2.001137691486363E-004
+  2.001137691471177E-004
+  2.001137691459574E-004
+  2.001137692143562E-004
+  2.001137692098961E-004
+  2.001137692052884E-004
+  2.001137692006150E-004
+  2.001137691959867E-004
+  2.001137691914271E-004
+  2.001137691869375E-004
+  2.001137691825115E-004
+  2.001137691781580E-004
+  2.001137691739193E-004
+  2.001137691698847E-004
+  2.001137691660719E-004
+  2.001137691624763E-004
+  2.001137691590961E-004
+  2.001137691559899E-004
+  2.001137691532215E-004
+  2.001137691508213E-004
+  2.001137691487998E-004
+  2.001137691471244E-004
+  2.001137691457825E-004
+  2.001137691447232E-004
+  2.001137692099416E-004
+  2.001137692055543E-004
+  2.001137692010107E-004
+  2.001137691964051E-004
+  2.001137691918131E-004
+  2.001137691872847E-004
+  2.001137691828563E-004
+  2.001137691785590E-004
+  2.001137691743910E-004
+  2.001137691703966E-004
+  2.001137691665980E-004
+  2.001137691630546E-004
+  2.001137691597494E-004
+  2.001137691566902E-004
+  2.001137691539079E-004
+  2.001137691514470E-004
+  2.001137691493070E-004
+  2.001137691474828E-004
+  2.001137691459699E-004
+  2.001137691447289E-004
+  2.001137691437361E-004

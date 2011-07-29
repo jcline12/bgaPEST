@@ -10,7 +10,7 @@
  Model Command Line :-
     modflow.bat                                       
  Jacobian Command Line :-
-    Not Used
+    modflow_adj.bat                                   
  
  Model Interface Files:-
     Template files:
@@ -46,7 +46,7 @@
     Compression of Q0 matrix: [0] none - compute full Q0, [1], Q0 for each beta
         Q_compression_flag:          0
     Derivatives mode: [0] External PEST Perturbations, [1] specified Jacobian command line
-        deriv_mode:          0
+        deriv_mode:          1
  
        1 Beta Association was defined:
      No Compression Requested.  No further details provided about Beta Associations

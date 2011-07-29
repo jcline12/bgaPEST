@@ -3,11 +3,11 @@ BEGIN algorithmic_cv KEYWORDS
  it_max_structural=11 it_max_phi=12 it_max_bga=13 
  linesearch=1         it_max_linesearch=25
  theta_cov_form=0 Q_compression_flag=0
- deriv_mode = 0
+ deriv_mode = 1
 END algorithmic_cv 
 
 BEGIN prior_mean_cv KEYWORDS
- prior_betas=		
+ prior_betas=	0	
  beta_cov_form=0
 END prior_mean_cv 
 
@@ -26,7 +26,7 @@ END structural_parameter_cv
 BEGIN structural_parameters_data TABLE  
  nrow=1 ncol=2 columnlabels 
  BetaAssoc  theta_0_1    theta_0_2     
- 1          1.0e-006        -0.1         
+ 1          1.0e-001        -0.1         
 END structural_parameters_data
 
 BEGIN structural_parameters_cov TABLE  

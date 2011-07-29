@@ -1,0 +1,106 @@
+                        MODFLOW-ADJOINT Version 0.96 07/14/2007
+            SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+      U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                             VERSION 1.1 05/18/2006
+
+ LIST FILE: S1_1_forward.lst
+                         UNIT    7
+
+ OPENING S1.bas
+ FILE TYPE:BAS6   UNIT    1   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.dis
+ FILE TYPE:DIS   UNIT   29   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.lpf
+ FILE TYPE:LPF   UNIT   11   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.zone
+ FILE TYPE:ZONE   UNIT   13   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.wel
+ FILE TYPE:WEL   UNIT   12   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.oc
+ FILE TYPE:OC   UNIT   22   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.mul
+ FILE TYPE:MULT   UNIT    8   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.pcg
+ FILE TYPE:PCG   UNIT   19   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.chd
+ FILE TYPE:CHD   UNIT   40   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.hob
+ FILE TYPE:HOB   UNIT   18   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+#ADJ 35 S1_.adj                                                                                                                                                                                                                                                                                             
+#DATA         44 S1_1_adj.out                                                                                                                                                                                                                                                                               
+#DATA         75 S1_adj.pcg                                                                                                                                                                                                                                                                                 
+
+ OPENING S1_1.hbs
+ FILE TYPE:DATA   UNIT   14   STATUS:UNKNOWN
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+#DATA         48 S1_1.sen                                                                                                                                                                                                                                                                                   
+
+ OPENING S1.cbb
+ FILE TYPE:DATA(BINARY)   UNIT   50   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.cbw
+ FILE TYPE:DATA(BINARY)   UNIT   54   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.hds
+ FILE TYPE:DATA(BINARY)   UNIT   30   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.ddn
+ FILE TYPE:DATA(BINARY)   UNIT   31   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ BAS -- BASIC PACKAGE, VERSION 7, 5/2/2005 INPUT READ FROM UNIT    1
+
+ DISCRETIZATION INPUT DATA READ FROM UNIT   29
+ # MODFLOW2000 Discretization File
+    1 LAYERS        21 ROWS        21 COLUMNS
+    1 STRESS PERIOD(S) IN SIMULATION
+ MODEL TIME UNIT IS SECONDS
+ MODEL LENGTH UNIT IS METERS
+  Confining bed flag for each layer:
+   0
+
+
+
+                               DELR
+ READING ON UNIT   29 WITH FORMAT: (10E12.4)           
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000    
+
+
+
+                               DELC
+ READING ON UNIT   29 WITH FORMAT: (10E12.4)           
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000    
+
+ TOP ELEVATION OF LAYER 1 =   20.0000    
+
+   MODEL LAYER BOTTOM EL. =   0.00000     FOR LAYER   1
+
+
+ STRESS PERIOD     LENGTH       TIME STEPS     MULTIPLIER FOR DELT    SS FLAG
+ ----------------------------------------------------------------------------
