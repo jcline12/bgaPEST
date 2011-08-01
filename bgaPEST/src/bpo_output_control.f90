@@ -34,16 +34,25 @@ contains
    end subroutine bpo_write_nocmd
    
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_allpars(cv_PAR,d_PAR,bprunit,iternum)
-      type (cv_param)             :: cv_PAR
-      type (d_param)              :: d_PAR
-      integer                     :: iternum
+   subroutine bpo_write_allpars(cv_PAR,d_PAR,cparvalue,bprunit,iternum)
+      type (cv_param)              :: cv_PAR
+      type (d_param)               :: d_PAR
+      double precision, intent(in) :: cparvalue(:)
+      integer                      :: iternum
+      integer, intent(in)          :: bprunit
+      
+    write(bprunit,101) 'ParamName','BetaAssoc','ParamVal'
+    do i = 1,cv_PAR%npar
+        write(bprunit,102) d_PAR%parnme(i),d_PAR%BetaAssoc(i),cparvalue(i)
+    enddo
+101 format(1A13,1A13,1A25)
+102 format(1A13,1I13,1E25.8)        
    end subroutine bpo_write_allpars
    
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     subroutine bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS, &
-                d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,cv_S)
+                d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,cv_S,d_PAR)
    
     integer, intent(in)                 :: bprunit
     type(cv_param), intent(in)          :: cv_PAR
@@ -55,6 +64,7 @@ contains
     type(cv_algorithmic), intent(in)    :: cv_A
     type(d_minout), intent(in)          :: d_MIO
     type(cv_minout), intent(in)         :: cv_MIO
+    type(d_param), intent(in)           :: d_PAR
     character (len=4)                   :: indent = '    '
     character (len=FILEWIDTH)           :: casename
     integer i,j ! local counters
@@ -204,16 +214,6 @@ contains
 !!! Parameter definitions
     write(bprunit,*)
     write(bprunit,*) 'Initial Parameter Definitions:-'
-     
-    
-
-
-
-   
-   
-   
-   
-   
-   
-   end subroutine bpo_write_bpr_header
+    call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,bprunit,0)
+    end subroutine bpo_write_bpr_header
 end module bayes_output_control

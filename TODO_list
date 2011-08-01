@@ -1,6 +1,6 @@
 Things we need to do:
 
-1) make sure model input and output files are deleted prior to runs
+1)***DONE*** make sure model input and output files are deleted prior to runs
 
 2) handling weights?
 

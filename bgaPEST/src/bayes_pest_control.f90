@@ -118,7 +118,7 @@ module bayes_pest_control
             
       type  :: d_param           ! data type for parameters
             character (len=50), pointer	    :: group(:)      !MD Name of group
-            character (len=50), pointer     :: parnme(:)     ! parameter name
+            character (len=PARNWIDTH), pointer     :: parnme(:)     ! parameter name
             double precision, pointer       :: pars(:)       !MD Vector of parameters
             double precision, pointer       :: pars_old(:)   !MD Sold
             double precision, pointer       :: pars_lns(:)   !MD Vector of parameters for linesearch
