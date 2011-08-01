@@ -175,12 +175,13 @@ program bp_main
             
             curr_phi_conv = abs(curr_phi - d_PAR%phi_T) 
             curr_phi = d_PAR%phi_T
-            
-            if (curr_phi_conv(1).le.cv_A%phi_conv) exit
             ! Write the intermediate parameter and residuals files
             call UTL_INT2CHAR(p_ind,cind)
-            call bpc_openfile(cparunit,trim(trim(casename) // '.bar.' // cind),1) ![1] at end indicates open with write access
+            call bpc_openfile(cparunit,trim(trim(casename) // '.bpp.' // cind),1) ![1] at end indicates open with write access
             call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit,p_ind)
+            
+            if (curr_phi_conv(1).le.cv_A%phi_conv) exit
+
           enddo  !(first intermediate loop) quasi-linear method
           
     !***************************************************************************************************************************  
