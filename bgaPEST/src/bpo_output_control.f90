@@ -34,22 +34,43 @@ contains
    end subroutine bpo_write_nocmd
    
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_allpars(cv_PAR,d_PAR,cparvalue,bprunit,iternum)
+   subroutine bpo_write_allpars(cv_PAR,d_PAR,cparvalue,writunit,iternum)
       type (cv_param)              :: cv_PAR
       type (d_param)               :: d_PAR
       double precision, intent(in) :: cparvalue(:)
       integer                      :: iternum
-      integer, intent(in)          :: bprunit
-      
-    write(bprunit,101) 'ParamName','BetaAssoc','ParamVal'
+      integer, intent(in)          :: writunit
+      character(50)                :: outlinefmt
+      character(20)                :: parwstr,pargwstr
+   
+    call utl_int2char(PARNWIDTH,parwstr)
+    call utl_int2char(PARGROUPNMWID,pargwstr) 
+    write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16)')") trim(parwstr),trim(pargwstr)
+    write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal'
     do i = 1,cv_PAR%npar
-        write(bprunit,102) d_PAR%parnme(i),d_PAR%BetaAssoc(i),cparvalue(i)
+        write(outlinefmt,"('(1A',A,',1A',A,',1I13,1E16.8)')")  trim(parwstr),trim(pargwstr)
+        write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(i)),trim(d_PAR%group(i)), d_PAR%BetaAssoc(i),cparvalue(i)
     enddo
-101 format(1A13,1A13,1A25)
-102 format(1A13,1I13,1E25.8)        
+   
    end subroutine bpo_write_allpars
    
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   subroutine bpo_write_residuals(cv_OBS,d_OBS,cobsvalue,writunit,iternum)
+      type (cv_observ)             :: cv_OBS
+      type (d_observ)              :: d_OBS
+      double precision, intent(in) :: cobsvalue(:)
+      integer                      :: iternum
+      integer, intent(in)          :: writunit
+      character(50)                :: outlinefmt
 
+    write(outlinefmt,"('(1A',I,',1A',I,',1A16,1A16)')") OBSNWIDTH,OBSGROUPNMWID    
+    write(writunit,trim(outlinefmt)) 'ObsName','ObsGroup','Modeled','Measured'
+    do i = 1,cv_OBS%nobs
+        write(outlinefmt,"('(1A',I,',1A',I,',1E16.8,1E16.8)')") OBSNWIDTH,OBSGROUPNMWID  
+        write(writunit,trim(outlinefmt)) trim(d_OBS%obsnme(i)),trim(d_OBS%group(i)),d_OBS%h(i),d_OBS%obs(i)
+    enddo
+           
+   end subroutine bpo_write_residuals
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     subroutine bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS, &
                 d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,cv_S,d_PAR)

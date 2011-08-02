@@ -9,6 +9,7 @@ module bayes_pest_control
 !     mike fienen - mnfienen@usgs.gov  
 !     V 0.0  3/5/08 
 !     Modified by M.D. 22/9/09 
+!     Revised by Mike Fienen, 8/2/2011
 
 !   ***************        
 !   * DECLARATIONS
@@ -22,6 +23,9 @@ module bayes_pest_control
       integer, parameter   :: NUM_BLOCK = 16                 !Is the maximum number of block  
       integer, parameter   :: PARNWIDTH = 12                 ! width of a parameter name  MD
       integer, parameter   :: OBSNWIDTH = 12                 ! width of a observation name MD
+      integer, parameter   :: PARGROUPNMWID = 16             ! width of a parameter group name
+      integer, parameter   :: OBSGROUPNMWID = 16             ! width of a parameter group name
+      
 
 !     -- types
 
@@ -117,7 +121,7 @@ module bayes_pest_control
       end type Q0_compr            
             
       type  :: d_param           ! data type for parameters
-            character (len=50), pointer	    :: group(:)      !MD Name of group
+            character (len=PARGROUPNMWID), pointer	    :: group(:)      !MD Name of group
             character (len=PARNWIDTH), pointer     :: parnme(:)     ! parameter name
             double precision, pointer       :: pars(:)       !MD Vector of parameters
             double precision, pointer       :: pars_old(:)   !MD Sold
@@ -134,15 +138,15 @@ module bayes_pest_control
       type  :: cv_observ          ! control variables for observations
             integer             :: nobsgp  !MD Number of observations groups
             integer             :: nobs    !MD Number of observations
-            character (len=50), pointer     :: grp_name(:) !MD Name of the observations groups
+            character (len=PARGROUPNMWID), pointer     :: grp_name(:) !MD Name of the observations groups
       end type cv_observ
 
       type  :: d_observ           ! data type for observations
-            character (len=50), pointer	:: group(:) !MD Name of group
+            character (len=OBSGROUPNMWID), pointer	:: group(:) !MD Name of group
             double precision, pointer   :: obs(:)   !MD Vector of observations
             double precision, pointer   :: h(:)     !MD Current model output
             double precision, pointer   :: weight(:) !MD Weight for R matrix 
-            character (len=50), pointer :: obsnme(:) ! Observation names       
+            character (len=OBSNWIDTH), pointer :: obsnme(:) ! Observation names       
       end type d_observ
         
       type  :: d_comlin        ! data type FOR COMMAND LINE ARGS

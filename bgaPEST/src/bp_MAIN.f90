@@ -39,7 +39,7 @@ program bp_main
        integer                      :: s_ind, p_ind, b_ind  !Indices for structural parameters, quasi-linear and bga method loops
        type (mio_struc)             :: miostruc
        type (err_failure_struc)     :: errstruc  
-       integer                      :: ifail, restart, outunit, bprunit, cparunit
+       integer                      :: ifail, restart, outunit, bprunit, cparunit, cobsunit
        type (cv_algorithmic)        :: cv_A
        type (d_algorithmic)         :: d_A
        type (cv_prior_mean)         :: cv_PM
@@ -175,11 +175,17 @@ program bp_main
             
             curr_phi_conv = abs(curr_phi - d_PAR%phi_T) 
             curr_phi = d_PAR%phi_T
-            ! Write the intermediate parameter and residuals files
+            ! --Write the intermediate parameter and residuals files
             call UTL_INT2CHAR(p_ind,cind)
+            cparunit = utl_nextunit()
             call bpc_openfile(cparunit,trim(trim(casename) // '.bpp.' // cind),1) ![1] at end indicates open with write access
             call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit,p_ind)
-            
+            close(cparunit)
+            cobsunit = utl_nextunit()
+            call bpc_openfile(cobsunit,trim(trim(casename) // '.bre.' // cind),1) ![1] at end indicates open with write access
+            call bpo_write_residuals(cv_OBS,d_OBS,d_OBS%h,cobsunit,p_ind)
+            close(cobsunit) 
+            !-- check for convergence - exit if convergence has been achieved  
             if (curr_phi_conv(1).le.cv_A%phi_conv) exit
 
           enddo  !(first intermediate loop) quasi-linear method
