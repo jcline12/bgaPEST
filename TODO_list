@@ -4,7 +4,7 @@ Things we need to do:
 
 2) handling weights?
 
-3) for example model, looks like too poorly constrained. Sensitive to initial
+3) ***DONE*** see (7) belowfor example model, looks like too poorly constrained. Sensitive to initial
    values. Perhaps we should make the "true" field more heterogeneous and also
    be sure the well is sufficiently stressing or maybe add recharge.
 
@@ -14,4 +14,7 @@ Things we need to do:
 
 6) handle all the output that is not yet dealt with in the progress of the algorithm.
 
-7) see that the mean is being properly used - looks maybe like perturbations are going on the prior mean rather than the estimated mean!!
+7) ***DONE*** --> hangup was with linesearch. see that the mean is being properly used - looks
+    maybe like perturbations are going on the prior mean rather than the estimated mean!!
+
+8) Need to add noise to the observations in the test problem.
