@@ -1530,7 +1530,7 @@ Repeat steps 2 and 3 until the change in
 \end_layout
 
 \begin_layout Subsection
-A computationally efficient method for Objective Function
+A computationally efficient method to calculate the objective function
 \end_layout
 
 \begin_layout Subsubsection
@@ -2118,16 +2118,82 @@ Files
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-need to add this in
+A user may want to shorten the length of the main input file by redirecting
+ certain input to external text files.
+ This can be done by signaling an input block with the word 
+\family typewriter
+FILES
+\family default
+, to read a file containing the entire set of information for the block.
+ Regardless of whether the external text file contains a 
+\family typewriter
+KEYWORDS
+\family default
+ or 
+\family typewriter
+TABLE
+\family default
+ block, a block definition must be in place directing the program to the
+ external file.
+ For example:
 \end_layout
 
-\end_inset
+\begin_layout Standard
 
+\family typewriter
+BEGIN Q_compression_cv FILE 
+\end_layout
 
+\begin_layout Standard
+
+\family typewriter
+compression.txt
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Standard
+In this exmple, the contents of the file compression.txt would be:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv TABLE 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+nrow=2 ncol=5 columnlabels 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BetaAssoc Toep_flag Nrow Ncol Nlay 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+1 0 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+2 1 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+END Q_compression_cv
 \end_layout
 
 \begin_layout Subsection
@@ -2975,7 +3041,7 @@ integer
 \emph default
  This is a flag to determine whether a Toeplitz transformation should be
  applied to the prior covariance matrix 
-\begin_inset Formula $\mbox{\left(\mathbf{Q_{ss}}\right)  }$
+\begin_inset Formula $\mbox{\left(\mathbf{Q_{ss}}\right) }$
 \end_inset
 
 .
@@ -3275,10 +3341,7 @@ default to 1.0? Allow this to be optional?
 \end_layout
 
 \begin_layout Subsubsection
-Model Command Lines
- 
-\lang english
-
+Model Command Lines 
 \begin_inset ERT
 status open
 
