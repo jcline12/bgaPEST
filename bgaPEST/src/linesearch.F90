@@ -22,7 +22,7 @@ module linesearch
         type(kernel_XQR),     intent(in)    :: d_XQR
         type(d_struct),       intent(inout) :: d_S
         type(cv_param),       intent(in)    :: cv_PAR
-        type (d_comlin)                     :: d_MOD
+        type (d_comlin),      intent(in)    :: d_MOD
         type(d_algorithmic),  intent(inout) :: d_A
         type(d_param),        intent(inout) :: d_PAR
         type(d_prior_mean),   intent(in)    :: d_PM

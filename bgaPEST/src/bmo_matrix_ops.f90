@@ -29,7 +29,7 @@ subroutine bmo_mat_ops(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All
         type(Q0_compr),      intent(in)     :: Q0_All(:)
         double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
         integer                             :: ierr, i, j, k, cc, p, it, start_v, end_v
-        double precision :: marco=0.
+        
 select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or not     
      
  case(0) !Full Q0 matrix         

@@ -36,7 +36,7 @@ BEGIN structural_parameters_cov TABLE
 END structural_parameters_cov
 
 BEGIN epistemic_error_term KEYWORDS
-  sig_0 = 1.000e-002   sig_opt = 0  sig_p_var=0.001
+  sig_0 = 1.000e-001   sig_opt = 0  sig_p_var=0.001
 END epistemic_error_term
 
 BEGIN parameter_cv KEYWORDS  
@@ -46,7 +46,7 @@ END parameter_cv
 BEGIN Q_compression_cv TABLE  
  nrow=1 ncol=5 columnlabels 
  BetaAssoc   Toep_flag 	   Nrow    Ncol   Nlay
- 1           0             21      21     1
+ 1           1             21      21     1
 END Q_compression_cv
 
 BEGIN parameter_groups TABLE

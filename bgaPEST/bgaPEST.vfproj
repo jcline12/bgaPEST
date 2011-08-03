@@ -38,6 +38,7 @@
 		<File RelativePath=".\src\bpm_setup_mio.f90"/>
 		<File RelativePath=".\src\bpo_output_control.f90"/>
 		<File RelativePath=".\src\bpr_read.f90"/>
+		<File RelativePath=".\src\bso_structural_optimization.f90"/>
 		<File RelativePath=".\src\bxd_external_derivatives.f90"/>
 		<File RelativePath=".\src\bxq_make_X0_Q0_R0.f90"/>
 		<File RelativePath=".\src\calc_ob_fun.f90"/>
@@ -47,6 +48,7 @@
 		<File RelativePath=".\src\lapack_functions.f"/>
 		<File RelativePath=".\src\linesearch.F90"/>
 		<File RelativePath=".\src\mio.F90"/>
+		<File RelativePath=".\src\nelder_mead.f90"/>
 		<File RelativePath=".\src\param_trans.F90"/>
 		<File RelativePath=".\src\utl.F90"/></Filter></Files>
 	<Globals/></VisualStudioProject>
