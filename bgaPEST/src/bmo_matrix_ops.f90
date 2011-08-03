@@ -1,6 +1,7 @@
 module bayes_matrix_operations
 
 !***** Modified by M.D. 24/9/09 ********
+!***** Modified MNF 8/3/2011 ***********
 
         use bayes_pest_control
         use utilities  
@@ -9,24 +10,24 @@ module bayes_matrix_operations
 
 contains
 
-subroutine bmo_mat_ops(d_XQR, d_S, d_PM, cv_PAR, cv_OBS,d_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All,cv_PM)
+!*****************************************************************************************************
+!***** Perform generic matrix operations ************************************************************* 
+!***************************************************************************************************** 
+
+subroutine bmo_mat_ops(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All)
         
         implicit none
         ! declarations
         type(kernel_XQR),    intent(in)     :: d_XQR
         type(cv_struct),     intent(in)     :: cv_S 
         type(d_struct),      intent(inout)  :: d_S
-        type(d_prior_mean),  intent(in)     :: d_PM
         type(cv_param),      intent(in)     :: cv_PAR
         type(cv_observ),     intent(in)     :: cv_OBS
         type(cv_algorithmic),intent(inout)  :: cv_A        
         type(d_algorithmic), intent(inout)  :: d_A
         type(d_param),       intent(inout)  :: d_PAR
-        type(d_observ),      intent(in)     :: d_OBS
         type(Q0_compr),      intent(in)     :: Q0_All(:)
-        type (cv_prior_mean), intent(in)    :: cv_PM
-        double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TVP(:),TMP1(:,:)
-        double precision,    pointer        :: LHS(:,:), RHS (:) , Soln(:), C_S(:)
+        double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
         integer                             :: ierr, i, j, k, cc, p, it, start_v, end_v
         double precision :: marco=0.
 select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or not     
@@ -188,6 +189,30 @@ end select !(cv_A%Q_compression_flag)
 ! End make Qyy 
 !*****************************************************************************************************
 
+if (associated(Qss))      deallocate(Qss)
+if (associated(Qrow))     deallocate(Qrow)
+if (associated(Q0_tmp))   deallocate(Q0_tmp)
+if (associated(TMP))      deallocate(TMP)
+if (associated(TMP1))     deallocate(TMP1)
+
+end subroutine bmo_mat_ops
+
+
+!*****************************************************************************************************
+!***** Subroutine to perform matrix operations that only involve H and s_old *************************
+!***************************************************************************************************** 
+
+subroutine H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)       
+        implicit none
+        ! declarations
+        type(kernel_XQR),    intent(in)     :: d_XQR
+        type(cv_param),      intent(in)     :: cv_PAR
+        type(cv_observ),     intent(in)     :: cv_OBS
+        type(d_algorithmic), intent(inout)  :: d_A
+        type(d_param),       intent(inout)  :: d_PAR
+        integer                             :: ierr
+
+
 !*****************************************************************************************************
 ! Make H*X
 !*****************************************************************************************************
@@ -210,6 +235,27 @@ end select !(cv_A%Q_compression_flag)
 !*****************************************************************************************************
 ! End make Hsold 
 !*****************************************************************************************************
+
+end subroutine H_only_operations
+
+!*****************************************************************************************************
+!****** Subroutine to create and solve the linear cokriging system ***********************************
+!*****************************************************************************************************
+subroutine solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR,cv_PM)
+        
+        implicit none
+        ! declarations
+        type(kernel_XQR),    intent(in)     :: d_XQR
+        type(d_struct),      intent(inout)  :: d_S
+        type(d_prior_mean),  intent(in)     :: d_PM
+        type(cv_param),      intent(in)     :: cv_PAR
+        type(cv_observ),     intent(in)     :: cv_OBS
+        type(d_algorithmic), intent(inout)  :: d_A
+        type(d_param),       intent(inout)  :: d_PAR
+        type(d_observ),      intent(in)     :: d_OBS
+        type (cv_prior_mean), intent(in)    :: cv_PM
+        double precision,    pointer        :: LHS(:,:), RHS (:) , Soln(:), C_S(:)
+        integer                             :: ierr, i, j, k
 
 !*****************************************************************************************************
 ! Make RHS which is y' and -InvQbbB0 *** Is a vector (nobs + p)
@@ -319,11 +365,8 @@ call cal_ob_funcs(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR, cv_PM)
 ! End Calculate the objective functions
 !***************************************************************************************************** 
 
-if (associated(Qss))      deallocate(Qss)
-if (associated(Qrow))     deallocate(Qrow)
-if (associated(Q0_tmp))   deallocate(Q0_tmp)
+end subroutine solve_linear_system
 
-end subroutine bmo_mat_ops
 
 
 !*****************************************************************************************************
@@ -333,7 +376,7 @@ subroutine toep_mult(Q0,H,nobs,theta_1,theta_2,Lmax,Qsy)
 
 type(Q0_compr),       intent(in)     :: Q0
 double precision,     intent(in)     :: H(nobs,Q0%npar)
-double precision,     intent(inout)    :: Qsy(:,:) !Q0%npar,nobs)
+double precision,     intent(inout)  :: Qsy(:,:) !Q0%npar,nobs)
 double precision,     intent(in)     :: theta_1,theta_2,Lmax
 integer,              intent(in)     :: nobs
 double precision                     :: Qtmpb(Q0%npar),Qtmpg(Q0%npar),Qtmpl(Q0%npar),Qv(Q0%npar),TMP(Q0%npar)

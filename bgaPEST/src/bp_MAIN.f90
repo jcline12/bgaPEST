@@ -160,9 +160,12 @@ program bp_main
             endif
           
             !-- SOLVE THE BAYESIAN LINEAR SYSTEM AND CALCULATE THE OBJECTIVE FUNCTIONS           
-            call  bmo_mat_ops(d_XQR, d_S, d_PM, cv_PAR, cv_OBS,d_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All,cv_PM)
-                
-            !-- PERFORMING LINESEARCH OR NOT 
+            call  bmo_mat_ops(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
+            call  H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)
+            call  solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR,cv_PM)
+            
+            
+            !-- PERFORMING LINESEARCH IF REQUIRED
             if (cv_A%lns_flag.eq.1) then  !If yes, we perform the linesearch procedure  
                call lns_proc(d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,cv_A,p_ind,miostruc,errstruc)
             endif
