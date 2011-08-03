@@ -7,7 +7,7 @@ module bayes_pest_control
 !           
 !     a m!ke@usgs joint
 !     mike fienen - mnfienen@usgs.gov  
-!     V 0.0  3/5/08 
+!     V 0.0  3/5/08  
 !     Modified by M.D. 22/9/09 
 !     Revised by Mike Fienen, 8/2/2011
 

@@ -462,7 +462,7 @@ end module linesearch
 
    implicit none
    
-   double precision rho
+   double  precision rho
    type(kernel_XQR),    intent(in)     :: d_XQR
    type(d_struct),      intent(inout)  :: d_S
    type(cv_param),      intent(in)     :: cv_PAR
@@ -477,7 +477,6 @@ end module linesearch
    type (err_failure_struc)            :: errstruc  
  
    ! -- INITIALIZATION
-   rho = 0.D+00
    d_PAR%pars_lns=rho*d_PAR%pars+(1.-rho)*d_PAR%pars_old 
   
   !-- BACK-TRANSFORM OR NOT PARAMETERS IN THE PHYSICAL SPACE BEFORE THE FORWARD RUN

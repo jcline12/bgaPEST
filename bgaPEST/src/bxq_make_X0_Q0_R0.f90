@@ -4,7 +4,7 @@ module make_kernels
       subroutine bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,nobs,d_PM,Q0_All,cv_PM)
 !--  Subroutine to create covariance matrix Q0, X matrix, R0 matrix, and if necessary Qbb^-1 and beta0*Qbb^-1      
 !
-!--  The covariance matrix can be:  (The flag (cv_A%Q_compression_flag) control this)
+!--  The covariance matrix can be:  (The flag (cv_A%Q_compression_flag) controls this)
 !    - the full Q0 matrix ------------------------->   (cv_A%Q_compression_flag) = 0
 !    - compressed form (in block for each beta) --->   (cv_A%Q_compression_flag) = 1
 !--  In case of compressed form we have 3 different types:  (The flag Q0_All(x)%Toep_flag control this)
