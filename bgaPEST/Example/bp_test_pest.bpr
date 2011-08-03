@@ -36,9 +36,9 @@
     Maximum Number of Outermost BGA Iterations
         it_max_bga:          1
     Linesearch Flag: [0] indicates no linesearh, [1] indicates perform linesarch
-        lns_flag:          0
+        lns_flag:          1
     Maximum Number of Linesearch Iterations
-        it_max_lns:         25
+        it_max_lns:         15
     Logical Flag for storing Q Matrix
         store_Q:     T
     Form of theta covariance: [0] none, [1], diag, [2] full matrix
