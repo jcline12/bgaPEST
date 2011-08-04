@@ -54,7 +54,7 @@ contains
          use bayes_pest_control
        ! DECLARATIONS  
          implicit none
-         type(cv_prior_mean),intent(inout)   :: cv_PM
+         type(cv_prior_mean),intent(inout)   :: cv_PM   
          type(tp_block),   intent(inout)     :: BL(NUM_BLOCK) 
        ! INITIALIZATIONS
        ! ** N.B. ** most of these keywords/variables are pointer so they are not allocated here 
