@@ -14,18 +14,18 @@ contains
 !***** Perform generic matrix operations ************************************************************* 
 !***************************************************************************************************** 
 
-subroutine bmo_form_Qss_Qsy(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All)
+subroutine bmo_form_Qss_Qsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All)
         
         implicit none
         ! declarations
         type(kernel_XQR),    intent(in)     :: d_XQR
         type(cv_struct),     intent(in)     :: cv_S 
-        type(d_struct),      intent(inout)  :: d_S
         type(cv_param),      intent(in)     :: cv_PAR
         type(cv_observ),     intent(in)     :: cv_OBS
         type(cv_algorithmic),intent(inout)  :: cv_A        
         type(d_algorithmic), intent(inout)  :: d_A
         type(d_param),       intent(inout)  :: d_PAR
+        double precision,    intent(in)     :: theta(:,:)
         type(Q0_compr),      intent(in)     :: Q0_All(:)
         double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
         integer                             :: ierr, i, j, k, p, it, start_v, end_v
@@ -45,18 +45,18 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
          do i=1, cv_PAR%npar      !Loop over all the parameters
            select case (cv_S%var_type(d_PAR%BetaAssoc(i)))
             case (0) ! means nugget ---> just multiply by theta1
-              Qss(i,i)=d_S%theta(d_PAR%BetaAssoc(i),1)*d_XQR%Q0(i,i)
+              Qss(i,i)=theta(d_PAR%BetaAssoc(i),1)*d_XQR%Q0(i,i)
             case (1) ! means linear ---> we need the maximum distance and theta1
               do j=i, cv_PAR%npar
                 if (d_PAR%BetaAssoc(i).eq.d_PAR%BetaAssoc(j)) then !Search in the parameters list the associated parameters  
-                  Qss(i,j)=d_S%theta(d_PAR%BetaAssoc(i),1)*d_XQR%L*exp(-d_XQR%Q0(i,j)/d_XQR%L)
+                  Qss(i,j)=theta(d_PAR%BetaAssoc(i),1)*d_XQR%L*exp(-d_XQR%Q0(i,j)/d_XQR%L)
                   Qss(j,i)=Qss(i,j)  ! Because Qss is symmetric            
                 endif   
               enddo     
             case (2) ! means exponential ---> we need theta1 and theta2
               do j=i, cv_PAR%npar
                 if (d_PAR%BetaAssoc(i).eq.d_PAR%BetaAssoc(j)) then !Search in the parameters list the associated parameters  
-                   Qss(i,j)=d_S%theta(d_PAR%BetaAssoc(i),1)*exp(-d_XQR%Q0(i,j)/d_S%theta(d_PAR%BetaAssoc(i),2))
+                   Qss(i,j)=theta(d_PAR%BetaAssoc(i),1)*exp(-d_XQR%Q0(i,j)/theta(d_PAR%BetaAssoc(i),2))
                    Qss(j,i)=Qss(i,j) ! Because Qss is symmetric
                 endif   
               enddo
@@ -95,7 +95,7 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
         select case (cv_S%var_type(Q0_All(p)%BetaAss)) !Here the selection of the variogram type
           case (0) ! means nugget ---> just transpose the correct portion of H and multiply by theta1 
            d_A%Qsy(Q0_All(p)%Beta_Start:Q0_All(p)%Beta_Start+Q0_All(p)%npar-1,:) =  &  ! Select the correct position of Qsy
-           & d_S%theta(Q0_All(p)%BetaAss,1)* &
+           & theta(Q0_All(p)%BetaAss,1)* &
            & (transpose(d_A%H(:,Q0_All(p)%Beta_Start:Q0_All(p)%Beta_Start+Q0_All(p)%npar-1))) !Portion of H(p)  
           case (1) ! means linear ---> we need the maximum distance and theta1. We have 2 option: Toeplitz or not
              select case (Q0_All(p)%Toep_flag) !Selection of Toeplitz [1] or not [0]
@@ -108,7 +108,7 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
                    TMP(it,:)= exp(-Q0_All(p)%Q0_C(it,:)/d_XQR%L)
                  enddo
                  call dgemm('n','t',Q0_All(p)%npar, cv_OBS%nobs, Q0_All(p)%npar, &
-                  (d_S%theta(Q0_All(p)%BetaAss,1)*d_XQR%L),TMP, Q0_All(p)%npar, &
+                  (theta(Q0_All(p)%BetaAss,1)*d_XQR%L),TMP, Q0_All(p)%npar, &
                   & d_A%H(:,start_v:end_v), cv_OBS%nobs, &
                   & 0.D0, TMP1, Q0_All(p)%npar)
                  if (associated(TMP))      deallocate(TMP)
@@ -120,7 +120,7 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
                  call toep_mult(Q0_All(p),d_A%H(:,start_v:end_v), cv_OBS%nobs, &
-                 & (d_S%theta(Q0_All(p)%BetaAss,1)),d_XQR%L,d_XQR%L, d_A%Qsy)
+                 & (theta(Q0_All(p)%BetaAss,1)),d_XQR%L,d_XQR%L, d_A%Qsy)
              end select  !Q0_All(p)%Toep_flag)      
           case (2) ! means exponential ---> we need theta1 and theta2. We have 2 option: Toeplitz or not
              select case (Q0_All(p)%Toep_flag) !Selection of Toeplitz [1] or not [0]
@@ -130,10 +130,10 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
                  do it=1,Q0_All(p)%npar
-                   TMP(it,:)= exp(-Q0_All(p)%Q0_C(it,:)/(d_S%theta(Q0_All(p)%BetaAss,2)))
+                   TMP(it,:)= exp(-Q0_All(p)%Q0_C(it,:)/(theta(Q0_All(p)%BetaAss,2)))
                  enddo
-                  call dgemm('n','t',Q0_All(p)%npar, cv_OBS%nobs, Q0_All(p)%npar, &
-                  (d_S%theta(Q0_All(p)%BetaAss,1)),TMP, Q0_All(p)%npar, &
+                   call dgemm('n','t',Q0_All(p)%npar, cv_OBS%nobs, Q0_All(p)%npar, &
+                  (theta(Q0_All(p)%BetaAss,1)),TMP, Q0_All(p)%npar, &
                   & d_A%H(:,start_v:end_v), cv_OBS%nobs, &
                   & 0.D0, TMP1, Q0_All(p)%npar)
                  if (associated(TMP))      deallocate(TMP)
@@ -145,7 +145,7 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
                  call toep_mult(Q0_All(p),d_A%H(:,start_v:end_v), cv_OBS%nobs, &
-                   & (d_S%theta(Q0_All(p)%BetaAss,1)),(d_S%theta(Q0_All(p)%BetaAss,2)),1.D0 , &
+                   & (theta(Q0_All(p)%BetaAss,1)),(theta(Q0_All(p)%BetaAss,2)),1.D0 , &
                    & d_A%Qsy)
              end select  !Q0_All(p)%Toep_flag)
               
@@ -172,12 +172,12 @@ end subroutine bmo_form_Qss_Qsy
 
 
 
-subroutine bmo_form_HQsy_Qyy(d_XQR, d_S, cv_PAR, cv_OBS, d_A)
+subroutine bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
         
         implicit none
         ! declarations
         type(kernel_XQR),    intent(in)     :: d_XQR
-        type(d_struct),      intent(inout)  :: d_S
+        double precision,    intent(in)     :: sig
         type(cv_param),      intent(in)     :: cv_PAR
         type(cv_observ),     intent(in)     :: cv_OBS  
         type(d_algorithmic), intent(inout)  :: d_A
@@ -205,7 +205,7 @@ subroutine bmo_form_HQsy_Qyy(d_XQR, d_S, cv_PAR, cv_OBS, d_A)
 ! Make Qyy which is H*Qss*Ht + sig*R0 = HQsy + sig*R0
 !*****************************************************************************************************
   allocate(d_A%Qyy(cv_OBS%nobs,cv_OBS%nobs)) ! Allocation
-    d_A%Qyy=d_A%HQHt +(d_S%sig*d_XQR%R0)
+    d_A%Qyy=d_A%HQHt +(sig*d_XQR%R0)
 !*****************************************************************************************************
 ! End make Qyy 
 !*****************************************************************************************************

@@ -22,3 +22,6 @@ Things we need to do:
 8) ***DONE*** Need to add noise to the observations in the test problem.
 
 9) Structural parameter optimization.
+
+10) Need to test PEST sensitivities against ADJOINT. Previous work made me suspect that there was
+    a discrepancy, but I don't reall if this is true or not.
