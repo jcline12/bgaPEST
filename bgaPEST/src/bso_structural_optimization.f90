@@ -22,7 +22,7 @@ module struct_param_optimization
 
 end module struct_param_optimization
 
-real (kind = 8) function SP_min(theta, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S,d_PM, cv_PAR)
+real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S,d_PM, cv_PAR)
 
    use bayes_pest_control
    use bayes_matrix_operations
@@ -37,7 +37,8 @@ real (kind = 8) function SP_min(theta, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d
    type(d_param),        intent(inout)  :: d_PAR        
    type(cv_struct),      intent(in)     :: cv_S 
    type(Q0_compr),       intent(in)     :: Q0_All(:)
-   double precision, pointer            :: theta(:,:)
+   double precision,     intent(in)     :: theta(:,:)
+   double precision,     intent(in)     :: sig
    double precision                     :: z(cv_OBS%nobs) 
    double precision                     :: HXB(cv_OBS%nobs)
 
