@@ -4,7 +4,8 @@ Things we need to do:
 
 2) handling weights?
 
-3) ***DONE*** see (7) belowfor example model, looks like too poorly constrained. Sensitive to initial
+3) ***DONE*** see (7) below. ***ALSO made a "new true" model with more heterog and uneven BC elevs***
+    For example model, looks like too poorly constrained. Sensitive to initial
    values. Perhaps we should make the "true" field more heterogeneous and also
    be sure the well is sufficiently stressing or maybe add recharge.
 
@@ -23,5 +24,12 @@ Things we need to do:
 
 9) Structural parameter optimization.
 
+9a) a critical step within structural parameter optimization will be parsing the actual theta and sigma values
+   that are to be optimized. The problem being, Nelder-Mead (at least as implemented in fminsearch in MATLAB) expects
+   a single vector of variables to optimize. We need the flexibility to only optimize one or the other, however. This
+   is an ongoing item of work and may be resolved in the documentation of the Nelder-Mead implementation, but on a 
+   plane now so not amenable to searching at the moment!
+
 10) Need to test PEST sensitivities against ADJOINT. Previous work made me suspect that there was
     a discrepancy, but I don't reall if this is true or not.
+

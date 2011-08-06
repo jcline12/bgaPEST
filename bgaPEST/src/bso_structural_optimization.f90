@@ -49,8 +49,9 @@ real (kind = 8) function SP_min(theta, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d
               
    z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
    
-   !----------------------------- Form Gyy with the current values of theta ---------------------------
+   !----------------------------- Form Gyy with the current values of theta and sigma------------------
    call bmo_form_Qss_Qsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
+   call bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
 
 SP_min = 0.0 !theta objective function here!
 return

@@ -35,7 +35,7 @@ module linesearch
         integer ,             intent(in)    :: it_phi       
         character (len=ERRORWIDTH)          :: retmsg
          
-        integer ( kind = 4 ), parameter     :: n = 1
+        integer ( kind = 4 ), parameter     :: n = 1 ! indicates the number of params to estimate. only rho here
         integer ( kind = 4 ) icount
         integer ( kind = 4 ) ifault
         integer ( kind = 4 ) konvge
