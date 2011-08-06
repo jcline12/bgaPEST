@@ -37,12 +37,14 @@ real (kind = 8) function SP_min(theta, cv_OBS, d_OBS, d_A, d_PM, cv_PAR)
    double precision                    :: HXB(cv_OBS%nobs)
 
 
+   !----------------------------- Form the linearization-corrected residuals --------------------------
    HXB = UNINIT_REAL ! -- matrix (nobs x p)
    call DGEMV('n',cv_OBS%nobs, cv_PAR%p, 1.D0, d_A%HX, cv_OBS%nobs, &
             d_PM%beta_0, 1, 0.D0, HXB,1)
               
    z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
    
+   !----------------------------- 
 
 SP_min = 0.0!theta objective function here!
 return

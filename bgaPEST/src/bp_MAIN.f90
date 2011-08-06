@@ -160,9 +160,10 @@ program bp_main
             endif
           
             !-- SOLVE THE BAYESIAN LINEAR SYSTEM AND CALCULATE THE OBJECTIVE FUNCTIONS           
-            call  bmo_mat_ops(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
-            call  H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)
-            call  solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR,cv_PM)
+            call  bmo_form_Qss_Qsy(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
+            call  bmo_form_HQsy_Qyy(d_XQR, d_S, cv_PAR, cv_OBS, d_A)
+            call  bmo_H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)
+            call  bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR,cv_PM)
             
             
             !-- PERFORMING LINESEARCH IF REQUIRED

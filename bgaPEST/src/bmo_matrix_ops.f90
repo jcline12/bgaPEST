@@ -14,7 +14,7 @@ contains
 !***** Perform generic matrix operations ************************************************************* 
 !***************************************************************************************************** 
 
-subroutine bmo_mat_ops(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All)
+subroutine bmo_form_Qss_Qsy(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All)
         
         implicit none
         ! declarations
@@ -28,7 +28,7 @@ subroutine bmo_mat_ops(d_XQR, d_S, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All
         type(d_param),       intent(inout)  :: d_PAR
         type(Q0_compr),      intent(in)     :: Q0_All(:)
         double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
-        integer                             :: ierr, i, j, k, cc, p, it, start_v, end_v
+        integer                             :: ierr, i, j, k, p, it, start_v, end_v
         
 select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or not     
      
@@ -161,7 +161,28 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
 
 end select !(cv_A%Q_compression_flag)
 
+if (associated(Qss))      deallocate(Qss)
+if (associated(Qrow))     deallocate(Qrow)
+if (associated(Q0_tmp))   deallocate(Q0_tmp)
+if (associated(TMP))      deallocate(TMP)
+if (associated(TMP1))     deallocate(TMP1)
 
+end subroutine bmo_form_Qss_Qsy
+
+
+
+
+subroutine bmo_form_HQsy_Qyy(d_XQR, d_S, cv_PAR, cv_OBS, d_A)
+        
+        implicit none
+        ! declarations
+        type(kernel_XQR),    intent(in)     :: d_XQR
+        type(d_struct),      intent(inout)  :: d_S
+        type(cv_param),      intent(in)     :: cv_PAR
+        type(cv_observ),     intent(in)     :: cv_OBS  
+        type(d_algorithmic), intent(inout)  :: d_A
+        integer                             :: ierr
+        
 !*********************************************************************************************************
 !*********************************************************************************************************
 !********* The next lines are valid for both the full and compressed form of Q0 cases ********************
@@ -189,20 +210,15 @@ end select !(cv_A%Q_compression_flag)
 ! End make Qyy 
 !*****************************************************************************************************
 
-if (associated(Qss))      deallocate(Qss)
-if (associated(Qrow))     deallocate(Qrow)
-if (associated(Q0_tmp))   deallocate(Q0_tmp)
-if (associated(TMP))      deallocate(TMP)
-if (associated(TMP1))     deallocate(TMP1)
 
-end subroutine bmo_mat_ops
+end subroutine bmo_form_HQsy_Qyy
 
 
 !*****************************************************************************************************
 !***** Subroutine to perform matrix operations that only involve H and s_old *************************
 !***************************************************************************************************** 
 
-subroutine H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)       
+subroutine bmo_H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)       
         implicit none
         ! declarations
         type(kernel_XQR),    intent(in)     :: d_XQR
@@ -236,12 +252,12 @@ subroutine H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)
 ! End make Hsold 
 !*****************************************************************************************************
 
-end subroutine H_only_operations
+end subroutine bmo_H_only_operations
 
 !*****************************************************************************************************
 !****** Subroutine to create and solve the linear cokriging system ***********************************
 !*****************************************************************************************************
-subroutine solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR,cv_PM)
+subroutine bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR,cv_PM)
         
         implicit none
         ! declarations
@@ -365,7 +381,7 @@ call cal_ob_funcs(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR, cv_PM)
 ! End Calculate the objective functions
 !***************************************************************************************************** 
 
-end subroutine solve_linear_system
+end subroutine bmo_solve_linear_system
 
 
 
