@@ -12,7 +12,7 @@ module linesearch
    use make_kernels
    use bayes_matrix_operations
    use param_trans
-   use nelder_mead_simplex
+   use nelder_mead_simplex_linesearch
  contains
  
  subroutine lns_proc(d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,cv_A,it_phi,miostruc,errstruc)
@@ -52,7 +52,7 @@ module linesearch
         konvge = 1
         reqmin = 1.0D-02
         
-        call nelmin ( Jmin,n,start,xmin,ynewlo,reqmin,step,konvge,cv_A%it_max_lns,icount,numres,ifault, & 
+        call nelmin_ls ( Jmin,n,start,xmin,ynewlo,reqmin,step,konvge,cv_A%it_max_lns,icount,numres,ifault, & 
         & d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc)
         
         if (ifault.eq.2) then !Maximum number of iterations has exceeded --> Warning               

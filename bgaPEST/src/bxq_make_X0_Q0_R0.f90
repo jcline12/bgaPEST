@@ -228,7 +228,8 @@ end select ! (cv_A%Q_compression_flag)
 !****************************************************************************************************** 
  if (cv_PM%betas_flag .ne. 0) then 
    !Calculate the inverse of the Qbb matrix
-   call INVGM(cv_PAR%p,d_PM%Qbb,d_PM%InvQbb)
+   d_PM%InvQbb=d_PM%Qbb
+   call INVGM(cv_PAR%p,d_PM%InvQbb) !-- N.B. -> InvQbb must be Qbb on the way in and is returned as InvQbb
    !Calculate the product of inverse of the Qbb matrix and beta_0
    d_PM%InvQbbB0=matmul(d_PM%InvQbb,d_PM%beta_0)
  endif   

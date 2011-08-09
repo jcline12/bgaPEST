@@ -12,7 +12,7 @@ module struct_param_optimization
    use make_kernels
    use bayes_matrix_operations
    use param_trans
-   use nelder_mead_simplex
+   use nelder_mead_simplex_linesearch
  contains
  
  
@@ -39,10 +39,13 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    type(Q0_compr),       intent(in)     :: Q0_All(:)
    double precision,     intent(in)     :: theta(:,:)
    double precision,     intent(in)     :: sig
+   integer                              :: junk(cv_OBS%nobs), errcode=UNINIT_INT, i
    double precision                     :: z(cv_OBS%nobs) 
-   double precision                     :: HXB(cv_OBS%nobs)
-   double precision                     :: HXQbb(cv_OBS%nobs,cv_PAR%p)
-   double precision                     :: OMEGA(cv_OBS%nobs,cv_OBS%nobs)
+   double precision                     :: lndetGyy = 0.D0
+   double precision, pointer            :: HXB(:)
+   double precision, pointer            :: HXQbb(:,:)
+   double precision, pointer            :: OMEGA(:,:)
+   double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
    double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs)
 
    !------------------------@@@@@@@@@@@@@@@@@@@@----------------------@@@@@@@@@@@@@@@@@@@@@@--------------
@@ -56,6 +59,7 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
 
 
    !----------------------------- Form the linearization-corrected residuals --------------------------
+   allocate(HXB(cv_OBS%nobs))
    HXB = UNINIT_REAL ! -- matrix (nobs)
    call DGEMV('n',cv_OBS%nobs, cv_PAR%p, 1.D0, d_A%HX, cv_OBS%nobs, &
             d_PM%beta_0, 1, 0.D0, HXB,1)
@@ -66,30 +70,45 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    call bmo_form_Qss_Qsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
    call bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
 
+   allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
    HXQbb = UNINIT_REAL ! -- matrix (nobs x p)
    
    ! -- form HXQbb
    call dgemm('n', 'n', cv_OBS%nobs, cv_PAR%p,  cv_PAR%p, 1.D0, d_A%HX, &
               cv_OBS%nobs, d_PM%Qbb, cv_PAR%p, 0.D0, HXQbb, cv_OBS%nobs)
-   
+   if (associated(HXB))  deallocate(HXB)
+   allocate(OMEGA(cv_OBS%nobs,cv_OBS%nobs))
    ! -- now multiply HXQbb x (HX)' to form OMEGA
+     call dgemm('n', 't', cv_OBS%nobs, cv_OBS%nobs,  cv_PAR%p, 1.D0, HXQbb, &
+              cv_OBS%nobs, d_A%HX,  cv_OBS%nobs, 0.D0, OMEGA, cv_OBS%nobs)
+   if (associated(HXQbb))  deallocate(HXQbb)
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! MNF --- need to sort out all these dimensions
-   call dgemm('n', 't', cv_OBS%nobs, cv_OBS%nobs,  cv_PAR%p, 1.D0, HXQbb, &
-              cv_OBS%nobs, d_A%HX, cv_PAR%p, 0.D0, OMEGA, cv_OBS%nobs)
-! MNF fix the above
-!!!!!!!!!!!!!!!!!!!!!!!!!!
 
    ! -- add OMEGA + Qyy to form Gyy
    Gyy = OMEGA + d_A%Qyy
+   if (associated(OMEGA))  deallocate(OMEGA)
 
    !----------------------------- Calculate the determinant term --------------------------------------
    
-   !-- First perform LU decomposition on Gyy
+   !-- First perform LU decomposition on Gyy 
+   UinvGyy = Gyy !-nobs x nobs ----note that this is used as U in this context
+   call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, junk, errcode)
+   do i = 1,cv_OBS%nobs
+        lndetGyy = lndetGyy + dlog(UinvGyy(i,i))
+   end do
+   lndetGyy = 0.5 * lndetGyy
 
-   ! -- WHEN WE GET TO FORMING z*'Gyy(^-1)*z WE SHOULD CREATE A PSEUDO LINEAR SYSTEM FOR Gyy^(-1)*z
-
+   !----------------------------- Calculate the misfit term -------------------------------------------
+   !--  form z'*inv(Gyy)*z
+   !--  first re-use UinvGyy, now as InvGyy
+   UinvGyy = Gyy !-nobs x nobs 
+   !-- calculate the inverse
+   call INVGM(cv_OBS%nobs,UinvGyy)
+   
+   
+   ! -- NOW WE NEED TO FORM z'*inv(Gyy)*z
+   !MNF WORK HERE!!!!!!!!!!!!!!!!!!
+   
 SP_min = 0.0 !theta objective function here!
 return
 end function SP_min

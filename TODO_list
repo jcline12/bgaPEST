@@ -30,6 +30,9 @@ Things we need to do:
    is an ongoing item of work and may be resolved in the documentation of the Nelder-Mead implementation, but on a 
    plane now so not amenable to searching at the moment!
 
+9b) It looks like the function arguments for NELMIN beyond the main vector of theta are hard-coded, so we
+    will need to write alternative versions of NELMIN - one for the linesearch and one for structural parameters.
+
 10) Need to test PEST sensitivities against ADJOINT. Previous work made me suspect that there was
     a discrepancy, but I don't reall if this is true or not.
 

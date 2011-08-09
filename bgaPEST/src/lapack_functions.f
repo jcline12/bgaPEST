@@ -1,12 +1,10 @@
 
-      subroutine INVGM(N,A,InvA)  ! Subroutine to invert a matrix using DGETRI  
-        integer ,intent (in)               :: N
+      subroutine INVGM(N,InvA)  ! Subroutine to invert a matrix using DGETRI  
+        integer ,intent (in)               :: N      ! dimensions of A (square matrix)
         integer                            :: INFO,LWORK
-        double precision, intent (in)      :: A(N,N)
-        double precision, intent (inout)   :: InvA(N,N)
+        double precision, intent (inout)   :: InvA(N,N) ! A coming in, Inv(A) going out
         integer                            :: IPIV(N)
         double precision                   :: WORK (N)
-        InvA = A
         call DGETRF(N,N,InvA,N,IPIV,INFO)
         call DGETRI(N,InvA,N,IPIV,WORK,-1,INFO)
         LWORK=INT(WORK(1))
