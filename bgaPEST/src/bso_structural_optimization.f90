@@ -41,12 +41,13 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    double precision,     intent(in)     :: sig
    integer                              :: junk(cv_OBS%nobs), errcode=UNINIT_INT, i
    double precision                     :: z(cv_OBS%nobs) 
-   double precision                     :: lndetGyy = 0.D0
-   double precision, pointer            :: HXB(:)
+   double precision                     :: lndetGyy = 0.D0, ztiGyyz = 0.D0
+   double precision, pointer            :: HXB(:), TMPV(:)
    double precision, pointer            :: HXQbb(:,:)
    double precision, pointer            :: OMEGA(:,:)
    double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
    double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs)
+   
 
    !------------------------@@@@@@@@@@@@@@@@@@@@----------------------@@@@@@@@@@@@@@@@@@@@@@--------------
    !
@@ -107,8 +108,14 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    
    
    ! -- NOW WE NEED TO FORM z'*inv(Gyy)*z
-   !MNF WORK HERE!!!!!!!!!!!!!!!!!!
-   
+   allocate(TMPV( cv_OBS%nobs))
+   ! -- first form inv(Gyy)*z
+     call DGEMV('n',cv_OBS%nobs, cv_OBS%nobs, 1.D0, UinvGyy, cv_OBS%nobs, &
+            z, 1, 0.D0, TMPV,1)
+   ! -- now, multiply z' * TMPV where TMPV=inv(Gyy)*z as calculated just above
+     call DGEMV('t',cv_OBS%nobs, 1, 1.D0, z, cv_OBS%nobs, &
+            TMPV, 1, 0.D0, ztiGyyz,1)
+            
 SP_min = 0.0 !theta objective function here!
 return
 end function SP_min
