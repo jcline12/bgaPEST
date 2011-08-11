@@ -29,6 +29,9 @@ Things we need to do:
    a single vector of variables to optimize. We need the flexibility to only optimize one or the other, however. This
    is an ongoing item of work and may be resolved in the documentation of the Nelder-Mead implementation, but on a 
    plane now so not amenable to searching at the moment!
+   ---> some progress on this. added a variable to cv_struct called num_theta_opt to use for sizing the theta
+        vector and covariance matrix. This takes place in bxq_make_X0_Q0_R0_InvQbb. Also pulled cv_S%num_theta_type
+        out of the input file and, instead, calculate it internally to avoid possible errors. 
 
 9b) It looks like the function arguments for NELMIN beyond the main vector of theta are hard-coded, so we
     will need to write alternative versions of NELMIN - one for the linesearch and one for structural parameters.

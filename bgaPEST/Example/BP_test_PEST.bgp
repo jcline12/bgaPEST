@@ -7,8 +7,8 @@ BEGIN algorithmic_cv KEYWORDS
 END algorithmic_cv 
 
 BEGIN prior_mean_cv KEYWORDS
- prior_betas=	0	
- beta_cov_form=0
+ prior_betas=	1	
+ beta_cov_form=1
 END prior_mean_cv 
 
 BEGIN prior_mean_data TABLE
@@ -18,9 +18,9 @@ BEGIN prior_mean_data TABLE
 END prior_mean_data    
 
 BEGIN structural_parameter_cv TABLE  
- nrow=1 ncol=7 columnlabels 
- BetaAssoc  prior_cov_mode  var_type   num_theta_type  struct_par_opt    trans_theta   alpha_trans  
- 1          2                1          1               0                 1             20
+ nrow=1 ncol=6 columnlabels 
+ BetaAssoc  prior_cov_mode  var_type   struct_par_opt    trans_theta   alpha_trans  
+ 1          2                2          1                 1             20
 END structural_parameter_cv   
 
 BEGIN structural_parameters_data TABLE  
@@ -36,7 +36,7 @@ BEGIN structural_parameters_cov TABLE
 END structural_parameters_cov
 
 BEGIN epistemic_error_term KEYWORDS
-  sig_0 = 1.000e-001   sig_opt = 0  sig_p_var=0.001
+  sig_0 = 1.000e-001   sig_opt = 1  sig_p_var=0.001
 END epistemic_error_term
 
 BEGIN parameter_cv KEYWORDS  

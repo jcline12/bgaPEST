@@ -17,6 +17,8 @@ module struct_param_optimization
  
  
  subroutine marginal_structural_parameter_optim ()
+  
+   implicit none
  
  end subroutine marginal_structural_parameter_optim
 
@@ -38,25 +40,19 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    type(cv_struct),      intent(in)     :: cv_S 
    type(Q0_compr),       intent(in)     :: Q0_All(:)
    double precision,     intent(in)     :: theta(:,:)
+   double precision, pointer            :: theta_0(:), theta_cov(:,:)
    double precision,     intent(in)     :: sig
    integer                              :: junk(cv_OBS%nobs), errcode=UNINIT_INT, i
    double precision                     :: z(cv_OBS%nobs) 
    double precision                     :: lndetGyy = 0.D0, ztiGyyz = 0.D0
    double precision, pointer            :: HXB(:), TMPV(:)
    double precision, pointer            :: HXQbb(:,:)
-   double precision, pointer            :: OMEGA(:,:)
+   double precision, pointer            :: OMEGA(:,:), Qtheta(:,:)
    double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
    double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs)
    
 
-   !------------------------@@@@@@@@@@@@@@@@@@@@----------------------@@@@@@@@@@@@@@@@@@@@@@--------------
-   !
-   !
-   !    VITAL ISSUE HERE! -- We need to bring in theta and sig as a single vector but also parse it accordingly
-   !
-   !
-   !------------------------@@@@@@@@@@@@@@@@@@@@----------------------@@@@@@@@@@@@@@@@@@@@@@--------------
-   
+  
 
 
    !----------------------------- Form the linearization-corrected residuals --------------------------
@@ -106,7 +102,6 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    !-- calculate the inverse
    call INVGM(cv_OBS%nobs,UinvGyy)
    
-   
    ! -- NOW WE NEED TO FORM z'*inv(Gyy)*z
    allocate(TMPV( cv_OBS%nobs))
    ! -- first form inv(Gyy)*z
@@ -115,7 +110,17 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    ! -- now, multiply z' * TMPV where TMPV=inv(Gyy)*z as calculated just above
      call DGEMV('t',cv_OBS%nobs, 1, 1.D0, z, cv_OBS%nobs, &
             TMPV, 1, 0.D0, ztiGyyz,1)
-            
-SP_min = 0.0 !theta objective function here!
+   !----------------------------- Calculate the misfit term -------------------------------------------
+   ! -- Finally, calculate the theta prior term
+   !-- allocate and initialize to zero           
+     allocate(Qtheta(cv_S%num_theta_opt,cv_S%num_theta_opt))
+     Qtheta = 0.D0 ! matrix
+     select case (cv_PM%beta_cov_form)
+        case (1)
+        
+        case (2)
+     end select
+     
+SP_min = 0.D0 !theta objective function here!
 return
 end function SP_min

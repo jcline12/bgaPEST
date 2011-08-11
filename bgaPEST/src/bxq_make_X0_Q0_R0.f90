@@ -23,7 +23,7 @@ module make_kernels
         implicit none
         ! declarations
         type(d_param),intent(in)           :: d_PAR
-        type(cv_struct),intent(in)         :: cv_S
+        type(cv_struct),intent(inout)      :: cv_S
         type(d_struct), intent(in)         :: d_S
         type(cv_algorithmic), intent(in)   :: cv_A
         type(cv_param), intent(in)         :: cv_PAR
@@ -223,7 +223,7 @@ end select ! (cv_A%Q_compression_flag)
         
 
 !******************************************************************************************************
-!********* Calculate the inverse of the Qbb matrix and InvQbb * beta0 *********************************
+!********* Calculate the inver se of the Qbb matrix and InvQbb * beta0 *********************************
 !***************** We do that just if the betas_flag is not 0 *****************************************
 !****************************************************************************************************** 
  if (cv_PM%betas_flag .ne. 0) then 
@@ -237,6 +237,24 @@ end select ! (cv_A%Q_compression_flag)
 !********* End Calculate the inverse of the Qbb matrix and InvQbb * beta0 *****************************
 !******************************************************************************************************
 
+
+!******************************************************************************************************
+!********* Determine the number of theta parameter to be optimized ************************************
+!******************************************************************************************************
+
+   
+   !----------------------------- Determine the number of theta parameter to be optimized ----------------
+   ! -- first consider the prior means and add to num_th_opt based on the number of theta parameters for each 
+   ! -- beta association for which theta parameters are meant 
+   do i = 1, cv_PAR%p
+     if (cv_S%struct_par_opt(i).eq.1) then
+        cv_S%num_theta_opt = cv_S%num_theta_opt + cv_S%num_theta_type(i)
+     endif
+   end do
+   !-- now add 1 if sigma is to be optimized for 
+   if (d_S%sig_opt .eq. 1) then 
+        cv_S%num_theta_opt = cv_S%num_theta_opt + 1
+   endif
 
 end subroutine bxq_make_X0_Q0_R0_InvQbb
 

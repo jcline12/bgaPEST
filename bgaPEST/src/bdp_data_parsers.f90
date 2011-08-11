@@ -221,7 +221,7 @@ end subroutine bdp_read_data_prior_mean
 
     !********  subroutine bdp_read_cv_parameters(BL,cv_PAR,inunit)
            subroutine bdp_read_cv_parameters(BL,cv_PAR,inunit,retmsg)
-           ! SUBROUTING to read in parameter control keywords
+           ! SUBROUTINE to read in parameter control keywords
              use bayes_pest_control
              use jupiter_input_data_support
            ! DECLARATIONS
@@ -524,7 +524,7 @@ end subroutine bdp_read_data_prior_mean
          integer                                    :: k,ifail,line,numcol
        
     !MD ALLOCATE AND INITIALIZE VARIABLES
-         numcol = 7  
+         numcol = 6  
          call bdp_alloc_init_cv_S(cv_S,columnname,columnstring,numcol,nrows)
          if (BL(4)%numrows .EQ. 0) then
           retmsg = 'All default values accepted for cv_structural_parameters block' 
@@ -537,9 +537,17 @@ end subroutine bdp_read_data_prior_mean
              call intread(ifail, columnstring(2),cv_S%prior_cov_mode(k))
              call intread(ifail, columnstring(3),cv_S%var_type(k)) 
              call intread(ifail, columnstring(4),cv_S%struct_par_opt(k))
-             call intread(ifail, columnstring(5),cv_S%num_theta_type(k))
-             call intread(ifail, columnstring(6),cv_S%trans_theta(k))
-             call drealread(ifail, columnstring(7),cv_S%alpha_trans(k))
+             select case (cv_S%var_type(k))
+                case(0) ! nugget variogram
+                    cv_S%num_theta_type(k) = 1
+                case(1) ! linear variogram
+                    cv_S%num_theta_type(k) = 1
+                case(2) ! exponential variogram
+                    cv_S%num_theta_type(k) = 2
+             end select
+        !     call intread(ifail, columnstring(5),cv_S%num_theta_type(k))
+             call intread(ifail, columnstring(5),cv_S%trans_theta(k))
+             call drealread(ifail, columnstring(6),cv_S%alpha_trans(k))
         end do
        
  end subroutine bdp_read_cv_structural_parameters_tbl
@@ -571,6 +579,7 @@ end subroutine bdp_read_data_prior_mean
         end if 
    ! ALLOCATIONS, READING, and PARSING
    ! theta_0 STRUCTURAL_PARAMETERS_DATA block
+
       numcol = maxval(cv_S%num_theta_type) + 1 !MD numcol is the maximum number of structural parameters 
                                                !defined in num_theta_type + 1 (BetaAssoc)
       ! allocate
@@ -1011,14 +1020,14 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
             allocate(cv_S%trans_theta(numzones))
             allocate(cv_S%alpha_trans(numzones))
             
-            columnname(1:numcol)= (/ 'BetaAssoc', 'prior_cov_mode', 'var_type' , 'struct_par_opt', 'num_theta_type', &
+            columnname(1:numcol)= (/ 'BetaAssoc', 'prior_cov_mode', 'var_type' , 'struct_par_opt', &
             &  'trans_theta', 'alpha_trans' /)
             columnstring(1:numcol) = ' '
             
             cv_S%prior_cov_mode =  1
             cv_S%var_type       =  1
             cv_S%struct_par_opt =  1
-            cv_S%num_theta_type =  1
+            cv_S%num_theta_type =  UNINIT_INT
             cv_S%trans_theta    =  1
             cv_S%alpha_trans    = 50
 
