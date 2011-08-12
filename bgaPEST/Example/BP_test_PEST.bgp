@@ -7,14 +7,14 @@ BEGIN algorithmic_cv KEYWORDS
 END algorithmic_cv 
 
 BEGIN prior_mean_cv KEYWORDS
- prior_betas=	1	
+ prior_betas=   1       
  beta_cov_form=1
 END prior_mean_cv 
 
 BEGIN prior_mean_data TABLE
  nrow=1 ncol=7 columnlabels 
  BetaAssoc Partrans  beta_0   beta_cov_1   beta_cov_2   beta_cov_3     beta_cov_4 
- 1           log     -7.6       5e-7 	  65.          3.1            4.1 
+ 1           log     -7.6       5e-7      65.          3.1            4.1 
 END prior_mean_data    
 
 BEGIN structural_parameter_cv TABLE  
@@ -45,14 +45,14 @@ END parameter_cv
 
 BEGIN Q_compression_cv TABLE  
  nrow=1 ncol=5 columnlabels 
- BetaAssoc   Toep_flag 	   Nrow    Ncol   Nlay
+ BetaAssoc   Toep_flag     Nrow    Ncol   Nlay
  1           1             21      21     1
 END Q_compression_cv
 
 BEGIN parameter_groups TABLE
   nrow=1 ncol=2 columnlabels
-  groupname	grouptype
-  pargp_uno	1
+  groupname     grouptype
+  pargp_uno     1
 END parameter_groups   
 
 BEGIN parameter_data FILES  
@@ -78,7 +78,7 @@ END model_command_lines
 BEGIN model_input_files TABLE  
  nrow=1 ncol=2 columnlabels 
  TemplateFile                           ModInFile
- S1_mul.tpl  	                        S1_.mul  
+ S1_mul.tpl                             S1_.mul  
 END model_input_files 
 
 BEGIN model_output_files  TABLE  
