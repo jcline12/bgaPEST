@@ -414,7 +414,7 @@ end subroutine bdp_read_data_prior_mean
                d_PAR%pars_lns=UNINIT_REAL
             endif
          ! initializations
-             columnname(1:5)=(/'ParamName', 'StartValue', 'GroupName', 'BetaAssoc', 'SenMethod'/)
+                 columnname(1:5)=(/'ParamName', 'StartValue', 'GroupName', 'BetaAssoc', 'SenMethod'/)
              columnstring(1:5)=' ' ! array
              do j=1,cv_PAR%ndim
                call utl_int2char(j,tmp_str)

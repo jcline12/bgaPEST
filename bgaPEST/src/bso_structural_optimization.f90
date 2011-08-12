@@ -111,17 +111,7 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
      call DGEMV('t',cv_OBS%nobs, 1, 1.D0, z, cv_OBS%nobs, &
             TMPV, 1, 0.D0, ztiGyyz,1)
    !----------------------------- Calculate the misfit term -------------------------------------------
-   ! -- Finally, calculate the theta prior term
-   !-- allocate and initialize to zero           
-     allocate(Qtheta(cv_S%num_theta_opt,cv_S%num_theta_opt))
-     Qtheta = 0.D0 ! matrix
-!     select case (cv_PM%beta_cov_form)
-!        case (1)
-!          do i = 1,cv_S%num_theta_opt-1
-!             
-!          end do
-!        case (2)
-!     end select
+
      
 SP_min = 0.D0 !theta objective function here!
 return

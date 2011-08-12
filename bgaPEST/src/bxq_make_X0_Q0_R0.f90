@@ -236,6 +236,7 @@ end select ! (cv_A%Q_compression_flag)
 !******************************************************************************************************
 !********* End Calculate the inverse of the Qbb matrix and InvQbb * beta0 *****************************
 !******************************************************************************************************
+end subroutine bxq_make_X0_Q0_R0_InvQbb
 
 
 !******************************************************************************************************
@@ -243,6 +244,16 @@ end select ! (cv_A%Q_compression_flag)
 !******************************************************************************************************
 
    
+subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
+        use bayes_pest_control
+        use jupiter_input_data_support
+        use utilities  
+        implicit none
+        type(cv_param),intent(in)          :: cv_PAR
+        type(cv_struct),intent(inout)      :: cv_S
+        type(d_struct), intent(inout)      :: d_S
+        type (cv_prior_mean), intent(in)   :: cv_PM
+        integer                            :: i, j, k ! counters
    !----------------------------- Determine the number of theta parameter to be optimized ----------------
    ! -- first consider the prior means and add to num_th_opt based on the number of theta parameters for each 
    ! -- beta association for which theta parameters are meant 
@@ -255,7 +266,38 @@ end select ! (cv_A%Q_compression_flag)
    if (d_S%sig_opt .eq. 1) then 
         cv_S%num_theta_opt = cv_S%num_theta_opt + 1
    endif
+   !----------------------------- Form Qtheta --> the prior covariance matrix for theta (can include sigma) --
+   ! -- Finally, calculate the theta prior term
+   !-- allocate and initialize to zero           
+     allocate(d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt))
+     d_S%invQtheta = 0.D0 ! matrix
+          j = 0 ! counter up to cv_S%num_theta_opt
+          do i = 1, cv_PAR%p
+             if (cv_S%struct_par_opt(i).eq.1) then
+                select case (cv_PM%Qbb_form)
+                    case (1)! diagonal
+                        do k = 1, cv_S%num_theta_type(i)
+                           j = j+1
+                           d_S%invQtheta(j,j) = d_S%theta_cov(i,k)                            
+                        end do
+                    case (2) ! full matrix
+                    ! MNF --- need to add this eventually
+                 end select   
+             end if
+          end do             
+    if (d_S%sig_opt .eq. 1) then 
+        d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt) = d_S%sig_p_var
+    endif
+   !----------------------------- Finally peform the inversion of Qtheta to invQtheta ---------------------
+       select case (cv_PM%Qbb_form)
+           case (1)! diagonal
+              do i = 1, cv_S%num_theta_opt
+                  d_S%invQtheta(i,i) =  1.D0/d_S%invQtheta(i,i)                            
+              end do
+           case (2) ! full matrix
+                 ! MNF --- need to add this eventually
+       end select   
+            
 
-end subroutine bxq_make_X0_Q0_R0_InvQbb
-
+      end subroutine bxq_theta_cov_calcs
 end module make_kernels 

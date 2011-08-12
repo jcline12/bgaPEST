@@ -2736,18 +2736,6 @@ This is a flag to indicate which variogram type is used to express the prior
 \end_layout
 
 \begin_layout Description
-num_theta_type 
-\emph on
-integer 
-\emph default
-Number of structural parameters to be supplied based on 
-\family typewriter
-var_type:
-\family default
- 1 for nugget or linear, 2 for exponential.
-\end_layout
-
-\begin_layout Description
 struct_par_opr 
 \emph on
 integer 

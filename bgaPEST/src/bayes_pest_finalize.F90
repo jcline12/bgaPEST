@@ -38,6 +38,7 @@ subroutine bpd_finalize(d_PM, d_S, cv_PAR, d_PAR, &
 !-- deallocate structural parameter data (d_S) 
   if (associated(d_S%theta_0))     deallocate(d_S%theta_0,stat=ierr)
   if (associated(d_S%theta_cov))   deallocate(d_S%theta_cov,stat=ierr)
+  if (associated(d_S%invQtheta))   deallocate(d_S%invQtheta,stat=ierr)
 !-- deallocate parameter structure (d_PAR)
   if (associated(d_PAR%group))     deallocate(d_PAR%group,stat=ierr)
   if (associated(d_PAR%pars))      deallocate(d_PAR%pars,stat=ierr)

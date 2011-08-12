@@ -117,7 +117,8 @@ program bp_main
     call bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,cv_OBS%nobs,d_PM,Q0_All,cv_PM)
    
     allocate(d_OBS%h(cv_OBS%nobs)) !Allocate the current model output [y]
-
+!-- IF STRUCTURAL PARAMETERS WILL BE OPTIMIZED FOR, SET UP REQUIRED INFORMATION
+    call bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
     if (cv_A%deriv_mode .eq. 1) then
