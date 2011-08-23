@@ -3,6 +3,7 @@ module bdp_data_parsers
         use bayes_pest_control
         use jupiter_input_data_support
         use utilities
+        use error_message
 
 contains
 
@@ -414,6 +415,7 @@ end subroutine bdp_read_data_prior_mean
                d_PAR%pars_lns=UNINIT_REAL
             endif
          ! initializations
+
                  columnname(1:5)=(/'ParamName', 'StartValue', 'GroupName', 'BetaAssoc', 'SenMethod'/)
              columnstring(1:5)=' ' ! array
              do j=1,cv_PAR%ndim
@@ -621,6 +623,7 @@ end subroutine bdp_read_data_prior_mean
           use jupiter_input_data_support
        ! DECLARATIONS
          implicit none
+         type (err_failure_struc)                  :: errstruc
          type(d_struct),       intent(inout)       :: d_S
          type(cv_struct),      intent(inout)       :: cv_S
          integer,              intent(in)          :: theta_cov_form
@@ -629,11 +632,12 @@ end subroutine bdp_read_data_prior_mean
          character (len=ERRORWIDTH), intent(inout) :: retmsg
          character (len=COLWIDTH), pointer     :: columnname(:)
          character (len=COLWIDTH), pointer     :: columnstring(:)         
-         character (len=200)                       :: filename
+         character (len=200)                       :: filename, amessage,function_name
          integer                                   :: numcol, numrow
          integer                                   :: i,j  !local counter
          integer                                   :: ifail, line
          
+        function_name = 'bdp_read_structural_parameters_cov'
         if (BL(6)%numrows .EQ. 0) then
           retmsg = 'No input information provided in prior_structural_parameters_data block'  
           return     
@@ -652,6 +656,12 @@ end subroutine bdp_read_data_prior_mean
            numcol=sum(cv_S%num_theta_type)
            numrow=numcol    
         end select th_cov_form
+      ! quick error failure for number of rows based on the number of expected rows
+      if (numrow.ne.BL(6)%numrows) then
+         amessage = 'Number of rows for theta covariance inconsistent with the number expected based on num_theta_type'
+         call err_add_error(errstruc,amessage,function_name)
+         call utl_bomb_out(errstruc)
+      end if
       ! allocate
         call bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow) 
       ! read and parse

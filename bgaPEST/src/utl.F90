@@ -232,7 +232,7 @@ subroutine utl_bomb_out(errstruc)
     ! declarations    
     use error_message
     character*500            :: amessage
-    integer                  ::n1, n2, i
+    integer                  :: n1, n2, i
     type (err_failure_struc) :: errstruc    
 
     write(6,*)
@@ -249,7 +249,7 @@ subroutine utl_bomb_out(errstruc)
       write(6,900) i, trim(amessage)    
     end do    
 900 format(' Message No. ',i2,':  Origin Function = ',a)
-      
+     stop 
 end subroutine utl_bomb_out   
 
 
