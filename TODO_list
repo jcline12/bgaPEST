@@ -39,5 +39,10 @@ Things we need to do:
 10) Need to test PEST sensitivities against ADJOINT. Previous work made me suspect that there was
     a discrepancy, but I don't reall if this is true or not.
 
-11) Need to better handle errors in reading. In particular, when theta_cov_form=0, no problem reading, but when
-    theta_cov_form=1, reading concludes problems with missing blocks.
+11) ***DONE - PARTLY*** Added a check in bdp_read_structural_parameters_cov to make sure the proper number of rows is read. ***  
+     Need to better handle errors in reading. In particular, when theta_cov_form=0, no problem reading, but when theta_cov_form=1,
+     reading concludes problems with missing blocks.
+
+12) How are we handling a variable number of theta parameters for different beta associations? In other words, if one beta association
+    uses a linear variogram and other exponential, are we requiring dummy variables in the second column for the beta associations using
+    a linear variogram? Is that related to the negative theta_0_2 values?

@@ -516,13 +516,14 @@ end subroutine bdp_read_data_prior_mean
          use bpi_initializations
        ! DECLARATIONS
          implicit none
+         type (err_failure_struc)                   :: errstruc
          type(cv_struct),            intent(inout)  :: cv_S
          type(tp_block),             intent(inout)  :: BL(NUM_BLOCK) 
          integer,                    intent(in)     :: inunit,nrows
          character (len=ERRORWIDTH), intent(inout)  :: retmsg
          character (len=COLWIDTH),   pointer        :: columnname(:)
          character (len=COLWIDTH),   pointer        :: columnstring(:)
-         character (len=200)                        :: filename         
+         character (len=200)                        :: filename, amessage,function_name         
          integer                                    :: k,ifail,line,numcol
        
     !MD ALLOCATE AND INITIALIZE VARIABLES
@@ -532,7 +533,13 @@ end subroutine bdp_read_data_prior_mean
           retmsg = 'All default values accepted for cv_structural_parameters block' 
           return      
          end if
-         
+      ! quick error failure for number of rows based on the number of expected rows
+         if (nrows .ne. BL(4)%numrows) then
+            amessage = 'Number of rows for structural parameters inconsistent with the number expected based on number of beta associations'
+            function_name = 'bdp_read_cv_structural_parameters_tbl'
+            call err_add_error(errstruc,amessage,function_name)
+            call utl_bomb_out(errstruc)
+         end if 
          ! read and parse
         do k=1,nrows
           call ids_read_block_table(ifail,BL(4)%label,numcol,columnname,columnstring,line,filename)
@@ -691,7 +698,6 @@ end subroutine bdp_read_structural_parameters_cov
          character (len=COLWIDTH), pointer         :: columnname(:)
          character (len=COLWIDTH), pointer         :: columnstring(:)         
          character (len=200)                       :: filename
-         integer                                   :: numcol, numrow
          integer                                   :: i  !local counter
          integer                                   :: ifail, line
          
@@ -722,8 +728,6 @@ end subroutine bdp_read_structural_parameters_cov
               call intread(ifail,BL(7)%keywordstring(i), d_S%sig_opt)
             case ('sig_p_var')
               call drealread(ifail,BL(7)%keywordstring(i), d_S%sig_p_var)
-            case default
-            !!!MNF DEBUG MAKE AN ERROR EXCEPTION HERE!!!!!
            end select
           end if
          end do

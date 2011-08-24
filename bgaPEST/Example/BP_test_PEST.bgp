@@ -20,7 +20,7 @@ END prior_mean_data
 BEGIN structural_parameter_cv TABLE  
  nrow=1 ncol=6 columnlabels 
  BetaAssoc  prior_cov_mode  var_type   struct_par_opt    trans_theta   alpha_trans  
- 1          2                2          1                 1             20
+ 1          2                1          1                 1             20
 END structural_parameter_cv   
 
 BEGIN structural_parameters_data TABLE  

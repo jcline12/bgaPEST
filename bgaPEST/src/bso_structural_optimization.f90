@@ -24,7 +24,7 @@ module struct_param_optimization
 
 end module struct_param_optimization
 
-real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S,d_PM, cv_PAR)
+real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S,d_PM, cv_PAR)
 
    use bayes_pest_control
    use bayes_matrix_operations
@@ -32,15 +32,14 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    type(kernel_XQR),     intent(in)     :: d_XQR
    type(cv_observ),      intent(in)     :: cv_OBS
    type(d_observ),       intent(in)     :: d_OBS
-   type(d_algorithmic),  intent(inout)  :: d_A
+   type(d_algorithmic),  intent(inout)  :: d_A 
    type(cv_algorithmic), intent(inout)  :: cv_A
    type(d_prior_mean),   intent(in)     :: d_PM
    type(cv_param),       intent(in)     :: cv_PAR 
    type(d_param),        intent(inout)  :: d_PAR        
    type(cv_struct),      intent(in)     :: cv_S 
    type(Q0_compr),       intent(in)     :: Q0_All(:)
-   double precision,     intent(in)     :: theta(:,:)
-   double precision, pointer            :: theta_0(:), theta_cov(:,:)
+   double precision,     intent(in)     :: struct_par_opt(:,:)
    double precision,     intent(in)     :: sig
    integer                              :: junk(cv_OBS%nobs), errcode=UNINIT_INT, i
    double precision                     :: z(cv_OBS%nobs) 
@@ -64,7 +63,7 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
    
    !----------------------------- Form Gyy with the current values of theta and sigma------------------
-   call bmo_form_Qss_Qsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
+   call bmo_form_Qss_Qsy(d_XQR, struct_par_opt, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
    call bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
 
    allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
@@ -110,7 +109,10 @@ real (kind = 8) function SP_min(theta, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d
    ! -- now, multiply z' * TMPV where TMPV=inv(Gyy)*z as calculated just above
      call DGEMV('t',cv_OBS%nobs, 1, 1.D0, z, cv_OBS%nobs, &
             TMPV, 1, 0.D0, ztiGyyz,1)
-   !----------------------------- Calculate the misfit term -------------------------------------------
+   ! next we form dtheta' * invQtheta * dtheta
+    
+    ! NOW WE NEED TO DETERMINE IF WE DO THIS VECTOR,MATRIX STYLE OR JUST ELEMENT BY ELEMENT
+    ! SINCE THETA IS PSEUDO-2-D
 
      
 SP_min = 0.D0 !theta objective function here!

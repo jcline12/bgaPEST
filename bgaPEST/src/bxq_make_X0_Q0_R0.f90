@@ -223,7 +223,7 @@ end select ! (cv_A%Q_compression_flag)
         
 
 !******************************************************************************************************
-!********* Calculate the inver se of the Qbb matrix and InvQbb * beta0 *********************************
+!********* Calculate the inverse of the Qbb matrix and InvQbb * beta0 *********************************
 !***************** We do that just if the betas_flag is not 0 *****************************************
 !****************************************************************************************************** 
  if (cv_PM%betas_flag .ne. 0) then 
@@ -266,6 +266,30 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
    if (d_S%sig_opt .eq. 1) then 
         cv_S%num_theta_opt = cv_S%num_theta_opt + 1
    endif
+   
+   !----------------------------- Form struct_par_opt_0 --> local variable with starting values for all stuctural parameters - may include sigma
+   allocate(d_S%struct_par_opt_0(cv_S%num_theta_opt,2))
+   k = 0
+   do i = 1, cv_PAR%p
+     if (cv_S%struct_par_opt(i).eq.1) then
+        k = k + 1
+       select case (cv_S%num_theta_type(i))
+       case (1)
+          
+          d_S%struct_par_opt_0(k,1) = d_S%theta_0(i,1)
+       case (2)
+          do j = 1,2
+             d_S%struct_par_opt_0(k,k) = d_S%theta_0(i,j)
+          end do
+       end select
+     end if
+   end do
+   
+   if (d_S%sig_opt .eq. 1) then 
+   k = k + 1
+        d_S%struct_par_opt_0(k,1) = d_S%sig_0
+   endif
+      
    !----------------------------- Form Qtheta --> the prior covariance matrix for theta (can include sigma) --
    ! -- Finally, calculate the theta prior term
    !-- allocate and initialize to zero           

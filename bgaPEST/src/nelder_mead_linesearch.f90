@@ -13,7 +13,7 @@ contains
 !*****************************************************************************80
 !
 !! NELMIN minimizes a function using the Nelder-Mead algorithm.
-!
+!   
 !  Discussion:
 !
 !    This routine seeks the minimum value of a user-specified function.
@@ -27,7 +27,7 @@ contains
 !    the form
 !
 !      function fn ( x, f )
-!      real ( kind = 8 ) fn
+!      real ( kind = 8 ) fn 
 !      real ( kind = 8 ) x(*)
 !
 !    and the name of this subroutine must be declared EXTERNAL in the
