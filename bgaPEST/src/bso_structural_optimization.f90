@@ -110,10 +110,10 @@ real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS
      call DGEMV('t',cv_OBS%nobs, 1, 1.D0, z, cv_OBS%nobs, &
             TMPV, 1, 0.D0, ztiGyyz,1)
    ! next we form dtheta' * invQtheta * dtheta
-    
+       
     ! NOW WE NEED TO DETERMINE IF WE DO THIS VECTOR,MATRIX STYLE OR JUST ELEMENT BY ELEMENT
     ! SINCE THETA IS PSEUDO-2-D
-
+    ! here
      
 SP_min = 0.D0 !theta objective function here!
 return
