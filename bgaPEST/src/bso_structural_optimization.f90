@@ -16,15 +16,51 @@ module struct_param_optimization
  contains
  
  
- subroutine marginal_structural_parameter_optim ()
+ subroutine marginal_structural_parameter_optim (cv_S,d_S, cv_PAR)
   
-   implicit none
- 
+        use bayes_pest_control
+        use jupiter_input_data_support
+        use utilities  
+        implicit none
+        type (cv_struct),intent(inout)     :: cv_S
+        type (cv_param), intent(in)        :: cv_PAR
+        type(d_struct), intent(inout)      :: d_S
+        integer                            :: i,j,k ! counters
+        
+        !------- form the current structural parameters vector to feed into Nelder Mead for optimization
+            k = 0
+           do i = 1, cv_PAR%p
+             if (cv_S%struct_par_opt(i).eq.1) then
+               select case (cv_S%num_theta_type(i))
+               case (1)
+                  k = k + 1
+                  d_S%struct_par_opt_vec(k) = d_S%theta(i,1)
+               case (2)
+                  do j = 1,2
+                     k = k + 1
+                     d_S%struct_par_opt_vec(k) = d_S%theta(i,j)
+                  end do
+               end select
+             end if
+           end do
+           
+           if (d_S%sig_opt .eq. 1) then 
+           k = k + 1
+                d_S%struct_par_opt_vec(k) = d_S%sig
+           endif
+
+!-------------------------------------------------------------------------
+!------------------ CALL NELDER MEAD HERE --------------------------------
+!-------------------------------------------------------------------------
+
+
  end subroutine marginal_structural_parameter_optim
+
+
 
 end module struct_param_optimization
 
-real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S,d_PM, cv_PAR)
+real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S, d_S, d_PM, cv_PAR)
 
    use bayes_pest_control
    use bayes_matrix_operations
@@ -38,22 +74,27 @@ real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS
    type(cv_param),       intent(in)     :: cv_PAR 
    type(d_param),        intent(inout)  :: d_PAR        
    type(cv_struct),      intent(in)     :: cv_S 
+   type(d_struct),       intent(inout)  :: d_S
    type(Q0_compr),       intent(in)     :: Q0_All(:)
-   double precision,     intent(in)     :: struct_par_opt(:,:)
+   double precision,     intent(in)     :: struct_par_opt(:,:) 
+   double precision                     :: struct_par_opt_vec(cv_S%num_theta_opt) ! this should be a single vector of values to be calculated
    double precision,     intent(in)     :: sig
-   integer                              :: junk(cv_OBS%nobs), errcode=UNINIT_INT, i
+   integer                              :: junk(cv_OBS%nobs), errcode=UNINIT_INT, i, j, k
    double precision                     :: z(cv_OBS%nobs) 
-   double precision                     :: lndetGyy = 0.D0, ztiGyyz = 0.D0
-   double precision, pointer            :: HXB(:), TMPV(:)
+   double precision                     :: lndetGyy = 0.D0, ztiGyyz = 0.D0, dthetatQthdtheta = 0.D0
+   double precision, pointer            :: HXB(:), TMPV(:)  
    double precision, pointer            :: HXQbb(:,:)
    double precision, pointer            :: OMEGA(:,:), Qtheta(:,:)
    double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
-   double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs)
+   double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs),  dtheta(cv_S%num_theta_opt)
    
 
   
-
-
+   !----- intitialize variables
+   UinvGyy = UNINIT_REAL  ! matrix
+   Gyy = UNINIT_REAL      ! matrix
+   dtheta = UNINIT_REAL   ! matrix
+   struct_par_opt_vec = UNINIT_REAL   ! matrix
    !----------------------------- Form the linearization-corrected residuals --------------------------
    allocate(HXB(cv_OBS%nobs))
    HXB = UNINIT_REAL ! -- matrix (nobs)
@@ -109,12 +150,27 @@ real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS
    ! -- now, multiply z' * TMPV where TMPV=inv(Gyy)*z as calculated just above
      call DGEMV('t',cv_OBS%nobs, 1, 1.D0, z, cv_OBS%nobs, &
             TMPV, 1, 0.D0, ztiGyyz,1)
-   ! next we form dtheta' * invQtheta * dtheta
-       
-    ! NOW WE NEED TO DETERMINE IF WE DO THIS VECTOR,MATRIX STYLE OR JUST ELEMENT BY ELEMENT
-    ! SINCE THETA IS PSEUDO-2-D
-    ! here
-     
-SP_min = 0.D0 !theta objective function here!
+            
+    !----- form a vector of the structural parameters ----------------------------        
+    do i = 1,cv_S%num_theta_opt
+        do j = 1,2
+            ! MARCO - I RAN OUT OF TIME TO FINISH THIS PART!!!!!! We need to handle theta as both 2-D and a vector
+        end do
+    end do    
+   !---------------------------------- next we form dtheta' * invQtheta * dtheta ---------------------
+   dtheta = d_S%struct_par_opt_vec_0 - struct_par_opt_vec
+   if (associated(TMPV)) deallocate(TMPV)
+    allocate(TMPV(cv_S%num_theta_opt))
+   ! -- first form inv(Qthetatheta)*dtheta
+     call DGEMV('n',cv_S%num_theta_opt, cv_S%num_theta_opt, 1.D0, d_S%invQtheta, cv_S%num_theta_opt, &
+            dtheta, 1, 0.D0, TMPV,1)
+   ! -- now, multiply dtheta' * TMPV where TMPV=inv(Qthetatheta)*dtheta as calculated just above
+     call DGEMV('t',cv_S%num_theta_opt, 1, 1.D0, dtheta, cv_S%num_theta_opt, &
+            TMPV, 1, 0.D0, dthetatQthdtheta,1)
+
+    
+    ! --------------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ------------------------
+    SP_min = lndetGyy + ztiGyyz + dthetatQthdtheta
+    ! --------------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ------------------------
 return
 end function SP_min

@@ -93,7 +93,8 @@ module bayes_pest_control
       
       type d_struct             ! DATA for structural parameters - pointer
             double precision, pointer   ::	theta_0(:,:)  !MD Initial value of theta Matrix
-            double precision, pointer   ::	struct_par_opt_0(:,:)  !Initial value of all structural parameter values to be optimized (may include sigma)
+            double precision, pointer   ::	struct_par_opt_vec_0(:)  !Initial value of all structural parameter values to be optimized - single vector (may include sigma)
+            double precision, pointer   ::	struct_par_opt_vec(:)  !Current value of all structural parameter values to be optimized - single vector
             double precision, pointer   ::	theta_cov(:,:)!MD theta covariance matrix
             double precision, pointer   ::  invQtheta(:,:)   ! prior covariance matrix for all  theta optimized pars. This may include sigma
             double precision            ::  sig_0         !MD Initial value of sigma (epistemic uncertainty parameter)

@@ -245,15 +245,14 @@ end subroutine bxq_make_X0_Q0_R0_InvQbb
 
    
 subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
-        use bayes_pest_control
-        use jupiter_input_data_support
-        use utilities  
-        implicit none
-        type(cv_param),intent(in)          :: cv_PAR
-        type(cv_struct),intent(inout)      :: cv_S
-        type(d_struct), intent(inout)      :: d_S
-        type (cv_prior_mean), intent(in)   :: cv_PM
-        integer                            :: i, j, k ! counters
+         use bayes_pest_control
+         
+         implicit none
+        type (cv_prior_mean), intent(in)    :: cv_PM
+        type (cv_param),      intent(in)    :: cv_par
+        type (cv_struct),     intent(inout) :: cv_S
+        type (d_struct),      intent(inout) :: d_S
+        integer                             :: i, j, k ! counters
    !----------------------------- Determine the number of theta parameter to be optimized ----------------
    ! -- first consider the prior means and add to num_th_opt based on the number of theta parameters for each 
    ! -- beta association for which theta parameters are meant 
@@ -268,18 +267,20 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
    endif
    
    !----------------------------- Form struct_par_opt_0 --> local variable with starting values for all stuctural parameters - may include sigma
-   allocate(d_S%struct_par_opt_0(cv_S%num_theta_opt,2))
+   allocate(d_S%struct_par_opt_vec_0(cv_S%num_theta_opt))
+   allocate(d_S%struct_par_opt_vec(cv_S%num_theta_opt))
+   
    k = 0
    do i = 1, cv_PAR%p
      if (cv_S%struct_par_opt(i).eq.1) then
-        k = k + 1
        select case (cv_S%num_theta_type(i))
        case (1)
-          
-          d_S%struct_par_opt_0(k,1) = d_S%theta_0(i,1)
+          k = k + 1
+          d_S%struct_par_opt_vec_0(k) = d_S%theta_0(i,1)
        case (2)
           do j = 1,2
-             d_S%struct_par_opt_0(k,k) = d_S%theta_0(i,j)
+             k = k + 1
+             d_S%struct_par_opt_vec_0(k) = d_S%theta_0(i,j)
           end do
        end select
      end if
@@ -287,7 +288,7 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
    
    if (d_S%sig_opt .eq. 1) then 
    k = k + 1
-        d_S%struct_par_opt_0(k,1) = d_S%sig_0
+        d_S%struct_par_opt_vec_0(k) = d_S%sig_0
    endif
       
    !----------------------------- Form Qtheta --> the prior covariance matrix for theta (can include sigma) --
