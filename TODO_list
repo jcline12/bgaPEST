@@ -46,4 +46,4 @@ Things we need to do:
 12) How are we handling a variable number of theta parameters for different beta associations? In other words, if one beta association
     uses a linear variogram and other exponential, are we requiring dummy variables in the second column for the beta associations using
     a linear variogram? Is that related to the negative theta_0_2 values?
-13)
+13
