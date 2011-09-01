@@ -244,26 +244,27 @@ end subroutine bxq_make_X0_Q0_R0_InvQbb
 !******************************************************************************************************
 
    
-subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
-         use bayes_pest_control
-         
-         implicit none
-        type (cv_prior_mean), intent(in)    :: cv_PM
-        type (cv_param),      intent(in)    :: cv_par
-        type (cv_struct),     intent(inout) :: cv_S
-        type (d_struct),      intent(inout) :: d_S
-        integer                             :: i, j, k ! counters
+subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
+        
+   use bayes_pest_control
+        
+   implicit none
+   type (cv_prior_mean), intent(in)    :: cv_PM
+   type (cv_param),      intent(in)    :: cv_par
+   type (cv_struct),     intent(inout) :: cv_S
+   type (d_struct),      intent(inout) :: d_S
+   type (cv_algorithmic),intent(in)    :: cv_A
+   integer                             :: i, j, k , m ! counters
+
    !----------------------------- Determine the number of theta parameter to be optimized ----------------
    ! -- first consider the prior means and add to num_th_opt based on the number of theta parameters for each 
    ! -- beta association for which theta parameters are meant 
-   do i = 1, cv_PAR%p
-     if (cv_S%struct_par_opt(i).eq.1) then
-        cv_S%num_theta_opt = cv_S%num_theta_opt + cv_S%num_theta_type(i)
-     endif
-   end do
-   !-- now add 1 if sigma is to be optimized for 
+   if ((maxval(cv_S%struct_par_opt).eq.1)) then  !MD This if statement is not strictly necessary 
+     cv_S%num_theta_opt =sum(cv_S%struct_par_opt*cv_S%num_theta_type)
+   endif
+   !-- now add 1 if sigma is to be optimized for
    if (d_S%sig_opt .eq. 1) then 
-        cv_S%num_theta_opt = cv_S%num_theta_opt + 1
+     cv_S%num_theta_opt = cv_S%num_theta_opt + 1
    endif
    
    !----------------------------- Form struct_par_opt_0 --> local variable with starting values for all stuctural parameters - may include sigma
@@ -271,58 +272,76 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
    allocate(d_S%struct_par_opt_vec(cv_S%num_theta_opt))
    
    k = 0
-   do i = 1, cv_PAR%p
-     if (cv_S%struct_par_opt(i).eq.1) then
-       select case (cv_S%num_theta_type(i))
-       case (1)
-          k = k + 1
-          d_S%struct_par_opt_vec_0(k) = d_S%theta_0(i,1)
-       case (2)
-          do j = 1,2
-             k = k + 1
-             d_S%struct_par_opt_vec_0(k) = d_S%theta_0(i,j)
-          end do
-       end select
-     end if
-   end do
+   if ((maxval(cv_S%struct_par_opt).eq.1)) then  !MD This if statement is not strictly necessary 
+     do i = 1, cv_PAR%p
+       if (cv_S%struct_par_opt(i).eq.1) then
+         do j = 1,cv_S%num_theta_type (i)
+           k = k + 1
+           d_S%struct_par_opt_vec_0(k) = d_S%theta_0(i,j)
+         end do
+       end if
+     end do
+   end if
    
-   if (d_S%sig_opt .eq. 1) then 
-   k = k + 1
-        d_S%struct_par_opt_vec_0(k) = d_S%sig_0
+   if (d_S%sig_opt.eq.1) then 
+     k = k + 1
+     d_S%struct_par_opt_vec_0(k) = d_S%sig_0
    endif
       
    !----------------------------- Form Qtheta --> the prior covariance matrix for theta (can include sigma) --
    ! -- Finally, calculate the theta prior term
-   !-- allocate and initialize to zero           
-     allocate(d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt))
-     d_S%invQtheta = 0.D0 ! matrix
-          j = 0 ! counter up to cv_S%num_theta_opt
-          do i = 1, cv_PAR%p
-             if (cv_S%struct_par_opt(i).eq.1) then
-                select case (cv_PM%Qbb_form)
-                    case (1)! diagonal
-                        do k = 1, cv_S%num_theta_type(i)
-                           j = j+1
-                           d_S%invQtheta(j,j) = d_S%theta_cov(i,k)                            
-                        end do
-                    case (2) ! full matrix
-                    ! MNF --- need to add this eventually
-                 end select   
-             end if
-          end do             
+   allocate(d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt)) ! allocate  
+     d_S%invQtheta = 0.D0 ! matrix, initialize to zero  MD important in case cv_A%theta_cov_form = 0 (no cov matrix)
+        
+   !       j = 0 ! counter up to cv_S%num_theta_opt
+   !       do i = 1, cv_PAR%p                                           !****
+   !          if (cv_S%struct_par_opt(i).eq.1) then                     !****  MD  This loop was not correct for different reasons
+   !             select case (cv_PM%Qbb_form)                           !****    1. we need to select based on cv_A%theta_cov_form and not Qbb_form 
+   !                 case (1)! diagonal                                 !****    2. in case of diagonal, when we read from the input file we have just a vector 
+   !                     do k = 1, cv_S%num_theta_type(i)               !****       (dimension sum(num_theta_type)) with the covariance values and not a px2 matrix  
+   !                        j = j+1                                     !****       even if we have,for some BetaAssoc, num_theta_type=2 
+   !                        d_S%invQtheta(j,j) = d_S%theta_cov(i,k)     !****                           
+   !                    end do                                          !****   So I rewrote the loop to be consistent with the input instruction, we need to change  
+   !                 case (2) ! full matrix                             !****   here and the input reading if we don't like this way.
+                    ! MNF --- need to add this eventually               !****
+   !              end select                                            !****
+   !          end if                                                    !****
+   !       end do                                                       !****
+ 
+    k=0 ! counter up to invQtheta
+    m=0 ! counter up to vector that contains the covariance values d_S%theta_cov
+    select case (cv_A%theta_cov_form)    
+      case (1)! diagonal 
+        do i = 1, cv_PAR%p 
+          if (cv_S%struct_par_opt(i).eq.1) then
+            do j = 1, cv_S%num_theta_type(i)              
+              m=m+1
+              k = k+1                                    
+              d_S%invQtheta(k,k) = d_S%theta_cov(m,1)  ! In case of diagonal d_S%theta_cov is a vector                  
+             end do                                            
+          else
+            m=m+cv_S%num_theta_type(i)
+          end if  
+        enddo  
+      case (2) ! full matrix                        
+        ! MNF --- need to add this eventually              
+    end select                  
+
     if (d_S%sig_opt .eq. 1) then 
         d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt) = d_S%sig_p_var
     endif
-   !----------------------------- Finally peform the inversion of Qtheta to invQtheta ---------------------
-       select case (cv_PM%Qbb_form)
-           case (1)! diagonal
-              do i = 1, cv_S%num_theta_opt
-                  d_S%invQtheta(i,i) =  1.D0/d_S%invQtheta(i,i)                            
-              end do
-           case (2) ! full matrix
-                 ! MNF --- need to add this eventually
-       end select   
+   
+!----------------------------- Finally peform the inversion of Qtheta to invQtheta ---------------------
+   select case (cv_PM%Qbb_form)
+    case (1)! diagonal
+     do i = 1, cv_S%num_theta_opt
+       d_S%invQtheta(i,i) =  1.D0/d_S%invQtheta(i,i)                            
+     end do
+       case (2) ! full matrix
+         ! MNF --- need to add this eventually
+   end select   
             
+end subroutine bxq_theta_cov_calcs
 
-      end subroutine bxq_theta_cov_calcs
+
 end module make_kernels 

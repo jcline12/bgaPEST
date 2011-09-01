@@ -618,7 +618,7 @@ end subroutine bdp_read_data_prior_mean
                endif
              end do
            enddo  
-           d_S%theta(:,:) = d_S%theta_0  ! start out with theta_0 as the first values of theta MD The third column is the iteration
+           d_S%theta(:,:) = d_S%theta_0  ! start out with theta_0 as the first values of theta
           if (associated(columnname))           deallocate(columnname)
           if (associated(columnstring))         deallocate(columnstring)
           end subroutine bdp_read_data_structural_parameters  
@@ -735,7 +735,7 @@ end subroutine bdp_read_structural_parameters_cov
          if ((maxval(cv_S%struct_par_opt).eq.0).and.(d_S%sig_opt.eq.0).and.(cv_A%it_max_bga.gt.1)) then  !--------------------| This control avoid
            cv_A%it_max_bga =  1   !-------------------------------------------------------------------------------------------| that it_max_bga is      
            write(retmsg,10)    !----------------------------------------------------------------------------------------------| greater than 1 if 
-10         format('Warning: No structural parameter opimization requested. it_max_bga in algorithmic_cv block must be 1.', & !-| no structural 
+10         format('Warning: No structural parameter optimization requested. it_max_bga in algorithmic_cv block must be 1.',& !| no structural 
                  & ' The entered value will be ignored.') !-------------------------------------------------------------------| parameter 
            call utl_writmess(6,retmsg) !--------------------------------------------------------------------------------------| optimization
          endif  !-------------------------------------------------------------------------------------------------------------| is required.

@@ -117,8 +117,11 @@ program bp_main
     call bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,cv_OBS%nobs,d_PM,Q0_All,cv_PM)
    
     allocate(d_OBS%h(cv_OBS%nobs)) !Allocate the current model output [y]
+    
 !-- IF STRUCTURAL PARAMETERS WILL BE OPTIMIZED FOR, SET UP REQUIRED INFORMATION
-    call bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM)
+    if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then
+       call bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
+    end if
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
     if (cv_A%deriv_mode .eq. 1) then
@@ -203,7 +206,7 @@ program bp_main
     !***************************************************************************************************************************  
     !********************** FROM HERE THE STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *****************************
     !***************************************************************************************************************************
-       if ((maxval(cv_S%struct_par_opt).ne.0).or.(d_S%sig_opt.ne.0)) then
+       if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then
           curr_structural_conv = huge_val !Initialize current structural objective function convergence value
           curr_struct          = huge_val !Initialize current structural objective function value
           do s_ind = 1, cv_A%it_max_structural !************************************************ (second intermediate  loop)
