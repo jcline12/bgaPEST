@@ -104,8 +104,8 @@ real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS
    z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
    
    !----------------------------- Form Gyy with the current values of theta and sigma------------------
-   call bmo_form_Qss_Qsy(d_XQR, struct_par_opt, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
-   call bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
+   call bmo_form_Qss_Qsy_HQsy(d_XQR, struct_par_opt, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
+   call bmo_form_Qyy(d_XQR, sig, cv_OBS, d_A)
 
    allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
    HXQbb = UNINIT_REAL ! -- matrix (nobs x p)

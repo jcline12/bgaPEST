@@ -14,7 +14,7 @@ contains
 !***** Perform generic matrix operations ************************************************************* 
 !***************************************************************************************************** 
 
-subroutine bmo_form_Qss_Qsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All)
+subroutine bmo_form_Qss_Qsy_HQsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All)
         
         implicit none
         ! declarations
@@ -28,7 +28,7 @@ subroutine bmo_form_Qss_Qsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR
         double precision,    intent(in)     :: theta(:,:)
         type(Q0_compr),      intent(in)     :: Q0_All(:)
         double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
-        integer                             :: ierr, i, j, k, p, it, start_v, end_v
+        integer                             :: i, j, k, p, it, start_v, end_v
         
 select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or not     
      
@@ -161,28 +161,6 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
 
 end select !(cv_A%Q_compression_flag)
 
-if (associated(Qss))      deallocate(Qss)
-if (associated(Qrow))     deallocate(Qrow)
-if (associated(Q0_tmp))   deallocate(Q0_tmp)
-if (associated(TMP))      deallocate(TMP)
-if (associated(TMP1))     deallocate(TMP1)
-
-end subroutine bmo_form_Qss_Qsy
-
-
-
-
-subroutine bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
-        
-        implicit none
-        ! declarations
-        type(kernel_XQR),    intent(in)     :: d_XQR
-        double precision,    intent(in)     :: sig
-        type(cv_param),      intent(in)     :: cv_PAR
-        type(cv_observ),     intent(in)     :: cv_OBS  
-        type(d_algorithmic), intent(inout)  :: d_A
-        integer                             :: ierr
-        
 !*********************************************************************************************************
 !*********************************************************************************************************
 !********* The next lines are valid for both the full and compressed form of Q0 cases ********************
@@ -201,6 +179,28 @@ subroutine bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
 ! End make HQsy 
 !*****************************************************************************************************
 
+if (associated(Qss))      deallocate(Qss)
+if (associated(Qrow))     deallocate(Qrow)
+if (associated(Q0_tmp))   deallocate(Q0_tmp)
+if (associated(TMP))      deallocate(TMP)
+if (associated(TMP1))     deallocate(TMP1)
+
+
+end subroutine bmo_form_Qss_Qsy_HQsy
+
+
+
+
+subroutine bmo_form_Qyy(d_XQR, sig, cv_OBS, d_A)
+        
+        implicit none
+        ! declarations
+        type(kernel_XQR),    intent(in)     :: d_XQR
+        double precision,    intent(in)     :: sig
+        type(cv_observ),     intent(in)     :: cv_OBS  
+        type(d_algorithmic), intent(inout)  :: d_A
+
+
 !*****************************************************************************************************
 ! Make Qyy which is H*Qss*Ht + sig*R0 = HQsy + sig*R0
 !*****************************************************************************************************
@@ -211,7 +211,7 @@ subroutine bmo_form_HQsy_Qyy(d_XQR, sig, cv_PAR, cv_OBS, d_A)
 !*****************************************************************************************************
 
 
-end subroutine bmo_form_HQsy_Qyy
+end subroutine bmo_form_Qyy
 
 
 !*****************************************************************************************************
@@ -226,8 +226,7 @@ subroutine bmo_H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)
         type(cv_observ),     intent(in)     :: cv_OBS
         type(d_algorithmic), intent(inout)  :: d_A
         type(d_param),       intent(inout)  :: d_PAR
-        integer                             :: ierr
-
+        
 
 !*****************************************************************************************************
 ! Make H*X
@@ -271,7 +270,7 @@ subroutine bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A,
         type(d_observ),      intent(in)     :: d_OBS
         type (cv_prior_mean), intent(in)    :: cv_PM
         double precision,    pointer        :: LHS(:,:), RHS (:) , Soln(:), C_S(:)
-        integer                             :: ierr, i, j, k
+        integer                             :: i, j, k
 
 !*****************************************************************************************************
 ! Make RHS which is y' and -InvQbbB0 *** Is a vector (nobs + p)
