@@ -27,27 +27,7 @@ module struct_param_optimization
         type(d_struct), intent(inout)      :: d_S
         integer                            :: i,j,k ! counters
         
-        !------- form the current structural parameters vector to feed into Nelder Mead for optimization
-            k = 0
-           do i = 1, cv_PAR%p
-             if (cv_S%struct_par_opt(i).eq.1) then
-               select case (cv_S%num_theta_type(i))
-               case (1)
-                  k = k + 1
-                  d_S%struct_par_opt_vec(k) = d_S%theta(i,1)
-               case (2)
-                  do j = 1,2
-                     k = k + 1
-                     d_S%struct_par_opt_vec(k) = d_S%theta(i,j)
-                  end do
-               end select
-             end if
-           end do
-           
-           if (d_S%sig_opt .eq. 1) then 
-           k = k + 1
-                d_S%struct_par_opt_vec(k) = d_S%sig
-           endif
+ 
 
 !-------------------------------------------------------------------------
 !------------------ CALL NELDER MEAD HERE --------------------------------
@@ -60,7 +40,7 @@ module struct_param_optimization
 
 end module struct_param_optimization
 
-real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S, d_S, d_PM, cv_PAR)
+real (kind = 8) function SP_min(str_par_opt_vec, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S, d_S, d_PM, cv_PAR,cv_PM)
 
    use bayes_pest_control
    use bayes_matrix_operations
@@ -76,101 +56,139 @@ real (kind = 8) function SP_min(struct_par_opt, sig, d_XQR, Q0_all,cv_OBS, d_OBS
    type(cv_struct),      intent(in)     :: cv_S 
    type(d_struct),       intent(inout)  :: d_S
    type(Q0_compr),       intent(in)     :: Q0_All(:)
-   double precision,     intent(in)     :: struct_par_opt(:,:) 
-   double precision                     :: struct_par_opt_vec(cv_S%num_theta_opt) ! this should be a single vector of values to be calculated
-   double precision,     intent(in)     :: sig
-   integer                              :: junk(cv_OBS%nobs), errcode=UNINIT_INT, i, j, k
+   type(cv_prior_mean),  intent(in)     :: cv_PM
+   
+   integer                              :: pivot(cv_OBS%nobs), errcode, i, j, k
+   double precision,     intent(inout)  :: str_par_opt_vec(:) !This must be the pars vector to be optimized for. Must be the first argument in SP_min (NelMead requires this) 
    double precision                     :: z(cv_OBS%nobs) 
-   double precision                     :: lndetGyy = 0.D0, ztiGyyz = 0.D0, dthetatQthdtheta = 0.D0
-   double precision, pointer            :: HXB(:), TMPV(:)  
-   double precision, pointer            :: HXQbb(:,:)
-   double precision, pointer            :: OMEGA(:,:), Qtheta(:,:)
+   double precision                     :: lndetGyy, ztiGyyz, dthQttdth
    double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
    double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs),  dtheta(cv_S%num_theta_opt)
+   double precision, pointer            :: HXB(:), TMPV(:)  
+   double precision, pointer            :: HXQbb(:,:)
+   double precision, pointer            :: OMEGA(:,:)
    
-
-  
    !----- intitialize variables
-   UinvGyy = UNINIT_REAL  ! matrix
-   Gyy = UNINIT_REAL      ! matrix
-   dtheta = UNINIT_REAL   ! matrix
-   struct_par_opt_vec = UNINIT_REAL   ! matrix
-   !----------------------------- Form the linearization-corrected residuals --------------------------
-   allocate(HXB(cv_OBS%nobs))
-   HXB = UNINIT_REAL ! -- matrix (nobs)
-   call DGEMV('n',cv_OBS%nobs, cv_PAR%p, 1.D0, d_A%HX, cv_OBS%nobs, &
-            d_PM%beta_0, 1, 0.D0, HXB,1)
-              
-   z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
+     errcode   = UNINIT_INT
+     lndetGyy  = 0.D0
+     ztiGyyz   = 0.D0
+     dthQttdth = 0.D0
+     UinvGyy   = UNINIT_REAL   ! matrix
+     Gyy       = UNINIT_REAL   ! matrix
+     dtheta    = UNINIT_REAL   ! matrix
    
-   !----------------------------- Form Gyy with the current values of theta and sigma------------------
-   call bmo_form_Qss_Qsy_HQsy(d_XQR, struct_par_opt, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All)
-   call bmo_form_Qyy(d_XQR, sig, cv_OBS, d_A)
-
-   allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
-   HXQbb = UNINIT_REAL ! -- matrix (nobs x p)
+   !First we need to reform d_S%theta and d_S%sig overwriting the elements that must be optimized for and  
+   !leaving unchanged the others. These elements are into str_par_opt_vec (passed by NelMead). 
+   !d_S%theta and d_S%sig are used during the matrix operations.(Qss Qsy HQsy Qyy)
    
-   ! -- form HXQbb
-   call dgemm('n', 'n', cv_OBS%nobs, cv_PAR%p,  cv_PAR%p, 1.D0, d_A%HX, &
+   !******************************************************************************
+   !******************************************************************************
+   k = 0
+   if ((maxval(cv_S%struct_par_opt).eq.1)) then   
+     do i = 1, cv_PAR%p
+       if (cv_S%struct_par_opt(i).eq.1) then
+         do j = 1,cv_S%num_theta_type (i)
+           k = k + 1
+           d_S%theta(i,j) = str_par_opt_vec(k)
+         end do
+       end if
+     end do
+   end if
+   
+   if (d_S%sig_opt.eq.1) then 
+     k = k + 1
+     d_S%sig = str_par_opt_vec(k)
+   endif
+   !*****************************************************************************
+   !*****************************************************************************
+   
+   !*************************************************************************************************************
+   ! At this point d_S%theta, d_S%sig and str_par_opt_vec are ready to be used in the calculation of the obj func.
+   
+   !We need to recalculate Qss Qsy HQsy only if at least one theta optimization is required. Otherwise, if the optimization
+   !is just for sig, we need to recalculate just Qyy
+   if ((maxval(cv_S%struct_par_opt).eq.1)) then            !Only if theta opimization is required.  
+      call bmo_form_Qss_Qsy_HQsy(d_XQR, d_S%theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR, Q0_All) 
+   endif
+   !Here Qss Qsy HQsy are ready, recalculated if necessary. We need to recalculate Qyy.
+   call bmo_form_Qyy(d_XQR, d_S%sig, cv_OBS, d_A)
+   
+   ! At this point we need HXB, HXQbb, OMEGA only if we have prior information about beta. 
+   if (cv_PM%betas_flag.ne.0) then   !------> we have prior information about beta   
+      !Calculate HXB
+      allocate(HXB(cv_OBS%nobs))
+      HXB = UNINIT_REAL ! -- matrix (nobs)
+      call DGEMV('n',cv_OBS%nobs, cv_PAR%p, 1.D0, d_A%HX, cv_OBS%nobs, &
+              d_PM%beta_0, 1, 0.D0, HXB,1)
+      !Form the linearization-corrected residuals and deallocate HXB no more necessary.
+      z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
+      if (associated(HXB))  deallocate(HXB)
+      !Form HXQbb
+      call dgemm('n', 'n', cv_OBS%nobs, cv_PAR%p,  cv_PAR%p, 1.D0, d_A%HX, &
               cv_OBS%nobs, d_PM%Qbb, cv_PAR%p, 0.D0, HXQbb, cv_OBS%nobs)
-   if (associated(HXB))  deallocate(HXB)
-   allocate(OMEGA(cv_OBS%nobs,cv_OBS%nobs))
-   ! -- now multiply HXQbb x (HX)' to form OMEGA
-     call dgemm('n', 't', cv_OBS%nobs, cv_OBS%nobs,  cv_PAR%p, 1.D0, HXQbb, &
+      !Form OMEGA = HXQbb x (HX)' and deallocate HXQbb no more necessary.
+      allocate(OMEGA(cv_OBS%nobs,cv_OBS%nobs))
+      call dgemm('n', 't', cv_OBS%nobs, cv_OBS%nobs,  cv_PAR%p, 1.D0, HXQbb, &
               cv_OBS%nobs, d_A%HX,  cv_OBS%nobs, 0.D0, OMEGA, cv_OBS%nobs)
-   if (associated(HXQbb))  deallocate(HXQbb)
-
-
-   ! -- add OMEGA + Qyy to form Gyy
-   Gyy = OMEGA + d_A%Qyy
-   if (associated(OMEGA))  deallocate(OMEGA)
-
-   !----------------------------- Calculate the determinant term --------------------------------------
+      if (associated(HXQbb))  deallocate(HXQbb)
+      !Form Gyy = Qyy + OMEGA and deallocate OMEGA no more necessary.
+      Gyy = OMEGA + d_A%Qyy
+      if (associated(OMEGA))  deallocate(OMEGA)
+   else !------> we don't have prior information about beta
+     !Form the linearization residuals z  
+     z = d_OBS%obs - d_OBS%h + d_A%Hsold
+     !Form Gyy = Qyy 
+     Gyy = d_A%Qyy
+   endif  
+   !***********************************************************************************************************
    
+   !*******************************************************************************   
+   !--- Calculate the determinant term of the str. pars objective function --------
+   !----------------------------- 0.5ln(det(Gyy)) ---------------------------------
    !-- First perform LU decomposition on Gyy 
-   UinvGyy = Gyy !-nobs x nobs ----note that this is used as U in this context
-   call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, junk, errcode)
-   do i = 1,cv_OBS%nobs
-        lndetGyy = lndetGyy + dlog(UinvGyy(i,i))
-   end do
+   UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
+   call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
+   do i = 1,cv_OBS%nobs                            !Note that using DGETRF, the sign of the determinant should be not correct due to the pivoting
+     lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i))) !And even if the determinant is positive, some element on the diagonal of U should be negative.
+   end do                                          !If we are sure that the determinant is always positive the ABS before DLOG is enough.   
    lndetGyy = 0.5 * lndetGyy
-
-   !----------------------------- Calculate the misfit term -------------------------------------------
-   !--  form z'*inv(Gyy)*z
-   !--  first re-use UinvGyy, now as InvGyy
-   UinvGyy = Gyy !-nobs x nobs 
-   !-- calculate the inverse
-   call INVGM(cv_OBS%nobs,UinvGyy)
+   !*******************************************************************************
    
-   ! -- NOW WE NEED TO FORM z'*inv(Gyy)*z
-   allocate(TMPV( cv_OBS%nobs))
-   ! -- first form inv(Gyy)*z
+   !*******************************************************************************   
+   !------------ Calculate the misfit term of the objective function --------------
+   !------------------------ 0.5(z' x invGyy x z) ---------------------------------
+   !Calculate the inverse of Gyy
+   UinvGyy = Gyy   ! nobs x nobs, re-use UinvGyy, now as InvGyy
+   call INVGM(cv_OBS%nobs,UinvGyy)
+   !Form inv(Gyy)*z
+   allocate(TMPV(cv_OBS%nobs))
      call DGEMV('n',cv_OBS%nobs, cv_OBS%nobs, 1.D0, UinvGyy, cv_OBS%nobs, &
-            z, 1, 0.D0, TMPV,1)
-   ! -- now, multiply z' * TMPV where TMPV=inv(Gyy)*z as calculated just above
-     call DGEMV('t',cv_OBS%nobs, 1, 1.D0, z, cv_OBS%nobs, &
-            TMPV, 1, 0.D0, ztiGyyz,1)
-            
-    !----- form a vector of the structural parameters ----------------------------        
-    do i = 1,cv_S%num_theta_opt
-        do j = 1,2
-            ! MARCO - I RAN OUT OF TIME TO FINISH THIS PART!!!!!! We need to handle theta as both 2-D and a vector
-        end do
-    end do    
-   !---------------------------------- next we form dtheta' * invQtheta * dtheta ---------------------
-   dtheta = d_S%struct_par_opt_vec_0 - struct_par_opt_vec
-   if (associated(TMPV)) deallocate(TMPV)
-    allocate(TMPV(cv_S%num_theta_opt))
-   ! -- first form inv(Qthetatheta)*dtheta
-     call DGEMV('n',cv_S%num_theta_opt, cv_S%num_theta_opt, 1.D0, d_S%invQtheta, cv_S%num_theta_opt, &
-            dtheta, 1, 0.D0, TMPV,1)
-   ! -- now, multiply dtheta' * TMPV where TMPV=inv(Qthetatheta)*dtheta as calculated just above
-     call DGEMV('t',cv_S%num_theta_opt, 1, 1.D0, dtheta, cv_S%num_theta_opt, &
-            TMPV, 1, 0.D0, dthetatQthdtheta,1)
-
-    
-    ! --------------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ------------------------
-    SP_min = lndetGyy + ztiGyyz + dthetatQthdtheta
-    ! --------------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ------------------------
+            z, 1, 0.D0, TMPV,1) !On exit TMPV is invGyy*z
+   !Multiply z' * TMPV and 0.5 
+   call DGEMV('t',cv_OBS%nobs, 1, 5.0D-1, z, cv_OBS%nobs, &
+          TMPV, 1, 0.D0, ztiGyyz,1)
+   if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
+   !*******************************************************************************
+   
+   !**************************************************************************************   
+   !--------- Calculate the prior theta/sig term of the objective function --------
+   !-------------------- 0.5(dtheta x invQtheta x dtheta) -------------------------
+   !Form dtheta
+   dtheta = str_par_opt_vec - d_S%struct_par_opt_vec_0
+   !Form invQtt*dtheta
+   allocate(TMPV(cv_S%num_theta_opt))
+   call DGEMV('n',cv_S%num_theta_opt, cv_S%num_theta_opt, 1.D0, d_S%invQtheta, &
+           cv_S%num_theta_opt, dtheta, 1, 0.D0, TMPV,1) !On exit TMPV is invQtt*dtheta
+   !Multiply dtheta' * TMPV and 0.5
+   call DGEMV('t',cv_S%num_theta_opt, 1, 0.5D-1, dtheta, cv_S%num_theta_opt, &
+           TMPV, 1, 0.D0, dthQttdth,1)
+   if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
+   !**************************************************************************************
+   
+   !****************************************************************************** 
+   !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------
+   SP_min = lndetGyy + ztiGyyz + dthQttdth
+   !*****************************************************************************
+   
 return
 end function SP_min
