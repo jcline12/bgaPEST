@@ -30,6 +30,7 @@ program bp_main
    use linesearch
    use extern_derivs
    use bayes_output_control
+   use struct_param_optimization
    implicit none
 
 
@@ -62,7 +63,8 @@ program bp_main
        character (len=FILEWIDTH)    :: atemp
        character (len=20)            :: cind
        double precision,dimension(1) :: curr_structural_conv, curr_phi_conv !Current iteration convergence values for structural parameters and quasi linear objective function
-       double precision,dimension(1) :: curr_phi, curr_struct !Current values for structural parameters and quasi linear objective function
+       double precision,dimension(1) :: curr_phi !Current value for quasi linear objective function
+       double precision, pointer    :: curr_struct_vec(:) !Current vector of theta and sigma values to be optimized for
        double precision             :: huge_val=huge(huge_val) !Largest machine number
 
 ! -- PRINT OUT THE BANNER INFORMATION
@@ -121,6 +123,7 @@ program bp_main
 !-- IF STRUCTURAL PARAMETERS WILL BE OPTIMIZED FOR, SET UP REQUIRED INFORMATION
     if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then
        call bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
+       allocate(curr_struct_vec(cv_S%num_theta_opt))
     end if
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
@@ -206,20 +209,24 @@ program bp_main
     !***************************************************************************************************************************  
     !********************** FROM HERE THE STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *****************************
     !***************************************************************************************************************************
-       if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then
-          curr_structural_conv = huge_val !Initialize current structural objective function convergence value
-          curr_struct          = huge_val !Initialize current structural objective function value
-          do s_ind = 1, cv_A%it_max_structural !************************************************ (second intermediate  loop)
-          
-            
-          
-          enddo    !(second intermediate  loop) structural parameter estimation
+       if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then !Enter the structural pars estimation loop only if required
+         curr_struct_vec = d_S%struct_par_opt_vec !Current struct pars vector. At the first bga loop d_S%struct_par_opt_vec is d_S%struct_par_opt_vec_0  
+         call marginal_struct_param_optim(d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,b_ind,cv_S%num_theta_opt)
+         !Here d_S%struct_par_opt_vec is the vector of the optimized theta and sigma values
+         curr_structural_conv(1) = sqrt(sum((curr_struct_vec - d_S%struct_par_opt_vec)**2)) !Calculate norm of difference between actual and previous vectors
+         if (curr_structural_conv(1).le.cv_A%structural_conv) then !If yes, structural parameters have converged, the structural parameters estimation
+           cv_S%struct_par_opt = 0                     !loop is no more required. Set to zero cv_S%struct_par_opt and d_S%sig_opt so the structural 
+           d_S%sig_opt = 0                             !parameters estimation loop is no more entered. The optimized struct_par_opt_vec is used to run the 
+                                                       !quasi-linear loop that should be the last one. Probably we need some output before exit.
+           if (associated(curr_struct_vec)) deallocate(curr_struct_vec) 
+         endif
+       else
+         exit !If the structural pars optimization is not required or structural pars have converged (run the last quasi_linear), exit the bga_loop
        endif
     !***************************************************************************************************************************  
     !*************************** END OF STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *******************************
     !***************************************************************************************************************************  
-   
-   
+    
    
     enddo      !(more external loop)
     

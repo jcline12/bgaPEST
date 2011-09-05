@@ -97,6 +97,8 @@ module bayes_pest_reader
        if (cv_A%Q_compression_flag.ne.0) then
           allocate(Q0_All(cv_PAR%p))
           call bdp_read_cv_compression(BL,Q0_All,cv_PAR%p,inunit,errmsg)
+       else 
+          allocate(Q0_All(0)) !We need this because of the external function of struct pars optimization (No memory is required)   
        endif
               
        call bdp_read_parameter_groups(BL,cv_PAR,inunit,errmsg)

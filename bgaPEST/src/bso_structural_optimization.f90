@@ -1,50 +1,21 @@
 module struct_param_optimization
 
-   use jupiter_input_data_support
    use bayes_pest_control
    use model_input_output
-   use bayes_pest_mio_setup
-   use bayes_pest_model
-   use bayes_pest_reader
    use bayes_pest_finalize
    use error_message
    use utilities
    use make_kernels
    use bayes_matrix_operations
-   use param_trans
-   use nelder_mead_simplex_linesearch
- contains
- 
- 
- subroutine marginal_structural_parameter_optim (cv_S,d_S, cv_PAR)
+   use jupiter_input_data_support
+   use nelder_mead_simplex_routines
+   
+  contains
   
-        use bayes_pest_control
-        use jupiter_input_data_support
-        use utilities  
-        implicit none
-        type (cv_struct),intent(inout)     :: cv_S
-        type (cv_param), intent(in)        :: cv_PAR
-        type(d_struct), intent(inout)      :: d_S
-        integer                            :: i,j,k ! counters
-        
- 
-
-!-------------------------------------------------------------------------
-!------------------ CALL NELDER MEAD HERE --------------------------------
-!-------------------------------------------------------------------------
-
-
- end subroutine marginal_structural_parameter_optim
-
-
-
-end module struct_param_optimization
-
-real (kind = 8) function SP_min(str_par_opt_vec, d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S, d_S, d_PM, cv_PAR,cv_PM)
-
-   use bayes_pest_control
-   use bayes_matrix_operations
+ subroutine marginal_struct_param_optim (d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,it_bga,n)
+  
    implicit none
+   
    type(kernel_XQR),     intent(in)     :: d_XQR
    type(cv_observ),      intent(in)     :: cv_OBS
    type(d_observ),       intent(in)     :: d_OBS
@@ -57,9 +28,102 @@ real (kind = 8) function SP_min(str_par_opt_vec, d_XQR, Q0_all,cv_OBS, d_OBS, cv
    type(d_struct),       intent(inout)  :: d_S
    type(Q0_compr),       intent(in)     :: Q0_All(:)
    type(cv_prior_mean),  intent(in)     :: cv_PM
+   character (len=ERRORWIDTH)           :: retmsg
+   
+   integer                           :: it_bga, i, j, k
+   integer                           :: nQ0 = 0 !Dimension of Q0_All(:) [0] in case of no compression [cv_PAR%p] in case of compression
+   integer ( kind = 4 )              n       !Indicates the number of pars to estimate.
+   integer ( kind = 4 )              icount  !Number of function evaluation used (output)
+   integer ( kind = 4 )              ifault  !Error indicator (output)
+   integer ( kind = 4 )              konvge
+   integer ( kind = 4 )              numres  !Number of restarts (output)
+   real    ( kind = 8 )              reqmin
+   real    ( kind = 8 )              start(n)
+   real    ( kind = 8 )              step(n)
+   real    ( kind = 8 )              xmin(n)
+   real    ( kind = 8 )              ynewlo
+   real    ( kind = 8 ), external :: SP_min
+   
+   step  = d_S%struct_par_opt_vec !For the initial simplex. Can be changed.
+   konvge = 1
+   reqmin = 1.0D+2 !Need to be tested
+   if (cv_A%Q_compression_flag.ne.0) nQ0 = cv_PAR%p
+        
+   call nelmin_sp(SP_min,n,d_S%struct_par_opt_vec,xmin,ynewlo,reqmin,step,konvge,cv_A%it_max_structural,icount,numres,ifault, & 
+        & d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S, d_S, d_PM, cv_PAR,cv_PM,nQ0)
+        
+   if (ifault.eq.2) then !Maximum number of iterations has exceeded --> Warning               
+       write(retmsg,10) it_bga   
+10     format('Warning: Maximum number of iterations exceeded in structural parameter optimization procedure during bgaPEST iteration',i4, & 
+                 & '. The vector that gives the minimum obj. funct. during the procedure will be considered.') 
+       call utl_writmess(6,retmsg) 
+   endif
+   
+   !****************************************************************************************************************************************
+   !------ Here we reform d_S%theta and d_S%sig overwriting the elements optimized by Nelder-Mead and leaving unchanged the others. --------
+   !---------- The values that minimize the structural parameter objective function are also assigned to d_S%struct_par_opt_vec ------------     
+   !Form d_S%struct_par_opt_vec
+   d_S%struct_par_opt_vec = xmin !May include sigma
+   !Reform d_S%theta and d_S%sig
+   k = 0
+   if ((maxval(cv_S%struct_par_opt).eq.1)) then   
+     do i = 1, cv_PAR%p
+       if (cv_S%struct_par_opt(i).eq.1) then
+         do j = 1,cv_S%num_theta_type (i)
+           k = k + 1
+           d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
+         end do
+       end if
+     end do
+   end if
+   
+   if (d_S%sig_opt.eq.1) then 
+     k = k + 1
+     d_S%sig = d_S%struct_par_opt_vec(k)
+   endif
+   !Note: from here d_S%theta and d_S%sig contain the theta and sigma values optimized after the minimization of the structural parameter obj. function.
+   !It's not true that the CURRENT Qss, Qsy, HQsy, Qyy and other variables, that depend on theta and sigma, are calculated with these optimized parameters.
+   !This because in Nelder Mead the values that minimize the function can occur not during the last performed iteration.    
+   !*******************************************************************************************************************************************     
+   
+ end subroutine marginal_struct_param_optim
+
+end module struct_param_optimization
+
+
+!****************************************************************************************************************************
+!---------------- External function that contains the structural parameters objective function to minimize ------------------
+!****************************************************************************************************************************
+
+real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
+
+   use bayes_pest_control
+   use model_input_output
+   use bayes_pest_finalize
+   use error_message
+   use utilities
+   use make_kernels
+   use bayes_matrix_operations
+   use jupiter_input_data_support
+   
+   implicit none
+   
+   integer                              :: nQ0, n
+   type(kernel_XQR),     intent(in)     :: d_XQR
+   type(cv_observ),      intent(in)     :: cv_OBS
+   type(d_observ),       intent(in)     :: d_OBS
+   type(d_algorithmic),  intent(inout)  :: d_A 
+   type(cv_algorithmic), intent(inout)  :: cv_A
+   type(d_prior_mean),   intent(in)     :: d_PM
+   type(cv_param),       intent(in)     :: cv_PAR 
+   type(d_param),        intent(inout)  :: d_PAR        
+   type(cv_struct),      intent(in)     :: cv_S 
+   type(d_struct),       intent(inout)  :: d_S
+   type(Q0_compr),       intent(in)     :: Q0_All(nQ0)
+   type(cv_prior_mean),  intent(in)     :: cv_PM
    
    integer                              :: pivot(cv_OBS%nobs), errcode, i, j, k
-   double precision,     intent(inout)  :: str_par_opt_vec(:) !This must be the pars vector to be optimized for. Must be the first argument in SP_min (NelMead requires this) 
+   double precision                     :: str_par_opt_vec (n)!This must be the pars vector to be optimized for. Must be the first argument in SP_min (NelMead requires this) 
    double precision                     :: z(cv_OBS%nobs) 
    double precision                     :: lndetGyy, ztiGyyz, dthQttdth
    double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
@@ -76,7 +140,7 @@ real (kind = 8) function SP_min(str_par_opt_vec, d_XQR, Q0_all,cv_OBS, d_OBS, cv
      UinvGyy   = UNINIT_REAL   ! matrix
      Gyy       = UNINIT_REAL   ! matrix
      dtheta    = UNINIT_REAL   ! matrix
-   
+     
    !First we need to reform d_S%theta and d_S%sig overwriting the elements that must be optimized for and  
    !leaving unchanged the others. These elements are into str_par_opt_vec (passed by NelMead). 
    !d_S%theta and d_S%sig are used during the matrix operations.(Qss Qsy HQsy Qyy)
@@ -124,6 +188,7 @@ real (kind = 8) function SP_min(str_par_opt_vec, d_XQR, Q0_all,cv_OBS, d_OBS, cv
       z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
       if (associated(HXB))  deallocate(HXB)
       !Form HXQbb
+      allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
       call dgemm('n', 'n', cv_OBS%nobs, cv_PAR%p,  cv_PAR%p, 1.D0, d_A%HX, &
               cv_OBS%nobs, d_PM%Qbb, cv_PAR%p, 0.D0, HXQbb, cv_OBS%nobs)
       !Form OMEGA = HXQbb x (HX)' and deallocate HXQbb no more necessary.
@@ -148,9 +213,9 @@ real (kind = 8) function SP_min(str_par_opt_vec, d_XQR, Q0_all,cv_OBS, d_OBS, cv
    !-- First perform LU decomposition on Gyy 
    UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
    call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
-   do i = 1,cv_OBS%nobs                            !Note that using DGETRF, the sign of the determinant should be not correct due to the pivoting
-     lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i))) !And even if the determinant is positive, some element on the diagonal of U should be negative.
-   end do                                          !If we are sure that the determinant is always positive the ABS before DLOG is enough.   
+   do i = 1,cv_OBS%nobs                            !Note: using DGETRF, the sign of the determinant could be not correct without considering the pivoting. 
+     lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i))) !Some element on the diagonal of U could be negative, but if we are sure that the determinant 
+   end do                                          !is always positive (and must be if want to calculate the log) the ABS before DLOG is enough.   
    lndetGyy = 0.5 * lndetGyy
    !*******************************************************************************
    
@@ -188,7 +253,7 @@ real (kind = 8) function SP_min(str_par_opt_vec, d_XQR, Q0_all,cv_OBS, d_OBS, cv
    !****************************************************************************** 
    !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------
    SP_min = lndetGyy + ztiGyyz + dthQttdth
-   !*****************************************************************************
+   !******************************************************************************
    
 return
 end function SP_min

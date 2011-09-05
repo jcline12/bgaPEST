@@ -12,7 +12,7 @@ module linesearch
    use make_kernels
    use bayes_matrix_operations
    use param_trans
-   use nelder_mead_simplex_linesearch
+   use nelder_mead_simplex_routines
  contains
  
  subroutine lns_proc(d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,cv_A,it_phi,miostruc,errstruc)
@@ -58,7 +58,7 @@ module linesearch
         if (ifault.eq.2) then !Maximum number of iterations has exceeded --> Warning               
           write(retmsg,10) it_phi   
 10        format('Warning: Maximum number of iterations exceeded in linesearch procedure during quasi-linear iteration',i4, & 
-                 & '. The value of the last iteration will be considered.') 
+                 & '. The value that gives the minimum obj. funct. during the procedure will be considered.') 
           call utl_writmess(6,retmsg) 
         endif
         

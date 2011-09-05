@@ -287,7 +287,9 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
      k = k + 1
      d_S%struct_par_opt_vec_0(k) = d_S%sig_0
    endif
-      
+   
+   d_S%struct_par_opt_vec = d_S%struct_par_opt_vec_0 !Initialize struct_par_opt_vec to struct_par_opt_vec_0
+         
    !----------------------------- Form Qtheta --> the prior covariance matrix for theta (can include sigma) --
    ! -- Finally, calculate the theta prior term
    allocate(d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt)) ! allocate  
@@ -332,7 +334,7 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
     endif
    
 !----------------------------- Finally peform the inversion of Qtheta to invQtheta ---------------------
-   select case (cv_PM%Qbb_form)
+   select case (cv_A%theta_cov_form)
     case (1)! diagonal
      do i = 1, cv_S%num_theta_opt
        d_S%invQtheta(i,i) =  1.D0/d_S%invQtheta(i,i)                            
