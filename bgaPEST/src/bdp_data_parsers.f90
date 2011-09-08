@@ -723,11 +723,14 @@ end subroutine bdp_read_structural_parameters_cov
             case ('sig_0')
               call drealread(ifail,BL(7)%keywordstring(i), d_S%sig_0)
               d_S%sig = d_S%sig_0     ! start out with the initial value of sig_0 as the first value
-                                      ! MD sig is a vector because we store the value for each iteration
             case ('sig_opt')
               call intread(ifail,BL(7)%keywordstring(i), d_S%sig_opt)
             case ('sig_p_var')
               call drealread(ifail,BL(7)%keywordstring(i), d_S%sig_p_var)
+            case ('trans_sig')
+              call intread(ifail,BL(7)%keywordstring(i), d_S%trans_sig)
+            case ('alpha_trans')  
+              call drealread(ifail,BL(7)%keywordstring(i), d_S%alpha_trans_sig)
            end select
           end if
          end do

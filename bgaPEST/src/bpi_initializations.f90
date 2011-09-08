@@ -115,11 +115,13 @@ contains
             d_S%sig_0     = UNINIT_REAL
             d_S%sig_opt   = UNINIT_INT
             d_S%sig_p_var = UNINIT_REAL
+            d_S%trans_sig = 0
+            d_S%alpha_trans_sig = 50.
             BL(7)%label           = 'epistemic_error_term'
             BL(7)%numrows         = UNINIT_INT
-            BL(7)%numkw           = 3
+            BL(7)%numkw           = 5
             allocate (BL(7)%keywords(BL(7)%numkw))
-            BL(7)%keywords = (/'sig_0', 'sig_opt' , 'sig_p_var'/) 
+            BL(7)%keywords = (/'sig_0', 'sig_opt' , 'sig_p_var', 'trans_sig', 'alpha_trans'/) 
        end subroutine bpi_init_struct_DATA 
        
 !********  subroutine bpi_init_param_CVs

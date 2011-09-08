@@ -100,6 +100,8 @@ module bayes_pest_control
             double precision            ::  sig_0         !MD Initial value of sigma (epistemic uncertainty parameter)
             double precision            ::  sig_p_var     !MD Variance of sigma (variance of the epistemic error) 
             integer                     ::  sig_opt       !MD Added to allow the choice to optimize or not for sig
+            integer                     ::  trans_sig     !Power transform flag
+            double precision            ::  alpha_trans_sig !Exponent of power transformation for sigma
             double precision, pointer   ::  theta(:,:)    !MD Structural parameters matrix
             double precision            ::  sig           !MD epistemic uncertainty parameter
       end type d_struct

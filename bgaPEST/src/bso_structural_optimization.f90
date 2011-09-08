@@ -32,6 +32,7 @@ module struct_param_optimization
    
    integer                           :: it_bga, i, j, k
    integer                           :: nQ0 = 0 !Dimension of Q0_All(:) [0] in case of no compression [cv_PAR%p] in case of compression
+   double precision                  :: stc = 1. !Parameter that control values of step. step = stc*initial values
    integer ( kind = 4 )              n       !Indicates the number of pars to estimate.
    integer ( kind = 4 )              icount  !Number of function evaluation used (output)
    integer ( kind = 4 )              ifault  !Error indicator (output)
@@ -44,12 +45,49 @@ module struct_param_optimization
    real    ( kind = 8 )              ynewlo
    real    ( kind = 8 ), external :: SP_min
    
-   step  = d_S%struct_par_opt_vec !For the initial simplex. Can be changed.
+  !***********************************************************************************************************************************
+  !start is the starting point for the iteration, and must contain the power transformed values if power transformation is required.
+  !step determine size and shape of initial simplex and must reflect the units of the variables. step = stc * initial values. 
+  !In case of power transformation step is calculated to be the same of the not tansformed case.
+  !*********************************************************************************************************************************** 
+  
+  start = d_S%struct_par_opt_vec  
+  step  = stc * d_S%struct_par_opt_vec
+  
+  !Loop to power transform where necessary
+  if ((maxval(cv_S%trans_theta).eq.1).or.(d_S%trans_sig.eq.1)) then !This means we have at least a theta or sig to power transform
+    k = 0
+    if ((maxval(cv_S%struct_par_opt).eq.1)) then   
+      do i = 1, cv_PAR%p
+        if (cv_S%struct_par_opt(i).eq.1)  then    
+          do j = 1,cv_S%num_theta_type (i)
+            k = k + 1
+            if (cv_S%trans_theta(i).eq.1) then
+              start(k) = cv_S%alpha_trans(i)*((d_S%struct_par_opt_vec(k)**(1./cv_S%alpha_trans(i)))-1) !Forward-trans
+              step(k) = cv_S%alpha_trans(i)*((((stc+1)*d_S%struct_par_opt_vec(k))**(1./cv_S%alpha_trans(i)))-1) - &
+                        cv_S%alpha_trans(i)*((d_S%struct_par_opt_vec(k)**(1./cv_S%alpha_trans(i)))-1)
+            end if
+          end do
+        end if
+      end do
+    end if
+    
+    if ((d_S%sig_opt.eq.1).and.(d_S%trans_sig.eq.1)) then 
+      k = k + 1
+      start(k) = d_S%alpha_trans_sig *((d_S%struct_par_opt_vec(k)**(1./d_S%alpha_trans_sig))-1) !Forward-trans
+      step(k) = d_S%alpha_trans_sig *((((stc+1)*d_S%struct_par_opt_vec(k))**(1./d_S%alpha_trans_sig))-1) - &
+                d_S%alpha_trans_sig *((d_S%struct_par_opt_vec(k)**(1./d_S%alpha_trans_sig))-1)
+    end if
+  end if 
+  
+  !***********************************************************************************************************************************
+  !At this point start and step and ready and power transformed where and if required
+  
    konvge = 1
-   reqmin = 1.0D+2 !Need to be tested
+   reqmin = 1.0D-2 !Need to be tested
    if (cv_A%Q_compression_flag.ne.0) nQ0 = cv_PAR%p
         
-   call nelmin_sp(SP_min,n,d_S%struct_par_opt_vec,xmin,ynewlo,reqmin,step,konvge,cv_A%it_max_structural,icount,numres,ifault, & 
+   call nelmin_sp(SP_min,n,start,xmin,ynewlo,reqmin,step,konvge,cv_A%it_max_structural,icount,numres,ifault, & 
         & d_XQR, Q0_all,cv_OBS, d_OBS, cv_A, d_A, d_PAR, cv_S, d_S, d_PM, cv_PAR,cv_PM,nQ0)
         
    if (ifault.eq.2) then !Maximum number of iterations has exceeded --> Warning               
@@ -61,7 +99,9 @@ module struct_param_optimization
    
    !****************************************************************************************************************************************
    !------ Here we reform d_S%theta and d_S%sig overwriting the elements optimized by Nelder-Mead and leaving unchanged the others. --------
-   !---------- The values that minimize the structural parameter objective function are also assigned to d_S%struct_par_opt_vec ------------     
+   !---------- The values that minimize the structural parameter objective function are also assigned to d_S%struct_par_opt_vec ------------
+   !--------------------- In case of power transformation, the structural parameters are back-transformed. --------------------------------- 
+   !------------------- At the end, d_S%struct_par_opt_vec, d_S%theta and d_S%sig are in the physical space. -------------------------------     
    !Form d_S%struct_par_opt_vec
    d_S%struct_par_opt_vec = xmin !May include sigma
    !Reform d_S%theta and d_S%sig
@@ -69,17 +109,30 @@ module struct_param_optimization
    if ((maxval(cv_S%struct_par_opt).eq.1)) then   
      do i = 1, cv_PAR%p
        if (cv_S%struct_par_opt(i).eq.1) then
-         do j = 1,cv_S%num_theta_type (i)
-           k = k + 1
-           d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
-         end do
+         if (cv_S%trans_theta(i).eq.1) then
+           do j = 1,cv_S%num_theta_type (i)
+              k = k + 1
+              d_S%struct_par_opt_vec(k) = ((d_S%struct_par_opt_vec(k) + cv_S%alpha_trans(i)) / (cv_S%alpha_trans(i)))**(cv_S%alpha_trans(i)) !Back-trans
+              d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
+           end do
+         else
+           do j = 1,cv_S%num_theta_type (i)
+             k = k + 1
+             d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
+           end do
+         end if  
        end if
      end do
    end if
    
-   if (d_S%sig_opt.eq.1) then 
-     k = k + 1
-     d_S%sig = d_S%struct_par_opt_vec(k)
+   if (d_S%sig_opt.eq.1) then
+     k=k+1
+     if (d_S%trans_sig.eq.1) then 
+       d_S%struct_par_opt_vec(k) = ((d_S%struct_par_opt_vec(k) + d_S%alpha_trans_sig) / (d_S%alpha_trans_sig))**(d_S%alpha_trans_sig) !Back-trans
+       d_S%sig = d_S%struct_par_opt_vec(k)
+     else
+       d_S%sig = d_S%struct_par_opt_vec(k)
+     endif
    endif
    !Note: from here d_S%theta and d_S%sig contain the theta and sigma values optimized after the minimization of the structural parameter obj. function.
    !It's not true that the CURRENT Qss, Qsy, HQsy, Qyy and other variables, that depend on theta and sigma, are calculated with these optimized parameters.
@@ -141,34 +194,51 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
      Gyy       = UNINIT_REAL   ! matrix
      dtheta    = UNINIT_REAL   ! matrix
      
+   !******************************************************************************************************
    !First we need to reform d_S%theta and d_S%sig overwriting the elements that must be optimized for and  
    !leaving unchanged the others. These elements are into str_par_opt_vec (passed by NelMead). 
    !d_S%theta and d_S%sig are used during the matrix operations.(Qss Qsy HQsy Qyy)
-   
-   !******************************************************************************
-   !******************************************************************************
+   !*****************************************************************************************************
+   !In case of power transformation str_par_opt_vec may contains values in the estimation space. The value
+   !will be back-transformed and assigned to d_S%struct_par_opt_vec.  
+   !*****************************************************************************************************
+   d_S%struct_par_opt_vec = str_par_opt_vec
    k = 0
    if ((maxval(cv_S%struct_par_opt).eq.1)) then   
      do i = 1, cv_PAR%p
        if (cv_S%struct_par_opt(i).eq.1) then
-         do j = 1,cv_S%num_theta_type (i)
-           k = k + 1
-           d_S%theta(i,j) = str_par_opt_vec(k)
-         end do
+         if (cv_S%trans_theta(i).eq.1) then
+           do j = 1,cv_S%num_theta_type (i)
+              k = k + 1
+              d_S%struct_par_opt_vec(k) = ((str_par_opt_vec(k) + cv_S%alpha_trans(i)) / (cv_S%alpha_trans(i)))**(cv_S%alpha_trans(i))
+              d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
+           end do
+         else
+           do j = 1,cv_S%num_theta_type (i)
+             k = k + 1
+             d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
+           end do
+         end if  
        end if
      end do
    end if
    
-   if (d_S%sig_opt.eq.1) then 
-     k = k + 1
-     d_S%sig = str_par_opt_vec(k)
+   if (d_S%sig_opt.eq.1) then
+     k=k+1
+     if (d_S%trans_sig.eq.1) then 
+       d_S%struct_par_opt_vec(k) = ((str_par_opt_vec(k) + d_S%alpha_trans_sig) / (d_S%alpha_trans_sig))**(d_S%alpha_trans_sig)
+       d_S%sig = d_S%struct_par_opt_vec(k)
+     else
+       d_S%sig = d_S%struct_par_opt_vec(k)
+     endif
    endif
-   !*****************************************************************************
-   !*****************************************************************************
+   !****************************************************************************************************************************
+   !****************************************************************************************************************************
    
-   !*************************************************************************************************************
-   ! At this point d_S%theta, d_S%sig and str_par_opt_vec are ready to be used in the calculation of the obj func.
-   
+   !****************************************************************************************************************************
+   ! At this point d_S%theta, d_S%sig and d_S%struct_par_opt_vec are ready to be used in the calculation of the obj func.
+   !---------------------------------- d_S%struct_par_opt_vec is in the physical space. ----------------------------------------
+   !****************************************************************************************************************************
    !We need to recalculate Qss Qsy HQsy only if at least one theta optimization is required. Otherwise, if the optimization
    !is just for sig, we need to recalculate just Qyy
    if ((maxval(cv_S%struct_par_opt).eq.1)) then            !Only if theta opimization is required.  
@@ -239,7 +309,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    !--------- Calculate the prior theta/sig term of the objective function --------
    !-------------------- 0.5(dtheta x invQtheta x dtheta) -------------------------
    !Form dtheta
-   dtheta = str_par_opt_vec - d_S%struct_par_opt_vec_0
+   dtheta = d_S%struct_par_opt_vec - d_S%struct_par_opt_vec_0
    !Form invQtt*dtheta
    allocate(TMPV(cv_S%num_theta_opt))
    call DGEMV('n',cv_S%num_theta_opt, cv_S%num_theta_opt, 1.D0, d_S%invQtheta, &
