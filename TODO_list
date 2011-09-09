@@ -24,7 +24,7 @@ Things we need to do:
 
 9) Structural parameter optimization.
 
-9a) a critical step within structural parameter optimization will be parsing the actual theta and sigma values
+9a) ***DONE-Marco*** a critical step within structural parameter optimization will be parsing the actual theta and sigma values
    that are to be optimized. The problem being, Nelder-Mead (at least as implemented in fminsearch in MATLAB) expects
    a single vector of variables to optimize. We need the flexibility to only optimize one or the other, however. This
    is an ongoing item of work and may be resolved in the documentation of the Nelder-Mead implementation, but on a 
@@ -33,17 +33,20 @@ Things we need to do:
         vector and covariance matrix. This takes place in bxq_make_X0_Q0_R0_InvQbb. Also pulled cv_S%num_theta_type
         out of the input file and, instead, calculate it internally to avoid possible errors. 
 
-9b) It looks like the function arguments for NELMIN beyond the main vector of theta are hard-coded, so we
+9b) ***DONE-Marco*** It looks like the function arguments for NELMIN beyond the main vector of theta are hard-coded, so we
     will need to write alternative versions of NELMIN - one for the linesearch and one for structural parameters.
+
+9c) See the pdf file theta_cov.pdf about some issue related to the structural parameter covariance.  
 
 10) Need to test PEST sensitivities against ADJOINT. Previous work made me suspect that there was
     a discrepancy, but I don't reall if this is true or not.
 
-11) ***DONE - PARTLY*** Added a check in bdp_read_structural_parameters_cov to make sure the proper number of rows is read. ***  
+11) ***DONE-Marco, but see 9c)*** Added a check in bdp_read_structural_parameters_cov to make sure the proper number of rows is read.  
      Need to better handle errors in reading. In particular, when theta_cov_form=0, no problem reading, but when theta_cov_form=1,
      reading concludes problems with missing blocks.
 
-12) How are we handling a variable number of theta parameters for different beta associations? In other words, if one beta association
+12) *Marco* we are requiring negative variable, otherwise we have a warning and the value entered is ignored.
+    How are we handling a variable number of theta parameters for different beta associations? In other words, if one beta association
     uses a linear variogram and other exponential, are we requiring dummy variables in the second column for the beta associations using
     a linear variogram? Is that related to the negative theta_0_2 values?
-13
+    

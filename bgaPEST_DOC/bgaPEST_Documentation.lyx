@@ -61,11 +61,12 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\tracking_changes false
+\tracking_changes true
 \output_changes false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\author 267031031 "marco" 
 \end_header
 
 \begin_body
@@ -1429,6 +1430,26 @@ To find the most likely values for
 \end_inset
 
 
+\change_inserted 267031031 1315582660
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted 267031031 1315582784
+I think there is an error in the objective function.
+ It should be 0.5*ln(det(Gyy))+0.5*[(theta ........] or eventually without 0.5 in both
+ terms.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard
@@ -2717,6 +2738,11 @@ Flag to indicate whether prior covariance of parameters
 \end_inset
 
  is always calculated, so this value is ignored if present.
+
+\change_inserted 267031031 1315582394
+ 
+\change_unchanged
+
 \end_layout
 
 \begin_layout Description
@@ -2733,6 +2759,13 @@ This is a flag to indicate which variogram type is used to express the prior
  Acceptable choices are [0] = pure nugget, [1] = linear, [2] = exponential.
  Note that choosing linear is equivalent to choosing exponential with fixed
  integral scale 10 times the maximum distance between nodes.
+
+\change_inserted 267031031 1315582428
+ 
+\shape italic
+default=1
+\change_unchanged
+
 \end_layout
 
 \begin_layout Description
@@ -2744,6 +2777,13 @@ Flag for whether structural parameters are meant to be optimized or not.
  This can be chosen for each structural parameter individually.
  [0] = do not optimize (hold at initial value), [1] = optimize using a marginal
  distribution.
+
+\change_inserted 267031031 1315582435
+ 
+\shape italic
+default=1
+\change_unchanged
+
 \end_layout
 
 \begin_layout Description
@@ -2754,6 +2794,14 @@ integer
 Flag for whether a power transformation should be applied to the structural
  parameters in the current row.
  [0] = do not transform, [1] = transform.
+
+\change_inserted 267031031 1315582344
+ 
+\shape italic
+default=1
+\change_unchanged
+
+\shape default
  
 \begin_inset Note Note
 status open
@@ -2765,6 +2813,24 @@ somewhere need to indicate which alpha value corresponds to the log in the
 
 \end_inset
 
+
+\change_inserted 267031031 1315582359
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted 267031031 1315582379
+Maybe is better to set the default to 0.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
 
 \end_layout
 
@@ -2778,8 +2844,16 @@ float
 trans_theta
 \family default
  = 1.
- default = 50.
  
+\shape italic
+default = 50
+\change_deleted 267031031 1315582178
+
+\shape default
+.
+ 
+\change_unchanged
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2842,6 +2916,11 @@ Initial value of
 
  which is the starting value of the second structural parameter for prior
  covariance
+\change_inserted 267031031 1315581821
+
+\end_layout
+
+\begin_layout Description
 \begin_inset Note Note
 status open
 
@@ -2852,6 +2931,24 @@ need to sort out this negative value business
 \end_inset
 
 .
+\change_inserted 267031031 1315581456
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted 267031031 1315581799
+In case max(num_theta_type) is 2 but for some beta association we need just
+ one theta value, the second must be entered negative otherwise we have
+ a warning.
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2894,6 +2991,27 @@ Variance of the current row's
 \end_inset
 
  parameter.
+
+\change_inserted 267031031 1315582503
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted 267031031 1315582583
+Need to discuss.
+ This must be a vector also if we have two structural parameters for the
+ same beta association.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2957,6 +3075,40 @@ Prior variance on
 \end_inset
 
 .
+\change_inserted 267031031 1315581859
+
+\end_layout
+
+\begin_layout Description
+
+\change_inserted 267031031 1315581992
+trans_sig 
+\emph on
+integer 
+\emph default
+Flag for whether a power transformation should be applied to the epistemic
+ error.
+ [0] = do not transform, [1] = transform.
+ 
+\shape italic
+default=0
+\end_layout
+
+\begin_layout Description
+
+\change_inserted 267031031 1315581980
+alpha_trans 
+\emph on
+float
+\emph default
+ Exponent of the power transformation if 
+\family typewriter
+trans_sig
+\family default
+ = 1.
+ 
+\shape italic
+default = 50
 \end_layout
 
 \begin_layout Subsubsection
