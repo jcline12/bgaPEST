@@ -315,7 +315,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    call DGEMV('n',cv_S%num_theta_opt, cv_S%num_theta_opt, 1.D0, d_S%invQtheta, &
            cv_S%num_theta_opt, dtheta, 1, 0.D0, TMPV,1) !On exit TMPV is invQtt*dtheta
    !Multiply dtheta' * TMPV and 0.5
-   call DGEMV('t',cv_S%num_theta_opt, 1, 0.5D-1, dtheta, cv_S%num_theta_opt, &
+   call DGEMV('t',cv_S%num_theta_opt, 1, 5.0D-1, dtheta, cv_S%num_theta_opt, &
            TMPV, 1, 0.D0, dthQttdth,1)
    if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
    !**************************************************************************************
