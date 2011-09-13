@@ -283,9 +283,9 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    !-- First perform LU decomposition on Gyy 
    UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
    call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
-   do i = 1,cv_OBS%nobs                            !Note: using DGETRF, the sign of the determinant could be not correct without considering the pivoting. 
-     lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i))) !Some element on the diagonal of U could be negative, but if we are sure that the determinant 
-   end do                                          !is always positive (and must be if want to calculate the log) the ABS before DLOG is enough.   
+   do i = 1,cv_OBS%nobs                             
+     lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i)))  
+   end do                                            
    lndetGyy = 0.5 * lndetGyy
    !*******************************************************************************
    
