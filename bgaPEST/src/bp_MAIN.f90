@@ -11,7 +11,7 @@ program bp_main
 ! ***             mnfienen@usgs.gov         ***
 ! ***              March 19, 2008           ***
 ! ***      Modified by M.D. 1/10/2009       ***
-! ***     Further Modifications MNF 11/2010 ***
+! ***  Further Modifications MNF/MD 11/2010 ***
 ! *********************************************
    
    use jupiter_input_data_support
@@ -127,7 +127,7 @@ program bp_main
     end if
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
-    if (cv_A%deriv_mode .eq. 1) then
+    if (cv_A%deriv_mode .eq. 0) then
         call bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
     end if
     
@@ -208,7 +208,7 @@ program bp_main
     
     !***************************************************************************************************************************  
     !********************** FROM HERE THE STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *****************************
-    !***************************************************************************************************************************
+    !************************************************************************** *************************************************
        if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then !Enter the structural pars estimation loop only if required
          curr_struct_vec = d_S%struct_par_opt_vec !Current struct pars vector. At the first bga loop d_S%struct_par_opt_vec is d_S%struct_par_opt_vec_0  
          call marginal_struct_param_optim(d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,b_ind,cv_S%num_theta_opt)
