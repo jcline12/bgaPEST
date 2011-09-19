@@ -30,11 +30,11 @@
     Outermost BGA Convergence
         bga_conv: 2.0000E-04
     Maximum Number of Structural Paramter Iterations
-        it_max_structural:         12
+        it_max_structural:         20
     Maximum Number of Objective Function Iterations
-        it_max_phi:         12
+        it_max_phi:         20
     Maximum Number of Outermost BGA Iterations
-        it_max_bga:         12
+        it_max_bga:         20
     Linesearch Flag: [0] indicates no linesearh, [1] indicates perform linesarch
         lns_flag:          1
     Maximum Number of Linesearch Iterations
@@ -109,9 +109,9 @@
     Outer Iteration Number:          2
     Inner Iteration Number:          1
  
-                      Total PHI : 1.3884E+02
-                     Misfit PHI : 1.2833E+02
-             Regularization PHI : 4.7270E+01
+                      Total PHI : 2.3331E+02
+                     Misfit PHI : 1.1339E+02
+             Regularization PHI : 1.4495E+02
  
         For current parameter values see file :- bp_test_pest.bpp.2_1                                                                                
         For current residual values see file :- bp_test_pest.bre.2_1                                                                                
@@ -121,9 +121,9 @@
     Outer Iteration Number:          2
     Inner Iteration Number:          2
  
-                      Total PHI : 1.3884E+02
-                     Misfit PHI : 1.2833E+02
-             Regularization PHI : 4.7270E+01
+                      Total PHI : 2.3331E+02
+                     Misfit PHI : 1.1339E+02
+             Regularization PHI : 1.4495E+02
  
         For current parameter values see file :- bp_test_pest.bpp.2_2                                                                                
         For current residual values see file :- bp_test_pest.bre.2_2                                                                                
@@ -133,9 +133,9 @@
     Outer Iteration Number:          3
     Inner Iteration Number:          1
  
-                      Total PHI : 2.7054E+02
-                     Misfit PHI : 1.0500E+02
-             Regularization PHI : 1.8174E+02
+                      Total PHI : 3.3474E+01
+                     Misfit PHI : 8.4717E+00
+             Regularization PHI : 2.5002E+01
  
         For current parameter values see file :- bp_test_pest.bpp.3_1                                                                                
         For current residual values see file :- bp_test_pest.bre.3_1                                                                                
@@ -145,117 +145,21 @@
     Outer Iteration Number:          3
     Inner Iteration Number:          2
  
-                      Total PHI : 2.7054E+02
-                     Misfit PHI : 1.0500E+02
-             Regularization PHI : 1.8174E+02
+                      Total PHI : 1.2683E+01
+                     Misfit PHI : 1.0467E+01
+             Regularization PHI : 4.2109E+00
  
         For current parameter values see file :- bp_test_pest.bpp.3_2                                                                                
         For current residual values see file :- bp_test_pest.bre.3_2                                                                                
  
  
  ***********************************
-    Outer Iteration Number:          4
-    Inner Iteration Number:          1
- 
-                      Total PHI : 2.8389E+02
-                     Misfit PHI : 1.7472E+02
-             Regularization PHI : 1.0918E+02
- 
-        For current parameter values see file :- bp_test_pest.bpp.4_1                                                                                
-        For current residual values see file :- bp_test_pest.bre.4_1                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          4
-    Inner Iteration Number:          2
- 
-                      Total PHI : 2.8646E+02
-                     Misfit PHI : 1.7476E+02
-             Regularization PHI : 1.1174E+02
- 
-        For current parameter values see file :- bp_test_pest.bpp.4_2                                                                                
-        For current residual values see file :- bp_test_pest.bre.4_2                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          4
+    Outer Iteration Number:          3
     Inner Iteration Number:          3
  
-                      Total PHI : 2.8646E+02
-                     Misfit PHI : 1.7476E+02
-             Regularization PHI : 1.1174E+02
+                      Total PHI : 1.2683E+01
+                     Misfit PHI : 1.0467E+01
+             Regularization PHI : 4.2109E+00
  
-        For current parameter values see file :- bp_test_pest.bpp.4_3                                                                                
-        For current residual values see file :- bp_test_pest.bre.4_3                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          5
-    Inner Iteration Number:          1
- 
-                      Total PHI : 1.2379E+02
-                     Misfit PHI : 9.7357E+01
-             Regularization PHI : 2.6436E+01
- 
-        For current parameter values see file :- bp_test_pest.bpp.5_1                                                                                
-        For current residual values see file :- bp_test_pest.bre.5_1                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          5
-    Inner Iteration Number:          2
- 
-                      Total PHI : 8.7345E+01
-                     Misfit PHI : 6.6498E+01
-             Regularization PHI : 2.5897E+01
- 
-        For current parameter values see file :- bp_test_pest.bpp.5_2                                                                                
-        For current residual values see file :- bp_test_pest.bre.5_2                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          5
-    Inner Iteration Number:          3
- 
-                      Total PHI : 8.0177E+01
-                     Misfit PHI : 6.4443E+01
-             Regularization PHI : 1.8729E+01
- 
-        For current parameter values see file :- bp_test_pest.bpp.5_3                                                                                
-        For current residual values see file :- bp_test_pest.bre.5_3                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          5
-    Inner Iteration Number:          4
- 
-                      Total PHI : 8.0177E+01
-                     Misfit PHI : 6.4443E+01
-             Regularization PHI : 1.8729E+01
- 
-        For current parameter values see file :- bp_test_pest.bpp.5_4                                                                                
-        For current residual values see file :- bp_test_pest.bre.5_4                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          6
-    Inner Iteration Number:          1
- 
-                      Total PHI : 8.6451E+01
-                     Misfit PHI : 5.7704E+01
-             Regularization PHI : 2.8747E+01
- 
-        For current parameter values see file :- bp_test_pest.bpp.6_1                                                                                
-        For current residual values see file :- bp_test_pest.bre.6_1                                                                                
- 
- 
- ***********************************
-    Outer Iteration Number:          6
-    Inner Iteration Number:          2
- 
-                      Total PHI : 9.1793E+01
-                     Misfit PHI : 5.5834E+01
-             Regularization PHI : 3.6041E+01
- 
-        For current parameter values see file :- bp_test_pest.bpp.6_2                                                                                
-        For current residual values see file :- bp_test_pest.bre.6_2                                                                                
+        For current parameter values see file :- bp_test_pest.bpp.3_3                                                                                
+        For current residual values see file :- bp_test_pest.bre.3_3                                                                                
