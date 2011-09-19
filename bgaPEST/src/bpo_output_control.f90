@@ -11,7 +11,8 @@ module bayes_output_control
 contains
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+!!!            subroutine to WRITE BANNER TO THE SCREEN                      !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    subroutine bpo_write_banner()
       write(6,*)
       write(6,*) '*******************************************'
@@ -27,6 +28,8 @@ contains
    end subroutine bpo_write_banner
    
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!            subroutine to TELL USER THAT IMPROPER COMMAND LINE GIVEN      !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    subroutine bpo_write_nocmd()     
       write(6,*) 'bgaPEST is run using the command :-'
       write(6,*) 'bgaPEST bgapestfile '
@@ -34,11 +37,12 @@ contains
    end subroutine bpo_write_nocmd
    
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_allpars(cv_PAR,d_PAR,cparvalue,writunit,iternum)
+!!!            subroutine to WRITE ALL PARAMETER VALUES TO A BPP FILE        !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   subroutine bpo_write_allpars(cv_PAR,d_PAR,cparvalue,writunit)
       type (cv_param)              :: cv_PAR
       type (d_param)               :: d_PAR
       double precision, intent(in) :: cparvalue(:)
-      integer                      :: iternum
       integer, intent(in)          :: writunit
       character(50)                :: outlinefmt
       character(20)                :: parwstr,pargwstr
@@ -55,11 +59,12 @@ contains
    end subroutine bpo_write_allpars
    
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_residuals(cv_OBS,d_OBS,cobsvalue,writunit,iternum)
+!!!            subroutine to WRITE ALL RESIDUAL VALUES TO A BRE FILE         !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   subroutine bpo_write_residuals(cv_OBS,d_OBS,cobsvalue,writunit)
       type (cv_observ)             :: cv_OBS
       type (d_observ)              :: d_OBS
       double precision, intent(in) :: cobsvalue(:)
-      integer                      :: iternum
       integer, intent(in)          :: writunit
       character(50)                :: outlinefmt
 
@@ -71,11 +76,15 @@ contains
     enddo
            
    end subroutine bpo_write_residuals
+   
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!        subroutine to WRITE INITIAL VALUES TO THE RECORD (BPR) FILE       !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     subroutine bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS, &
                 d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,cv_S,d_PAR)
    
     integer, intent(in)                 :: bprunit
+    integer                             :: cparunit
     type(cv_param), intent(in)          :: cv_PAR
     type(cv_observ), intent(in)         :: cv_OBS
     type (cv_struct)                    :: cv_S  
@@ -199,7 +208,7 @@ contains
         end do
     else
         !indicate no compression specified
-            write(bprunit,65) indent,' No Compression Requested.  No further details provided about Beta Associations'
+            write(bprunit,65) indent,' No Compression Requested.'
     end if
     
 60 format('Variables for Beta Association: ',I3)
@@ -235,6 +244,46 @@ contains
 !!! Parameter definitions
     write(bprunit,*)
     write(bprunit,*) 'Initial Parameter Definitions:-'
-    call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,bprunit,0)
+    cparunit = utl_nextunit()
+    !-- write out the initial parameter values as bpp.0
+    call bpc_openfile(cparunit,trim(trim(casename) // '.bpp.0'),1) ![1] at end indicates open with write access
+    call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit)
+    close(cparunit)
+    write(bprunit,75) indent,'For initial parameter values see file :- ', trim(trim(casename) // '.bpp.0')
+75  format(3A) 
     end subroutine bpo_write_bpr_header
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!        subroutine to WRITE INTERMEDIATE INFORMATION TO BOTH RECORD (BPR) FILE and TO STANDARD OUT     !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    subroutine bpo_write_bpr_intermed(bprunit,inner_iter,outer_iter,curr_par_file,curr_resid_file,d_PAR)
+   
+    integer, intent(in)                 :: bprunit
+    integer                             :: inner_iter,outer_iter
+    type(d_param), intent(in)           :: d_PAR
+    character (len=4)                   :: indent = '    '
+    character (len=100)                 :: curr_par_file,curr_resid_file 
+    integer i,j ! local counters
+    
+    write(bprunit,*)
+    write(bprunit,*)
+    write(bprunit,*) '***********************************'
+    write(bprunit,40) indent,'Outer Iteration Number: ',outer_iter
+    write(bprunit,40) indent,'Inner Iteration Number: ',inner_iter
+    write(bprunit,*) 
+    write(bprunit,35) indent,'Total PHI : ',d_PAR%phi_T
+    write(bprunit,35) indent, 'Misfit PHI : ',d_PAR%phi_M
+    write(bprunit,35) indent, 'Regularization PHI : ',d_PAR%phi_R
+    write(bprunit,*) 
+    write(bprunit,80) indent, indent, 'For current parameter values see file :- ', curr_par_file
+    write(bprunit,80) indent, indent, 'For current residual values see file :- ', curr_resid_file
+30 format(1A, 1ES10.4)     ! single indent and ES format
+35 format(1A,1A30,1ES10.4 )   ! double indent and ES format
+36 format(3A,1ES10.4 )   ! double indent and ES format
+40 format(2A, 1I10)     ! single indent and integer format
+45 format(3A,1I10)   ! double indent and integer format
+80  format(4A)    
+    end subroutine bpo_write_bpr_intermed
+    
+    
 end module bayes_output_control

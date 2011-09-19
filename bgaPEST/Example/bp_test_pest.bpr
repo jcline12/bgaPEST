@@ -24,21 +24,21 @@
  
  Algorithmic control variables:-
     Structural Paramter Convergence
-        structural_conv: 2.0000E-03
+        structural_conv: 2.0000E-04
     Objective Function Convergence
         phi_conv: 3.0000E-04
     Outermost BGA Convergence
-        bga_conv: 4.0000E-03
+        bga_conv: 2.0000E-04
     Maximum Number of Structural Paramter Iterations
-        it_max_structural:          1
+        it_max_structural:         12
     Maximum Number of Objective Function Iterations
-        it_max_phi:          1
+        it_max_phi:         12
     Maximum Number of Outermost BGA Iterations
-        it_max_bga:          1
+        it_max_bga:         12
     Linesearch Flag: [0] indicates no linesearh, [1] indicates perform linesarch
-        lns_flag:          0
+        lns_flag:          1
     Maximum Number of Linesearch Iterations
-        it_max_lns:         15
+        it_max_lns:          5
     Logical Flag for storing Q Matrix
         store_Q:     T
     Form of theta covariance: [0] none, [1], diag, [2] full matrix
@@ -49,7 +49,7 @@
         deriv_mode:          1
  
        1 Beta Association was defined:
-     No Compression Requested.  No further details provided about Beta Associations
+     No Compression Requested.
  
  
  Prior Information on Betas:-
@@ -66,445 +66,196 @@
  
  
  Initial Parameter Definitions:-
-   ParamName      ParamGroup    BetaAssoc        ParamVal
-          p1       pargp_uno            1  0.20000000E-03
-          p2       pargp_uno            1  0.20000000E-03
-          p3       pargp_uno            1  0.20000000E-03
-          p4       pargp_uno            1  0.20000000E-03
-          p5       pargp_uno            1  0.20000000E-03
-          p6       pargp_uno            1  0.20000000E-03
-          p7       pargp_uno            1  0.20000000E-03
-          p8       pargp_uno            1  0.20000000E-03
-          p9       pargp_uno            1  0.20000000E-03
-         p10       pargp_uno            1  0.20000000E-03
-         p11       pargp_uno            1  0.20000000E-03
-         p12       pargp_uno            1  0.20000000E-03
-         p13       pargp_uno            1  0.20000000E-03
-         p14       pargp_uno            1  0.20000000E-03
-         p15       pargp_uno            1  0.20000000E-03
-         p16       pargp_uno            1  0.20000000E-03
-         p17       pargp_uno            1  0.20000000E-03
-         p18       pargp_uno            1  0.20000000E-03
-         p19       pargp_uno            1  0.20000000E-03
-         p20       pargp_uno            1  0.20000000E-03
-         p21       pargp_uno            1  0.20000000E-03
-         p22       pargp_uno            1  0.20000000E-03
-         p23       pargp_uno            1  0.20000000E-03
-         p24       pargp_uno            1  0.20000000E-03
-         p25       pargp_uno            1  0.20000000E-03
-         p26       pargp_uno            1  0.20000000E-03
-         p27       pargp_uno            1  0.20000000E-03
-         p28       pargp_uno            1  0.20000000E-03
-         p29       pargp_uno            1  0.20000000E-03
-         p30       pargp_uno            1  0.20000000E-03
-         p31       pargp_uno            1  0.20000000E-03
-         p32       pargp_uno            1  0.20000000E-03
-         p33       pargp_uno            1  0.20000000E-03
-         p34       pargp_uno            1  0.20000000E-03
-         p35       pargp_uno            1  0.20000000E-03
-         p36       pargp_uno            1  0.20000000E-03
-         p37       pargp_uno            1  0.20000000E-03
-         p38       pargp_uno            1  0.20000000E-03
-         p39       pargp_uno            1  0.20000000E-03
-         p40       pargp_uno            1  0.20000000E-03
-         p41       pargp_uno            1  0.20000000E-03
-         p42       pargp_uno            1  0.20000000E-03
-         p43       pargp_uno            1  0.20000000E-03
-         p44       pargp_uno            1  0.20000000E-03
-         p45       pargp_uno            1  0.20000000E-03
-         p46       pargp_uno            1  0.20000000E-03
-         p47       pargp_uno            1  0.20000000E-03
-         p48       pargp_uno            1  0.20000000E-03
-         p49       pargp_uno            1  0.20000000E-03
-         p50       pargp_uno            1  0.20000000E-03
-         p51       pargp_uno            1  0.20000000E-03
-         p52       pargp_uno            1  0.20000000E-03
-         p53       pargp_uno            1  0.20000000E-03
-         p54       pargp_uno            1  0.20000000E-03
-         p55       pargp_uno            1  0.20000000E-03
-         p56       pargp_uno            1  0.20000000E-03
-         p57       pargp_uno            1  0.20000000E-03
-         p58       pargp_uno            1  0.20000000E-03
-         p59       pargp_uno            1  0.20000000E-03
-         p60       pargp_uno            1  0.20000000E-03
-         p61       pargp_uno            1  0.20000000E-03
-         p62       pargp_uno            1  0.20000000E-03
-         p63       pargp_uno            1  0.20000000E-03
-         p64       pargp_uno            1  0.20000000E-03
-         p65       pargp_uno            1  0.20000000E-03
-         p66       pargp_uno            1  0.20000000E-03
-         p67       pargp_uno            1  0.20000000E-03
-         p68       pargp_uno            1  0.20000000E-03
-         p69       pargp_uno            1  0.20000000E-03
-         p70       pargp_uno            1  0.20000000E-03
-         p71       pargp_uno            1  0.20000000E-03
-         p72       pargp_uno            1  0.20000000E-03
-         p73       pargp_uno            1  0.20000000E-03
-         p74       pargp_uno            1  0.20000000E-03
-         p75       pargp_uno            1  0.20000000E-03
-         p76       pargp_uno            1  0.20000000E-03
-         p77       pargp_uno            1  0.20000000E-03
-         p78       pargp_uno            1  0.20000000E-03
-         p79       pargp_uno            1  0.20000000E-03
-         p80       pargp_uno            1  0.20000000E-03
-         p81       pargp_uno            1  0.20000000E-03
-         p82       pargp_uno            1  0.20000000E-03
-         p83       pargp_uno            1  0.20000000E-03
-         p84       pargp_uno            1  0.20000000E-03
-         p85       pargp_uno            1  0.20000000E-03
-         p86       pargp_uno            1  0.20000000E-03
-         p87       pargp_uno            1  0.20000000E-03
-         p88       pargp_uno            1  0.20000000E-03
-         p89       pargp_uno            1  0.20000000E-03
-         p90       pargp_uno            1  0.20000000E-03
-         p91       pargp_uno            1  0.20000000E-03
-         p92       pargp_uno            1  0.20000000E-03
-         p93       pargp_uno            1  0.20000000E-03
-         p94       pargp_uno            1  0.20000000E-03
-         p95       pargp_uno            1  0.20000000E-03
-         p96       pargp_uno            1  0.20000000E-03
-         p97       pargp_uno            1  0.20000000E-03
-         p98       pargp_uno            1  0.20000000E-03
-         p99       pargp_uno            1  0.20000000E-03
-        p100       pargp_uno            1  0.20000000E-03
-        p101       pargp_uno            1  0.20000000E-03
-        p102       pargp_uno            1  0.20000000E-03
-        p103       pargp_uno            1  0.20000000E-03
-        p104       pargp_uno            1  0.20000000E-03
-        p105       pargp_uno            1  0.20000000E-03
-        p106       pargp_uno            1  0.20000000E-03
-        p107       pargp_uno            1  0.20000000E-03
-        p108       pargp_uno            1  0.20000000E-03
-        p109       pargp_uno            1  0.20000000E-03
-        p110       pargp_uno            1  0.20000000E-03
-        p111       pargp_uno            1  0.20000000E-03
-        p112       pargp_uno            1  0.20000000E-03
-        p113       pargp_uno            1  0.20000000E-03
-        p114       pargp_uno            1  0.20000000E-03
-        p115       pargp_uno            1  0.20000000E-03
-        p116       pargp_uno            1  0.20000000E-03
-        p117       pargp_uno            1  0.20000000E-03
-        p118       pargp_uno            1  0.20000000E-03
-        p119       pargp_uno            1  0.20000000E-03
-        p120       pargp_uno            1  0.20000000E-03
-        p121       pargp_uno            1  0.20000000E-03
-        p122       pargp_uno            1  0.20000000E-03
-        p123       pargp_uno            1  0.20000000E-03
-        p124       pargp_uno            1  0.20000000E-03
-        p125       pargp_uno            1  0.20000000E-03
-        p126       pargp_uno            1  0.20000000E-03
-        p127       pargp_uno            1  0.20000000E-03
-        p128       pargp_uno            1  0.20000000E-03
-        p129       pargp_uno            1  0.20000000E-03
-        p130       pargp_uno            1  0.20000000E-03
-        p131       pargp_uno            1  0.20000000E-03
-        p132       pargp_uno            1  0.20000000E-03
-        p133       pargp_uno            1  0.20000000E-03
-        p134       pargp_uno            1  0.20000000E-03
-        p135       pargp_uno            1  0.20000000E-03
-        p136       pargp_uno            1  0.20000000E-03
-        p137       pargp_uno            1  0.20000000E-03
-        p138       pargp_uno            1  0.20000000E-03
-        p139       pargp_uno            1  0.20000000E-03
-        p140       pargp_uno            1  0.20000000E-03
-        p141       pargp_uno            1  0.20000000E-03
-        p142       pargp_uno            1  0.20000000E-03
-        p143       pargp_uno            1  0.20000000E-03
-        p144       pargp_uno            1  0.20000000E-03
-        p145       pargp_uno            1  0.20000000E-03
-        p146       pargp_uno            1  0.20000000E-03
-        p147       pargp_uno            1  0.20000000E-03
-        p148       pargp_uno            1  0.20000000E-03
-        p149       pargp_uno            1  0.20000000E-03
-        p150       pargp_uno            1  0.20000000E-03
-        p151       pargp_uno            1  0.20000000E-03
-        p152       pargp_uno            1  0.20000000E-03
-        p153       pargp_uno            1  0.20000000E-03
-        p154       pargp_uno            1  0.20000000E-03
-        p155       pargp_uno            1  0.20000000E-03
-        p156       pargp_uno            1  0.20000000E-03
-        p157       pargp_uno            1  0.20000000E-03
-        p158       pargp_uno            1  0.20000000E-03
-        p159       pargp_uno            1  0.20000000E-03
-        p160       pargp_uno            1  0.20000000E-03
-        p161       pargp_uno            1  0.20000000E-03
-        p162       pargp_uno            1  0.20000000E-03
-        p163       pargp_uno            1  0.20000000E-03
-        p164       pargp_uno            1  0.20000000E-03
-        p165       pargp_uno            1  0.20000000E-03
-        p166       pargp_uno            1  0.20000000E-03
-        p167       pargp_uno            1  0.20000000E-03
-        p168       pargp_uno            1  0.20000000E-03
-        p169       pargp_uno            1  0.20000000E-03
-        p170       pargp_uno            1  0.20000000E-03
-        p171       pargp_uno            1  0.20000000E-03
-        p172       pargp_uno            1  0.20000000E-03
-        p173       pargp_uno            1  0.20000000E-03
-        p174       pargp_uno            1  0.20000000E-03
-        p175       pargp_uno            1  0.20000000E-03
-        p176       pargp_uno            1  0.20000000E-03
-        p177       pargp_uno            1  0.20000000E-03
-        p178       pargp_uno            1  0.20000000E-03
-        p179       pargp_uno            1  0.20000000E-03
-        p180       pargp_uno            1  0.20000000E-03
-        p181       pargp_uno            1  0.20000000E-03
-        p182       pargp_uno            1  0.20000000E-03
-        p183       pargp_uno            1  0.20000000E-03
-        p184       pargp_uno            1  0.20000000E-03
-        p185       pargp_uno            1  0.20000000E-03
-        p186       pargp_uno            1  0.20000000E-03
-        p187       pargp_uno            1  0.20000000E-03
-        p188       pargp_uno            1  0.20000000E-03
-        p189       pargp_uno            1  0.20000000E-03
-        p190       pargp_uno            1  0.20000000E-03
-        p191       pargp_uno            1  0.20000000E-03
-        p192       pargp_uno            1  0.20000000E-03
-        p193       pargp_uno            1  0.20000000E-03
-        p194       pargp_uno            1  0.20000000E-03
-        p195       pargp_uno            1  0.20000000E-03
-        p196       pargp_uno            1  0.20000000E-03
-        p197       pargp_uno            1  0.20000000E-03
-        p198       pargp_uno            1  0.20000000E-03
-        p199       pargp_uno            1  0.20000000E-03
-        p200       pargp_uno            1  0.20000000E-03
-        p201       pargp_uno            1  0.20000000E-03
-        p202       pargp_uno            1  0.20000000E-03
-        p203       pargp_uno            1  0.20000000E-03
-        p204       pargp_uno            1  0.20000000E-03
-        p205       pargp_uno            1  0.20000000E-03
-        p206       pargp_uno            1  0.20000000E-03
-        p207       pargp_uno            1  0.20000000E-03
-        p208       pargp_uno            1  0.20000000E-03
-        p209       pargp_uno            1  0.20000000E-03
-        p210       pargp_uno            1  0.20000000E-03
-        p211       pargp_uno            1  0.20000000E-03
-        p212       pargp_uno            1  0.20000000E-03
-        p213       pargp_uno            1  0.20000000E-03
-        p214       pargp_uno            1  0.20000000E-03
-        p215       pargp_uno            1  0.20000000E-03
-        p216       pargp_uno            1  0.20000000E-03
-        p217       pargp_uno            1  0.20000000E-03
-        p218       pargp_uno            1  0.20000000E-03
-        p219       pargp_uno            1  0.20000000E-03
-        p220       pargp_uno            1  0.20000000E-03
-        p221       pargp_uno            1  0.20000000E-03
-        p222       pargp_uno            1  0.20000000E-03
-        p223       pargp_uno            1  0.20000000E-03
-        p224       pargp_uno            1  0.20000000E-03
-        p225       pargp_uno            1  0.20000000E-03
-        p226       pargp_uno            1  0.20000000E-03
-        p227       pargp_uno            1  0.20000000E-03
-        p228       pargp_uno            1  0.20000000E-03
-        p229       pargp_uno            1  0.20000000E-03
-        p230       pargp_uno            1  0.20000000E-03
-        p231       pargp_uno            1  0.20000000E-03
-        p232       pargp_uno            1  0.20000000E-03
-        p233       pargp_uno            1  0.20000000E-03
-        p234       pargp_uno            1  0.20000000E-03
-        p235       pargp_uno            1  0.20000000E-03
-        p236       pargp_uno            1  0.20000000E-03
-        p237       pargp_uno            1  0.20000000E-03
-        p238       pargp_uno            1  0.20000000E-03
-        p239       pargp_uno            1  0.20000000E-03
-        p240       pargp_uno            1  0.20000000E-03
-        p241       pargp_uno            1  0.20000000E-03
-        p242       pargp_uno            1  0.20000000E-03
-        p243       pargp_uno            1  0.20000000E-03
-        p244       pargp_uno            1  0.20000000E-03
-        p245       pargp_uno            1  0.20000000E-03
-        p246       pargp_uno            1  0.20000000E-03
-        p247       pargp_uno            1  0.20000000E-03
-        p248       pargp_uno            1  0.20000000E-03
-        p249       pargp_uno            1  0.20000000E-03
-        p250       pargp_uno            1  0.20000000E-03
-        p251       pargp_uno            1  0.20000000E-03
-        p252       pargp_uno            1  0.20000000E-03
-        p253       pargp_uno            1  0.20000000E-03
-        p254       pargp_uno            1  0.20000000E-03
-        p255       pargp_uno            1  0.20000000E-03
-        p256       pargp_uno            1  0.20000000E-03
-        p257       pargp_uno            1  0.20000000E-03
-        p258       pargp_uno            1  0.20000000E-03
-        p259       pargp_uno            1  0.20000000E-03
-        p260       pargp_uno            1  0.20000000E-03
-        p261       pargp_uno            1  0.20000000E-03
-        p262       pargp_uno            1  0.20000000E-03
-        p263       pargp_uno            1  0.20000000E-03
-        p264       pargp_uno            1  0.20000000E-03
-        p265       pargp_uno            1  0.20000000E-03
-        p266       pargp_uno            1  0.20000000E-03
-        p267       pargp_uno            1  0.20000000E-03
-        p268       pargp_uno            1  0.20000000E-03
-        p269       pargp_uno            1  0.20000000E-03
-        p270       pargp_uno            1  0.20000000E-03
-        p271       pargp_uno            1  0.20000000E-03
-        p272       pargp_uno            1  0.20000000E-03
-        p273       pargp_uno            1  0.20000000E-03
-        p274       pargp_uno            1  0.20000000E-03
-        p275       pargp_uno            1  0.20000000E-03
-        p276       pargp_uno            1  0.20000000E-03
-        p277       pargp_uno            1  0.20000000E-03
-        p278       pargp_uno            1  0.20000000E-03
-        p279       pargp_uno            1  0.20000000E-03
-        p280       pargp_uno            1  0.20000000E-03
-        p281       pargp_uno            1  0.20000000E-03
-        p282       pargp_uno            1  0.20000000E-03
-        p283       pargp_uno            1  0.20000000E-03
-        p284       pargp_uno            1  0.20000000E-03
-        p285       pargp_uno            1  0.20000000E-03
-        p286       pargp_uno            1  0.20000000E-03
-        p287       pargp_uno            1  0.20000000E-03
-        p288       pargp_uno            1  0.20000000E-03
-        p289       pargp_uno            1  0.20000000E-03
-        p290       pargp_uno            1  0.20000000E-03
-        p291       pargp_uno            1  0.20000000E-03
-        p292       pargp_uno            1  0.20000000E-03
-        p293       pargp_uno            1  0.20000000E-03
-        p294       pargp_uno            1  0.20000000E-03
-        p295       pargp_uno            1  0.20000000E-03
-        p296       pargp_uno            1  0.20000000E-03
-        p297       pargp_uno            1  0.20000000E-03
-        p298       pargp_uno            1  0.20000000E-03
-        p299       pargp_uno            1  0.20000000E-03
-        p300       pargp_uno            1  0.20000000E-03
-        p301       pargp_uno            1  0.20000000E-03
-        p302       pargp_uno            1  0.20000000E-03
-        p303       pargp_uno            1  0.20000000E-03
-        p304       pargp_uno            1  0.20000000E-03
-        p305       pargp_uno            1  0.20000000E-03
-        p306       pargp_uno            1  0.20000000E-03
-        p307       pargp_uno            1  0.20000000E-03
-        p308       pargp_uno            1  0.20000000E-03
-        p309       pargp_uno            1  0.20000000E-03
-        p310       pargp_uno            1  0.20000000E-03
-        p311       pargp_uno            1  0.20000000E-03
-        p312       pargp_uno            1  0.20000000E-03
-        p313       pargp_uno            1  0.20000000E-03
-        p314       pargp_uno            1  0.20000000E-03
-        p315       pargp_uno            1  0.20000000E-03
-        p316       pargp_uno            1  0.20000000E-03
-        p317       pargp_uno            1  0.20000000E-03
-        p318       pargp_uno            1  0.20000000E-03
-        p319       pargp_uno            1  0.20000000E-03
-        p320       pargp_uno            1  0.20000000E-03
-        p321       pargp_uno            1  0.20000000E-03
-        p322       pargp_uno            1  0.20000000E-03
-        p323       pargp_uno            1  0.20000000E-03
-        p324       pargp_uno            1  0.20000000E-03
-        p325       pargp_uno            1  0.20000000E-03
-        p326       pargp_uno            1  0.20000000E-03
-        p327       pargp_uno            1  0.20000000E-03
-        p328       pargp_uno            1  0.20000000E-03
-        p329       pargp_uno            1  0.20000000E-03
-        p330       pargp_uno            1  0.20000000E-03
-        p331       pargp_uno            1  0.20000000E-03
-        p332       pargp_uno            1  0.20000000E-03
-        p333       pargp_uno            1  0.20000000E-03
-        p334       pargp_uno            1  0.20000000E-03
-        p335       pargp_uno            1  0.20000000E-03
-        p336       pargp_uno            1  0.20000000E-03
-        p337       pargp_uno            1  0.20000000E-03
-        p338       pargp_uno            1  0.20000000E-03
-        p339       pargp_uno            1  0.20000000E-03
-        p340       pargp_uno            1  0.20000000E-03
-        p341       pargp_uno            1  0.20000000E-03
-        p342       pargp_uno            1  0.20000000E-03
-        p343       pargp_uno            1  0.20000000E-03
-        p344       pargp_uno            1  0.20000000E-03
-        p345       pargp_uno            1  0.20000000E-03
-        p346       pargp_uno            1  0.20000000E-03
-        p347       pargp_uno            1  0.20000000E-03
-        p348       pargp_uno            1  0.20000000E-03
-        p349       pargp_uno            1  0.20000000E-03
-        p350       pargp_uno            1  0.20000000E-03
-        p351       pargp_uno            1  0.20000000E-03
-        p352       pargp_uno            1  0.20000000E-03
-        p353       pargp_uno            1  0.20000000E-03
-        p354       pargp_uno            1  0.20000000E-03
-        p355       pargp_uno            1  0.20000000E-03
-        p356       pargp_uno            1  0.20000000E-03
-        p357       pargp_uno            1  0.20000000E-03
-        p358       pargp_uno            1  0.20000000E-03
-        p359       pargp_uno            1  0.20000000E-03
-        p360       pargp_uno            1  0.20000000E-03
-        p361       pargp_uno            1  0.20000000E-03
-        p362       pargp_uno            1  0.20000000E-03
-        p363       pargp_uno            1  0.20000000E-03
-        p364       pargp_uno            1  0.20000000E-03
-        p365       pargp_uno            1  0.20000000E-03
-        p366       pargp_uno            1  0.20000000E-03
-        p367       pargp_uno            1  0.20000000E-03
-        p368       pargp_uno            1  0.20000000E-03
-        p369       pargp_uno            1  0.20000000E-03
-        p370       pargp_uno            1  0.20000000E-03
-        p371       pargp_uno            1  0.20000000E-03
-        p372       pargp_uno            1  0.20000000E-03
-        p373       pargp_uno            1  0.20000000E-03
-        p374       pargp_uno            1  0.20000000E-03
-        p375       pargp_uno            1  0.20000000E-03
-        p376       pargp_uno            1  0.20000000E-03
-        p377       pargp_uno            1  0.20000000E-03
-        p378       pargp_uno            1  0.20000000E-03
-        p379       pargp_uno            1  0.20000000E-03
-        p380       pargp_uno            1  0.20000000E-03
-        p381       pargp_uno            1  0.20000000E-03
-        p382       pargp_uno            1  0.20000000E-03
-        p383       pargp_uno            1  0.20000000E-03
-        p384       pargp_uno            1  0.20000000E-03
-        p385       pargp_uno            1  0.20000000E-03
-        p386       pargp_uno            1  0.20000000E-03
-        p387       pargp_uno            1  0.20000000E-03
-        p388       pargp_uno            1  0.20000000E-03
-        p389       pargp_uno            1  0.20000000E-03
-        p390       pargp_uno            1  0.20000000E-03
-        p391       pargp_uno            1  0.20000000E-03
-        p392       pargp_uno            1  0.20000000E-03
-        p393       pargp_uno            1  0.20000000E-03
-        p394       pargp_uno            1  0.20000000E-03
-        p395       pargp_uno            1  0.20000000E-03
-        p396       pargp_uno            1  0.20000000E-03
-        p397       pargp_uno            1  0.20000000E-03
-        p398       pargp_uno            1  0.20000000E-03
-        p399       pargp_uno            1  0.20000000E-03
-        p400       pargp_uno            1  0.20000000E-03
-        p401       pargp_uno            1  0.20000000E-03
-        p402       pargp_uno            1  0.20000000E-03
-        p403       pargp_uno            1  0.20000000E-03
-        p404       pargp_uno            1  0.20000000E-03
-        p405       pargp_uno            1  0.20000000E-03
-        p406       pargp_uno            1  0.20000000E-03
-        p407       pargp_uno            1  0.20000000E-03
-        p408       pargp_uno            1  0.20000000E-03
-        p409       pargp_uno            1  0.20000000E-03
-        p410       pargp_uno            1  0.20000000E-03
-        p411       pargp_uno            1  0.20000000E-03
-        p412       pargp_uno            1  0.20000000E-03
-        p413       pargp_uno            1  0.20000000E-03
-        p414       pargp_uno            1  0.20000000E-03
-        p415       pargp_uno            1  0.20000000E-03
-        p416       pargp_uno            1  0.20000000E-03
-        p417       pargp_uno            1  0.20000000E-03
-        p418       pargp_uno            1  0.20000000E-03
-        p419       pargp_uno            1  0.20000000E-03
-        p420       pargp_uno            1  0.20000000E-03
-        p421       pargp_uno            1  0.20000000E-03
-        p422       pargp_uno            1  0.20000000E-03
-        p423       pargp_uno            1  0.20000000E-03
-        p424       pargp_uno            1  0.20000000E-03
-        p425       pargp_uno            1  0.20000000E-03
-        p426       pargp_uno            1  0.20000000E-03
-        p427       pargp_uno            1  0.20000000E-03
-        p428       pargp_uno            1  0.20000000E-03
-        p429       pargp_uno            1  0.20000000E-03
-        p430       pargp_uno            1  0.20000000E-03
-        p431       pargp_uno            1  0.20000000E-03
-        p432       pargp_uno            1  0.20000000E-03
-        p433       pargp_uno            1  0.20000000E-03
-        p434       pargp_uno            1  0.20000000E-03
-        p435       pargp_uno            1  0.20000000E-03
-        p436       pargp_uno            1  0.20000000E-03
-        p437       pargp_uno            1  0.20000000E-03
-        p438       pargp_uno            1  0.20000000E-03
-        p439       pargp_uno            1  0.20000000E-03
-        p440       pargp_uno            1  0.20000000E-03
-        p441       pargp_uno            1  0.20000000E-03
+    For initial parameter values see file :- bp_test_pest.bpp.0
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          1
+ 
+                      Total PHI : 6.4487E+02
+                     Misfit PHI : 1.2930E+03
+             Regularization PHI : 1.5326E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          2
+ 
+                      Total PHI : 1.0056E+03
+                     Misfit PHI : 8.7802E+02
+             Regularization PHI : 3.7601E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_2                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          3
+ 
+                      Total PHI : 1.0056E+03
+                     Misfit PHI : 8.7802E+02
+             Regularization PHI : 3.7601E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_3                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_3                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          1
+ 
+                      Total PHI : 1.3884E+02
+                     Misfit PHI : 1.2833E+02
+             Regularization PHI : 4.7270E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.2_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.2_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          2
+ 
+                      Total PHI : 1.3884E+02
+                     Misfit PHI : 1.2833E+02
+             Regularization PHI : 4.7270E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.2_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.2_2                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          1
+ 
+                      Total PHI : 2.7054E+02
+                     Misfit PHI : 1.0500E+02
+             Regularization PHI : 1.8174E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.3_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.3_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          2
+ 
+                      Total PHI : 2.7054E+02
+                     Misfit PHI : 1.0500E+02
+             Regularization PHI : 1.8174E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.3_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.3_2                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          1
+ 
+                      Total PHI : 2.8389E+02
+                     Misfit PHI : 1.7472E+02
+             Regularization PHI : 1.0918E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.4_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.4_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          2
+ 
+                      Total PHI : 2.8646E+02
+                     Misfit PHI : 1.7476E+02
+             Regularization PHI : 1.1174E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.4_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.4_2                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          3
+ 
+                      Total PHI : 2.8646E+02
+                     Misfit PHI : 1.7476E+02
+             Regularization PHI : 1.1174E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.4_3                                                                                
+        For current residual values see file :- bp_test_pest.bre.4_3                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          1
+ 
+                      Total PHI : 1.2379E+02
+                     Misfit PHI : 9.7357E+01
+             Regularization PHI : 2.6436E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.5_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.5_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          2
+ 
+                      Total PHI : 8.7345E+01
+                     Misfit PHI : 6.6498E+01
+             Regularization PHI : 2.5897E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.5_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.5_2                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          3
+ 
+                      Total PHI : 8.0177E+01
+                     Misfit PHI : 6.4443E+01
+             Regularization PHI : 1.8729E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.5_3                                                                                
+        For current residual values see file :- bp_test_pest.bre.5_3                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          4
+ 
+                      Total PHI : 8.0177E+01
+                     Misfit PHI : 6.4443E+01
+             Regularization PHI : 1.8729E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.5_4                                                                                
+        For current residual values see file :- bp_test_pest.bre.5_4                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          1
+ 
+                      Total PHI : 8.6451E+01
+                     Misfit PHI : 5.7704E+01
+             Regularization PHI : 2.8747E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.6_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.6_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          2
+ 
+                      Total PHI : 9.1793E+01
+                     Misfit PHI : 5.5834E+01
+             Regularization PHI : 3.6041E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.6_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.6_2                                                                                

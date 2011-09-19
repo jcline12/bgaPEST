@@ -57,11 +57,12 @@ program bp_main
        type (d_minout)              :: d_MIO
        type (kernel_XQR)            :: d_XQR
        character (len=ERRORWIDTH)   :: retmsg
-       character (len=100)          :: command_line
+       character (len=100)          :: command_line, curr_par_file, curr_resid_file
        character (len=FILEWIDTH)    :: ctlfile
        character (len=FILEWIDTH)    :: casename
        character (len=FILEWIDTH)    :: atemp
-       character (len=20)            :: cind
+       character (len=20)           :: inner_iter ! aka p_ind - this is the temporary holder for printing out the inner iteration number
+       character (len=20)           :: outer_iter ! aka b_ind - this is the temporary holder for printing out the outer iteration number 
        double precision,dimension(1) :: curr_structural_conv, curr_phi_conv !Current iteration convergence values for structural parameters and quasi linear objective function
        double precision,dimension(1) :: curr_phi !Current value for quasi linear objective function
        double precision, pointer    :: curr_struct_vec(:) !Current vector of theta and sigma values to be optimized for
@@ -118,7 +119,7 @@ program bp_main
     !Make Q0, R0, X0, and InvQbb if necessary   
     call bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,cv_OBS%nobs,d_PM,Q0_All,cv_PM)
    
-    allocate(d_OBS%h(cv_OBS%nobs)) !Allocate the current model output [y]
+    allocate(d_OBS%h(cv_OBS%nobs)) ! Allocate the current model output [y]
     
 !-- IF STRUCTURAL PARAMETERS WILL BE OPTIMIZED FOR, SET UP REQUIRED INFORMATION
     if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then
@@ -186,20 +187,26 @@ program bp_main
             
             curr_phi_conv = abs(curr_phi - d_PAR%phi_T) 
             curr_phi = d_PAR%phi_T
+            call UTL_INT2CHAR(p_ind,inner_iter)
+            call UTL_INT2CHAR(b_ind,outer_iter)  
+            curr_par_file = trim(casename) // '.bpp.' // trim(outer_iter) // '_' // trim(inner_iter)
+            curr_resid_file = trim(casename) // '.bre.' // trim(outer_iter) // '_' // trim(inner_iter)
+            !-- Write intermediate values out to BPR record file
+            call bpo_write_bpr_intermed(bprunit,p_ind,b_ind,curr_par_file,curr_resid_file,d_PAR) 
             ! --Write the intermediate parameter and residuals files
-            call UTL_INT2CHAR(p_ind,cind)
+      
             cparunit = utl_nextunit()
-            call bpc_openfile(cparunit,trim(trim(casename) // '.bpp.' // cind),1) ![1] at end indicates open with write access
-            call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit,p_ind)
+            call bpc_openfile(cparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
+            call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit)
             close(cparunit)
             cobsunit = utl_nextunit()
-            call bpc_openfile(cobsunit,trim(trim(casename) // '.bre.' // cind),1) ![1] at end indicates open with write access
-            call bpo_write_residuals(cv_OBS,d_OBS,d_OBS%h,cobsunit,p_ind)
+            call bpc_openfile(cobsunit,trim(curr_resid_file),1) ![1] at end indicates open with write access
+            call bpo_write_residuals(cv_OBS,d_OBS,d_OBS%h,cobsunit)
             close(cobsunit) 
             !-- check for convergence - exit if convergence has been achieved  
             if (curr_phi_conv(1).le.cv_A%phi_conv) exit
 
-          enddo  !(first intermediate loop) quasi-linear method
+          enddo  !(first intermediate loop) quasi-linear method  --> p_ind
           
     !***************************************************************************************************************************  
     !************************************* END OF QUASI-LINEAR PARAMETER ESTIMATION LOOP ***************************************
@@ -228,7 +235,7 @@ program bp_main
     !***************************************************************************************************************************  
     
    
-    enddo      !(more external loop)
+    enddo      !(more external loop) --> b_ind
     
   write(*,*) 'Parameter estimation is complete!'
   do i = 1,cv_PAR%npar
