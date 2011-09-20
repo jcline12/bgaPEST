@@ -55,7 +55,17 @@ contains
     select case (forward_flag)
         case (0) ! single forward run
             call system(d_MOD%com)
+            !-- MIO read the ouput file results and update 
+            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+              call utl_bomb_out(errstruc)
+            end if 
         case (1) ! external PEST-style Jacobian
+            call system(d_MOD%com) ! run the model once, forward, to have outputs with current parameters 
+            !-- MIO read the ouput file results and update 
+            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+              call utl_bomb_out(errstruc)
+            end if 
+            !-- create PEST input files and run PEST          
             call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
             call system('pst_generator.exe')        ! create the necessary PEST control file
             call system('run_pest_scratch.bat')     ! run PEST externally for derivatives
@@ -65,14 +75,19 @@ contains
             ! for now, assume this alternative is MODFLOW_ADJOINT
             adjfle =  'S1_1.sen'
             call readMF_ADJOINT(adjfle, cv_OBS%nobs,cv_PAR%npar, H)
+            !-- MIO read the ouput file results and update 
+            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+              call utl_bomb_out(errstruc)
+            end if 
         case (3) ! same as case 0, but linesearch parameters written as indicated above
             call system(d_MOD%com)
+            !-- MIO read the ouput file results and update 
+            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+              call utl_bomb_out(errstruc)
+            end if 
     end select
     
-!-- MIO read the ouput file results and update 
-    if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
-      call utl_bomb_out(errstruc)
-    end if   
+  
 
    end subroutine bpf_model_run
    
