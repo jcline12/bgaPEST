@@ -184,7 +184,7 @@ program bp_main
                call par_back_trans(cv_PAR, d_PAR, d_PM)
             endif 
             
-            
+            !-- set temporary string version of iteration numbers and phi to write out
             curr_phi_conv = abs(curr_phi - d_PAR%phi_T) 
             curr_phi = d_PAR%phi_T
             call UTL_INT2CHAR(p_ind,inner_iter)
