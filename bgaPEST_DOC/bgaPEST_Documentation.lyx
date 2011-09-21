@@ -2239,13 +2239,13 @@ To find the most likely values for
  resulting in the objective function
 \begin_inset Formula 
 \[
-\min_{\mathbf{\theta}}\mathrm{det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
+\min_{\mathbf{\theta}}\mathrm{0.5\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+0.5\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
 \]
 
 \end_inset
 
 
-\change_inserted 267031031 1315582660
+\change_deleted -74556787 1316538508
 
 \begin_inset Note Note
 status open
@@ -4446,6 +4446,302 @@ string
 \emph default
  Name of the model output file corresponding to the InstructionFile identified
  on the same row.
+\change_inserted -74556787 1316614363
+
+\end_layout
+
+\begin_layout Subsection
+
+\change_inserted -74556787 1316617535
+Jacobian Matrix Formats
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316617643
+Two options are available for Jacobian sensitivity matrices 
+\begin_inset Formula $\left(\mathbf{H}\right)$
+\end_inset
+
+ to be read by 
+\family typewriter
+bgaPEST
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=0
+\family default
+, 
+\family typewriter
+PEST
+\family default
+ is used, external to 
+\family typewriter
+bgaPEST
+\family default
+, to calculate the Jacobian matrix resulting in a binary file with the extension
+ 
+\family typewriter
+.jco
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=
+\family default
+1 then an external program is used to calculate 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ and a file written by the external program must be communicated to 
+\family typewriter
+bgaPEST
+\family default
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316617673
+Need to add an option to the block with deriv_mode to indicate which type
+ of matrix is used.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ This file can either be a 
+\family typewriter
+.jco
+\family default
+ file or a 
+\family typewriter
+.jac
+\family default
+ file which is an ASCII file following the format of a standard matrix file
+ used by 
+\family typewriter
+PEST
+\family default
+, as described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+, section 4.4.3.
+ An example and description of the format of a standard 
+\family typewriter
+PEST
+\family default
+ matrix follow, quoting from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316615289
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:matrix"
+
+\end_inset
+
+ depicts an example matrix file holding a matrix with three rows and four
+ columns.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316615080
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615254
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615108
+
+
+\backslash
+begin{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:matrix"
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/standard_PEST_matrix.pdf
+	lyxscale 40
+	scale 25
+
+\end_inset
+
+
+\lang english
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615116
+
+
+\backslash
+end{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615080
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615102
+Example of a standard 
+\family typewriter
+PEST
+\family default
+ matrix file, adapted from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316641244
+The first line of a matrix file contains 3 integers.
+ The first two indicate the number of rows (
+\family typewriter
+NROW
+\family default
+) and number of columns (
+\family typewriter
+NCOL
+\family default
+) in the following matrix.
+ The next integer (named 
+\family typewriter
+ICODE
+\family default
+) is a code, the role of which will be discussed shortly.
+ Following the header line is the matrix itself, in which entries are space-sepa
+rated and wrapped to the next line if appropriate.
+ The maximum line length is 500 characters, so wrapping to the next line
+ must occur within 500 characters.
+ It is recommended to wrap lines after 8 values and to maintain maximum
+ possible precision.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316616216
+In use by 
+\family typewriter
+bgaPEST
+\family default
+, 
+\family typewriter
+ICODE
+\family default
+ is set to 2, so the string “
+\family typewriter
+* row names
+\family default
+” is printed next, followed by 
+\family typewriter
+NROW
+\family default
+ names (of 20 characters or less in length), containing the names associated
+ with rows of the matrix.
+ 
+\family typewriter
+NCOL
+\family default
+ column names follow in a similar format, following the string “
+\family typewriter
+* column names
+\family default
+”.
+ Other options for 
+\family typewriter
+ICODE
+\family default
+ are described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+ but are not used by 
+\family typewriter
+bgaPEST
+\family default
+.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard

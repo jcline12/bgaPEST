@@ -57,9 +57,18 @@ contains
                call intread(ifail,BL(1)%keywordstring(i), cv_A%Q_compression_flag)
              case ('deriv_mode')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%deriv_mode)
+             case ('jacobian_format')
+               cv_A%jacobian_format = trim(adjustl(BL(1)%keywordstring(i)))
+               call UTL_CASETRANS(cv_A%jacobian_format,'lo')
+             case ('jacobian_file')
+               cv_A%jacfle = trim(adjustl(BL(1)%keywordstring(i)))
             end select
            end if
           end do
+          if(cv_A%deriv_mode.eq.0) then
+             cv_A%jacobian_format = 'binary'
+             cv_A%jacfle = 'scratch.jco'
+          end if
  end subroutine bdp_read_cv_algorithmic
      
      

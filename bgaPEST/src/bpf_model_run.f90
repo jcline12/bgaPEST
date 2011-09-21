@@ -6,14 +6,14 @@
 module bayes_pest_model
 
 contains
-   subroutine bpf_model_run(errstruc, d_MOD, cv_PAR, d_PAR, cv_OBS, obsval, H,forward_flag, miostruc)
+   subroutine bpf_model_run(errstruc, d_MOD, cv_PAR, d_PAR, cv_OBS, cv_A, obsval, H,forward_flag, miostruc)
     use utilities
     use bayes_pest_control
     use model_input_output
     use error_message
     use extern_derivs
     use jacread
-    use adjoint_read 
+
  
     implicit none
 !--  Main Data Arrays for OBS and PARS
@@ -23,6 +23,7 @@ contains
     type (d_param)                      :: d_PAR
     type (cv_param)                     :: cv_PAR
     type (cv_observ)                    :: cv_OBS
+    type (cv_algorithmic)               :: cv_A
     double precision, pointer           :: obsval(:)
     integer, intent(in)                 :: forward_flag ! 0, 1, 2, or 3
                                         ! 0 is forward run
@@ -37,7 +38,7 @@ contains
     if(mio_delete_model_output_files(errstruc,miostruc).ne.0) then
       call utl_bomb_out(errstruc)
     end if   
-
+ 
 !-- MIO write the model input files
     select case (forward_flag)
         case (3)
@@ -63,7 +64,7 @@ contains
             call system(d_MOD%com) ! run the model once, forward, to have outputs with current parameters 
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
-              call utl_bomb_out(errstruc)
+              call utl_bomb_out(errstruc) 
             end if 
             !-- create PEST input files and run PEST          
             call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
@@ -73,8 +74,12 @@ contains
         case (2) ! dercom alternative Jacobian
             call system(d_MOD%dercom) 
             ! for now, assume this alternative is MODFLOW_ADJOINT
-            adjfle =  'S1_1.sen'
-            call readMF_ADJOINT(adjfle, cv_OBS%nobs,cv_PAR%npar, H)
+            select case (cv_A%jacobian_format)
+              case ('binary')
+                call readJCO(cv_A%jacfle,H)
+              case ('ascii')
+                call readJAC(cv_A%jacfle,H)
+            end select
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
               call utl_bomb_out(errstruc)

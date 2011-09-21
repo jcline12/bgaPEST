@@ -31,7 +31,7 @@ module linesearch
         type (cv_prior_mean), intent(in)    :: cv_PM
         type (mio_struc)                    :: miostruc
         type (err_failure_struc)            :: errstruc  
-        type (cv_algorithmic),intent(in)    :: cv_A
+        type (cv_algorithmic),intent(inout) :: cv_A
         integer ,             intent(in)    :: it_phi       
         character (len=ERRORWIDTH)          :: retmsg
          
@@ -53,7 +53,7 @@ module linesearch
         reqmin = 1.0D-02
         
         call nelmin_ls ( Jmin,n,start,xmin,ynewlo,reqmin,step,konvge,cv_A%it_max_lns,icount,numres,ifault, & 
-        & d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc)
+        & d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc)
         
         if (ifault.eq.2) then !Maximum number of iterations has exceeded --> Warning               
           write(retmsg,10) it_phi   
@@ -71,7 +71,7 @@ module linesearch
 end module linesearch 
 
  
-   real ( kind = 8 )function Jmin (rho,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc) 
+   real ( kind = 8 )function Jmin (rho,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc) 
 
    use jupiter_input_data_support
    use bayes_pest_control
@@ -93,6 +93,7 @@ end module linesearch
    type(d_struct),      intent(inout)  :: d_S
    type(cv_param),      intent(in)     :: cv_PAR
    type (d_comlin)                     :: d_MOD
+   type(cv_algorithmic), intent(inout) :: cv_A
    type(d_algorithmic), intent(inout)  :: d_A
    type(d_param),       intent(inout)  :: d_PAR
    type(d_prior_mean),  intent(in)     :: d_PM
@@ -111,7 +112,7 @@ end module linesearch
   endif 
     
   !-- RUN THE FORWARD MODEL (INCLUDES DELETING OLD OUTPUT, WRITING NEW INPUT, RUNNING MODEL, AND READING NEW OUTPUT)
-  call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS,  d_OBS%h, d_A%H, 3, miostruc)
+  call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS,  cv_A, d_OBS%h, d_A%H, 3, miostruc)
   !-- CALCULATE THE OBJECTIVE FUNCTIONS 
   call cal_ob_funcs(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR, cv_PM)
   

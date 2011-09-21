@@ -155,7 +155,7 @@ program bp_main
                     forward_flag_der = 2
                     
              end select
-             call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS,  d_OBS%h, d_A%H, forward_flag_der, miostruc)
+             call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS, cv_A,  d_OBS%h, d_A%H, forward_flag_der, miostruc)
   
   
    

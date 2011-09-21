@@ -27,7 +27,6 @@
 		<Filter Name="Header Files" Filter="fi;fd"/>
 		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
-		<File RelativePath=".\src\adjread.f90"/>
 		<File RelativePath=".\src\bayes_pest_control.f90"/>
 		<File RelativePath=".\src\bayes_pest_finalize.F90"/>
 		<File RelativePath=".\src\bdp_data_parsers.f90"/>

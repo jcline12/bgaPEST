@@ -27,6 +27,9 @@
 		<Filter Name="Header Files" Filter="fi;fd"/>
 		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<File RelativePath="..\bgaPEST\src\bayes_pest_control.f90"/>
+		<File RelativePath="..\bgaPEST\src\err_state.F90"/>
 		<File RelativePath=".\src\jacread.f90"/>
-		<File RelativePath=".\src\jacread_test.f90"/></Filter></Files>
+		<File RelativePath=".\src\jacread_test.f90"/>
+		<File RelativePath="..\bgaPEST\src\utl.F90"/></Filter></Files>
 	<Globals/></VisualStudioProject>

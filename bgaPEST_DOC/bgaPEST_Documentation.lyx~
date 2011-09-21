@@ -66,6 +66,7 @@
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\author -74556787 "Michael Fienen" 
 \author 267031031 "marco" 
 \end_header
 
@@ -352,18 +353,832 @@ Bayesian Geostatistical Inversion Background
 \end_layout
 
 \begin_layout Standard
-The Bayesian geostatistical inverse method was described qualitatively in
- the Introduction.
+The Bayesian geostatistical inverse method 
+\change_deleted -74556787 1316126118
+was described qualitatively in the Introduction.
  In this section, we present a summary of the mathematical details pertaining
  to the probability density functions and the solution method.
- Further details are found in 
+ Further details are found in
+\change_inserted -74556787 1316126127
+is described in detail in 
+\change_deleted -74556787 1316126129
+ 
+\change_unchanged
+
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
 
 \end_inset
 
  among others.
+
+\change_inserted -74556787 1316126354
+ In this section, we provide an overview of the method.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316127337
+The core of the Bayesian geostatistical inverse method is Bayes' theorem,
+ which states
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s|y})\propto L(\mathbf{y|s})p(\mathbf{s})\label{eq:bayes}
+\end{equation}
+
+\end_inset
+
+ where 
+\series bold
+
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+
+\series default
+ are the measured data, 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ are the unknown parameters, 
+\begin_inset Formula $p(\mathbf{s|y})$
+\end_inset
+
+ is the posterior probability density function (pdf) of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ given 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+, 
+\begin_inset Formula $L(\mathbf{y|s})$
+\end_inset
+
+ is the likelihood function, and 
+\begin_inset Formula $p(\mathbf{s})$
+\end_inset
+
+ is the prior pdf of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+.
+ Details of these pdfs are explained below.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316127338
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\change_inserted -74556787 1316127338
+\begin_inset Graphics
+	filename figures/normals.pdf
+	scale 55
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316127338
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316127338
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:normals"
+
+\end_inset
+
+Graphical illustration of Bayes' theorem.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:normals"
+
+\end_inset
+
+ depicts one-dimensional distributions graphically illustrating Equation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes"
+
+\end_inset
+
+.
+ In this example, the prior distribution 
+\begin_inset Formula $\left(p\left(\mathbf{s}\right)\right)$
+\end_inset
+
+ is diffuse, meaning the variance is relatively high and, correspondingly,
+ commitment to a particular value is low.
+ The likelihood function 
+\begin_inset Formula $\left(L\left(\mathbf{y|s}\right)\right)$
+\end_inset
+
+ , on the other hand, has lower variance, suggesting a process that brings
+ a higher level of certainty to the estimation of the parameters 
+\begin_inset Formula $\left(\mathbf{s}\right)$
+\end_inset
+
+ than is indicated by the prior distribution only.
+ The resulting posterior distribution 
+\begin_inset Formula $\left(p\left(\mathbf{s|y}\right)\right)$
+\end_inset
+
+ is a convolution of the prior and likelihood functions.
+ The peak is shifted significantly from the prior toward the likelihood
+ and is higher.
+ The posterior distribution also has lower variance than the prior as illustrate
+d by the spread in the figure.
+ Since the likelihood function is more focused (less spread) and higher
+ than the prior, the attributes of the likelihood contribute more to the
+ posterior than the prior does.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+In the Bayesian geostatistical method, the posterior pdf is calculated as
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s|y})\propto\mathrm{\underbrace{exp\left(\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right)}_{L\left(\mathbf{y}|\mathbf{s}\right)}\underbrace{exp\left(\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right)}_{p\left(\mathbf{s}\right)}}\label{eq:BGA}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+where 
+\series bold
+
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ 
+\series default
+is the vector of parameter values at distributed spatial locations in the
+ model, 
+\begin_inset Formula $\mathbf{X\beta^{*}}$
+\end_inset
+
+ is the prior mean, 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ is the prior covariance of 
+\begin_inset Formula $\left(\mathbf{s}-\mathbf{X\beta^{*}}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{h\left(\mathbf{s}\right)}$
+\end_inset
+
+ is the modeled forecasts collocated with observations 
+\begin_inset Formula $\left(\mathbf{y}\right),$
+\end_inset
+
+ and 
+\series bold
+
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ 
+\series default
+is the epistemic uncertainty covariance, modeled as 
+\begin_inset Formula $\sigma_{R}^{2}\mathbf{I}$
+\end_inset
+
+ where 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ represents epistemic uncertainty, and 
+\begin_inset Formula $\mathbf{I}$
+\end_inset
+
+ is an identity matrix.
+ In general terms, the likelihood function 
+\begin_inset Formula $\left(L\left(\mathbf{y}|\mathbf{s}\right)\right)$
+\end_inset
+
+ characterizes the misfit between model forecasts and observations while
+ the prior pdf 
+\begin_inset Formula $\left(p\left(\mathbf{s}\right)\right)$
+\end_inset
+
+ defines a characteristic (such as smoothness or continuity) that is assumed
+ to apply to the parameter field.
+ The prior pdf also serves the role of regularization.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+The best estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ maximizes the posterior pdf.
+ A computationally efficient method to find the best estimates of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\hat{\mathbf{s}}\mbox{ and }\mathbf{\hat{\beta}}\mbox{, respectively}\right)$
+\end_inset
+
+ is through
+\begin_inset Formula 
+\[
+\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+which is the superposition of the prior mean (first term) and an innovation
+ term which considers deviations of the predictions from the observations
+ (second term).
+ 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ in the second term (often referred to as the Jacobian, sensitivity, or
+ susceptibility matrix) is the sensitivity of observation values to parameter
+ values 
+\begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
+\end_inset
+
+ calculated using adjoint-state methods.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+The values for 
+\begin_inset Formula $\mathbf{\hat{\beta}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\xi}$
+\end_inset
+
+ are found by solving the 
+\begin_inset Formula $(n+p)\times(n+p)$
+\end_inset
+
+ linear system of cokriging equations
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+where 
+\begin_inset Formula $\mathbf{Q_{yy}}$
+\end_inset
+
+ is the auto-covariance matrix of the observations, defined as 
+\begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+In hydrogeologic applications, the numerical forward model is typically
+ nonlinear.
+ Provided that the nonlinearities introduced are not too extreme, a solution
+ can be obtained through successive linearizations following the quasi-linear
+ extension 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Kitanidis1995"
+
+\end_inset
+
+.
+ The forward model, 
+\begin_inset Formula $\mathbf{h(s)}$
+\end_inset
+
+ is expanded about the current best estimate of the parameters 
+\begin_inset Formula $\mathbf{\tilde{s}}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{h}(\mathbf{s})\mathbf{\approx h}(\mathbf{\tilde{s}})\mathbf{+\tilde{H}}(\mathbf{s-\tilde{s}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+where 
+\begin_inset Formula $\mathbf{\tilde{H}}$
+\end_inset
+
+, as a function of 
+\begin_inset Formula $\mathbf{\tilde{s,}}$
+\end_inset
+
+ is evaluated at each linearization.
+ Linearizations are performed until the change in 
+\begin_inset Formula $\mathbf{\tilde{s}}$
+\end_inset
+
+ in successive iterations does not change over a specified tolerance.
+ We assign the subscript 
+\begin_inset Formula $_{k}$
+\end_inset
+
+ to indicate iteration number, and correct the measurements for the 
+\begin_inset Formula $k^{th}$
+\end_inset
+
+ linearization as 
+\begin_inset Formula 
+\[
+\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}.
+\]
+
+\end_inset
+
+Then the cokriging equations (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging-1"
+
+\end_inset
+
+) are updated
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\tilde{\mathbf{Q}}_{\mathbf{yy},k} & \tilde{\mathbf{H}}_{k}\mathbf{X}\\
+\mathbf{X}^{T}\tilde{\mathbf{H}}_{k}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}_{k}\\
+\hat{\mathbf{\beta}}_{k}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}_{k}^{'}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:iterations-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+where 
+\begin_inset Formula $\tilde{\mathbf{Q}}_{\mathbf{yy},k}=\tilde{\mathbf{H}}_{k}\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}+\mathbf{R}$
+\end_inset
+
+ .
+ From this set of equations, the next estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\tilde{\mathbf{s}}_{k+1}=\mathbf{X\hat{\beta}}_{k}+\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}\mathbf{\xi}_{k}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+This can be iterated until there is no difference in the parameter estimates,
+ or when there is no further improvement in the objective function.
+ In many cases, numerical instability makes convergence difficult.
+ A modified Levenberg-Marquardt approach is adopted for this work which
+ splits the system in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:iterations-1"
+
+\end_inset
+
+ into a projection step and an innovation step 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "NowakCirpka2004"
+
+\end_inset
+
+.
+ The objective function to minimize is 
+\begin_inset Formula $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
+\end_inset
+
+ which is equivalent to maximizing Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:BGA"
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathcal{L}=\mathbf{-}\ln p\left(\mathbf{s|y}\right)=(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})+\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+Further detail about this equation and its variables is provided in Appendix
+ A in the supplemental online material.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+We adopt an empirical Bayes 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Robbins1956,casella1985"
+
+\end_inset
+
+ approach to inference in this method meaning that the general characteristics
+ of the prior and epistemic covariances introduced above are provided in
+ the model setup, but the values of structural parameters that control the
+ balance between smoothness and misfit are estimated from the data.
+ In equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:BGA"
+
+\end_inset
+
+ the structural parameter for 
+\begin_inset Formula $L\left(\mathbf{y}|\mathbf{s}\right)$
+\end_inset
+
+ is the epistemic uncertainty parameter 
+\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
+\end_inset
+
+ and the structural parameters for 
+\begin_inset Formula $p\left(\mathbf{s}\right)$
+\end_inset
+
+ are covariance parameters 
+\begin_inset Formula $\left(\theta\right)$
+\end_inset
+
+.
+ Estimating the structural parameters 
+\begin_inset Formula $\left(\sigma_{R}^{2}\mbox{ and \mbox{\theta}}\right)$
+\end_inset
+
+ from the data is performed using Restricted Maximum Likelihood as discussed
+ in Appendix A in the supplemental online material.
+ This approach is consistent with the principle of maximum entropy such
+ that the smoothest solution is chosen, based on the structural parameters
+ estimated from the data.
+ For a discussion of subtle formal differences from the principle of maximum
+ entropy, see 
+\begin_inset CommandInset citation
+LatexCommand citet
+after "p. 333-342"
+key "Rubin2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+An extension to this approach is the inclusion of information about the
+ prior mean 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "NowakCirpka2004"
+
+\end_inset
+
+.
+ The mean is estimated in the solution, but a prior value and covariance
+ can be supplied to constrain the estimate.
+ Typically, a relatively high covariance magnitude is used so the information
+ about the mean is 
+\begin_inset Quotes eld
+\end_inset
+
+diffuse
+\begin_inset Quotes erd
+\end_inset
+
+ and principally serves the role of providing numerical stability.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+The forward model is constructed to provide forecasts of values collocated
+ in space and time with the measured observations.
+ The likelihood function brings the observed data into the calculation by
+ quantifying the difference (misfit) between the model forecasts and collocated
+ observations.
+ In all modeling, we must acknowledge that perfect correspondence between
+ forecasts and observations is neither attainable nor desirable.
+ The observations themselves are corrupted by measurement errors and there
+ is usually a lack of perfect correspondence between the exact nature of
+ the measurements and the simulated counterparts.
+ This corruption is due to uncertainty from sources including the paucity
+ of observations, imperfections in the conceptual model, and approximations
+ made to codify the physics of the phenomena into a numerical model framework.
+ All of these sources of uncertainty are described by the term 
+\begin_inset Quotes eld
+\end_inset
+
+epistemic uncertainty
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "p. 4"
+key "Rubin2003"
+
+\end_inset
+
+.
+ This epistemic uncertainty characterizes the expected misfit between forecasts
+ and observations, and is expressed through a covariance function.
+ As a result, the likelihood function can be characterized by a Gaussian
+ distribution with zero mean and covariance defined by the epistemic uncertainty.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+With both the prior pdf and likelihood function expressed as Gaussian distributi
+ons, the posterior pdf (found through equation 11 in Appendix A of the supplemen
+tary online material) is also Gaussian.
+ The values of the parameters 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ that result in the maximum value of the posterior pdf are therefore the
+ most likely solution on a point-by-point basis.
+ The solution as a whole is always a somewhat smoothed version of reality,
+ but the small-scale variability can be characterized through conditional
+ realizations.
+ The balance between the strength of smoothing and the closeness of corresponden
+ce between forecasts and observations is found through calculation of optimal
+ values for the structural parameters, including a value to quantify the
+ epistemic uncertainty.
+\end_layout
+
+\begin_layout Subsection
+
+\change_inserted -74556787 1316126354
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Correlation-Zones"
+
+\end_inset
+
+Facies Associations
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+In an idealized problem, a single covariance model is flexible enough to
+ encompass the entire variability of the hydraulic parameters.
+ However, in many hydrogeologic applications, lithologic contacts and unconformi
+ties can create discontinuities in parameter values that a single covariance
+ model cannot characterize.
+ Partitioning the field based on either the data 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "e. g. "
+key "fienenEtal2004"
+
+\end_inset
+
+ or through interrogation of preliminary solutions 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "e. g. "
+key "FienenWRR2008"
+
+\end_inset
+
+ can greatly improve results.
+ This partitioning is implemented by imposing discontinuities in the stochastic
+ field that censor correlation between all cells that do not occur in the
+ same partition.
+ In this context, 
+\begin_inset Quotes eld
+\end_inset
+
+stochastic
+\begin_inset Quotes erd
+\end_inset
+
+ refers to the entity being partitioned (namely the correlation structure
+ of the parameter field) but we emphasize here that the locations of the
+ imposed discontinuities are themselves considered deterministic and certain.
+ This partitioning is consistent with zonal boundaries in models made up
+ of homogeneous zones.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+We borrow the term 
+\begin_inset Quotes eld
+\end_inset
+
+facies association
+\begin_inset Quotes erd
+\end_inset
+
+ from the facies architecture field to describe these partitions.
+ The term 
+\begin_inset Quotes eld
+\end_inset
+
+facies association
+\begin_inset Quotes erd
+\end_inset
+
+ typically refers to descriptive properties of a subset of a medium in the
+ field or at least for a specific project.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Architectural elements
+\begin_inset Quotes erd
+\end_inset
+
+ is used in the broader case where the characteristics are more formally
+ defined, (see 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Collinson1969,Walker1984,Walker1992,SwiftEtAl2003"
+
+\end_inset
+
+).
+ It is appropriate to use the less restrictive and less transferable term
+ 
+\begin_inset Quotes eld
+\end_inset
+
+facies association
+\begin_inset Quotes erd
+\end_inset
+
+ in this work because when we subdivide the correlation structure of the
+ medium, we often base the stochastic discontinuities (bounding surfaces,
+ or contacts) on perceived hydraulic properties.
+ These properties will often coincide with differences in age, provenance,
+ or depositional environment, but such coincidence is not required for or
+ by their use.
+ In all cases, partitioning into facies associations must be based on readily
+ observable hydrologic or lithologic attributes.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316126354
+To clarify our terminology in this work, partitions delineated by stochastic
+ discontinuity within a distributed parameter field are referred to as 
+\begin_inset Quotes eld
+\end_inset
+
+facies associations,
+\begin_inset Quotes erd
+\end_inset
+
+ whereas zones of piecewise continuity are referred to as 
+\begin_inset Quotes eld
+\end_inset
+
+homogeneous zones.
+\begin_inset Quotes erd
+\end_inset
+
+ The facies associations delineate sub-regions of the model domain that
+ share correlation characteristics and are uncorrelated from neighboring
+ facies associations; they are usually delineated by features that are easily
+ identified in measured data or geologic conceptualizations of a given site
+ area.
+ In facies associations, variability of parameter values within each cell
+ is allowed and constrained by the a priori covariance structure, whereas
+ in homogeneous zones, a single parameter value represents the property
+ for the entire zone.
+ Details about the implementation of facies associations is included in
+ Appendix A in the supplemental online material.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Subsection
@@ -1424,13 +2239,13 @@ To find the most likely values for
  resulting in the objective function
 \begin_inset Formula 
 \[
-\min_{\mathbf{\theta}}\mathrm{det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
+\min_{\mathbf{\theta}}\mathrm{0.5\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+0.5\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
 \]
 
 \end_inset
 
 
-\change_inserted 267031031 1315582660
+\change_deleted -74556787 1316538508
 
 \begin_inset Note Note
 status open
@@ -3631,6 +4446,300 @@ string
 \emph default
  Name of the model output file corresponding to the InstructionFile identified
  on the same row.
+\change_inserted -74556787 1316614363
+
+\end_layout
+
+\begin_layout Subsection
+
+\change_inserted -74556787 1316617535
+Jacobian Matrix Formats
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316617643
+Two options are available for Jacobian sensitivity matrices 
+\begin_inset Formula $\left(\mathbf{H}\right)$
+\end_inset
+
+ to be read by 
+\family typewriter
+bgaPEST
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=0
+\family default
+, 
+\family typewriter
+PEST
+\family default
+ is used, external to 
+\family typewriter
+bgaPEST
+\family default
+, to calculate the Jacobian matrix resulting in a binary file with the extension
+ 
+\family typewriter
+.jco
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=
+\family default
+1 then an external program is used to calculate 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ and a file written by the external program must be communicated to 
+\family typewriter
+bgaPEST
+\family default
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316617673
+Need to add an option to the block with deriv_mode to indicate which type
+ of matrix is used.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ This file can either be a 
+\family typewriter
+.jco
+\family default
+ file or a 
+\family typewriter
+.jac
+\family default
+ file which is an ASCII file following the format of a standard matrix file
+ used by 
+\family typewriter
+PEST
+\family default
+, as described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+, section 4.4.3.
+ An example and description of the format of a standard 
+\family typewriter
+PEST
+\family default
+ matrix follow, quoting from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316615289
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:matrix"
+
+\end_inset
+
+ depicts an example matrix file holding a matrix with three rows and four
+ columns.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316615080
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615254
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615108
+
+
+\backslash
+begin{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:matrix"
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/standard_PEST_matrix.pdf
+	lyxscale 40
+	scale 25
+
+\end_inset
+
+
+\lang english
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615116
+
+
+\backslash
+end{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615080
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1316615102
+Example of a standard 
+\family typewriter
+PEST
+\family default
+ matrix file, adapted from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316632978
+The first line of a matrix file contains 3 integers.
+ The first two indicate the number of rows (
+\family typewriter
+NROW
+\family default
+) and number of columns (
+\family typewriter
+NCOL
+\family default
+) in the following matrix.
+ The next integer (named 
+\family typewriter
+ICODE
+\family default
+) is a code, the role of which will be discussed shortly.
+ Following the header line is the matrix itself, in which entries are space-sepa
+rated and wrapped to the next line if appropriate.
+ The maximum line length is 500 characters, so wrapping to the next line
+ must occur within 500 characters.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1316616216
+In use by 
+\family typewriter
+bgaPEST
+\family default
+, 
+\family typewriter
+ICODE
+\family default
+ is set to 2, so the string “
+\family typewriter
+* row names
+\family default
+” is printed next, followed by 
+\family typewriter
+NROW
+\family default
+ names (of 20 characters or less in length), containing the names associated
+ with rows of the matrix.
+ 
+\family typewriter
+NCOL
+\family default
+ column names follow in a similar format, following the string “
+\family typewriter
+* column names
+\family default
+”.
+ Other options for 
+\family typewriter
+ICODE
+\family default
+ are described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+ but are not used by 
+\family typewriter
+bgaPEST
+\family default
+.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard

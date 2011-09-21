@@ -55,6 +55,10 @@ module bayes_pest_control
                                                        !a vector instead of the matrix   
             integer             :: deriv_mode          ! [0] means use perturbations within PEST, [1] means separate command line will be
                                                        ! provided for running derivatives.  Typically with Adjoint State.     
+            character (len=6)   :: jacobian_format     ! 'binary' for binary Jacobian file [default] or 'ascii' for standard PEST matrix text format
+                                                       ! only read if deriv_mode =1       
+            character(len=100)  ::  jacfle             !jacobian file - read if cv_A%deriv_mode==1, default='scratch.jco'
+                                    
       end type cv_algorithmic
       
       type  :: d_algorithmic    ! ALGORITHMIC "GLOBALS"

@@ -9,7 +9,7 @@ contains
 
 
  subroutine nelmin_ls ( fn, n, start, xmin, ynewlo, reqmin, step, konvge, kcount,icount, numres,ifault, &
-    & d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+    & d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
 
 !*****************************************************************************80
 !
@@ -141,6 +141,7 @@ contains
   type(d_struct),      intent(inout)  :: d_S
   type(cv_param),      intent(in)     :: cv_PAR
   type (d_comlin)                     :: d_MOD
+  type(cv_algorithmic), intent(inout) :: cv_A
   type(d_algorithmic), intent(inout)  :: d_A
   type(d_param),       intent(inout)  :: d_PAR
   type(d_prior_mean),  intent(in)     :: d_PM
@@ -176,7 +177,7 @@ contains
     do i = 1, n
       p(i,nn) = start(i)
     end do
-    y(nn) = fn ( start,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+    y(nn) = fn ( start,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
     icount = icount + 1
     do j = 1, n
       x = start(j)
@@ -184,7 +185,7 @@ contains
       do i = 1, n
         p(i,j) = start(i)
       end do
-      y(j) = fn ( start,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+      y(j) = fn ( start,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
       icount = icount + 1
       start(j) = x
     end do
@@ -226,14 +227,14 @@ contains
       do i = 1, n
         pstar(i) = pbar(i) + rcoeff * ( pbar(i) - p(i,ihi) )
       end do
-      ystar = fn ( pstar,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+      ystar = fn ( pstar,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
       icount = icount + 1
 !  Successful reflection, so extension.
       if ( ystar < ylo ) then
         do i = 1, n
           p2star(i) = pbar(i) + ecoeff * ( pstar(i) - pbar(i) )
         end do
-        y2star = fn ( p2star,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+        y2star = fn ( p2star,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
         icount = icount + 1
 !  Check extension.
         if ( ystar < y2star ) then
@@ -266,7 +267,7 @@ contains
           do i = 1, n
             p2star(i) = pbar(i) + ccoeff * ( p(i,ihi) - pbar(i) )
           end do
-          y2star = fn ( p2star,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+          y2star = fn ( p2star,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
           icount = icount + 1
 !  Contract the whole simplex.
           if ( y(ihi) < y2star ) then
@@ -275,7 +276,7 @@ contains
                 p(i,j) = ( p(i,j) + p(i,ilo) ) * 0.5D+00
                 xmin(i) = p(i,j)
               end do
-              y(j) = fn ( xmin,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+              y(j) = fn ( xmin,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
               icount = icount + 1
             end do
             ylo = y(1)
@@ -299,7 +300,7 @@ contains
           do i = 1, n
             p2star(i) = pbar(i) + ccoeff * ( pstar(i) - pbar(i) )
           end do
-          y2star = fn ( p2star,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+          y2star = fn ( p2star,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
           icount = icount + 1
 !  Retain reflection?
           if ( y2star <= ystar ) then
@@ -354,14 +355,14 @@ contains
     do i = 1, n
       del = step(i) * eps
       xmin(i) = xmin(i) + del
-      z = fn ( xmin,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+      z = fn ( xmin,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
       icount = icount + 1
       if ( z < ynewlo ) then
         ifault = 2
         exit
       end if
       xmin(i) = xmin(i) - del - del
-      z = fn ( xmin,d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
+      z = fn ( xmin,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
       icount = icount + 1
       if ( z < ynewlo ) then
         ifault = 2

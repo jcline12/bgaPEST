@@ -141,6 +141,13 @@ contains
    do i = 1,cv_MIO%ntplfle
      write(bprunit,25)indent,indent,d_MIO%outfle(i)
    end do
+   if (cv_A%deriv_mode .eq. 1) then
+     write(bprunit,20) indent,'Jacobian Matrix Output File:'
+     write(bprunit,25) indent,indent,cv_A%jacfle
+     write(bprunit,20) indent,'Jacobian Matrix Output Format:'
+     write(bprunit,25) indent,indent,cv_A%jacobian_format
+     
+   end if
 20 format(2A )     ! single indent and str format
 25 format(3A)   ! double indent and str format
 30 format(1A, 1ES10.4)     ! single indent and ES format
