@@ -13,7 +13,7 @@ contains
 
 !*****************************************************************************80
 !
-!! NELMIN minimizes a function using the Nelder-Mead algorithm.
+!! NELMIN minimizes a function using the Nelder-Mead algorithm. 
 !   
 !  Discussion:
 !
