@@ -26,7 +26,7 @@ BEGIN structural_parameter_cv TABLE
 END structural_parameter_cv   
 
 BEGIN structural_parameters_data TABLE  
- nrow=1 ncol=2 columnlabels 
+ nrow=1 ncol=3 columnlabels 
  BetaAssoc  theta_0_1    theta_0_2     
  1          1.0e-007        -0.1         
 END structural_parameters_data
@@ -35,6 +35,7 @@ BEGIN structural_parameters_cov TABLE
  nrow=1 ncol=1 columnlabels 
  theta_cov_1     
   11.1           
+
 END structural_parameters_cov
 
 BEGIN epistemic_error_term KEYWORDS

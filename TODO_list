@@ -2,7 +2,7 @@ Things we need to do:
 
 1)***DONE*** make sure model input and output files are deleted prior to runs
 
-2) handling weights?
+2) ***DONE*** --> I couldn't remember if we had taken care of thishandling weights?
 
 3) ***DONE*** see (7) below. ***ALSO made a "new true" model with more heterog and uneven BC elevs***
     For example model, looks like too poorly constrained. Sensitive to initial
@@ -22,7 +22,7 @@ Things we need to do:
 
 8) ***DONE*** Need to add noise to the observations in the test problem.
 
-9) Structural parameter optimization.
+9) ***DONE***Structural parameter optimization.
 
 9a) ***DONE-Marco*** a critical step within structural parameter optimization will be parsing the actual theta and sigma values
    that are to be optimized. The problem being, Nelder-Mead (at least as implemented in fminsearch in MATLAB) expects
@@ -38,7 +38,7 @@ Things we need to do:
 
 9c) See the pdf file theta_cov.pdf about some issue related to the structural parameter covariance.  
 
-10) Need to test PEST sensitivities against ADJOINT. Previous work made me suspect that there was
+10) ***DONE***Need to test PEST sensitivities against ADJOINT. Previous work made me suspect that there was
     a discrepancy, but I don't reall if this is true or not.
 
 11) ***DONE-Marco, but see 9c)*** Added a check in bdp_read_structural_parameters_cov to make sure the proper number of rows is read.  
@@ -49,4 +49,19 @@ Things we need to do:
     How are we handling a variable number of theta parameters for different beta associations? In other words, if one beta association
     uses a linear variogram and other exponential, are we requiring dummy variables in the second column for the beta associations using
     a linear variogram? Is that related to the negative theta_0_2 values?
+    
+13) ***DONE***make a final forward run after calcualting derivatives (bpf_model_runs)
+
+14)***DONE*** remove custom adjoint code reading - use INS file
+
+15) ***DONE*** --> See notes PDF: Nelder Mead convergence criteria
+
+16) in documentation - indicate facies association can be used for different TYPES of parameters hence name BETA ASSOCIATION
+
+17) need warnings for exceeding max iterations -- to screen and to BPR file
+
+18) also need to report structural parameter values both at beginning and for each iteration
+
+19) ***DONE***need to document the new cv_A variables jacobian_format and jacobian_file in the DOC file
+
     

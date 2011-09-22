@@ -32,6 +32,10 @@
         integer        :: lw(3),rw(3)
         character*6 aarow
         character*200  :: afile
+        integer        :: read_names = 0 ! flag for whether to read row and column names 
+                                         ! [0] for don't read (this is default)
+                                         ! [1] for read.
+                                         ! currently, the names are not used for anything
 
 ! -- Initialisation
        ifail=0
@@ -82,9 +86,10 @@
        mat%icode=icode
        allocate(X(nrow,ncol),stat=ierr)
        if(ierr.ne.0) go to 9400
-       allocate(mat%arow(nrow),mat%acol(ncol),stat=ierr)
-       if(ierr.ne.0) go to 9400
-    
+       if (read_names .eq. 1) then
+        allocate(mat%arow(nrow),mat%acol(ncol),stat=ierr)
+        if(ierr.ne.0) go to 9400
+       end if !-- read_names
        
       
 ! -- The matrix is read.
@@ -94,33 +99,33 @@
          end do
          
 ! -- The row and column labels are read. NOTE - not currently used for anything
-       
-       read(jacunit,'(a)',err=9300,end=9300) cline
-       call UTL_CASETRANS(cline, 'lo')
-       if(index(cline,'* row names').eq.0)then
-         write(amessage,130) trim(afile)
-130      format(' "* row names" header expected immediately ', &
-        'folowing matrix in file ',a,'.')
-         go to 9800
-       end if
-! -- read row names        
-       do irow=1,nrow
-131      read(jacunit,*,err=9300,end=9300) mat%arow(irow)
-         if(mat%arow(irow).eq.' ') go to 131
-         mat%arow(irow)=adjustl(mat%arow(irow))
-         call UTL_CASETRANS(mat%arow(irow),'lo')
-       end do
-! -- read column names
-         read(jacunit,'(a)',err=9500,end=9500) cline
-         call UTL_CASETRANS(cline,'lo')
-         if(index(cline,'* column names').eq.0) go to 9500
-         do icol=1,ncol
-132        read(jacunit,*,err=9300,end=9300) mat%acol(icol)
-           if(mat%acol(icol).eq.' ') go to 132
-           mat%acol(icol)=adjustl(mat%acol(icol))
-           call UTL_CASETRANS(mat%acol(icol),'lo')
-         end do
-
+       if (read_names.eq.1) then     
+           read(jacunit,'(a)',err=9300,end=9300) cline
+           call UTL_CASETRANS(cline, 'lo')
+           if(index(cline,'* row names').eq.0)then
+             write(amessage,130) trim(afile)
+    130      format(' "* row names" header expected immediately ', &
+            'folowing matrix in file ',a,'.')
+             go to 9800
+           end if
+    ! -- read row names        
+           do irow=1,nrow
+    131      read(jacunit,*,err=9300,end=9300) mat%arow(irow)
+             if(mat%arow(irow).eq.' ') go to 131
+             mat%arow(irow)=adjustl(mat%arow(irow))
+             call UTL_CASETRANS(mat%arow(irow),'lo')
+           end do
+    ! -- read column names
+             read(jacunit,'(a)',err=9500,end=9500) cline
+             call UTL_CASETRANS(cline,'lo')
+             if(index(cline,'* column names').eq.0) go to 9500
+             do icol=1,ncol
+    132        read(jacunit,*,err=9300,end=9300) mat%acol(icol)
+               if(mat%acol(icol).eq.' ') go to 132
+               mat%acol(icol)=adjustl(mat%acol(icol))
+               call UTL_CASETRANS(mat%acol(icol),'lo')
+             end do
+       end if !-- read_names
        close(unit=jacunit)
        return       
        

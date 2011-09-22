@@ -81,14 +81,16 @@ contains
 !!!        subroutine to WRITE INITIAL VALUES TO THE RECORD (BPR) FILE       !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     subroutine bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS, &
-                d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,cv_S,d_PAR)
+                d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR)
    
     integer, intent(in)                 :: bprunit
     integer                             :: cparunit
     type(cv_param), intent(in)          :: cv_PAR
     type(cv_observ), intent(in)         :: cv_OBS
-    type (cv_struct)                    :: cv_S  
+    type (cv_struct)                    :: cv_S 
+    type (d_struct)                     :: d_S  
     type(cv_prior_mean), intent(in)     :: cv_PM  
+    type(d_prior_mean), intent(in)      :: d_PM
     type (Q0_compr), intent(in)         :: Q0_All(:)
     type(d_comlin), intent(in)          :: d_MOD
     type(cv_algorithmic), intent(in)    :: cv_A
@@ -150,8 +152,8 @@ contains
    end if
 20 format(2A )     ! single indent and str format
 25 format(3A)   ! double indent and str format
-30 format(1A, 1ES10.4)     ! single indent and ES format
-35 format(3A,1ES10.4 )   ! double indent and ES format
+30 format(1A, 1ES12.4)     ! single indent and ES format
+35 format(3A,1ES12.4 )   ! double indent and ES format
 40 format(2A, 1I10)     ! single indent and integer format
 45 format(3A,1I10)   ! double indent and integer format
 50 format(2A 1L5)     ! single indent and logical format
@@ -184,6 +186,15 @@ contains
     write(bprunit,45) indent,indent,'Q_compression_flag: ',cv_A%Q_compression_flag
     write(bprunit,20) indent,'Derivatives mode: [0] External PEST Perturbations, [1] specified Jacobian command line'
     write(bprunit,45) indent,indent,'deriv_mode: ',cv_A%deriv_mode
+    if (cv_A%deriv_mode .eq. 1) then
+        write(bprunit,20) indent,'External derivatives calculated using file:-'
+        write(bprunit,25) indent, indent, d_MOD%dercom
+        write(bprunit,20) indent,'External derivatives read from file:-'
+        write(bprunit,25) indent, indent, cv_A%jacfle
+        write(bprunit,20) indent,'External derivatives file format:-'
+        write(bprunit,25) indent, indent, cv_A%jacobian_format
+    end if
+        
     
 !!! Beta associations (facies associations)
     write(bprunit,*)
@@ -229,25 +240,62 @@ contains
     write(bprunit,*)
     if (cv_PM%betas_flag .eq. 1) then
         write(bprunit,*) 'Prior Information on Betas:-'
+
         write(bprunit,20) indent,'Prior information format on prior menas (betas)'
         write(bprunit,20) indent,'[0] none, [1] diagonal only, [2] full covariance matrix'
         write(bprunit,45) indent,indent,'Qbb_form: ', cv_PM%Qbb_form    
+        do i = 1,cv_PAR%p
+            write(bprunit,70) indent, i
+            write(bprunit,71) indent,indent,d_PM%beta_0(i)
+        end do ! i = 1,cv_PAR%p
     else
         write(bprunit,20) indent,'No Prior Information Provided for Betas'
     end if
-70 format('Prior mean information for beta association ', I2, ' supplied')
+70 format(1A, 'Starting value of Prior Mean for Beta Association: ', I4)
+71 format(1A,1A, 1ES12.4)
+    
+
+
 !!! Structural Parameter Definitions
+    write(bprunit,*)
     write(bprunit,*) 'Structural parameter control variables:-'
-    write(bprunit,20) indent,'Flag determining whether structural parameters are optimized or fixed:'
-    write(bprunit,45) indent,indent,'struct_par_opt: ',cv_S%struct_par_opt
+
     
-    !MNF   FILL THIS IN!!!!!
-    write(bprunit,*)
-    write(bprunit,*) '*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*'
-    write(bprunit,*) '                   MNF --- FILL IN THESE VARIABLES!      '        
-    write(bprunit,*) '*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*'
-    write(bprunit,*)
-    
+    do i = 1,cv_PAR%p
+        !-- indicate the variogram type and initial structural parameter values
+        write(bprunit,72) indent, i
+        select case (cv_S%var_type(i))
+         case (0)
+            write(bprunit,73) indent, indent, 'nugget'
+            write(bprunit,25) indent, indent, 'Initial structural parameter values:'
+            write(bprunit,74) indent,  indent,indent, 'nugget variance', d_S%theta_0(i,1)
+         case (1)
+            write(bprunit,73) indent, indent, 'linear'
+            write(bprunit,25) indent, indent, 'Initial structural parameter values:'
+            write(bprunit,74) indent,  indent,indent, 'slope', d_S%theta_0(i,1)
+         case (2)
+            write(bprunit,73) indent, indent, 'exponential'
+            write(bprunit,25) indent, indent, 'Initial structural parameter values:'
+            write(bprunit,74) indent, indent, indent, 'variance', d_S%theta_0(i,1)
+            write(bprunit,74) indent,  indent,indent, 'correlation length', d_S%theta_0(i,2)
+        end select
+        !-- indicate whether structural parameters are to be optimized for
+            write(bprunit,25) indent,indent,'Flag determining whether structural parameters are optimized for or fixed:'
+            write(bprunit,75) indent,indent,indent,'struct_par_opt: ',cv_S%struct_par_opt(i)
+            if (cv_S%struct_par_opt(i) .eq. 1) then
+               if (cv_S%trans_theta(i) .eq. 1) then
+                   write(bprunit,25) indent, indent, 'Power transformation active'
+                   write(bprunit,74)indent, indent, indent, 'alpha', cv_S%alpha_trans(i)
+               end if
+            end if
+    end do ! i = 1,cv_PAR%p
+72 format(1A, 'Structural Parameters for Beta Association: ', I4)    
+73 format(1A, 1A,'Variogram type: ', 1A)
+74 format(4A, ' = ', 1ES12.4)
+75 format(4A,1I4)
+
+  
+        
 !!! Parameter definitions
     write(bprunit,*)
     write(bprunit,*) 'Initial Parameter Definitions:-'
@@ -256,8 +304,8 @@ contains
     call bpc_openfile(cparunit,trim(trim(casename) // '.bpp.0'),1) ![1] at end indicates open with write access
     call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit)
     close(cparunit)
-    write(bprunit,75) indent,'For initial parameter values see file :- ', trim(trim(casename) // '.bpp.0')
-75  format(3A) 
+    write(bprunit,85) indent,'For initial parameter values see file :- ', trim(trim(casename) // '.bpp.0')
+85  format(3A) 
     end subroutine bpo_write_bpr_header
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -282,14 +330,14 @@ contains
     write(bprunit,35) indent, 'Misfit PHI : ',d_PAR%phi_M
     write(bprunit,35) indent, 'Regularization PHI : ',d_PAR%phi_R
     write(bprunit,*) 
-    write(bprunit,80) indent, indent, 'For current parameter values see file :- ', curr_par_file
-    write(bprunit,80) indent, indent, 'For current residual values see file :- ', curr_resid_file
-30 format(1A, 1ES10.4)     ! single indent and ES format
-35 format(1A,1A30,1ES10.4 )   ! double indent and ES format
-36 format(3A,1ES10.4 )   ! double indent and ES format
+    write(bprunit,90) indent, indent, 'For current parameter values see file :- ', curr_par_file
+    write(bprunit,90) indent, indent, 'For current residual values see file :- ', curr_resid_file
+30 format(1A, 1ES12.4)     ! single indent and ES format
+35 format(1A,1A30,1ES12.4 )   ! double indent and ES format
+36 format(3A,1ES12.4 )   ! double indent and ES format
 40 format(2A, 1I10)     ! single indent and integer format
 45 format(3A,1I10)   ! double indent and integer format
-80  format(4A)    
+90  format(4A)    
     end subroutine bpo_write_bpr_intermed
     
     

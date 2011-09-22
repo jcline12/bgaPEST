@@ -4670,7 +4670,7 @@ key "PESTAdd"
 
 \begin_layout Standard
 
-\change_inserted -74556787 1316632978
+\change_inserted -74556787 1316641244
 The first line of a matrix file contains 3 integers.
  The first two indicate the number of rows (
 \family typewriter
@@ -4690,6 +4690,8 @@ ICODE
 rated and wrapped to the next line if appropriate.
  The maximum line length is 500 characters, so wrapping to the next line
  must occur within 500 characters.
+ It is recommended to wrap lines after 8 values and to maintain maximum
+ possible precision.
 \end_layout
 
 \begin_layout Standard

@@ -134,7 +134,7 @@ program bp_main
     
 !-- WRITE THE HEADER INFORMATION TO THE REC FILE
     call bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS,d_MOD, cv_A, &
-                cv_MIO, d_MIO,Q0_all,cv_PM,cv_S,d_PAR)
+                cv_MIO, d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR)
 
     do b_ind = 1, cv_A%it_max_bga  !*********************************************************************** (more external loop)
     
