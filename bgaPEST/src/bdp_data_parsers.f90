@@ -169,10 +169,9 @@ end subroutine bdp_read_cv_prior_mean
           case (0)    ! no prior covariance provided for Qbb
              write(retmsg,61)         
 61           format('Error: Cannot provide prior beta values without covariance.' &
-                  ' In cv_prior_mean block, if betas_flag = 1, beta_cov_form cannot be 0. Execution stopped. ')
+                  ' In cv_prior_mean block, if betas_flag = 1, beta_cov_form cannot be 0. Execution stopped.  ')
              call utl_writmess(6,retmsg)
              stop        
-           end if ! cv_PM%Qbb_form
             
           case (1)    !covariance of beta on diagonal
             ! allocate and initialize both d_PM and column variables for table reading
