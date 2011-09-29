@@ -40,7 +40,7 @@ cp = 0
 for i in Xtmp:
     k+=1
     cp+=1
-    ofp.write('%16.8e' %(i))
+    ofp.write('%16.8e ' %(i))
     if (k==8):
         k = 0
         ofp.write('\n')
