@@ -287,6 +287,7 @@ double precision,     intent(inout)  :: Qsy(:,:), V(:)
 double precision,     intent(in)     :: theta_1,theta_2,Lmax
 integer,              intent(in)     :: nobs
 double precision                     :: Qtmpb(Q0%npar),Qtmpg(Q0%npar),Qtmpl(Q0%npar),Qv(Q0%npar),TMP(Q0%npar)
+double precision                     :: TMVSY(nobs)
 integer                              :: ncol,nbl,nlay
 integer                              :: blkg,blkl
 integer                              :: i,l,k,p,it,jt
@@ -359,8 +360,8 @@ Qtmpb=Qv
 TMP = (theta_1*Lmax*exp(-Qv/theta_2))
 V(Q0%Beta_start+p-1) = TMP(p) !V here is the diagonal of Qss
 
-call DGEMV('n',nobs,Q0%npar,1.D0,H,nobs,TMP,1,0.D0,Qsy(Q0%Beta_start+p-1,:),1)
-
+call DGEMV('n',nobs,Q0%npar,1.D0,H,nobs,TMP,1,0.D0,TMVSY,1)
+Qsy(Q0%Beta_start+p-1,:)=TMVSY
 enddo  !End of loop for each column of the entire Q matrix
 
 end subroutine toep_mult_post
