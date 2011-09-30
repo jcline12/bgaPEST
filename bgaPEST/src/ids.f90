@@ -95,8 +95,8 @@ contains
          integer, intent(in)            :: iunit_in
          integer, intent(in)            :: junit_in
          integer, intent(in)            :: numblock
-         character (len=*), intent(in)  :: label(numblock)
-         integer, intent(out)           :: numrow(numblock)
+         character (len=*), intent(in)  :: label(:)
+         integer, intent(out)           :: numrow(:)
          character (len=*), intent(in)  :: infile_in
 
          logical                        :: lopened
