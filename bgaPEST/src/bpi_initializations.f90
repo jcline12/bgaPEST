@@ -37,16 +37,18 @@ contains
             cv_A%theta_cov_form     = 0	     !Form of theta covariance:  [0] none, [1] diag, [2] full matrix
             cv_A%Q_compression_flag = 0      ! [0] none - calculate full Q0, [1] Calculate Q0 for each beta
             cv_A%deriv_mode         = 0      ! [0] use external PEST for Jacobian, [1] look for separate dercomline
+            cv_A%post_cov_flag      = 0      ! [0] do not calculate posterior covariance [1] calculate post cov
             cv_A%jacobian_format    = 'binary' ! 'binary' [default] means read JCO binary, 'ascii' means read standard PEST text matrix
             cv_A%jacfle             = 'scratch.jco' ! filename for external derivatives to be read from
             BL(1)%label           = 'algorithmic_cv'
             BL(1)%numrows         = UNINIT_INT
-            BL(1)%numkw           = 14 
+            BL(1)%numkw           = 15 
             allocate (BL(1)%keywords(BL(1)%numkw))
-            BL(1)%keywords = (/'structural_conv','phi_conv','bga_conv', &
-            & 'it_max_structural','it_max_phi','it_max_bga',            &
-            & 'linesearch',       'it_max_linesearch',                  &
-            & 'theta_cov_form', 'Q_compression_flag', 'store_Q','deriv_mode','jacobian_format','jacobian_file'/)   
+            BL(1)%keywords = (/'structural_conv','phi_conv','bga_conv',   &
+            & 'it_max_structural','it_max_phi','it_max_bga','linesearch', &
+            & 'it_max_linesearch', 'theta_cov_form',                      &
+            & 'Q_compression_flag', 'store_Q', 'posterior_cov_flag',      &
+            & 'deriv_mode','jacobian_format','jacobian_file'/)   
        end subroutine bpi_init_algorithmic_CVs  
         
        

@@ -12,6 +12,7 @@ program bp_main
 ! ***              March 19, 2008           ***
 ! ***      Modified by M.D. 1/10/2009       ***
 ! ***  Further Modifications MNF/MD 11/2010 ***
+! ***  Further Modifications   MD   09/2011 ***
 ! *********************************************
    
    use jupiter_input_data_support
@@ -31,6 +32,7 @@ program bp_main
    use extern_derivs
    use bayes_output_control
    use struct_param_optimization
+   use posterior_cov_operations
    implicit none
 
 
@@ -66,6 +68,7 @@ program bp_main
        double precision,dimension(1) :: curr_structural_conv, curr_phi_conv !Current iteration convergence values for structural parameters and quasi linear objective function
        double precision,dimension(1) :: curr_phi !Current value for quasi linear objective function
        double precision, pointer    :: curr_struct_vec(:) !Current vector of theta and sigma values to be optimized for
+       double precision, pointer    :: VV(:,:), V(:) !VV is the posterior covariance matrix, V is only the diagonal of VV 
        double precision             :: huge_val=huge(huge_val) !Largest machine number
 
 ! -- PRINT OUT THE BANNER INFORMATION
@@ -233,10 +236,22 @@ program bp_main
     !***************************************************************************************************************************  
     !*************************** END OF STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *******************************
     !***************************************************************************************************************************  
-    
-   
+       
     enddo      !(more external loop) --> b_ind
     
+    !*************************************************************************************************************************
+    !******** FROM HERE THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************
+    !*********** The posterior covariance is the full matrix (matrix VV) in case of no compression of Q, *********************
+    !********************* it is only the diagonal (vector V) in case of compression of Q ************************************
+    !*************************************************************************************************************************
+     if (cv_A%post_cov_flag.eq.1) then
+      call form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All,cv_PM,d_PM,d_S,VV,V)
+     end if
+    !*************************************************************************************************************************
+    !*********** END OF THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************
+    !*************************************************************************************************************************
+  
+  
   write(*,*) 'Parameter estimation is complete!'
   do i = 1,cv_PAR%npar
     write(*,*) d_PAR%pars(i)

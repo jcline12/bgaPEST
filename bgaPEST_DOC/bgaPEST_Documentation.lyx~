@@ -2239,7 +2239,7 @@ To find the most likely values for
  resulting in the objective function
 \begin_inset Formula 
 \[
-\min_{\mathbf{\theta}}\mathrm{0.5\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+0.5\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
+\min_{\mathbf{\theta}}\mathrm{\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
 \]
 
 \end_inset
@@ -2738,6 +2738,7 @@ J_{eff}=\frac{1}{2}\xi^{T}\left(\mathbf{H}\left(\mathbf{Q}+\mathbf{X}\mathbf{Q}_
 \end_layout
 
 \begin_layout Section
+\start_of_appendix
 Input Instructions
 \end_layout
 
@@ -3233,6 +3234,11 @@ linesearch
 integer 
 \emph default
 Flag to determine whether a line search should be conducted.
+
+\change_inserted 267031031 1317374344
+ [0] = do not use linesearch, [1] = use linesearch.
+
+\change_unchanged
  
 \emph on
 
@@ -3311,7 +3317,28 @@ model_command_lines
  
 \emph on
 default=0
-\change_inserted -74556787 1316722440
+\change_inserted 267031031 1317373569
+
+\end_layout
+
+\begin_layout Description
+
+\change_inserted 267031031 1317374290
+posterior_cov_flag 
+\emph on
+integer 
+\emph default
+Flag to determine whether posterior covariance matrix should be calculated.
+ [0] = do not calculate posterior, [1] = calculate.
+ In case 
+\shape italic
+Q_compression_flag
+\shape default
+ = 1, only the diagonal of the posterior covariance matrix is calculated.
+ 
+\emph on
+default=0
+\change_unchanged
 
 \end_layout
 

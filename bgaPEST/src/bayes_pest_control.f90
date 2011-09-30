@@ -10,7 +10,7 @@ module bayes_pest_control
 !     V 0.0  3/5/08  
 !     Modified by M.D. 22/9/09 
 !     Revised by Mike Fienen, 8/2/2011
-
+!     Revised by M.D., 09/30/2011
 !   ***************        
 !   * DECLARATIONS
 !   ***************
@@ -50,12 +50,12 @@ module bayes_pest_control
             integer             ::  it_max_lns         !MD Max number of iterations for linesearch procedure
             logical             ::  store_Q            !MD TRUE --> Store Q FALSE --> Not store Q --> We need to address this option
             integer		        ::	theta_cov_form     !MD  Form of theta covariance:  [0] none, [1] diag, [2] full matrix
-            integer             ::  Q_compression_flag !MD  [0] none - calculate full Q0, [1] Calculate Q0 for each beta
-                                                       !separately and if nugget store just 1, if toep_flag store just 
-                                                       !a vector instead of the matrix   
-            integer             :: deriv_mode          ! [0] means use perturbations within PEST, [1] means separate command line will be
+            integer             ::  Q_compression_flag !MD  [0] none - calculate full Q0, [1] Calculate Q0 for each beta separately 
+                                                       !and if nugget store just 1, if toep_flag store just a vector instead of the matrix
+            integer             ::  post_cov_flag      ! [0] means do not calculate posterior covariance [1] calculate posterior covariance   
+            integer             ::  deriv_mode         ! [0] means use perturbations within PEST, [1] means separate command line will be
                                                        ! provided for running derivatives.  Typically with Adjoint State.     
-            character (len=6)   :: jacobian_format     ! 'binary' for binary Jacobian file [default] or 'ascii' for standard PEST matrix text format
+            character (len=6)   ::  jacobian_format    ! 'binary' for binary Jacobian file [default] or 'ascii' for standard PEST matrix text format
                                                        ! only read if deriv_mode =1       
             character(len=100)  ::  jacfle             !jacobian file - read if cv_A%deriv_mode==1, default='scratch.jco'
                                     

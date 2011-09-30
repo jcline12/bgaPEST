@@ -57,6 +57,8 @@ contains
                call intread(ifail,BL(1)%keywordstring(i), cv_A%Q_compression_flag)
              case ('deriv_mode')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%deriv_mode)
+             case('posterior_cov_flag')
+               call intread(ifail,BL(1)%keywordstring(i), cv_A%post_cov_flag)
              case ('jacobian_format')
                cv_A%jacobian_format = trim(adjustl(BL(1)%keywordstring(i)))
                call UTL_CASETRANS(cv_A%jacobian_format,'lo')

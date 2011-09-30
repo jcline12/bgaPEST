@@ -290,26 +290,11 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
    
    d_S%struct_par_opt_vec = d_S%struct_par_opt_vec_0 !Initialize struct_par_opt_vec to struct_par_opt_vec_0
          
-   !----------------------------- Form Qtheta --> the prior covariance matrix for theta (can include sigma) --
-   ! -- Finally, calculate the theta prior term
+   !--------- Form inv(Qtheta) --> inverse of the prior covariance matrix for theta (can include 1/sig_p_var) ------
    allocate(d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt)) ! allocate  
-     d_S%invQtheta = 0.D0 ! matrix, initialize to zero  MD important in case cv_A%theta_cov_form = 0 (no cov matrix)
+     d_S%invQtheta = 0.D0 ! matrix, initialize to zero This is important in case cv_A%theta_cov_form = 0 (no cov matrix)
+                          ! and sig_p_var = 0 (and in case of diagonal covariance matrix too)
         
-   !       j = 0 ! counter up to cv_S%num_theta_opt
-   !       do i = 1, cv_PAR%p                                           !****
-   !          if (cv_S%struct_par_opt(i).eq.1) then                     !****  MD  This loop was not correct for different reasons
-   !             select case (cv_PM%Qbb_form)                           !****    1. we need to select based on cv_A%theta_cov_form and not Qbb_form 
-   !                 case (1)! diagonal                                 !****    2. in case of diagonal, when we read from the input file we have just a vector 
-   !                     do k = 1, cv_S%num_theta_type(i)               !****       (dimension sum(num_theta_type)) with the covariance values and not a px2 matrix  
-   !                        j = j+1                                     !****       even if we have,for some BetaAssoc, num_theta_type=2 
-   !                        d_S%invQtheta(j,j) = d_S%theta_cov(i,k)     !****                           
-   !                    end do                                          !****   So I rewrote the loop to be consistent with the input instruction, we need to change  
-   !                 case (2) ! full matrix                             !****   here and the input reading if we don't like this way.
-                    ! MNF --- need to add this eventually               !****
-   !              end select                                            !****
-   !          end if                                                    !****
-   !       end do                                                       !****
- 
     k=0 ! counter up to invQtheta
     m=0 ! counter up to vector that contains the covariance values d_S%theta_cov
     select case (cv_A%theta_cov_form)    
@@ -319,7 +304,7 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
             do j = 1, cv_S%num_theta_type(i)              
               m=m+1
               k = k+1                                    
-              d_S%invQtheta(k,k) = d_S%theta_cov(m,1)  ! In case of diagonal d_S%theta_cov is a vector                  
+              d_S%invQtheta(k,k) = 1.D0/d_S%theta_cov(m,1)  ! In case of diagonal d_S%theta_cov is a vector                  
              end do                                            
           else
             m=m+cv_S%num_theta_type(i)
@@ -329,21 +314,12 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
         ! MNF --- need to add this eventually              
     end select                  
 
-    if (d_S%sig_opt .eq. 1) then 
-        d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt) = d_S%sig_p_var
+    if ((d_S%sig_opt.eq.1).and.(d_S%sig_p_var.ne.0.)) then !Means we want to optimize for sigma and we have prior 
+                     !on the variance of sigma (if we don't have prior on the variance of sigma, a zero remains)
+        d_S%invQtheta(cv_S%num_theta_opt,cv_S%num_theta_opt) = 1.D0/d_S%sig_p_var
     endif
-   
-!----------------------------- Finally peform the inversion of Qtheta to invQtheta ---------------------
-   select case (cv_A%theta_cov_form)
-    case (1)! diagonal
-     do i = 1, cv_S%num_theta_opt
-       d_S%invQtheta(i,i) =  1.D0/d_S%invQtheta(i,i)                            
-     end do
-       case (2) ! full matrix
-         ! MNF --- need to add this eventually
-   end select   
-            
-end subroutine bxq_theta_cov_calcs
+
+end subroutine bxq_theta_cov_calcs  
 
 
 end module make_kernels 
