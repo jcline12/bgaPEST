@@ -210,19 +210,19 @@ contains
     if (cv_A%Q_compression_flag .ne. 0) then
         ! write out each beta association's details
         do i = 1,cv_PAR%p
-            write(bprunit,60) Q0_all%BetaAss
+            write(bprunit,60) Q0_all(i)%BetaAss
             write(bprunit,20) indent,'Parameter number at which this Beta Association starts'
-            write(bprunit,45) indent,indent,'Beta_start: ',Q0_all%Beta_start
+            write(bprunit,45) indent,indent,'Beta_start: ',Q0_all(i)%Beta_start
             write(bprunit,20) indent,'Toeplitz Flag'
-            write(bprunit,45) indent,indent,'Toep_flag: ',Q0_all%Toep_flag
+            write(bprunit,45) indent,indent,'Toep_flag: ',Q0_all(i)%Toep_flag
             write(bprunit,20) indent,'Number of Rows'
-            write(bprunit,45) indent,indent,'Nrow: ',Q0_all%Nrow
+            write(bprunit,45) indent,indent,'Nrow: ',Q0_all(i)%Nrow
             write(bprunit,20) indent,'Number of Columns'
-            write(bprunit,45) indent,indent,'Ncol: ',Q0_all%Ncol
+            write(bprunit,45) indent,indent,'Ncol: ',Q0_all(i)%Ncol
             write(bprunit,20) indent,'Number of Layers'
-            write(bprunit,45) indent,indent,'Nlay: ',Q0_all%Nlay
+            write(bprunit,45) indent,indent,'Nlay: ',Q0_all(i)%Nlay
             write(bprunit,20) indent,'Number of Parameters'
-            write(bprunit,45) indent,indent,'Npar: ',Q0_all%Npar
+            write(bprunit,45) indent,indent,'Npar: ',Q0_all(i)%Npar
         end do
     else
         !indicate no compression specified
