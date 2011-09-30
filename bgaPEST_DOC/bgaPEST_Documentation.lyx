@@ -3274,6 +3274,12 @@ integer
 \emph default
  Form of the theta covariance matrix.
  [0] = none, [1] = diagonal, [2] = full matrix.
+
+\change_inserted 267031031 1317387611
+ [0] means no prior covariance on theta provided and it is assumed totally
+ unknown.
+
+\change_unchanged
  
 \emph on
 default = 0
@@ -3323,18 +3329,18 @@ default=0
 
 \begin_layout Description
 
-\change_inserted 267031031 1317374290
+\change_inserted 267031031 1317388070
 posterior_cov_flag 
 \emph on
 integer 
 \emph default
 Flag to determine whether posterior covariance matrix should be calculated.
- [0] = do not calculate posterior, [1] = calculate.
- In case 
-\shape italic
-Q_compression_flag
-\shape default
- = 1, only the diagonal of the posterior covariance matrix is calculated.
+ [0] = do not calculate posterior, [1] = calculate posterior.
+ If 
+\family typewriter
+Q_compression_flag=1
+\family default
+, only the diagonal of the posterior covariance matrix is calculated.
  
 \emph on
 default=0
@@ -3888,10 +3894,10 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted 267031031 1315582583
-Need to discuss.
- This must be a vector also if we have two structural parameters for the
- same beta association.
+\change_inserted 267031031 1317388225
+We need to say that this must be a vector also if we have two structural
+ parameters for the same beta association.
+ They must be entered sequentially.
 \change_unchanged
 
 \end_layout
@@ -3964,7 +3970,19 @@ Prior variance on
 \end_inset
 
 .
-\change_inserted 267031031 1315581859
+
+\change_inserted 267031031 1317387896
+ 
+\family typewriter
+sig_p_var=0.
+
+\family default
+ means no prior variance on epistemic error is provided and it is assumed
+ totally unknown.
+ 
+\shape italic
+default=0.
+\change_unchanged
 
 \end_layout
 

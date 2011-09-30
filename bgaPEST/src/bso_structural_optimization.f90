@@ -305,24 +305,27 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
    !*******************************************************************************
    
-   !**************************************************************************************   
-   !--------- Calculate the prior theta/sig term of the objective function --------
-   !-------------------- 0.5(dtheta x invQtheta x dtheta) -------------------------
-   !--> note: if theta covaraince form is set as 0 (meaning no prior covariance on theta provided), assume
-   !    totally unknown and do not consider dthQttdth in calculations
-   if (cv_A%theta_cov_form .ne. 0) then
-       !Form dtheta
-       dtheta = d_S%struct_par_opt_vec - d_S%struct_par_opt_vec_0
-       !Form invQtt*dtheta
-       allocate(TMPV(cv_S%num_theta_opt))
-       call DGEMV('n',cv_S%num_theta_opt, cv_S%num_theta_opt, 1.D0, d_S%invQtheta, &
-               cv_S%num_theta_opt, dtheta, 1, 0.D0, TMPV,1) !On exit TMPV is invQtt*dtheta
-       !Multiply dtheta' * TMPV and 0.5
-       call DGEMV('t',cv_S%num_theta_opt, 1, 5.0D-1, dtheta, cv_S%num_theta_opt, &
-               TMPV, 1, 0.D0, dthQttdth,1)
-       if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
-       !**************************************************************************************
+   !***************************************************************************************************   
+   !------------------- Calculate the prior theta/sig term of the objective function ------------------
+   !--------------------------------- 0.5(dtheta x invQtheta x dtheta) --------------------------------
+   !--> note: if theta covariance form is set as 0 (meaning no prior covariance on theta provided) and
+   !--- sig_p_var is 0 too, assume totally unknown and do not consider dthQttdth in calculations.
+   !-- This "if" statement is not strictly necessary (because with the previous assumptions dthQttdth 
+   !-- will be zero anyway), but we avoid useless computations.
+   if  ((cv_A%theta_cov_form.ne.0).or.(d_S%sig_p_var.ne.0.)) then !"if" not strictly necessary, see above
+     !Form dtheta
+     dtheta = d_S%struct_par_opt_vec - d_S%struct_par_opt_vec_0
+     !Form invQtt*dtheta
+     allocate(TMPV(cv_S%num_theta_opt))
+     call DGEMV('n',cv_S%num_theta_opt, cv_S%num_theta_opt, 1.D0, d_S%invQtheta, &
+           cv_S%num_theta_opt, dtheta, 1, 0.D0, TMPV,1) !On exit TMPV is invQtt*dtheta
+     !Multiply dtheta' * TMPV and 0.5
+     call DGEMV('t',cv_S%num_theta_opt, 1, 5.0D-1, dtheta, cv_S%num_theta_opt, &
+     TMPV, 1, 0.D0, dthQttdth,1)
+     if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
    end if   
+   !**************************************************************************************************
+   
    !****************************************************************************** 
    !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------
    SP_min = lndetGyy + ztiGyyz + dthQttdth
