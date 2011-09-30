@@ -49,5 +49,6 @@
 		<File RelativePath=".\src\mio.F90"/>
 		<File RelativePath=".\src\nelder_mead_routines.f90"/>
 		<File RelativePath=".\src\param_trans.F90"/>
+		<File RelativePath=".\src\posterior_cov.f90"/>
 		<File RelativePath=".\src\utl.F90"/></Filter></Files>
 	<Globals/></VisualStudioProject>

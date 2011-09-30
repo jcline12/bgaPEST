@@ -3234,6 +3234,11 @@ linesearch
 integer 
 \emph default
 Flag to determine whether a line search should be conducted.
+
+\change_inserted 267031031 1317374344
+ [0] = do not use linesearch, [1] = use linesearch.
+
+\change_unchanged
  
 \emph on
 
@@ -3312,7 +3317,28 @@ model_command_lines
  
 \emph on
 default=0
-\change_inserted -74556787 1316722440
+\change_inserted 267031031 1317373569
+
+\end_layout
+
+\begin_layout Description
+
+\change_inserted 267031031 1317374290
+posterior_cov_flag 
+\emph on
+integer 
+\emph default
+Flag to determine whether posterior covariance matrix should be calculated.
+ [0] = do not calculate posterior, [1] = calculate.
+ In case 
+\shape italic
+Q_compression_flag
+\shape default
+ = 1, only the diagonal of the posterior covariance matrix is calculated.
+ 
+\emph on
+default=0
+\change_unchanged
 
 \end_layout
 
