@@ -33,8 +33,7 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
         double precision,    pointer        :: V(:)
         integer                             :: i, j, k, p, it, start_v, end_v
         
-select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or not     
-     
+      
  case(0) !Full Q0 matrix         
     
     ! Qss is the full matrix, made up of the kernel (Q0) multiplied by the appropiate current theta values

@@ -42,8 +42,8 @@ program bp_main
        integer                      :: s_ind, p_ind, b_ind  !Indices for structural parameters, quasi-linear and bga method loops
        type (mio_struc)             :: miostruc
        type (err_failure_struc)     :: errstruc  
-       integer                      :: ifail, restart, outunit, bprunit, cparunit, cobsunit
-       type (cv_algorithmic)        :: cv_A
+       integer                      :: ifail, restart, outunit, bprunit, cparunit, cobsunit, finalparunit
+       type (cv_algorithmic)        :: cv_A 
        type (d_algorithmic)         :: d_A
        type (cv_prior_mean)         :: cv_PM
        type (d_prior_mean)          :: d_PM  
@@ -177,12 +177,12 @@ program bp_main
             call  bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR,cv_PM)
             
             
-            !-- PERFORMING LINESEARCH IF REQUIRED
+            !-- PERFORM LINESEARCH IF REQUESTED
             if (cv_A%lns_flag.eq.1) then  !If yes, we perform the linesearch procedure  
                call lns_proc(d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,cv_A,p_ind,miostruc,errstruc)
             endif
             
-            !-- BACK-TRANSFORM OR NOT PARAMETERS IN THE PHYSICAL SPACE
+            !-- BACK-TRANSFORM OR NOT PARAMETERS INTO PHYSICAL SPACE
             if (maxval(d_PM%Partrans).eq.1) then  !If yes, we need to back-transform the parameters in the physical space  
                call par_back_trans(cv_PAR, d_PAR, d_PM)
             endif 
@@ -207,7 +207,14 @@ program bp_main
             call bpo_write_residuals(cv_OBS,d_OBS,d_OBS%h,cobsunit)
             close(cobsunit) 
             !-- check for convergence - exit if convergence has been achieved  
-            if (curr_phi_conv(1).le.cv_A%phi_conv) exit
+            if (curr_phi_conv(1) .le. cv_A%phi_conv) then
+                exit
+            elseif (p_ind .ge. cv_A%it_max_phi) then
+                write(retmsg,10) p_ind
+10              format('Warning: Maximum number of iterations exceeded in quasi-linear parameter optimization loop during bgaPEST iteration',i4, & 
+                 & '. Convergence was not achieved, but iterations will cease.')
+                call utl_writmess(6,retmsg)  
+            end if !- checking for convergence or exceeding maximum iterations
 
           enddo  !(first intermediate loop) quasi-linear method  --> p_ind
           
@@ -246,6 +253,19 @@ program bp_main
     !*************************************************************************************************************************
      if (cv_A%post_cov_flag.eq.1) then
       call form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All,cv_PM,d_PM,d_S,VV,V)
+      !-- write out the final parameter values and confidence intervals
+        if (cv_A%Q_compression_flag .eq. 0) then  !Select if the Q0 matrix is compressed or not
+            allocate(V(cv_PAR%npar))
+            V = 0.D0 ! initialize the vector for V
+            do i = 1,cv_PAR%npar
+              V(i) = VV(i,i)
+            end do
+          finalparunit = utl_nextunit()  
+          curr_par_file = trim(casename) // '.bpp.fin'
+          call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
+          call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit)
+          close(finalparunit)
+      end if
      end if
     !*************************************************************************************************************************
     !*********** END OF THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************

@@ -62,11 +62,11 @@ contains
 !!!            subroutine to WRITE ALL RESIDUAL VALUES TO A BRE FILE         !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    subroutine bpo_write_residuals(cv_OBS,d_OBS,cobsvalue,writunit)
-      type (cv_observ)             :: cv_OBS
-      type (d_observ)              :: d_OBS
-      double precision, intent(in) :: cobsvalue(:)
-      integer, intent(in)          :: writunit
-      character(50)                :: outlinefmt
+      type (cv_observ)                :: cv_OBS
+      type (d_observ)                 :: d_OBS
+      double precision, intent(in)    :: cobsvalue(:)
+      integer, intent(in)             :: writunit
+      character(50)                   :: outlinefmt
 
     write(outlinefmt,"('(1A',I,',1A',I,',1A16,1A16)')") OBSNWIDTH,OBSGROUPNMWID    
     write(writunit,trim(outlinefmt)) 'ObsName','ObsGroup','Modeled','Measured'
@@ -76,6 +76,69 @@ contains
     enddo
            
    end subroutine bpo_write_residuals
+   
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!            subroutine to WRITE FINAL PARAMETER VALUES with CONFIDENCE INTERVALS TO A BPP FILE        !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   subroutine bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,SD,writunit)
+      type (cv_param)                 :: cv_PAR
+      type (d_param)                  :: d_PAR
+      type (d_prior_mean), intent(in) :: d_PM
+      double precision                :: finalparvalue(cv_PAR%npar)
+      double precision                :: SD(:)
+      integer, intent(in)             :: writunit
+      character(50)                   :: outlinefmt
+      character(20)                   :: parwstr,pargwstr
+      double precision, pointer       :: lcl(:),ucl(:)
+      integer                         :: i,j
+    allocate(lcl(cv_PAR%npar))
+    allocate(ucl(cv_PAR%npar))
+    
+    finalparvalue = d_PAR%pars !-- these are the optimal values, still in physical space   
+    call utl_int2char(PARNWIDTH,parwstr)
+    call utl_int2char(PARGROUPNMWID,pargwstr) 
+    write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16,1A16,1A16)')") trim(parwstr),trim(pargwstr)
+    write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal','95pctLCL','95pctLCL'
+
+        !--- handle transformations to estimation space as appropriate
+        do i = 1, cv_PAR%p 
+          if (d_PM%Partrans(i).eq.1) then
+            where (d_PAR%BetaAssoc.eq.i)
+              finalparvalue = log(d_PAR%pars)   !MD At the beginning pars is the vector of the initial values of the parameters 
+                 ! as read in the file. Then became the best estimate. Here we transform in the estimation space if required
+            end where
+          endif
+        enddo   
+        
+        !-- calculate LCL, and UCL
+        lcl = finalparvalue
+        ucl = finalparvalue
+        SD = sqrt(SD) !-- provided values were variances
+        lcl = lcl - 2*SD
+        ucl = ucl + 2*SD
+
+        !-- backtransform to physical space as appropriate
+        do i = 1, cv_PAR%p 
+          if (d_PM%Partrans(i).eq.1) then
+            where (d_PAR%BetaAssoc.eq.i)
+              finalparvalue = exp(finalparvalue)
+              ucl = exp(ucl)
+              lcl = exp(lcl)
+            end where
+          endif
+        enddo 
+                
+        !--  write parameter values, LCL, and UCL
+        do j = 1,cv_PAR%npar    
+            write(outlinefmt,"('(1A',A,',1A',A,',1I13,1E16.8,1E16.8,1E16.8)')")  trim(parwstr),trim(pargwstr)
+            write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),finalparvalue(j), &
+                     lcl(j),ucl(j)
+        enddo
+   
+   end subroutine bpo_write_allpars_95ci
+      
+   
+   
    
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!        subroutine to WRITE INITIAL VALUES TO THE RECORD (BPR) FILE       !!!

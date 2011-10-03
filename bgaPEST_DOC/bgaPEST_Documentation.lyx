@@ -2366,6 +2366,73 @@ Repeat steps 2 and 3 until the change in
 \end_layout
 
 \begin_layout Subsection
+
+\change_inserted -74556787 1317646498
+Posterior Covariance
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1317648991
+The posterior covariance can be calculated based on the inverse of the Hessian
+ of the objective function 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "for example, "
+key "NowakCirpka2004"
+
+\end_inset
+
+.
+ In closed form, the equation for the full posterior covariance matrix is:
+\begin_inset Formula 
+\[
+\mathbf{V}=\mathbf{\mathbf{G}_{ss}}-\mathbf{G_{sy}G}_{\mathbf{yy}}^{-1}\mathbf{G}_{\mathbf{sy}}^{T}
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{G_{sy}}=\mathbf{G_{ss}H}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G_{yy}}=\mathbf{HG_{ss}H}^{T}+\mathbf{R}$
+\end_inset
+
+.
+ In the case where compression of 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is not used, the full matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is calculated and reported.
+ Where compression of 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is used, however, the diagonal of 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is returned as a vector of variances on parameters.
+ This information is reported in a separate file, but also used to calculated
+ posterior 95% confidence intervals.
+ The full matrix, when reported, can be used to calculate conditional realizatio
+ns 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Kitanidis1995,Kitanidis1996ana"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
 A computationally efficient method to calculate the objective function
 \end_layout
 
@@ -2402,6 +2469,10 @@ For these two formulations to be equivalent, it is only necessary for the
 \end_inset
 
  terms
+\change_inserted -74556787 1317648055
+)
+\change_unchanged
+
 \begin_inset Formula 
 \begin{equation}
 \xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi=\mathbf{s}^{T}\mathbf{G}\mathbf{s}\label{eq:equiv1}

@@ -26,24 +26,24 @@ contains
        type (d_prior_mean)          :: d_PM
        
         
-       do i = 1, cv_PAR%p
+       do i = 1, cv_PAR%p 
           if (d_PM%Partrans(i).eq.1) then
-          do j = 1, cv_OBS%nobs
-             where (d_PAR%BetaAssoc.eq.i)
-               d_A%H(j,:)=d_A%H(j,:)*d_PAR%pars
-             end where
-          enddo
-          where (d_PAR%BetaAssoc.eq.i)
-          d_PAR%pars_old = log(d_PAR%pars)   !MD At the beginning pars is the vector of the initial values of the parameters 
+            do j = 1, cv_OBS%nobs
+               where (d_PAR%BetaAssoc.eq.i)
+                 d_A%H(j,:)=d_A%H(j,:)*d_PAR%pars
+               end where
+            enddo
+            where (d_PAR%BetaAssoc.eq.i)
+              d_PAR%pars_old = log(d_PAR%pars)   !MD At the beginning pars is the vector of the initial values of the parameters 
                  ! as read in the file. Then became the best estimate. Here we transform in the estimation space if required
-          end where
+            end where
           endif
         enddo
 
   end subroutine sen_par_trans
   
    subroutine par_back_trans(cv_PAR, d_PAR, d_PM)
-  !Subroutine to back-transform the parameters in the physical space.
+  !Subroutine to back-transform the parameters in the physical spac/e.
   !Only if required and for the parameters that were LOG transformed. 
   !We do s = exp(s) After this s is again in the physical space
   
