@@ -74,7 +74,7 @@ contains
       write (6,202) n2
 202     format(' Number of instruction files     = ', i6)
       write (6,203) n3
-203     format(' Number of parameter             = ', i6) 
+203     format(' Number of parameters            = ', i6) 
       write (6,204) n4
 204     format(' Number of observations          = ', i6)
    

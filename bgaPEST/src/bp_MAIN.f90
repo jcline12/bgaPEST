@@ -227,16 +227,25 @@ program bp_main
     !********************** FROM HERE THE STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *****************************
     !************************************************************************** *************************************************
        if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then !Enter the structural pars estimation loop only if required
-         curr_struct_vec = d_S%struct_par_opt_vec !Current struct pars vector. At the first bga loop d_S%struct_par_opt_vec is d_S%struct_par_opt_vec_0  
-         call marginal_struct_param_optim(d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,b_ind,cv_S%num_theta_opt)
-         !Here d_S%struct_par_opt_vec is the vector of the optimized theta and sigma values
-         curr_structural_conv(1) = sqrt(sum((curr_struct_vec - d_S%struct_par_opt_vec)**2)) !Calculate norm of difference between actual and previous vectors
-         if (curr_structural_conv(1).le.cv_A%structural_conv) then !If yes, structural parameters have converged, the structural parameters estimation
-           cv_S%struct_par_opt = 0                     !loop is no more required. Set to zero cv_S%struct_par_opt and d_S%sig_opt so the structural 
-           d_S%sig_opt = 0                             !parameters estimation loop is no more entered. The optimized struct_par_opt_vec is used to run the 
-                                                       !quasi-linear loop that should be the last one. Probably we need some output before exit.
-           if (associated(curr_struct_vec)) deallocate(curr_struct_vec) 
-         endif
+          if (b_ind .ge. cv_A%it_max_bga) then !-- do not re-estimate structural parameters if we have exceeded maximum number of it_max_bga
+             write(retmsg,11) b_ind
+11           format('Warning: Maximum number of iterations exceeded in quasi-linear parameter optimization loop during bgaPEST iteration',i4, & 
+               & '. Structural parameters will not be re-calculated, so final structural parameters and posterior covariance (if requested)' &
+               & 'are based on the last iteration.')
+             call utl_writmess(6,retmsg) 
+             exit
+          else
+             curr_struct_vec = d_S%struct_par_opt_vec !Current struct pars vector. At the first bga loop d_S%struct_par_opt_vec is d_S%struct_par_opt_vec_0  
+             call marginal_struct_param_optim(d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,b_ind,cv_S%num_theta_opt)
+             !Here d_S%struct_par_opt_vec is the vector of the optimized theta and sigma values
+             curr_structural_conv(1) = sqrt(sum((curr_struct_vec - d_S%struct_par_opt_vec)**2)) !Calculate norm of difference between actual and previous vectors
+             if (curr_structural_conv(1).le.cv_A%structural_conv) then !If yes, structural parameters have converged, the structural parameters estimation
+               cv_S%struct_par_opt = 0                     !loop is no more required. Set to zero cv_S%struct_par_opt and d_S%sig_opt so the structural 
+               d_S%sig_opt = 0                             !parameters estimation loop is no more entered. The optimized struct_par_opt_vec is used to run the 
+                                                           !quasi-linear loop that should be the last one. Probably we need some output before exit.
+               if (associated(curr_struct_vec)) deallocate(curr_struct_vec) 
+             endif
+          endif !-- special warning if exceed maximum number of main algorithm iterations (it_max_bga) without convergence
        else
          exit !If the structural pars optimization is not required or structural pars have converged (run the last quasi_linear), exit the bga_loop
        endif
@@ -273,9 +282,6 @@ program bp_main
   
   
   write(*,*) 'Parameter estimation is complete!'
-  do i = 1,cv_PAR%npar
-    write(*,*) d_PAR%pars(i)
-  enddo
   
 !-- FINALIZE and CLEANUP - deallocate all the structures
     call bpd_finalize(d_PM, d_S, cv_PAR, d_PAR, cv_OBS, d_OBS, d_MOD, d_MIO, d_XQR)

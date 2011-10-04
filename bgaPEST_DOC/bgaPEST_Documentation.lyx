@@ -2814,7 +2814,7 @@ Input Instructions
 \end_layout
 
 \begin_layout Standard
-In this section, the general strategy for input instructions is described.
+In this appendix, the general strategy for input instructions is described.
  The input is arranged in a file called 
 \family typewriter
 <casename>.bgp

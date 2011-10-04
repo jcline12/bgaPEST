@@ -279,7 +279,7 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
            k = k + 1
            d_S%struct_par_opt_vec_0(k) = d_S%theta_0(i,j)
          end do
-       end if
+       end if 
      end do
    end if
    
