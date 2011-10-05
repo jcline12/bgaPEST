@@ -40,15 +40,16 @@ contains
             cv_A%post_cov_flag      = 0      ! [0] do not calculate posterior covariance [1] calculate post cov
             cv_A%jacobian_format    = 'binary' ! 'binary' [default] means read JCO binary, 'ascii' means read standard PEST text matrix
             cv_A%jacfle             = 'scratch.jco' ! filename for external derivatives to be read from
+            cv_A%par_anisotropy     = 0      ! flag for whether anisotropy block will be read [0]=no, [1] = yes
             BL(1)%label           = 'algorithmic_cv'
             BL(1)%numrows         = UNINIT_INT
-            BL(1)%numkw           = 15 
+            BL(1)%numkw           = 17 
             allocate (BL(1)%keywords(BL(1)%numkw))
             BL(1)%keywords = (/'structural_conv','phi_conv','bga_conv',   &
             & 'it_max_structural','it_max_phi','it_max_bga','linesearch', &
             & 'it_max_linesearch', 'theta_cov_form',                      &
             & 'Q_compression_flag', 'store_Q', 'posterior_cov_flag',      &
-            & 'deriv_mode','jacobian_format','jacobian_file'/)   
+            & 'deriv_mode','jacobian_format','jacobian_file','par_anisotropy'/)   
        end subroutine bpi_init_algorithmic_CVs  
         
        
@@ -238,7 +239,20 @@ contains
 
        end subroutine bpi_init_mio_CVs
        
-       
+!********* subroutine bpi_init_anisotropy_DATA
+        subroutine bpi_init_anisotropy_DATA(BL,d_ANI)
+        
+        use bayes_pest_control
+        implicit none
+        type(d_anisotropy),intent(inout)    :: d_ANI
+        type(tp_block),intent(inout)        :: BL(NUM_BLOCK)    
+       ! INITIALIZATIONS
+            BL(17)%label           = 'parameter_anisotropy'
+            BL(17)%numrows         = UNINIT_INT
+            BL(17)%numkw           = 0     
+        end subroutine bpi_init_anisotropy_DATA
+        
+        
 !*********  subroutine bpi_init_algorithmic_DATA(d_A,npar,nobs)
        subroutine bpi_init_algorithmic_DATA(d_A,npar,nobs)      
        !SUBROUTINE to initialize receptacle for the Jacobian (H)

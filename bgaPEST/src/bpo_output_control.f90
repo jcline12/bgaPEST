@@ -249,6 +249,13 @@ contains
     write(bprunit,45) indent,indent,'Q_compression_flag: ',cv_A%Q_compression_flag
     write(bprunit,20) indent,'Derivatives mode: [0] External PEST Perturbations, [1] specified Jacobian command line'
     write(bprunit,45) indent,indent,'deriv_mode: ',cv_A%deriv_mode
+    write(bprunit,45) indent,indent,'par_anisotropy: ',cv_A%par_anisotropy
+    select case (cv_A%par_anisotropy)
+        case (0)
+              write(bprunit,45) indent,indent,'parameter_anisotropy block will not be read'
+        case (1)
+              write(bprunit,45) indent,indent,'parameter_anisotropy block will be read'
+    end select
     if (cv_A%deriv_mode .eq. 1) then
         write(bprunit,20) indent,'External derivatives calculated using file:-'
         write(bprunit,25) indent, indent, d_MOD%dercom

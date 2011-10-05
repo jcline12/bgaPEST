@@ -59,6 +59,8 @@ contains
                call intread(ifail,BL(1)%keywordstring(i), cv_A%deriv_mode)
              case('posterior_cov_flag')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%post_cov_flag)
+             case('par_anisotropy')
+               call intread(ifail,BL(1)%keywordstring(i), cv_A%par_anisotropy)
              case ('jacobian_format')
                cv_A%jacobian_format = trim(adjustl(BL(1)%keywordstring(i)))
                call UTL_CASETRANS(cv_A%jacobian_format,'lo')
@@ -205,7 +207,7 @@ end subroutine bdp_read_cv_prior_mean
           case (2)    !full beta covariance matrix.  cv_PM%prior_betas by cv_PM%prior_betas
             numcol = cv_PAR%p + 3
             ! allocate and initialize both d_PM and column variables for table reading
-            call bdp_alloc_d_PM(d_PM,columnname,columnstring,numcol,BL(3)%numrows)
+            call  bdp_alloc_d_PM(d_PM,columnname,columnstring,numcol,BL(3)%numrows)
             do i=1,BL(3)%numrows
               call ids_read_block_table(ifail,BL(3)%label,numcol,columnname,columnstring,line,filename)
                
@@ -377,6 +379,15 @@ end subroutine bdp_read_data_prior_mean
               
     end subroutine bdp_read_parameter_groups
 
+    !********  subroutine bdp_read_data_parameters(BL,d_PAR,npargp,inunit,retmsg)
+           subroutine bdp_read_data_anisotropy(errstruc,BL,d_PAR,cv_PAR,cv_A,Q0_All,inunit,retmsg,miostruc)
+           ! SUBROUTINE TO READ ANISOTROPY INFORMATION FOR 
+             use bayes_pest_control
+
+
+           end subroutine bdp_read_data_anisotropy
+    
+    
     !********  subroutine bdp_read_data_parameters(BL,d_PAR,npargp,inunit,retmsg)
            subroutine bdp_read_data_parameters(errstruc,BL,d_PAR,cv_PAR,cv_A,Q0_All,inunit,retmsg,miostruc)
              use bayes_pest_control
@@ -1071,6 +1082,7 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
 
        end subroutine bdp_alloc_init_cv_S
        
+ 
        
 !********  subroutine bdp_alloc_d_PM
        subroutine bdp_alloc_d_PM(d_PM,columnname,columnstring,nval,nrows)

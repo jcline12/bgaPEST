@@ -20,7 +20,7 @@ module bayes_pest_control
       integer, parameter   	       :: UNINIT_INT=-999999 !default value for integer variables remaining uninitialized
       double precision, parameter  :: UNINIT_REAL=9.999999999d9 !default value for real variables remaining uninitialized
       character (len=12),parameter :: UNINIT_CHAR='*UNIN*'   !default value for char variables remaining uninitialized
-      integer, parameter   :: NUM_BLOCK = 16                 !Is the maximum number of block  
+      integer, parameter   :: NUM_BLOCK = 17                 !Is the maximum number of blocks  
       integer, parameter   :: PARNWIDTH = 12                 ! width of a parameter name  MD
       integer, parameter   :: OBSNWIDTH = 12                 ! width of a observation name MD
       integer, parameter   :: PARGROUPNMWID = 16             ! width of a parameter group name
@@ -58,6 +58,7 @@ module bayes_pest_control
             character (len=6)   ::  jacobian_format    ! 'binary' for binary Jacobian file [default] or 'ascii' for standard PEST matrix text format
                                                        ! only read if deriv_mode =1       
             character(len=100)  ::  jacfle             !jacobian file - read if cv_A%deriv_mode==1, default='scratch.jco'
+            integer             ::  par_anisotropy     ! flag for whether block of  parameter anistropy values will be read [0] = no, [1] = yess
                                     
       end type cv_algorithmic
       
@@ -182,6 +183,13 @@ module bayes_pest_control
             double precision, pointer   :: R0(:,:) !MD Covariance matrix of epistemic error R=sig*R0
             double precision            :: L       !MD 10 times maximum distance in Q0 matrix
       end type kernel_XQR
+      
+      
+      type :: d_anisotropy      ! parameter anisotropy information
+           double precision, pointer    :: horiz_angle(:)    ! angle, from horizontal (X) of principal variance
+           double precision, pointer    :: horiz_ratio(:)    ! ratio of maximum to minimum variance
+           double precision, pointer    :: vertical_ratio(:) ! ratio of horizontal to vertical variance if 3D
+      end type d_anisotropy
       
 !   *******************************        
 !   * SUBROUTINES - ALL ARE VISIBLE

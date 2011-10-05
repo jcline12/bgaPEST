@@ -6,6 +6,7 @@ BEGIN algorithmic_cv KEYWORDS
  deriv_mode = 1
  jacobian_format = ascii
  jacobian_file = S1_1.jac
+ par_anisotropy=1 
  posterior_cov_flag = 1
 END algorithmic_cv 
 
