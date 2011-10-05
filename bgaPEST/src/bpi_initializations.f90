@@ -43,7 +43,7 @@ contains
             cv_A%par_anisotropy     = 0      ! flag for whether anisotropy block will be read [0]=no, [1] = yes
             BL(1)%label           = 'algorithmic_cv'
             BL(1)%numrows         = UNINIT_INT
-            BL(1)%numkw           = 17 
+            BL(1)%numkw           = 16 
             allocate (BL(1)%keywords(BL(1)%numkw))
             BL(1)%keywords = (/'structural_conv','phi_conv','bga_conv',   &
             & 'it_max_structural','it_max_phi','it_max_bga','linesearch', &

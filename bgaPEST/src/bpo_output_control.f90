@@ -246,16 +246,9 @@ contains
     write(bprunit,20) indent,'Form of theta covariance: [0] none, [1], diag, [2] full matrix'
     write(bprunit,45) indent,indent,'theta_cov_form: ',cv_A%theta_cov_form
     write(bprunit,20) indent,'Compression of Q0 matrix: [0] none - compute full Q0, [1], Q0 for each beta'
-    write(bprunit,45) indent,indent,'Q_compression_flag: ',cv_A%Q_compression_flag
+    write(bprunit,45) indent,indent,'Q_ compression_flag: ',cv_A%Q_compression_flag
     write(bprunit,20) indent,'Derivatives mode: [0] External PEST Perturbations, [1] specified Jacobian command line'
     write(bprunit,45) indent,indent,'deriv_mode: ',cv_A%deriv_mode
-    write(bprunit,45) indent,indent,'par_anisotropy: ',cv_A%par_anisotropy
-    select case (cv_A%par_anisotropy)
-        case (0)
-              write(bprunit,45) indent,indent,'parameter_anisotropy block will not be read'
-        case (1)
-              write(bprunit,45) indent,indent,'parameter_anisotropy block will be read'
-    end select
     if (cv_A%deriv_mode .eq. 1) then
         write(bprunit,20) indent,'External derivatives calculated using file:-'
         write(bprunit,25) indent, indent, d_MOD%dercom
@@ -264,7 +257,10 @@ contains
         write(bprunit,20) indent,'External derivatives file format:-'
         write(bprunit,25) indent, indent, cv_A%jacobian_format
     end if
-        
+    
+    write(bprunit,*)        
+    write(bprunit,20) indent,'Parameter Anisotropy: [0] do not read parameter_anisotropy block, [1] do read block'
+    write(bprunit,45) indent,indent,'par_anisotropy: ',cv_A%par_anisotropy
     
 !!! Beta associations (facies associations)
     write(bprunit,*)
@@ -297,8 +293,7 @@ contains
     else
         !indicate no compression specified
             write(bprunit,65) indent,' No Compression Requested.'
-    end if
-    
+    end if    
 60 format('Variables for Beta Association: ',I3)
 65 format(2A)
    
