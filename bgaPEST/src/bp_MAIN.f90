@@ -58,6 +58,7 @@ program bp_main
        type (cv_minout)             :: cv_MIO
        type (d_minout)              :: d_MIO
        type (kernel_XQR)            :: d_XQR
+       type (d_anisotropy)          :: d_ANI
        character (len=ERRORWIDTH)   :: retmsg
        character (len=100)          :: command_line, curr_par_file, curr_resid_file
        character (len=FILEWIDTH)    :: ctlfile
@@ -112,7 +113,7 @@ program bp_main
 
 !--  READ INPUT FILE AND PERFORM ASSOCIATED ALLOCATIONS AND PARSING     
     call bpr_read(errstruc,CTLFILE,cv_A, d_A, cv_PM, d_PM, cv_S, d_S, cv_PAR,Q0_All, d_PAR, &
-                        cv_OBS, d_OBS, d_MOD, cv_MIO, d_MIO, miostruc)
+                        cv_OBS, d_OBS, d_MOD, cv_MIO, d_MIO, d_ANI,miostruc)
 
 !--  SETUP THE MODEL INPUT AND OUTPUT INFORMATION (TPL/INPUT AND INS/OUTPUT PAIRINGS)
     call bpm_setup_mio(errstruc, cv_MIO, d_MIO,  cv_PAR%npargp, &

@@ -379,13 +379,48 @@ end subroutine bdp_read_data_prior_mean
               
     end subroutine bdp_read_parameter_groups
 
-    !********  subroutine bdp_read_data_parameters(BL,d_PAR,npargp,inunit,retmsg)
-           subroutine bdp_read_data_anisotropy(errstruc,BL,d_PAR,cv_PAR,cv_A,Q0_All,inunit,retmsg,miostruc)
-           ! SUBROUTINE TO READ ANISOTROPY INFORMATION FOR 
+    !********  subroutine bdp_read_data_anisotropy(BL,d_ANI,cv_PAR,inunit,retmsg)
+           subroutine bdp_read_data_par_anisotropy(BL,d_ANI,cv_PAR,inunit,retmsg)
+           ! SUBROUTINE TO READ ANISOTROPY INFORMATION FOR PARAMETERS
              use bayes_pest_control
-
-
-           end subroutine bdp_read_data_anisotropy
+             use utilities
+             
+           ! DECLARATIONS
+             implicit none
+             type (d_anisotropy)                       :: d_ANI
+             type (cv_param), intent(in)               :: cv_PAR
+             type(tp_block)                            :: BL(NUM_BLOCK)
+             integer, intent(in)                       :: inunit
+             integer                                   :: ifail, line
+             character (len=ERRORWIDTH), intent(inout) :: retmsg
+             character (len=COLWIDTH), pointer         :: columnname(:)
+             character (len=COLWIDTH), pointer         :: columnstring(:)         
+             character (len=200)                       :: filename
+             integer                                   :: i, numcol
+             
+             if (bl(17)%numrows .EQ. 0) then
+              retmsg = 'WARNING: No input information provided in data_parameter_anisotropy block'  
+              call utl_writmess(6,retmsg)
+              return     
+             end if
+             
+             numcol = 4
+             allocate(columnstring(numcol))
+             allocate(columnname(numcol))
+             allocate(d_ANI%BetaAssoc(cv_PAR%p))
+             allocate(d_ANI%horiz_angle(cv_PAR%p))
+             allocate(d_ANI%horiz_ratio(cv_PAR%p))
+             allocate(d_ANI%vertical_ratio(cv_PAR%p))
+             
+             columnname=(/'BetaAssoc','horiz_angle','horiz_ratio','vertical_ratio'/)
+             do i = 1,cv_PAR%p
+                 call ids_read_block_table(ifail,BL(17)%label,numcol,columnname,columnstring,line,filename)
+                 call intread(ifail, columnstring(1),d_ANI%BetaAssoc(i))
+                 call drealread(ifail, columnstring(2),d_ANI%horiz_angle(i))
+                 call drealread(ifail, columnstring(3),d_ANI%horiz_ratio(i))
+                 call drealread(ifail, columnstring(4),d_ANI%vertical_ratio(i))               
+             end do
+           end subroutine bdp_read_data_par_anisotropy
     
     
     !********  subroutine bdp_read_data_parameters(BL,d_PAR,npargp,inunit,retmsg)

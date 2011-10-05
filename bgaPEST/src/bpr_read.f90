@@ -2,7 +2,7 @@ module bayes_pest_reader
     use utilities
     contains
       subroutine bpr_read(errstruc,infile,cv_A, d_A, cv_PM, d_PM, cv_S, d_S, cv_PAR, Q0_All, d_PAR, cv_OBS, &
-                 &    d_OBS, d_MOD, cv_MIO, d_MIO, miostruc)
+                 &    d_OBS, d_MOD, cv_MIO, d_MIO, d_ANI, miostruc)
       
 ! --  Program BPR_READ reads from the input file
 !     Required variables are all read or, if not found, appropriate errors are returned
@@ -44,6 +44,7 @@ module bayes_pest_reader
        type (cv_minout)     , intent(inout) :: cv_MIO
        type (d_minout)      , intent(inout) :: d_MIO
        type (tp_block)                      :: BL(NUM_BLOCK)
+       type (d_anisotropy)                  :: d_ANI
 ! ** INITIALIZATIONS **
 
        
@@ -59,6 +60,7 @@ module bayes_pest_reader
        call bpi_init_obs_DATA(BL)
        call bpi_init_modcomlin_DATA(BL,d_MOD)
        call bpi_init_mio_CVs(BL,cv_MIO)
+       call bpi_init_anisotropy_DATA(BL,d_ANI)
        if(mio_initialise(errstruc,miostruc).ne.0) then
         call utl_bomb_out(errstruc)
         n1=mio_finalise(errstruc,miostruc)
@@ -114,6 +116,9 @@ module bayes_pest_reader
        call bpi_init_algorithmic_DATA(d_A,cv_PAR%npar,cv_OBS%nobs) !Allocate memory and initialize H matrix (nobs x npar)
        call bdp_read_data_model_command_line(BL,d_MOD,cv_A%deriv_mode,inunit,errmsg)       
        call bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,inunit,errmsg)
+       if (cv_A%par_anisotropy .eq. 1) then
+           call bdp_read_data_par_anisotropy(BL,d_ANI,cv_PAR,inunit,errmsg)
+       end if
 ! Deallocate BL type and close up files
        call deallocate_BL(BL)
         close (inunit)

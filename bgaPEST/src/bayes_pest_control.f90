@@ -189,6 +189,7 @@ module bayes_pest_control
            double precision, pointer    :: horiz_angle(:)    ! angle, from horizontal (X) of principal variance
            double precision, pointer    :: horiz_ratio(:)    ! ratio of maximum to minimum variance
            double precision, pointer    :: vertical_ratio(:) ! ratio of horizontal to vertical variance if 3D
+           integer, pointer             :: BetaAssoc(:)      ! Beta association identifier
       end type d_anisotropy
       
 !   *******************************        
