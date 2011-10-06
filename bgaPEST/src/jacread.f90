@@ -48,7 +48,7 @@
          write(amessage,10) trim(afile)
 10       format(' Cannot open jacobian file ',a,'.')
          go to 9800
-       end if
+       endif
        
 ! -- The header line is read.
 
@@ -58,7 +58,7 @@
          write(amessage,40) trim(afile)
 40       format(' Three integers are expected on first line of file ', a,'.')
          go to 9800
-       end if
+       endif
        call intread(ifail,cline(lw(1):rw(1)),nrow)
        if(ifail.ne.0) go to 9000
        call intread(ifail,cline(lw(2):rw(2)),ncol)
@@ -70,14 +70,14 @@
 50       format(' NCOL or NROW is less than or equal to zero at ', &
          'first line of file ',a,'.')
          go to 9800
-       end if
+       endif
 ! -- for this case, ICODE must equal 2 --- no other options supported
        if(icode.ne.2)then
          write(amessage,70) trim(afile)
 70       format(' ICODE must be "2" on first line of ', &
         'file ',a,'.')
          go to 9800
-       end if
+       endif
      
 ! -- Arrays in the matrix structure are dimensioned.
 
@@ -89,14 +89,14 @@
        if (read_names .eq. 1) then
         allocate(mat%arow(nrow),mat%acol(ncol),stat=ierr)
         if(ierr.ne.0) go to 9400
-       end if !-- read_names
+       endif !-- read_names
        
       
 ! -- The matrix is read.
 
        do irow=1,nrow
            read(jacunit,*,err=9100,end=9200) (X(irow,icol),icol=1,ncol)
-         end do
+         enddo
          
 ! -- The row and column labels are read. NOTE - not currently used for anything
        if (read_names.eq.1) then     
@@ -107,14 +107,14 @@
     130      format(' "* row names" header expected immediately ', &
             'folowing matrix in file ',a,'.')
              go to 9800
-           end if
+           endif
     ! -- read row names        
            do irow=1,nrow
     131      read(jacunit,*,err=9300,end=9300) mat%arow(irow)
              if(mat%arow(irow).eq.' ') go to 131
              mat%arow(irow)=adjustl(mat%arow(irow))
              call UTL_CASETRANS(mat%arow(irow),'lo')
-           end do
+           enddo
     ! -- read column names
              read(jacunit,'(a)',err=9500,end=9500) cline
              call UTL_CASETRANS(cline,'lo')
@@ -124,8 +124,8 @@
                if(mat%acol(icol).eq.' ') go to 132
                mat%acol(icol)=adjustl(mat%acol(icol))
                call UTL_CASETRANS(mat%acol(icol),'lo')
-             end do
-       end if !-- read_names
+             enddo
+       endif !-- read_names
        close(unit=jacunit)
        return       
        
@@ -192,7 +192,7 @@
           WRITE(*,125) JACFLE(1:NBLNK(JACFLE))
 125       FORMAT(/,' *** Cannot open file ',A,' ***',/)
           GO TO 9990
-        END IF
+        endif
          READ(jacunit,ERR=9000,END=9100)NESPAR,NXROW
         IF(NESPAR.LT.0)THEN
           NESPAR=-NESPAR
@@ -200,18 +200,18 @@
           NEWFLAG=1
         ELSE
           NEWFLAG=0
-        END IF
+        endif
 
         IF(NEWFLAG.EQ.1)THEN
           ALLOCATE(X(NXROW,NESPAR),AOBS(NXROW),APAR(NESPAR), STAT=IERR)
         ELSE
           ALLOCATE(X(NXROW,NESPAR),AOBS1(NXROW),APAR(NESPAR),AOBS(NXROW),STAT=IERR)
-        END IF
+        endif
         IF(IERR.NE.0)THEN
           WRITE(*,200)
 200       FORMAT(/,' *** Cannot allocate sufficient memory to ','continue execution ***',/)
           GO TO 9990
-        END IF
+        endif
 
         IF(NEWFLAG.EQ.1)THEN
           X=0.0D0                ! AN ARRAY
@@ -221,23 +221,23 @@
             IES=(J-1)/NXROW+1
             IROW=J-(IES-1)*NXROW
             X(IROW,IES)=DTEMP
-          END DO
+          enddo
         ELSE
           READ(jacunit,ERR=9000,END=9100) ((X(J,I),J=1,NXROW),I=1,NESPAR)
-        END IF
+        endif
         DO IPP=1,NESPAR
           READ(jacunit,ERR=9000,END=9100) APAR(IPP)
-        END DO
+        enddo
         IF(NEWFLAG.EQ.1)THEN
           DO IOBS=1,NXROW
             READ(jacunit,ERR=9000,END=9100) AOBS(IOBS)
-          END DO
+          enddo
         ELSE
           DO IOBS=1,NXROW
             READ(jacunit,ERR=9000,END=9100) AOBS1(IOBS)
             AOBS(IOBS)=AOBS1(IOBS)
-          END DO
-        END IF
+          enddo
+        endif
         CLOSE(UNIT=jacunit)
 
 
@@ -269,7 +269,7 @@
         DEALLOCATE(X,APAR,AOBS,STAT=IERR)
         IF(NEWFLAG.EQ.0)THEN
           DEALLOCATE(AOBS1,STAT=IERR)
-        END IF
+        endif
 
 
 9995    CONTINUE
@@ -342,7 +342,7 @@ end module jacread
         if(nblc.eq.0) then
           ifail=1
           return
-        end if
+        endif
         j=0
 5       if(nw.eq.num) return
         do 10 i=j+1,nblc
@@ -382,7 +382,7 @@ end module jacread
            aqfile(2:)=trim(afile)
            nbb=len_trim(aqfile)+1
            aqfile(nbb:nbb)='"'
-         end if
+         endif
 
          return
 

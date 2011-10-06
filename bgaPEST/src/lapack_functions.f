@@ -198,12 +198,12 @@
       ELSE
           NROWA = K
           NCOLA = M
-      END IF
+      endif
       IF (NOTB) THEN
           NROWB = K
       ELSE
           NROWB = N
-      END IF
+      endif
 !
 !     Test the input parameters.
 !
@@ -226,11 +226,11 @@
           INFO = 10
       ELSE IF (LDC.LT.MAX(1,M)) THEN
           INFO = 13
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DGEMM ',INFO)
           RETURN
-      END IF
+      endif
 !
 !     Quick return if possible.
 !
@@ -252,9 +252,9 @@
                       C(I,J) = BETA*C(I,J)
    30             CONTINUE
    40         CONTINUE
-          END IF
+          endif
           RETURN
-      END IF
+      endif
 !
 !     Start the operations.
 !
@@ -272,14 +272,14 @@
                       DO 60 I = 1,M
                           C(I,J) = BETA*C(I,J)
    60                 CONTINUE
-                  END IF
+                  endif
                   DO 80 L = 1,K
                       IF (B(L,J).NE.ZERO) THEN
                           TEMP = ALPHA*B(L,J)
                           DO 70 I = 1,M
                               C(I,J) = C(I,J) + TEMP*A(I,L)
    70                     CONTINUE
-                      END IF
+                      endif
    80             CONTINUE
    90         CONTINUE
           ELSE
@@ -296,10 +296,10 @@
                           C(I,J) = ALPHA*TEMP
                       ELSE
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      endif
   110             CONTINUE
   120         CONTINUE
-          END IF
+          endif
       ELSE
           IF (NOTA) THEN
 !
@@ -314,14 +314,14 @@
                       DO 140 I = 1,M
                           C(I,J) = BETA*C(I,J)
   140                 CONTINUE
-                  END IF
+                  endif
                   DO 160 L = 1,K
                       IF (B(J,L).NE.ZERO) THEN
                           TEMP = ALPHA*B(J,L)
                           DO 150 I = 1,M
                               C(I,J) = C(I,J) + TEMP*A(I,L)
   150                     CONTINUE
-                      END IF
+                      endif
   160             CONTINUE
   170         CONTINUE
           ELSE
@@ -338,11 +338,11 @@
                           C(I,J) = ALPHA*TEMP
                       ELSE
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
-                      END IF
+                      endif
   190             CONTINUE
   200         CONTINUE
-          END IF
-      END IF
+          endif
+      endif
 !
       RETURN
 !
@@ -472,11 +472,11 @@
           INFO = 6
       ELSE IF (INCY.EQ.0) THEN
           INFO = 9
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DSPMV ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -488,12 +488,12 @@
           KX = 1
       ELSE
           KX = 1 - (N-1)*INCX
-      END IF
+      endif
       IF (INCY.GT.0) THEN
           KY = 1
       ELSE
           KY = 1 - (N-1)*INCY
-      END IF
+      endif
 *
 *     Start the operations. In this version the elements of the array AP
 *     are accessed sequentially with one pass through AP.
@@ -510,7 +510,7 @@
                   DO 20 I = 1,N
                       Y(I) = BETA*Y(I)
    20             CONTINUE
-              END IF
+              endif
           ELSE
               IY = KY
               IF (BETA.EQ.ZERO) THEN
@@ -523,9 +523,9 @@
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
    40             CONTINUE
-              END IF
-          END IF
-      END IF
+              endif
+          endif
+      endif
       IF (ALPHA.EQ.ZERO) RETURN
       KK = 1
       IF (LSAME(UPLO,'U')) THEN
@@ -564,7 +564,7 @@
                   JY = JY + INCY
                   KK = KK + J
    80         CONTINUE
-          END IF
+          endif
       ELSE
 *
 *        Form  y  when AP contains the lower triangle.
@@ -603,8 +603,8 @@
                   JY = JY + INCY
                   KK = KK + (N-J+1)
   120         CONTINUE
-          END IF
-      END IF
+          endif
+      endif
 *
       RETURN
 *
@@ -765,7 +765,7 @@
           NROWA = M
       ELSE
           NROWA = N
-      END IF
+      endif
       NOUNIT = LSAME(DIAG,'N')
       UPPER = LSAME(UPLO,'U')
 *
@@ -788,11 +788,11 @@
           INFO = 9
       ELSE IF (LDB.LT.MAX(1,M)) THEN
           INFO = 11
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DTRMM ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -807,7 +807,7 @@
    10         CONTINUE
    20     CONTINUE
           RETURN
-      END IF
+      endif
 *
 *     Start the operations.
 *
@@ -826,7 +826,7 @@
    30                         CONTINUE
                               IF (NOUNIT) TEMP = TEMP*A(K,K)
                               B(K,J) = TEMP
-                          END IF
+                          endif
    40                 CONTINUE
    50             CONTINUE
               ELSE
@@ -839,10 +839,10 @@
                               DO 60 I = K + 1,M
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
    60                         CONTINUE
-                          END IF
+                          endif
    70                 CONTINUE
    80             CONTINUE
-              END IF
+              endif
           ELSE
 *
 *           Form  B := alpha*A'*B.
@@ -869,8 +869,8 @@
                           B(I,J) = ALPHA*TEMP
   130                 CONTINUE
   140             CONTINUE
-              END IF
-          END IF
+              endif
+          endif
       ELSE
           IF (LSAME(TRANSA,'N')) THEN
 *
@@ -889,7 +889,7 @@
                               DO 160 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   160                         CONTINUE
-                          END IF
+                          endif
   170                 CONTINUE
   180             CONTINUE
               ELSE
@@ -905,10 +905,10 @@
                               DO 200 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   200                         CONTINUE
-                          END IF
+                          endif
   210                 CONTINUE
   220             CONTINUE
-              END IF
+              endif
           ELSE
 *
 *           Form  B := alpha*B*A'.
@@ -921,7 +921,7 @@
                               DO 230 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   230                         CONTINUE
-                          END IF
+                          endif
   240                 CONTINUE
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(K,K)
@@ -929,7 +929,7 @@
                           DO 250 I = 1,M
                               B(I,K) = TEMP*B(I,K)
   250                     CONTINUE
-                      END IF
+                      endif
   260             CONTINUE
               ELSE
                   DO 300 K = N,1,-1
@@ -939,7 +939,7 @@
                               DO 270 I = 1,M
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
   270                         CONTINUE
-                          END IF
+                          endif
   280                 CONTINUE
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(K,K)
@@ -947,11 +947,11 @@
                           DO 290 I = 1,M
                               B(I,K) = TEMP*B(I,K)
   290                     CONTINUE
-                      END IF
+                      endif
   300             CONTINUE
-              END IF
-          END IF
-      END IF
+              endif
+          endif
+      endif
 *
       RETURN
 *
@@ -1044,7 +1044,7 @@
 !
          IF( INTA.GE.225 .AND. INTA.LE.250 ) INTA = INTA - 32
          IF( INTB.GE.225 .AND. INTB.LE.250 ) INTB = INTB - 32
-      END IF
+      endif
       LSAME = INTA.EQ.INTB
 !
 !     RETURN
@@ -1205,13 +1205,13 @@
          INFO = -3
       ELSE IF( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) THEN
          INFO = -6
-      END IF
+      endif
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGETRI', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
-      END IF
+      endif
 *
 *     Quick return if possible
 *
@@ -1232,10 +1232,10 @@
          IF( LWORK.LT.IWS ) THEN
             NB = LWORK / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'DGETRI', ' ', N, -1, -1, -1 ) )
-         END IF
+         endif
       ELSE
          IWS = N
-      END IF
+      endif
 *
 *     Solve the equation inv(A)*L = inv(U) for inv(A).
 *
@@ -1285,7 +1285,7 @@
             CALL DTRSM( 'Right', 'Lower', 'No transpose', 'Unit', N, JB,
      $                  ONE, WORK( J ), LDWORK, A( 1, J ), LDA )
    50    CONTINUE
-      END IF
+      endif
 *
 *     Apply column interchanges.
 *
@@ -1391,11 +1391,11 @@
          INFO = -2
       ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
          INFO = -4
-      END IF
+      endif
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGETRF', -INFO )
          RETURN
-      END IF
+      endif
 *
 *     Quick return if possible
 *
@@ -1454,10 +1454,10 @@
      $                        N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA,
      $                        A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ),
      $                        LDA )
-               END IF
-            END IF
+               endif
+            endif
    20    CONTINUE
-      END IF
+      endif
       RETURN
 *
 *     End of DGETRF
@@ -1559,11 +1559,11 @@
          INFO = -3
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -5
-      END IF
+      endif
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DTRTRI', -INFO )
          RETURN
-      END IF
+      endif
 *
 *     Quick return if possible
 *
@@ -1578,7 +1578,7 @@
      $         RETURN
    10    CONTINUE
          INFO = 0
-      END IF
+      endif
 *
 *     Determine the block size for this environment.
 *
@@ -1627,14 +1627,14 @@
                   CALL DTRSM( 'Right', 'Lower', 'No transpose', DIAG,
      $                        N-J-JB+1, JB, -ONE, A( J, J ), LDA,
      $                        A( J+JB, J ), LDA )
-               END IF
+               endif
 *
 *              Compute inverse of current diagonal block
 *
                CALL DTRTI2( 'Lower', DIAG, JB, A( J, J ), LDA, INFO )
    30       CONTINUE
-         END IF
-      END IF
+         endif
+      endif
 *
       RETURN
 *
@@ -1778,11 +1778,11 @@
           INFO = 8
       ELSE IF (INCY.EQ.0) THEN
           INFO = 11
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DGEMV ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -1798,17 +1798,17 @@
       ELSE
           LENX = M
           LENY = N
-      END IF
+      endif
       IF (INCX.GT.0) THEN
           KX = 1
       ELSE
           KX = 1 - (LENX-1)*INCX
-      END IF
+      endif
       IF (INCY.GT.0) THEN
           KY = 1
       ELSE
           KY = 1 - (LENY-1)*INCY
-      END IF
+      endif
 *
 *     Start the operations. In this version the elements of A are
 *     accessed sequentially with one pass through A.
@@ -1825,7 +1825,7 @@
                   DO 20 I = 1,LENY
                       Y(I) = BETA*Y(I)
    20             CONTINUE
-              END IF
+              endif
           ELSE
               IY = KY
               IF (BETA.EQ.ZERO) THEN
@@ -1838,9 +1838,9 @@
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
    40             CONTINUE
-              END IF
-          END IF
-      END IF
+              endif
+          endif
+      endif
       IF (ALPHA.EQ.ZERO) RETURN
       IF (LSAME(TRANS,'N')) THEN
 *
@@ -1854,7 +1854,7 @@
                       DO 50 I = 1,M
                           Y(I) = Y(I) + TEMP*A(I,J)
    50                 CONTINUE
-                  END IF
+                  endif
                   JX = JX + INCX
    60         CONTINUE
           ELSE
@@ -1866,10 +1866,10 @@
                           Y(IY) = Y(IY) + TEMP*A(I,J)
                           IY = IY + INCY
    70                 CONTINUE
-                  END IF
+                  endif
                   JX = JX + INCX
    80         CONTINUE
-          END IF
+          endif
       ELSE
 *
 *        Form  y := alpha*A'*x + y.
@@ -1895,8 +1895,8 @@
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
   120         CONTINUE
-          END IF
-      END IF
+          endif
+      endif
 *
       RETURN
 *
@@ -2060,7 +2060,7 @@
           NROWA = M
       ELSE
           NROWA = N
-      END IF
+      endif
       NOUNIT = LSAME(DIAG,'N')
       UPPER = LSAME(UPLO,'U')
 *
@@ -2083,11 +2083,11 @@
           INFO = 9
       ELSE IF (LDB.LT.MAX(1,M)) THEN
           INFO = 11
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DTRSM ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -2102,7 +2102,7 @@
    10         CONTINUE
    20     CONTINUE
           RETURN
-      END IF
+      endif
 *
 *     Start the operations.
 *
@@ -2117,14 +2117,14 @@
                           DO 30 I = 1,M
                               B(I,J) = ALPHA*B(I,J)
    30                     CONTINUE
-                      END IF
+                      endif
                       DO 50 K = M,1,-1
                           IF (B(K,J).NE.ZERO) THEN
                               IF (NOUNIT) B(K,J) = B(K,J)/A(K,K)
                               DO 40 I = 1,K - 1
                                   B(I,J) = B(I,J) - B(K,J)*A(I,K)
    40                         CONTINUE
-                          END IF
+                          endif
    50                 CONTINUE
    60             CONTINUE
               ELSE
@@ -2133,17 +2133,17 @@
                           DO 70 I = 1,M
                               B(I,J) = ALPHA*B(I,J)
    70                     CONTINUE
-                      END IF
+                      endif
                       DO 90 K = 1,M
                           IF (B(K,J).NE.ZERO) THEN
                               IF (NOUNIT) B(K,J) = B(K,J)/A(K,K)
                               DO 80 I = K + 1,M
                                   B(I,J) = B(I,J) - B(K,J)*A(I,K)
    80                         CONTINUE
-                          END IF
+                          endif
    90                 CONTINUE
   100             CONTINUE
-              END IF
+              endif
           ELSE
 *
 *           Form  B := alpha*inv( A' )*B.
@@ -2170,8 +2170,8 @@
                           B(I,J) = TEMP
   150                 CONTINUE
   160             CONTINUE
-              END IF
-          END IF
+              endif
+          endif
       ELSE
           IF (LSAME(TRANSA,'N')) THEN
 *
@@ -2183,20 +2183,20 @@
                           DO 170 I = 1,M
                               B(I,J) = ALPHA*B(I,J)
   170                     CONTINUE
-                      END IF
+                      endif
                       DO 190 K = 1,J - 1
                           IF (A(K,J).NE.ZERO) THEN
                               DO 180 I = 1,M
                                   B(I,J) = B(I,J) - A(K,J)*B(I,K)
   180                         CONTINUE
-                          END IF
+                          endif
   190                 CONTINUE
                       IF (NOUNIT) THEN
                           TEMP = ONE/A(J,J)
                           DO 200 I = 1,M
                               B(I,J) = TEMP*B(I,J)
   200                     CONTINUE
-                      END IF
+                      endif
   210             CONTINUE
               ELSE
                   DO 260 J = N,1,-1
@@ -2204,22 +2204,22 @@
                           DO 220 I = 1,M
                               B(I,J) = ALPHA*B(I,J)
   220                     CONTINUE
-                      END IF
+                      endif
                       DO 240 K = J + 1,N
                           IF (A(K,J).NE.ZERO) THEN
                               DO 230 I = 1,M
                                   B(I,J) = B(I,J) - A(K,J)*B(I,K)
   230                         CONTINUE
-                          END IF
+                          endif
   240                 CONTINUE
                       IF (NOUNIT) THEN
                           TEMP = ONE/A(J,J)
                           DO 250 I = 1,M
                               B(I,J) = TEMP*B(I,J)
   250                     CONTINUE
-                      END IF
+                      endif
   260             CONTINUE
-              END IF
+              endif
           ELSE
 *
 *           Form  B := alpha*B*inv( A' ).
@@ -2231,20 +2231,20 @@
                           DO 270 I = 1,M
                               B(I,K) = TEMP*B(I,K)
   270                     CONTINUE
-                      END IF
+                      endif
                       DO 290 J = 1,K - 1
                           IF (A(J,K).NE.ZERO) THEN
                               TEMP = A(J,K)
                               DO 280 I = 1,M
                                   B(I,J) = B(I,J) - TEMP*B(I,K)
   280                         CONTINUE
-                          END IF
+                          endif
   290                 CONTINUE
                       IF (ALPHA.NE.ONE) THEN
                           DO 300 I = 1,M
                               B(I,K) = ALPHA*B(I,K)
   300                     CONTINUE
-                      END IF
+                      endif
   310             CONTINUE
               ELSE
                   DO 360 K = 1,N
@@ -2253,24 +2253,24 @@
                           DO 320 I = 1,M
                               B(I,K) = TEMP*B(I,K)
   320                     CONTINUE
-                      END IF
+                      endif
                       DO 340 J = K + 1,N
                           IF (A(J,K).NE.ZERO) THEN
                               TEMP = A(J,K)
                               DO 330 I = 1,M
                                   B(I,J) = B(I,J) - TEMP*B(I,K)
   330                         CONTINUE
-                          END IF
+                          endif
   340                 CONTINUE
                       IF (ALPHA.NE.ONE) THEN
                           DO 350 I = 1,M
                               B(I,K) = ALPHA*B(I,K)
   350                     CONTINUE
-                      END IF
+                      endif
   360             CONTINUE
-              END IF
-          END IF
-      END IF
+              endif
+          endif
+      endif
 *
       RETURN
 *
@@ -2438,11 +2438,11 @@
          INFO = -2
       ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
          INFO = -4
-      END IF
+      endif
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGETF2', -INFO )
          RETURN
-      END IF
+      endif
 *
 *     Quick return if possible
 *
@@ -2475,13 +2475,13 @@
                  DO 20 I = 1, M-J 
                     A( J+I, J ) = A( J+I, J ) / A( J, J ) 
    20            CONTINUE 
-               END IF 
-            END IF 
+               endif 
+            endif 
 *
          ELSE IF( INFO.EQ.0 ) THEN
 *
             INFO = J
-         END IF
+         endif
 *
          IF( J.LT.MIN( M, N ) ) THEN
 *
@@ -2489,7 +2489,7 @@
 *
             CALL DGER( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA,
      $                 A( J+1, J+1 ), LDA )
-         END IF
+         endif
    10 CONTINUE
       RETURN
 *
@@ -2576,7 +2576,7 @@
          INC = -1
       ELSE
          RETURN
-      END IF
+      endif
 *
       N32 = ( N / 32 )*32
       IF( N32.NE.0 ) THEN
@@ -2590,11 +2590,11 @@
                      A( I, K ) = A( IP, K )
                      A( IP, K ) = TEMP
    10             CONTINUE
-               END IF
+               endif
                IX = IX + INCX
    20       CONTINUE
    30    CONTINUE
-      END IF
+      endif
       IF( N32.NE.N ) THEN
          N32 = N32 + 1
          IX = IX0
@@ -2606,10 +2606,10 @@
                   A( I, K ) = A( IP, K )
                   A( IP, K ) = TEMP
    40          CONTINUE
-            END IF
+            endif
             IX = IX + INCX
    50    CONTINUE
-      END IF
+      endif
 *
       RETURN
 *
@@ -2712,11 +2712,11 @@
          INFO = -3
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -5
-      END IF
+      endif
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DTRTI2', -INFO )
          RETURN
-      END IF
+      endif
 *
       IF( UPPER ) THEN
 *
@@ -2728,7 +2728,7 @@
                AJJ = -A( J, J )
             ELSE
                AJJ = -ONE
-            END IF
+            endif
 *
 *           Compute elements 1:j-1 of j-th column.
 *
@@ -2746,7 +2746,7 @@
                AJJ = -A( J, J )
             ELSE
                AJJ = -ONE
-            END IF
+            endif
             IF( J.LT.N ) THEN
 *
 *              Compute elements j+1:n of j-th column.
@@ -2754,9 +2754,9 @@
                CALL DTRMV( 'Lower', 'No transpose', DIAG, N-J,
      $                     A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
                CALL DSCAL( N-J, AJJ, A( J+1, J ), 1 )
-            END IF
+            endif
    20    CONTINUE
-      END IF
+      endif
 *
       RETURN
 *
@@ -2872,11 +2872,11 @@
           INFO = 7
       ELSE IF (LDA.LT.MAX(1,M)) THEN
           INFO = 9
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DGER  ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -2889,7 +2889,7 @@
           JY = 1
       ELSE
           JY = 1 - (N-1)*INCY
-      END IF
+      endif
       IF (INCX.EQ.1) THEN
           DO 20 J = 1,N
               IF (Y(JY).NE.ZERO) THEN
@@ -2897,7 +2897,7 @@
                   DO 10 I = 1,M
                       A(I,J) = A(I,J) + X(I)*TEMP
    10             CONTINUE
-              END IF
+              endif
               JY = JY + INCY
    20     CONTINUE
       ELSE
@@ -2905,7 +2905,7 @@
               KX = 1
           ELSE
               KX = 1 - (M-1)*INCX
-          END IF
+          endif
           DO 40 J = 1,N
               IF (Y(JY).NE.ZERO) THEN
                   TEMP = ALPHA*Y(JY)
@@ -2914,10 +2914,10 @@
                       A(I,J) = A(I,J) + X(IX)*TEMP
                       IX = IX + INCX
    30             CONTINUE
-              END IF
+              endif
               JY = JY + INCY
    40     CONTINUE
-      END IF
+      endif
 *
       RETURN
 *
@@ -3061,11 +3061,11 @@
           INFO = 6
       ELSE IF (INCX.EQ.0) THEN
           INFO = 8
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DTRMV ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -3080,7 +3080,7 @@
           KX = 1 - (N-1)*INCX
       ELSE IF (INCX.NE.1) THEN
           KX = 1
-      END IF
+      endif
 *
 *     Start the operations. In this version the elements of A are
 *     accessed sequentially with one pass through A.
@@ -3098,7 +3098,7 @@
                               X(I) = X(I) + TEMP*A(I,J)
    10                     CONTINUE
                           IF (NOUNIT) X(J) = X(J)*A(J,J)
-                      END IF
+                      endif
    20             CONTINUE
               ELSE
                   JX = KX
@@ -3111,10 +3111,10 @@
                               IX = IX + INCX
    30                     CONTINUE
                           IF (NOUNIT) X(JX) = X(JX)*A(J,J)
-                      END IF
+                      endif
                       JX = JX + INCX
    40             CONTINUE
-              END IF
+              endif
           ELSE
               IF (INCX.EQ.1) THEN
                   DO 60 J = N,1,-1
@@ -3124,7 +3124,7 @@
                               X(I) = X(I) + TEMP*A(I,J)
    50                     CONTINUE
                           IF (NOUNIT) X(J) = X(J)*A(J,J)
-                      END IF
+                      endif
    60             CONTINUE
               ELSE
                   KX = KX + (N-1)*INCX
@@ -3138,11 +3138,11 @@
                               IX = IX - INCX
    70                     CONTINUE
                           IF (NOUNIT) X(JX) = X(JX)*A(J,J)
-                      END IF
+                      endif
                       JX = JX - INCX
    80             CONTINUE
-              END IF
-          END IF
+              endif
+          endif
       ELSE
 *
 *        Form  x := A'*x.
@@ -3170,7 +3170,7 @@
                       X(JX) = TEMP
                       JX = JX - INCX
   120             CONTINUE
-              END IF
+              endif
           ELSE
               IF (INCX.EQ.1) THEN
                   DO 140 J = 1,N
@@ -3194,9 +3194,9 @@
                       X(JX) = TEMP
                       JX = JX + INCX
   160             CONTINUE
-              END IF
-          END IF
-      END IF
+              endif
+          endif
+      endif
 *
       RETURN
 *
@@ -3345,7 +3345,7 @@
          ELSE
             RND = ZERO
             EPS = BASE**( 1-IT )
-         END IF
+         endif
          PREC = EPS*BASE
          EMIN = IMIN
          EMAX = IMAX
@@ -3357,8 +3357,8 @@
 *           causing overflow when computing  1/sfmin.
 *
             SFMIN = SMALL*( ONE+EPS )
-         END IF
-      END IF
+         endif
+      endif
 *
       IF( LSAME( CMACH, 'E' ) ) THEN
          RMACH = EPS
@@ -3380,7 +3380,7 @@
          RMACH = EMAX
       ELSE IF( LSAME( CMACH, 'O' ) ) THEN
          RMACH = RMAX
-      END IF
+      endif
 *
       DLAMCH = RMACH
       FIRST  = .FALSE.
@@ -3485,7 +3485,7 @@
             C = DLAMC3( A, ONE )
             C = DLAMC3( C, -A )
             GO TO 10
-         END IF
+         endif
 *+       END WHILE
 *
 *        Now compute  b = 2.0**m  with the smallest positive integer m
@@ -3502,7 +3502,7 @@
             B = 2*B
             C = DLAMC3( A, B )
             GO TO 20
-         END IF
+         endif
 *+       END WHILE
 *
 *        Now compute the base.  a and c  are neighbouring floating point
@@ -3525,7 +3525,7 @@
             LRND = .TRUE.
          ELSE
             LRND = .FALSE.
-         END IF
+         endif
          F = DLAMC3( B / 2, B / 100 )
          C = DLAMC3( F, A )
          IF( ( LRND ) .AND. ( C.EQ.A ) )
@@ -3560,10 +3560,10 @@
             C = DLAMC3( A, ONE )
             C = DLAMC3( C, -A )
             GO TO 30
-         END IF
+         endif
 *+       END WHILE
 *
-      END IF
+      endif
 *
       BETA = LBETA
       T = LT
@@ -3714,7 +3714,7 @@
             C = DLAMC3( HALF, -B )
             B = DLAMC3( HALF, C )
             GO TO 10
-         END IF
+         endif
 *+       END WHILE
 *
          IF( A.LT.LEPS )
@@ -3752,7 +3752,7 @@
                LEMIN = MIN( NGPMIN, GPMIN )
 *            ( A guess; no known machine )
                IWARN = .TRUE.
-            END IF
+            endif
 *
          ELSE IF( ( NGPMIN.EQ.GPMIN ) .AND. ( NGNMIN.EQ.GNMIN ) ) THEN
             IF( ABS( NGPMIN-NGNMIN ).EQ.1 ) THEN
@@ -3763,7 +3763,7 @@
                LEMIN = MIN( NGPMIN, NGNMIN )
 *            ( A guess; no known machine )
                IWARN = .TRUE.
-            END IF
+            endif
 *
          ELSE IF( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND.
      $            ( GPMIN.EQ.GNMIN ) ) THEN
@@ -3775,20 +3775,20 @@
                LEMIN = MIN( NGPMIN, NGNMIN )
 *            ( A guess; no known machine )
                IWARN = .TRUE.
-            END IF
+            endif
 *
          ELSE
             LEMIN = MIN( NGPMIN, NGNMIN, GPMIN, GNMIN )
 *         ( A guess; no known machine )
             IWARN = .TRUE.
-         END IF
+         endif
          FIRST = .FALSE.
 ***
 * Comment out this if block if EMIN is ok
          IF( IWARN ) THEN
             FIRST = .TRUE.
             WRITE( 6, FMT = 9999 )LEMIN
-         END IF
+         endif
 ***
 *
 *        Assume IEEE arithmetic if we found denormalised  numbers above,
@@ -3810,7 +3810,7 @@
 *        Finally, call DLAMC5 to compute EMAX and RMAX.
 *
          CALL DLAMC5( LBETA, LT, LEMIN, IEEE, LEMAX, LRMAX )
-      END IF
+      endif
 *
       BETA = LBETA
       T = LT
@@ -3946,7 +3946,7 @@
             D2 = D2 + B2
    30    CONTINUE
          GO TO 10
-      END IF
+      endif
 *+    END WHILE
 *
       RETURN
@@ -4034,13 +4034,13 @@
          LEXP = TRY
          EXBITS = EXBITS + 1
          GO TO 10
-      END IF
+      endif
       IF( LEXP.EQ.-EMIN ) THEN
          UEXP = LEXP
       ELSE
          UEXP = TRY
          EXBITS = EXBITS + 1
-      END IF
+      endif
 *
 *     Now -LEXP is less than or equal to EMIN, and -UEXP is greater
 *     than or equal to EMIN. EXBITS is the number of bits needed to
@@ -4050,7 +4050,7 @@
          EXPSUM = 2*LEXP
       ELSE
          EXPSUM = 2*UEXP
-      END IF
+      endif
 *
 *     EXPSUM is the exponent range, approximately equal to
 *     EMAX - EMIN + 1 .
@@ -4075,7 +4075,7 @@
 *        unnecessarily.
 *
          EMAX = EMAX - 1
-      END IF
+      endif
 *
       IF( IEEE ) THEN
 *
@@ -4083,7 +4083,7 @@
 *        for infinity and NaN.
 *
          EMAX = EMAX - 1
-      END IF
+      endif
 *
 *     Now create RMAX, the largest machine number, which should
 *     be equal to (1.0 - BETA**(-P)) * BETA**EMAX .
@@ -4319,7 +4319,7 @@
                IF( IC.GE.97 .AND. IC.LE.122 )
      $            SUBNAM( I: I ) = CHAR( IC-32 )
    20       CONTINUE
-         END IF
+         endif
 *
       ELSE IF( IZ.EQ.233 .OR. IZ.EQ.169 ) THEN
 *
@@ -4336,7 +4336,7 @@
      $             ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I:
      $             I ) = CHAR( IC+64 )
    30       CONTINUE
-         END IF
+         endif
 *
       ELSE IF( IZ.EQ.218 .OR. IZ.EQ.250 ) THEN
 *
@@ -4349,8 +4349,8 @@
                IF( IC.GE.225 .AND. IC.LE.250 )
      $            SUBNAM( I: I ) = CHAR( IC-32 )
    40       CONTINUE
-         END IF
-      END IF
+         endif
+      endif
 *
       C1 = SUBNAM( 1: 1 )
       SNAME = C1.EQ.'S' .OR. C1.EQ.'D'
@@ -4379,53 +4379,53 @@
                NB = 64
             ELSE
                NB = 64
-            END IF
+            endif
          ELSE IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR.
      $            C3.EQ.'QLF' ) THEN
             IF( SNAME ) THEN
                NB = 32
             ELSE
                NB = 32
-            END IF
+            endif
          ELSE IF( C3.EQ.'HRD' ) THEN
             IF( SNAME ) THEN
                NB = 32
             ELSE
                NB = 32
-            END IF
+            endif
          ELSE IF( C3.EQ.'BRD' ) THEN
             IF( SNAME ) THEN
                NB = 32
             ELSE
                NB = 32
-            END IF
+            endif
          ELSE IF( C3.EQ.'TRI' ) THEN
             IF( SNAME ) THEN
                NB = 64
             ELSE
                NB = 64
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( C2.EQ.'PO' ) THEN
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
                NB = 64
             ELSE
                NB = 64
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( C2.EQ.'SY' ) THEN
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
                NB = 64
             ELSE
                NB = 64
-            END IF
+            endif
          ELSE IF( SNAME .AND. C3.EQ.'TRD' ) THEN
             NB = 32
          ELSE IF( SNAME .AND. C3.EQ.'GST' ) THEN
             NB = 64
-         END IF
+         endif
       ELSE IF( CNAME .AND. C2.EQ.'HE' ) THEN
          IF( C3.EQ.'TRF' ) THEN
             NB = 64
@@ -4433,35 +4433,35 @@
             NB = 32
          ELSE IF( C3.EQ.'GST' ) THEN
             NB = 64
-         END IF
+         endif
       ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NB = 32
-            END IF
+            endif
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NB = 32
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NB = 32
-            END IF
+            endif
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NB = 32
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( C2.EQ.'GB' ) THEN
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
@@ -4469,15 +4469,15 @@
                   NB = 1
                ELSE
                   NB = 32
-               END IF
+               endif
             ELSE
                IF( N4.LE.64 ) THEN
                   NB = 1
                ELSE
                   NB = 32
-               END IF
-            END IF
-         END IF
+               endif
+            endif
+         endif
       ELSE IF( C2.EQ.'PB' ) THEN
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
@@ -4485,36 +4485,36 @@
                   NB = 1
                ELSE
                   NB = 32
-               END IF
+               endif
             ELSE
                IF( N2.LE.64 ) THEN
                   NB = 1
                ELSE
                   NB = 32
-               END IF
-            END IF
-         END IF
+               endif
+            endif
+         endif
       ELSE IF( C2.EQ.'TR' ) THEN
          IF( C3.EQ.'TRI' ) THEN
             IF( SNAME ) THEN
                NB = 64
             ELSE
                NB = 64
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( C2.EQ.'LA' ) THEN
          IF( C3.EQ.'UUM' ) THEN
             IF( SNAME ) THEN
                NB = 64
             ELSE
                NB = 64
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( SNAME .AND. C2.EQ.'ST' ) THEN
          IF( C3.EQ.'EBZ' ) THEN
             NB = 1
-         END IF
-      END IF
+         endif
+      endif
       ILAENV = NB
       RETURN
 *
@@ -4530,69 +4530,69 @@
                NBMIN = 2
             ELSE
                NBMIN = 2
-            END IF
+            endif
          ELSE IF( C3.EQ.'HRD' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
             ELSE
                NBMIN = 2
-            END IF
+            endif
          ELSE IF( C3.EQ.'BRD' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
             ELSE
                NBMIN = 2
-            END IF
+            endif
          ELSE IF( C3.EQ.'TRI' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
             ELSE
                NBMIN = 2
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( C2.EQ.'SY' ) THEN
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
                NBMIN = 8
             ELSE
                NBMIN = 8
-            END IF
+            endif
          ELSE IF( SNAME .AND. C3.EQ.'TRD' ) THEN
             NBMIN = 2
-         END IF
+         endif
       ELSE IF( CNAME .AND. C2.EQ.'HE' ) THEN
          IF( C3.EQ.'TRD' ) THEN
             NBMIN = 2
-         END IF
+         endif
       ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NBMIN = 2
-            END IF
+            endif
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NBMIN = 2
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NBMIN = 2
-            END IF
+            endif
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NBMIN = 2
-            END IF
-         END IF
-      END IF
+            endif
+         endif
+      endif
       ILAENV = NBMIN
       RETURN
 *
@@ -4608,45 +4608,45 @@
                NX = 128
             ELSE
                NX = 128
-            END IF
+            endif
          ELSE IF( C3.EQ.'HRD' ) THEN
             IF( SNAME ) THEN
                NX = 128
             ELSE
                NX = 128
-            END IF
+            endif
          ELSE IF( C3.EQ.'BRD' ) THEN
             IF( SNAME ) THEN
                NX = 128
             ELSE
                NX = 128
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( C2.EQ.'SY' ) THEN
          IF( SNAME .AND. C3.EQ.'TRD' ) THEN
             NX = 32
-         END IF
+         endif
       ELSE IF( CNAME .AND. C2.EQ.'HE' ) THEN
          IF( C3.EQ.'TRD' ) THEN
             NX = 32
-         END IF
+         endif
       ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NX = 128
-            END IF
-         END IF
+            endif
+         endif
       ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
             IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
      $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
      $           THEN
                NX = 128
-            END IF
-         END IF
-      END IF
+            endif
+         endif
+      endif
       ILAENV = NX
       RETURN
 *
@@ -4702,7 +4702,7 @@
       ILAENV = 1
       IF( ILAENV.EQ.1 ) THEN
          ILAENV = IEEECK( 1, 0.0, 1.0 )
-      END IF
+      endif
       RETURN
 *
   150 CONTINUE
@@ -4713,7 +4713,7 @@
       ILAENV = 1
       IF( ILAENV.EQ.1 ) THEN
          ILAENV = IEEECK( 0, 0.0, 1.0 )
-      END IF
+      endif
       RETURN
 *
   160 CONTINUE
@@ -4784,49 +4784,49 @@
       IF( POSINF.LE.ONE ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       NEGINF = -ONE / ZERO
       IF( NEGINF.GE.ZERO ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       NEGZRO = ONE / ( NEGINF+ONE )
       IF( NEGZRO.NE.ZERO ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       NEGINF = ONE / NEGZRO
       IF( NEGINF.GE.ZERO ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       NEWZRO = NEGZRO + ZERO
       IF( NEWZRO.NE.ZERO ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       POSINF = ONE / NEWZRO
       IF( POSINF.LE.ONE ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       NEGINF = NEGINF*POSINF
       IF( NEGINF.GE.ZERO ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       POSINF = POSINF*POSINF
       IF( POSINF.LE.ONE ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
 *
 *
@@ -4851,32 +4851,32 @@
       IF( NAN1.EQ.NAN1 ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       IF( NAN2.EQ.NAN2 ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       IF( NAN3.EQ.NAN3 ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       IF( NAN4.EQ.NAN4 ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       IF( NAN5.EQ.NAN5 ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       IF( NAN6.EQ.NAN6 ) THEN
          IEEECK = 0
          RETURN
-      END IF
+      endif
 *
       RETURN
       END
@@ -5076,7 +5076,7 @@
          IF( NH.GE.6000 )
      $      NS = 256
          NS = MAX( 2, NS-MOD( NS, 2 ) )
-      END IF
+      endif
 *
       IF( ISPEC.EQ.INMIN ) THEN
 *
@@ -5109,7 +5109,7 @@
             IPARMQ = NS
          ELSE
             IPARMQ = 3*NS / 2
-         END IF
+         endif
 *
       ELSE IF( ISPEC.EQ.IACC22 ) THEN
 *
@@ -5130,7 +5130,7 @@
 *        ===== invalid value of ispec =====
          IPARMQ = -1
 *
-      END IF
+      endif
 *
 *     ==== End of IPARMQ ====
 *
@@ -5310,7 +5310,7 @@
           NROWA = M
       ELSE
           NROWA = N
-      END IF
+      endif
       UPPER = LSAME(UPLO,'U')
 *
 *     Test the input parameters.
@@ -5330,11 +5330,11 @@
           INFO = 9
       ELSE IF (LDC.LT.MAX(1,M)) THEN
           INFO = 12
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DSYMM ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -5356,9 +5356,9 @@
                       C(I,J) = BETA*C(I,J)
    30             CONTINUE
    40         CONTINUE
-          END IF
+          endif
           RETURN
-      END IF
+      endif
 *
 *     Start the operations.
 *
@@ -5380,7 +5380,7 @@
                       ELSE
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) +
      +                             ALPHA*TEMP2
-                      END IF
+                      endif
    60             CONTINUE
    70         CONTINUE
           ELSE
@@ -5397,10 +5397,10 @@
                       ELSE
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) +
      +                             ALPHA*TEMP2
-                      END IF
+                      endif
    90             CONTINUE
   100         CONTINUE
-          END IF
+          endif
       ELSE
 *
 *        Form  C := alpha*B*A + beta*C.
@@ -5415,13 +5415,13 @@
                   DO 120 I = 1,M
                       C(I,J) = BETA*C(I,J) + TEMP1*B(I,J)
   120             CONTINUE
-              END IF
+              endif
               DO 140 K = 1,J - 1
                   IF (UPPER) THEN
                       TEMP1 = ALPHA*A(K,J)
                   ELSE
                       TEMP1 = ALPHA*A(J,K)
-                  END IF
+                  endif
                   DO 130 I = 1,M
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
   130             CONTINUE
@@ -5431,13 +5431,13 @@
                       TEMP1 = ALPHA*A(J,K)
                   ELSE
                       TEMP1 = ALPHA*A(K,J)
-                  END IF
+                  endif
                   DO 150 I = 1,M
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
   150             CONTINUE
   160         CONTINUE
   170     CONTINUE
-      END IF
+      endif
 *
       RETURN
 *
@@ -5594,7 +5594,7 @@
          INFO = -8
       ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
          INFO = -10
-      END IF
+      endif
 *
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
@@ -5602,16 +5602,16 @@
          ELSE
             NB = ILAENV( 1, 'DSYTRF', UPLO, N, -1, -1, -1 )
             LWKOPT = N*NB
-         END IF
+         endif
          WORK( 1 ) = LWKOPT
-      END IF
+      endif
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYSV ', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
-      END IF
+      endif
 *
 *     Compute the factorization A = U*D*U' or A = L*D*L'.
 *
@@ -5622,7 +5622,7 @@
 *
          CALL DSYTRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
 *
-      END IF
+      endif
 *
       WORK( 1 ) = LWKOPT
 *
@@ -5787,7 +5787,7 @@
          INFO = -4
       ELSE IF( LWORK.LT.1 .AND. .NOT.LQUERY ) THEN
          INFO = -7
-      END IF
+      endif
 *
       IF( INFO.EQ.0 ) THEN
 *
@@ -5796,14 +5796,14 @@
          NB = ILAENV( 1, 'DSYTRF', UPLO, N, -1, -1, -1 )
          LWKOPT = N*NB
          WORK( 1 ) = LWKOPT
-      END IF
+      endif
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYTRF', -INFO )
          RETURN
       ELSE IF( LQUERY ) THEN
          RETURN
-      END IF
+      endif
 *
       NBMIN = 2
       LDWORK = N
@@ -5812,10 +5812,10 @@
          IF( LWORK.LT.IWS ) THEN
             NB = MAX( LWORK / LDWORK, 1 )
             NBMIN = MAX( 2, ILAENV( 2, 'DSYTRF', UPLO, N, -1, -1, -1 ) )
-         END IF
+         endif
       ELSE
          IWS = 1
-      END IF
+      endif
       IF( NB.LT.NBMIN )
      $   NB = N
 *
@@ -5848,7 +5848,7 @@
 *
             CALL DSYTF2( UPLO, K, A, LDA, IPIV, IINFO )
             KB = K
-         END IF
+         endif
 *
 *        Set INFO on the first occurrence of a zero pivot
 *
@@ -5889,7 +5889,7 @@
 *
             CALL DSYTF2( UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO )
             KB = N - K + 1
-         END IF
+         endif
 *
 *        Set INFO on the first occurrence of a zero pivot
 *
@@ -5903,7 +5903,7 @@
                IPIV( J ) = IPIV( J ) + K - 1
             ELSE
                IPIV( J ) = IPIV( J ) - K + 1
-            END IF
+            endif
    30    CONTINUE
 *
 *        Increase K and return to the start of the main loop
@@ -5911,7 +5911,7 @@
          K = K + KB
          GO TO 20
 *
-      END IF
+      endif
 *
    40 CONTINUE
       WORK( 1 ) = LWKOPT
@@ -6016,11 +6016,11 @@
          INFO = -5
       ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
          INFO = -8
-      END IF
+      endif
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYTRS', -INFO )
          RETURN
-      END IF
+      endif
 *
 *     Quick return if possible
 *
@@ -6095,7 +6095,7 @@
                B( K, J ) = ( AKM1*BK-BKM1 ) / DENOM
    20       CONTINUE
             K = K - 2
-         END IF
+         endif
 *
          GO TO 10
    30    CONTINUE
@@ -6147,7 +6147,7 @@
             IF( KP.NE.K )
      $         CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K = K + 2
-         END IF
+         endif
 *
          GO TO 40
    50    CONTINUE
@@ -6208,7 +6208,7 @@
      $                    LDB, B( K+2, 1 ), LDB )
                CALL DGER( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1,
      $                    B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
-            END IF
+            endif
 *
 *           Multiply by the inverse of the diagonal block.
 *
@@ -6223,7 +6223,7 @@
                B( K+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
    70       CONTINUE
             K = K + 2
-         END IF
+         endif
 *
          GO TO 60
    80    CONTINUE
@@ -6271,7 +6271,7 @@
                CALL DGEMV( 'Transpose', N-K, NRHS, -ONE, B( K+1, 1 ),
      $                     LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ),
      $                     LDB )
-            END IF
+            endif
 *
 *           Interchange rows K and -IPIV(K).
 *
@@ -6279,11 +6279,11 @@
             IF( KP.NE.K )
      $         CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K = K - 2
-         END IF
+         endif
 *
          GO TO 90
   100    CONTINUE
-      END IF
+      endif
 *
       RETURN
 *
@@ -6458,7 +6458,7 @@
             COLMAX = ABS( W( IMAX, KW ) )
          ELSE
             COLMAX = ZERO
-         END IF
+         endif
 *
          IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
 *
@@ -6493,7 +6493,7 @@
                IF( IMAX.GT.1 ) THEN
                   JMAX = IDAMAX( IMAX-1, W( 1, KW-1 ), 1 )
                   ROWMAX = MAX( ROWMAX, ABS( W( JMAX, KW-1 ) ) )
-               END IF
+               endif
 *
                IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
 *
@@ -6517,8 +6517,8 @@
 *
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               endif
+            endif
 *
             KK = K - KSTEP + 1
             KKW = NB + KK - N
@@ -6539,7 +6539,7 @@
                CALL DSWAP( N-KK+1, A( KK, KK ), LDA, A( KP, KK ), LDA )
                CALL DSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ),
      $                     LDW )
-            END IF
+            endif
 *
             IF( KSTEP.EQ.1 ) THEN
 *
@@ -6577,15 +6577,15 @@
                      A( J, K-1 ) = D21*( D11*W( J, KW-1 )-W( J, KW ) )
                      A( J, K ) = D21*( D22*W( J, KW )-W( J, KW-1 ) )
    20             CONTINUE
-               END IF
+               endif
 *
 *              Copy D(k) to A
 *
                A( K-1, K-1 ) = W( K-1, KW-1 )
                A( K-1, K ) = W( K-1, KW )
                A( K, K ) = W( K, KW )
-            END IF
-         END IF
+            endif
+         endif
 *
 *        Store details of the interchanges in IPIV
 *
@@ -6594,7 +6594,7 @@
          ELSE
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
-         END IF
+         endif
 *
 *        Decrease K and return to the start of the main loop
 *
@@ -6637,7 +6637,7 @@
          IF( JP.LT.0 ) THEN
             JP = -JP
             J = J + 1
-         END IF
+         endif
          J = J + 1
          IF( JP.NE.JJ .AND. J.LE.N )
      $      CALL DSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )
@@ -6685,7 +6685,7 @@
             COLMAX = ABS( W( IMAX, K ) )
          ELSE
             COLMAX = ZERO
-         END IF
+         endif
 *
          IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
 *
@@ -6718,7 +6718,7 @@
                IF( IMAX.LT.N ) THEN
                   JMAX = IMAX + IDAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 )
                   ROWMAX = MAX( ROWMAX, ABS( W( JMAX, K+1 ) ) )
-               END IF
+               endif
 *
                IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
 *
@@ -6742,8 +6742,8 @@
 *
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               endif
+            endif
 *
             KK = K + KSTEP - 1
 *
@@ -6761,7 +6761,7 @@
 *
                CALL DSWAP( KK, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
                CALL DSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
-            END IF
+            endif
 *
             IF( KSTEP.EQ.1 ) THEN
 *
@@ -6777,7 +6777,7 @@
                IF( K.LT.N ) THEN
                   R1 = ONE / A( K, K )
                   CALL DSCAL( N-K, R1, A( K+1, K ), 1 )
-               END IF
+               endif
             ELSE
 *
 *              2-by-2 pivot block D(k): columns k and k+1 of W now hold
@@ -6800,15 +6800,15 @@
                      A( J, K ) = D21*( D11*W( J, K )-W( J, K+1 ) )
                      A( J, K+1 ) = D21*( D22*W( J, K+1 )-W( J, K ) )
    80             CONTINUE
-               END IF
+               endif
 *
 *              Copy D(k) to A
 *
                A( K, K ) = W( K, K )
                A( K+1, K ) = W( K+1, K )
                A( K+1, K+1 ) = W( K+1, K+1 )
-            END IF
-         END IF
+            endif
+         endif
 *
 *        Store details of the interchanges in IPIV
 *
@@ -6817,7 +6817,7 @@
          ELSE
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
-         END IF
+         endif
 *
 *        Increase K and return to the start of the main loop
 *
@@ -6861,7 +6861,7 @@
          IF( JP.LT.0 ) THEN
             JP = -JP
             J = J - 1
-         END IF
+         endif
          J = J - 1
          IF( JP.NE.JJ .AND. J.GE.1 )
      $      CALL DSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )
@@ -6872,7 +6872,7 @@
 *
          KB = K - 1
 *
-      END IF
+      endif
       RETURN
 *
 *     End of DLASYF
@@ -7041,11 +7041,11 @@
          INFO = -2
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -4
-      END IF
+      endif
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYTF2', -INFO )
          RETURN
-      END IF
+      endif
 *
 *     Initialize ALPHA for use in choosing pivot block size.
 *
@@ -7080,7 +7080,7 @@
             COLMAX = ABS( A( IMAX, K ) )
          ELSE
             COLMAX = ZERO
-         END IF
+         endif
 *
          IF( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. DISNAN(ABSAKK) ) THEN
 *
@@ -7105,7 +7105,7 @@
                IF( IMAX.GT.1 ) THEN
                   JMAX = IDAMAX( IMAX-1, A( 1, IMAX ), 1 )
                   ROWMAX = MAX( ROWMAX, ABS( A( JMAX, IMAX ) ) )
-               END IF
+               endif
 *
                IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
 *
@@ -7125,8 +7125,8 @@
 *
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               endif
+            endif
 *
             KK = K - KSTEP + 1
             IF( KP.NE.KK ) THEN
@@ -7144,8 +7144,8 @@
                   T = A( K-1, K )
                   A( K-1, K ) = A( KP, K )
                   A( KP, K ) = T
-               END IF
-            END IF
+               endif
+            endif
 *
 *           Update the leading submatrix
 *
@@ -7200,10 +7200,10 @@
                      A( J, K-1 ) = WKM1
    30             CONTINUE
 *
-               END IF
+               endif
 *
-            END IF
-         END IF
+            endif
+         endif
 *
 *        Store details of the interchanges in IPIV
 *
@@ -7212,7 +7212,7 @@
          ELSE
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
-         END IF
+         endif
 *
 *        Decrease K and return to the start of the main loop
 *
@@ -7248,7 +7248,7 @@
             COLMAX = ABS( A( IMAX, K ) )
          ELSE
             COLMAX = ZERO
-         END IF
+         endif
 *
          IF( (MAX( ABSAKK, COLMAX ).EQ.ZERO) .OR. DISNAN(ABSAKK) ) THEN
 *
@@ -7273,7 +7273,7 @@
                IF( IMAX.LT.N ) THEN
                   JMAX = IMAX + IDAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                   ROWMAX = MAX( ROWMAX, ABS( A( JMAX, IMAX ) ) )
-               END IF
+               endif
 *
                IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
 *
@@ -7293,8 +7293,8 @@
 *
                   KP = IMAX
                   KSTEP = 2
-               END IF
-            END IF
+               endif
+            endif
 *
             KK = K + KSTEP - 1
             IF( KP.NE.KK ) THEN
@@ -7313,8 +7313,8 @@
                   T = A( K+1, K )
                   A( K+1, K ) = A( KP, K )
                   A( KP, K ) = T
-               END IF
-            END IF
+               endif
+            endif
 *
 *           Update the trailing submatrix
 *
@@ -7339,7 +7339,7 @@
 *                 Store L(k) in column K
 *
                   CALL DSCAL( N-K, D11, A( K+1, K ), 1 )
-               END IF
+               endif
             ELSE
 *
 *              2-by-2 pivot block D(k)
@@ -7373,9 +7373,9 @@
                      A( J, K+1 ) = WKP1
 *
    60             CONTINUE
-               END IF
-            END IF
-         END IF
+               endif
+            endif
+         endif
 *
 *        Store details of the interchanges in IPIV
 *
@@ -7384,14 +7384,14 @@
          ELSE
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
-         END IF
+         endif
 *
 *        Increase K and return to the start of the main loop
 *
          K = K + KSTEP
          GO TO 40
 *
-      END IF
+      endif
 *
    70 CONTINUE
 *
@@ -7614,11 +7614,11 @@
           INFO = 5
       ELSE IF (LDA.LT.MAX(1,N)) THEN
           INFO = 7
-      END IF
+      endif
       IF (INFO.NE.0) THEN
           CALL XERBLA('DSYR  ',INFO)
           RETURN
-      END IF
+      endif
 *
 *     Quick return if possible.
 *
@@ -7630,7 +7630,7 @@
           KX = 1 - (N-1)*INCX
       ELSE IF (INCX.NE.1) THEN
           KX = 1
-      END IF
+      endif
 *
 *     Start the operations. In this version the elements of A are
 *     accessed sequentially with one pass through the triangular part
@@ -7647,7 +7647,7 @@
                       DO 10 I = 1,J
                           A(I,J) = A(I,J) + X(I)*TEMP
    10                 CONTINUE
-                  END IF
+                  endif
    20         CONTINUE
           ELSE
               JX = KX
@@ -7659,10 +7659,10 @@
                           A(I,J) = A(I,J) + X(IX)*TEMP
                           IX = IX + INCX
    30                 CONTINUE
-                  END IF
+                  endif
                   JX = JX + INCX
    40         CONTINUE
-          END IF
+          endif
       ELSE
 *
 *        Form  A  when A is stored in lower triangle.
@@ -7674,7 +7674,7 @@
                       DO 50 I = J,N
                           A(I,J) = A(I,J) + X(I)*TEMP
    50                 CONTINUE
-                  END IF
+                  endif
    60         CONTINUE
           ELSE
               JX = KX
@@ -7686,11 +7686,11 @@
                           A(I,J) = A(I,J) + X(IX)*TEMP
                           IX = IX + INCX
    70                 CONTINUE
-                  END IF
+                  endif
                   JX = JX + INCX
    80         CONTINUE
-          END IF
-      END IF
+          endif
+      endif
 *
       RETURN
 *

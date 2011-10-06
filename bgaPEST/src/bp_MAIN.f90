@@ -83,7 +83,7 @@ program bp_main
   IF (IFAIL.NE.0) THEN
     call bpo_write_nocmd()
     stop
-  END IF
+  endif
   
   
 ! -- An extension of ".bgp" is added to the bgaPEST control file if necessary.
@@ -96,15 +96,15 @@ program bp_main
           CTLFILE(I+1:)='.bgp'
         ELSE
           CASENAME = CTLFILE(1:I-4)
-        END IF
-      END IF
+        endif
+      endif
    
 !--  INITIALIZE MIO STRUCTURE SO IT CAN BE PASSED    
     if(mio_initialise(errstruc,miostruc).ne.0) then  !MD mio_initialise is an integer
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if  
+    endif  
 
 
 ! open up the main output record file 
@@ -129,12 +129,12 @@ program bp_main
     if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then
        call bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
        allocate(curr_struct_vec(cv_S%num_theta_opt))
-    end if
+    endif
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
     if (cv_A%deriv_mode .eq. 0) then
         call bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
-    end if
+    endif
     
 !-- WRITE THE HEADER INFORMATION TO THE REC FILE
     call bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS,d_MOD, cv_A, &
@@ -215,7 +215,7 @@ program bp_main
 10              format('Warning: Maximum number of iterations exceeded in quasi-linear parameter optimization loop during bgaPEST iteration',i4, & 
                  & '. Convergence was not achieved, but iterations will cease.')
                 call utl_writmess(6,retmsg)  
-            end if !- checking for convergence or exceeding maximum iterations
+            endif !- checking for convergence or exceeding maximum iterations
 
           enddo  !(first intermediate loop) quasi-linear method  --> p_ind
           
@@ -269,14 +269,14 @@ program bp_main
             V = 0.D0 ! initialize the vector for V
             do i = 1,cv_PAR%npar
               V(i) = VV(i,i)
-            end do
+            enddo
           finalparunit = utl_nextunit()  
           curr_par_file = trim(casename) // '.bpp.fin'
           call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
           call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit)
           close(finalparunit)
-      end if
-     end if
+      endif
+     endif
     !*************************************************************************************************************************
     !*********** END OF THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************
     !*************************************************************************************************************************

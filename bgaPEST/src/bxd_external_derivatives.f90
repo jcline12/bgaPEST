@@ -32,10 +32,10 @@ implicit none
        write(iunit,50) 'MIO_FILE','MOD_FILE'
        do i = 1,cv_MIO%ntplfle
         write(iunit,50) d_MIO%tpl(i),d_MIO%infle(i)
-       end do
+       enddo
        do i = 1,cv_MIO%ninsfle
         write(iunit,50) d_MIO%ins(i),d_MIO%outfle(i)
-       end do
+       enddo
 50     format(A100,A100) 
        close(iunit)
     
@@ -46,7 +46,7 @@ implicit none
 52     format(A50,A10,A12)
        do i = 1,cv_PAR%npargp
         write(iunit,55) cv_PAR%grp_name(i), 0.01, 'always_2'
-       end do       
+       enddo       
 55      format(A50,F10.5,A12)
        close(iunit)
            
@@ -57,7 +57,7 @@ implicit none
 60     format(A50,' ',A18,' ',A12,' ',A18)       
        do i = 1,cv_OBS%nobs
         write(iunit,65) d_OBS%obsnme(i), d_OBS%obs(i), d_OBS%group(i), d_OBS%weight(i)
-       end do       
+       enddo       
 65      format(A50,' ',ES18.8,' ',A12,' ',ES18.8)
        close(iunit)
        
@@ -76,7 +76,7 @@ subroutine bxd_write_param_file(cv_PAR,d_PAR)
 70     format(A50,A20,A50)     
        do i = 1,cv_PAR%npar
             write(iunit,75) d_PAR%parnme(i),d_PAR%pars(i),d_PAR%group(i)    
-       end do
+       enddo
 75     format(A50,ES20.12,' ',A50)
        close(iunit)
 

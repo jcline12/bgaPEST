@@ -66,19 +66,19 @@ module struct_param_optimization
               start(k) = cv_S%alpha_trans(i)*((d_S%struct_par_opt_vec(k)**(1./cv_S%alpha_trans(i)))-1) !Forward-trans
               step(k) = cv_S%alpha_trans(i)*((((stc+1)*d_S%struct_par_opt_vec(k))**(1./cv_S%alpha_trans(i)))-1) - &
                         cv_S%alpha_trans(i)*((d_S%struct_par_opt_vec(k)**(1./cv_S%alpha_trans(i)))-1)
-            end if
-          end do
-        end if
-      end do
-    end if
+            endif
+          enddo
+        endif
+      enddo
+    endif
     
     if ((d_S%sig_opt.eq.1).and.(d_S%trans_sig.eq.1)) then 
       k = k + 1
       start(k) = d_S%alpha_trans_sig *((d_S%struct_par_opt_vec(k)**(1./d_S%alpha_trans_sig))-1) !Forward-trans
       step(k) = d_S%alpha_trans_sig *((((stc+1)*d_S%struct_par_opt_vec(k))**(1./d_S%alpha_trans_sig))-1) - &
                 d_S%alpha_trans_sig *((d_S%struct_par_opt_vec(k)**(1./d_S%alpha_trans_sig))-1)
-    end if
-  end if 
+    endif
+  endif 
   
   !***********************************************************************************************************************************
   !At this point start and step and ready and power transformed where and if required
@@ -114,16 +114,16 @@ module struct_param_optimization
               k = k + 1
               d_S%struct_par_opt_vec(k) = ((d_S%struct_par_opt_vec(k) + cv_S%alpha_trans(i)) / (cv_S%alpha_trans(i)))**(cv_S%alpha_trans(i)) !Back-trans
               d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
-           end do
+           enddo
          else
            do j = 1,cv_S%num_theta_type (i)
              k = k + 1
              d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
-           end do
-         end if  
-       end if
-     end do
-   end if
+           enddo
+         endif  
+       endif
+     enddo
+   endif
    
    if (d_S%sig_opt.eq.1) then
      k=k+1
@@ -212,16 +212,16 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
               k = k + 1
               d_S%struct_par_opt_vec(k) = ((str_par_opt_vec(k) + cv_S%alpha_trans(i)) / (cv_S%alpha_trans(i)))**(cv_S%alpha_trans(i))
               d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
-           end do
+           enddo
          else
            do j = 1,cv_S%num_theta_type (i)
              k = k + 1
              d_S%theta(i,j) = d_S%struct_par_opt_vec(k)
-           end do
-         end if  
-       end if
-     end do
-   end if
+           enddo
+         endif  
+       endif
+     enddo
+   endif
    
    if (d_S%sig_opt.eq.1) then
      k=k+1
@@ -285,7 +285,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
    do i = 1,cv_OBS%nobs                             
      lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i)))  
-   end do                                            
+   enddo                                            
    lndetGyy = 0.5 * lndetGyy
    !*******************************************************************************
    
@@ -323,7 +323,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
      call DGEMV('t',cv_S%num_theta_opt, 1, 5.0D-1, dtheta, cv_S%num_theta_opt, &
      TMPV, 1, 0.D0, dthQttdth,1)
      if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
-   end if   
+   endif   
    !**************************************************************************************************
    
    !****************************************************************************** 

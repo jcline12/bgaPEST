@@ -32,22 +32,22 @@ contains
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if
+    endif
     if(mio_initialise_model_output(errstruc,miostruc,cv_MIO%ninsfle).ne.0) then
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if
+    endif
     if(mio_set_number_precision(errstruc,miostruc,'single').ne.0) then
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if
+    endif
     if(mio_set_number_decpoint(errstruc,miostruc,'point').ne.0) then
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if
+    endif
 
 !-- MIO  filename storage initialization
     do i = 1,cv_MIO%ntplfle
@@ -55,20 +55,20 @@ contains
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-      end if
-    end do
+      endif
+    enddo
     do i = 1,cv_MIO%ninsfle
       if(mio_put_file_model_output(errstruc,miostruc,i,d_MIO%ins(i),d_MIO%outfle(i)).ne.0) then
         call utl_bomb_out(errstruc)
         n1=mio_finalise(errstruc,miostruc)
         stop 
-      end if    
-    end do
+      endif    
+    enddo
 
 !-- MIO - report dimensions of files
       if(mio_get_dimensions(errstruc,miostruc,n1,n2,n3,n4).ne.0) then
         call utl_bomb_out(errstruc)
-      end if  
+      endif  
       write (6,201) n1
 201     format(' Number of template files        = ', i6)
       write (6,202) n2
@@ -86,7 +86,7 @@ contains
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if  
+    endif  
     !MNF DEBUG --> 6/6/08  need to handle status exceptions with an error
     
 !--  MIO - Check both  parameters and observations
@@ -94,23 +94,23 @@ contains
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if  
+    endif  
     if(mio_observation_check(errstruc,miostruc).ne.0) then
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if      
+    endif      
     
 !-- MIO  process template files
     if(mio_process_template_files(errstruc,miostruc).ne.0) then
       call utl_bomb_out(errstruc)
-    end if    
+    endif    
 !-- MIO  process instruction files 
     if(mio_store_instruction_set(errstruc,miostruc).ne.0) then
       call utl_bomb_out(errstruc)
       n1=mio_finalise(errstruc,miostruc)
       stop 
-    end if   
+    endif   
     
 end subroutine bpm_setup_mio
  

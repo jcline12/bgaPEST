@@ -27,10 +27,10 @@ contains
           if (ifail.ne.0) then
            call ids_get_message_string(retmsg)
            call utl_writmess(6,retmsg)
-          end if
+          endif
          elseif (BL(1)%numrows .EQ. 0) then
           retmsg = 'All default values accepted for cv_algorithmic block'       
-         end if
+         endif
        ! Parse out the values as appropriate
          do i=1,BL(1)%numkw
           if(BL(1)%keywordline(i) .ne. 0) then
@@ -67,12 +67,12 @@ contains
              case ('jacobian_file')
                cv_A%jacfle = trim(adjustl(BL(1)%keywordstring(i)))
             end select
-           end if
-          end do
+           endif
+          enddo
           if(cv_A%deriv_mode.eq.0) then
              cv_A%jacobian_format = 'binary'
              cv_A%jacfle = 'scratch.jco'
-          end if
+          endif
  end subroutine bdp_read_cv_algorithmic
      
      
@@ -96,10 +96,10 @@ contains
           if (ifail.ne.0) then
            call ids_get_message_string(retmsg)
            call utl_writmess(6,retmsg)
-          end if
+          endif
          elseif (BL(2)%numrows .EQ. 0) then
           retmsg = 'All default values accepted for cv_prior_mean block'       
-         end if
+         endif
        ! Parse out the values as appropriate
          do i=1,BL(2)%numkw
           if(BL(2)%keywordline(i) .ne. 0) then
@@ -109,8 +109,8 @@ contains
             case ('beta_cov_form')
               call intread(ifail,BL(2)%keywordstring(i), cv_PM%Qbb_form)
            end select
-          end if
-         end do
+          endif
+         enddo
          
       ! run a quick error check on prior 
 end subroutine bdp_read_cv_prior_mean
@@ -139,7 +139,7 @@ end subroutine bdp_read_cv_prior_mean
          if (BL(3)%numrows .EQ. 0) then
           retmsg = 'No input information provided in data_prior_mean block'  
           return     
-         end if 
+         endif 
          cv_PAR%p = BL(3)%numrows !Define the number of betas
          allocate(d_PM%Partrans(cv_PAR%p))
          d_PM%Partrans   = UNINIT_INT  ! array
@@ -203,7 +203,7 @@ end subroutine bdp_read_cv_prior_mean
              
               call drealread(ifail, columnstring(3), d_PM%beta_0(i))
               call drealread(ifail, columnstring(4), d_PM%Qbb(i,i))
-            end do
+            enddo
           case (2)    !full beta covariance matrix.  cv_PM%prior_betas by cv_PM%prior_betas
             numcol = cv_PAR%p + 3
             ! allocate and initialize both d_PM and column variables for table reading
@@ -232,8 +232,8 @@ end subroutine bdp_read_cv_prior_mean
               call drealread(ifail, columnstring(3), d_PM%beta_0(i))
               do j = 4,numcol
                 call drealread(ifail, columnstring(j), d_PM%Qbb(i,j-3))
-              end do
-            end do
+              enddo
+            enddo
         end select
           if (associated(columnname))           deallocate(columnname)
           if (associated(columnstring))         deallocate(columnstring)
@@ -259,14 +259,14 @@ end subroutine bdp_read_data_prior_mean
              if (BL(8)%numrows .EQ. 0) then
               retmsg = 'No input information provided in cv_parameters block'  
               return     
-             end if 
+             endif 
               call bdp_init_keyword_vars(BL,8)
               call ids_read_block_keywords(ifail,BL(8)%label,BL(8)%numkw, &
                & BL(8)%keywords,BL(8)%keywordstring,BL(8)%keywordline)
               if (ifail.ne.0) then
                call ids_get_message_string(retmsg)
                call utl_writmess(6,retmsg)
-              end if
+              endif
               
            ! Parse out the values as appropriate
            do i=1,BL(8)%numkw
@@ -277,8 +277,8 @@ end subroutine bdp_read_data_prior_mean
                 case default
                 !!!MNF DEBUG MAKE AN ERROR EXCEPTION HERE!!!!!
                end select
-              end if
-             end do
+              endif
+             enddo
                 
     end subroutine bdp_read_cv_parameters
 
@@ -305,7 +305,7 @@ end subroutine bdp_read_data_prior_mean
               retmsg = 'No input information provided in Q_compression_cv block. Q_compression_flag must be 0. Execution stopped.'
               call utl_writmess(6,retmsg)
               stop   
-             end if 
+             endif 
               call bdp_init_keyword_vars(BL,9)
               if (nbeta.ne.bl(9)%numrows) then
                 write(retmsg,10) 
@@ -333,7 +333,7 @@ end subroutine bdp_read_data_prior_mean
                   call intread(ifail, columnstring(4),Q0_All(i)%Ncol)
                   call intread(ifail, columnstring(5),Q0_All(i)%Nlay)
                  endif
-              end do
+              enddo
               
     end subroutine bdp_read_cv_compression
 
@@ -360,7 +360,7 @@ end subroutine bdp_read_data_prior_mean
              if (bl(10)%numrows .EQ. 0) then
               retmsg = 'No input information provided in cv_parameters block'  
               return     
-             end if 
+             endif 
               call bdp_init_keyword_vars(BL,10)
               cv_PAR%npargp=bl(10)%numrows
               allocate(cv_PAR%grp_name(cv_PAR%npargp))
@@ -375,7 +375,7 @@ end subroutine bdp_read_data_prior_mean
                  call ids_read_block_table(ifail,bl(10)%label,2,columnname,columnstring,line,filename)
                  cv_PAR%grp_name(i) = trim(adjustl(columnstring(1)))
                  call intread(ifail, columnstring(2),cv_PAR%grp_type(i))
-              end do
+              enddo
               
     end subroutine bdp_read_parameter_groups
 
@@ -402,7 +402,7 @@ end subroutine bdp_read_data_prior_mean
               retmsg = 'WARNING: No input information provided in data_parameter_anisotropy block'  
               call utl_writmess(6,retmsg)
               return     
-             end if
+             endif
              
              numcol = 4
              allocate(columnstring(numcol))
@@ -419,7 +419,7 @@ end subroutine bdp_read_data_prior_mean
                  call drealread(ifail, columnstring(2),d_ANI%horiz_angle(i))
                  call drealread(ifail, columnstring(3),d_ANI%horiz_ratio(i))
                  call drealread(ifail, columnstring(4),d_ANI%vertical_ratio(i))               
-             end do
+             enddo
            end subroutine bdp_read_data_par_anisotropy
     
     
@@ -455,7 +455,7 @@ end subroutine bdp_read_data_prior_mean
             if (bl(11)%numrows .EQ. 0) then
               retmsg = 'No input information provided in data_parameters block'  
               return     
-            end if 
+            endif 
             
        ! ALLOCATIONS, READING, and PARSING  
          ! parameter data  and associated allocations
@@ -465,7 +465,7 @@ end subroutine bdp_read_data_prior_mean
               call utl_bomb_out(errstruc)
               n1=mio_finalise(errstruc,miostruc)
               stop 
-            end if
+            endif
             allocate(columnname(numcol))
             allocate(columnstring(numcol))
             allocate(d_PAR%lox(cv_PAR%npar,cv_PAR%ndim))
@@ -488,7 +488,7 @@ end subroutine bdp_read_data_prior_mean
                call utl_int2char(j,tmp_str)
                columnname(j+5)='x'//tmp_str
                columnstring(j+5)=' '
-             end do
+             enddo
              d_PAR%lox        = UNINIT_REAL
              d_PAR%SenMethod  = UNINIT_INT  ! array
              d_PAR%BetaAssoc  = UNINIT_INT  ! array
@@ -510,7 +510,7 @@ end subroutine bdp_read_data_prior_mean
                     call utl_bomb_out(errstruc)
                     n1=mio_finalise(errstruc,miostruc)
                     stop 
-                  end if
+                  endif
                 
               
                 call drealread(ifail, columnstring(2),d_PAR%pars(j))
@@ -530,8 +530,8 @@ end subroutine bdp_read_data_prior_mean
 	            call intread(ifail, columnstring(5),d_PAR%SenMethod(j))
                 do ii = 6,numcol
                   call drealread(ifail, columnstring(ii), d_PAR%lox(j,ii-5))
-                end do             
-              end do
+                enddo             
+              enddo
               
           else
            ! read in the data
@@ -543,7 +543,7 @@ end subroutine bdp_read_data_prior_mean
                     call utl_bomb_out(errstruc)
                     n1=mio_finalise(errstruc,miostruc)
                     stop 
-                  end if
+                  endif
                 d_PAR%parnme(j) = trim(adjustl(tmp_nm))
                 call drealread(ifail, columnstring(2),d_PAR%pars(j))
                 d_PAR%group(j) = trim(adjustl(columnstring(3)))
@@ -558,8 +558,8 @@ end subroutine bdp_read_data_prior_mean
 	            call intread(ifail, columnstring(5),d_PAR%SenMethod(j))
                 do ii = 6,numcol
                   call drealread(ifail, columnstring(ii), d_PAR%lox(j,ii-5))
-                end do             
-              end do
+                enddo             
+              enddo
               
           endif   ! if compr
               
@@ -598,14 +598,14 @@ end subroutine bdp_read_data_prior_mean
          if (BL(4)%numrows .EQ. 0) then
           retmsg = 'All default values accepted for cv_structural_parameters block' 
           return      
-         end if
+         endif
       ! quick error failure for number of rows based on the number of expected rows
          if (nrows .ne. BL(4)%numrows) then
             amessage = 'Number of rows for structural parameters inconsistent with the number expected based on number of beta associations'
             function_name = 'bdp_read_cv_structural_parameters_tbl'
             call err_add_error(errstruc,amessage,function_name)
             call utl_bomb_out(errstruc)
-         end if 
+         endif 
          ! read and parse
         do k=1,nrows
           call ids_read_block_table(ifail,BL(4)%label,numcol,columnname,columnstring,line,filename)
@@ -623,7 +623,7 @@ end subroutine bdp_read_data_prior_mean
         !     call intread(ifail, columnstring(5),cv_S%num_theta_type(k))
              call intread(ifail, columnstring(5),cv_S%trans_theta(k))
              call drealread(ifail, columnstring(6),cv_S%alpha_trans(k))
-        end do
+        enddo
        
  end subroutine bdp_read_cv_structural_parameters_tbl
 
@@ -651,7 +651,7 @@ end subroutine bdp_read_data_prior_mean
         if (BL(5)%numrows .EQ. 0) then
           retmsg = 'No input information provided in structural_parameters_data block'  
           return     
-        end if 
+        endif 
    ! ALLOCATIONS, READING, and PARSING
    ! theta_0 STRUCTURAL_PARAMETERS_DATA block
 
@@ -682,7 +682,7 @@ end subroutine bdp_read_data_prior_mean
                    call utl_writmess(6,retmsg)
                    endif
                endif
-             end do
+             enddo
            enddo  
            d_S%theta(:,:) = d_S%theta_0  ! start out with theta_0 as the first values of theta
           if (associated(columnname))           deallocate(columnname)
@@ -714,7 +714,7 @@ end subroutine bdp_read_data_prior_mean
         if (BL(6)%numrows .EQ. 0) then
           retmsg = 'No input information provided in prior_structural_parameters_data block'  
           return     
-        end if 
+        endif 
    ! ALLOCATIONS, READING, and PARSING
    ! theta_0 and theta_cov from PRIOR_STRUCTURAL_PARAMETERS block
     
@@ -735,7 +735,7 @@ end subroutine bdp_read_data_prior_mean
          amessage = 'Number of rows for theta covariance inconsistent with the number expected based on num_theta_type'
          call err_add_error(errstruc,amessage,function_name)
          call utl_bomb_out(errstruc)
-      end if
+      endif
       ! allocate
         call bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow) 
       ! read and parse
@@ -744,7 +744,7 @@ end subroutine bdp_read_data_prior_mean
              do j=1,numcol
               call drealread(ifail,columnstring(j), d_S%theta_cov(i,j))
              enddo
-           end do
+           enddo
      
           if (associated(columnname))           deallocate(columnname)
           if (associated(columnstring))         deallocate(columnstring)                     
@@ -774,14 +774,14 @@ end subroutine bdp_read_structural_parameters_cov
         if (BL(7)%numrows .EQ. 0) then
           retmsg = 'No input information provided in epistemic_error_term block'  
           return     
-        end if 
+        endif 
           call bdp_init_keyword_vars(BL,7)
           call ids_read_block_keywords(ifail,BL(7)%label,BL(7)%numkw, &
            & BL(7)%keywords,BL(7)%keywordstring,BL(7)%keywordline)
           if (ifail.ne.0) then
            call ids_get_message_string(retmsg)
            call utl_writmess(6,retmsg)
-          end if
+          endif
          d_S%sig = UNINIT_INT  ! array
        ! Parse out the values as appropriate
          do i= 1,BL(7)%numkw
@@ -799,8 +799,8 @@ end subroutine bdp_read_structural_parameters_cov
             case ('alpha_trans')  
               call drealread(ifail,BL(7)%keywordstring(i), d_S%alpha_trans_sig)
            end select
-          end if
-         end do
+          endif
+         enddo
             
          if ((maxval(cv_S%struct_par_opt).eq.0).and.(d_S%sig_opt.eq.0).and.(cv_A%it_max_bga.gt.1)) then  !--------------------| This control avoid
            cv_A%it_max_bga =  1   !-------------------------------------------------------------------------------------------| that it_max_bga is      
@@ -836,7 +836,7 @@ end subroutine bdp_read_epistemic_error
           if (ifail.ne.0) then
            call ids_get_message_string(retmsg)
            call utl_writmess(6,retmsg)
-          end if
+          endif
          ! Parse out the values as appropriate
          do i=1,BL(14)%numkw
           if(BL(14)%keywordline(i) .ne. 0) then
@@ -846,8 +846,8 @@ end subroutine bdp_read_epistemic_error
              case ('DerivCommand')
                d_MOD%dercom = trim(adjustl(BL(14)%keywordstring(i)))
             end select
-           end if
-          end do
+           endif
+          enddo
          
 end subroutine bdp_read_data_model_command_line  
       
@@ -872,7 +872,7 @@ end subroutine bdp_read_data_model_command_line
         if (bl(15)%numrows .EQ. 0) then
           retmsg = 'No input information provided in model_input_files block'  
           return     
-        end if 
+        endif 
         
    ! ALLOCATIONS, READING, and PARSING
         cv_MIO%ntplfle = bl(15)%numrows
@@ -890,12 +890,12 @@ end subroutine bdp_read_data_model_command_line
           call ids_read_block_table(ifail,bl(15)%label,2,columnname,columnstring,line,filename)
           d_MIO%tpl(i) = trim(adjustl(columnstring(1)))
           d_MIO%infle(i) = trim(adjustl(columnstring(2)))
-         end do
+         enddo
       ! next read output/ins information
       if (bl(16)%numrows .EQ. 0) then
           retmsg = 'No input information provided in model_output_files block'  
           return     
-        end if 
+        endif 
         cv_MIO%ninsfle = bl(16)%numrows
         allocate (d_MIO%ins(cv_MIO%ninsfle))
         allocate (d_MIO%outfle(cv_MIO%ninsfle))
@@ -906,7 +906,7 @@ end subroutine bdp_read_data_model_command_line
           call ids_read_block_table(ifail,bl(16)%label,2,columnname,columnstring,line,filename)
           d_MIO%ins(i) = trim(adjustl(columnstring(1)))
           d_MIO%outfle(i) = trim(adjustl(columnstring(2)))
-         end do
+         enddo
           if (associated(columnname))           deallocate(columnname)
           if (associated(columnstring))         deallocate(columnstring)
          
@@ -932,7 +932,7 @@ end subroutine bdp_read_data_model_input_output
          if (bl(12)%numrows .EQ. 0) then
           retmsg = 'No input information provided in observation_groups block'  
           return     
-         end if 
+         endif 
           call bdp_init_keyword_vars(BL,12)
           cv_OBS%nobsgp=bl(12)%numrows
           allocate(cv_OBS%grp_name(cv_OBS%nobsgp))
@@ -944,7 +944,7 @@ end subroutine bdp_read_data_model_input_output
           do i=1,cv_OBS%nobsgp
              call ids_read_block_table(ifail,bl(12)%label,1,columnname,columnstring,line,filename)
              cv_OBS%grp_name(i) = trim(adjustl(columnstring(1)))
-          end do
+          enddo
           
 end subroutine bdp_read_observation_groups
 
@@ -977,7 +977,7 @@ end subroutine bdp_read_observation_groups
         if (bl(13)%numrows .EQ. 0) then
           retmsg = 'No input information provided in data_observations block'  
           return     
-        end if 
+        endif 
         
        
    ! ALLOCATIONS, READING, and PARSING
@@ -987,7 +987,7 @@ end subroutine bdp_read_observation_groups
           call utl_bomb_out(errstruc)
           n1=mio_finalise(errstruc,miostruc)
           stop 
-        end if
+        endif
         k = 1
         numcol=4
         allocate(d_OBS%obs(cv_OBS%nobs))
@@ -1012,14 +1012,14 @@ end subroutine bdp_read_observation_groups
             call utl_bomb_out(errstruc)
             n1=mio_finalise(errstruc,miostruc)
             stop 
-           end if
+           endif
            d_OBS%obsnme(k) = tmp_nm
            call drealread(ifail, columnstring(2),d_OBS%obs(k))
            d_OBS%group(k)     =  trim(adjustl(columnstring(3)))
            call drealread(ifail, columnstring(4),d_OBS%weight(k) )
            
            k = k + 1
-          end do
+          enddo
           if (associated(columnname))           deallocate(columnname)
           if (associated(columnstring))         deallocate(columnstring)
 end subroutine bdp_read_data_observations  
@@ -1051,7 +1051,7 @@ end subroutine bdp_read_data_observations
              call int2char(i-1,instr)
              write(columnname(i),*) 'theta_0_',instr
              columnstring(i)=' '           
-            end do
+            enddo
  
        end subroutine bdp_alloc_d_S          
 
@@ -1077,7 +1077,7 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
               call int2char(i,instr)
               write(columnname(i),*) 'theta_cov_',instr
               columnstring(i)=' '
-             end do
+             enddo
      
            end subroutine bdp_alloc_cov_S
 
@@ -1151,7 +1151,7 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
            call int2char(i-3,instr)
            write(columnname(i),*) 'beta_cov_',instr
            columnstring(i)=' '
-          end do 
+          enddo 
          
        end subroutine bdp_alloc_d_PM
        

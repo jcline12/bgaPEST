@@ -227,7 +227,7 @@ contains
 100      format(' Cannot open ',a,' file "',a,'".')
          call utl_writmess(6,errmsg)
          stop
-       end if
+       endif
       end subroutine bpc_openfile
      
 
@@ -300,7 +300,7 @@ contains
      do i=1,len_trim(string)
 	   if((string(i:i).ge.alo).and.(string(i:i).le.ahi)) &
  	   string(i:i)=achar(iachar(string(i:i))+inc)
- 	 end do
+ 	 enddo
 	return
     end subroutine bpc_casetrans
     

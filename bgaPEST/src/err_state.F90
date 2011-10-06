@@ -26,7 +26,7 @@ INTEGER FUNCTION err_get_error_state(error_struc)
       err_get_error_state = 0
     ELSE
       err_get_error_state = 1
-    END IF
+    endif
 END FUNCTION err_get_error_state
 
 
@@ -42,7 +42,7 @@ SUBROUTINE err_get_message(error_struc, error_index, message)
    
   IF( error_index>0 .AND. error_index <= error_struc%num_errs) THEN
     message = error_struc%ptr_message(error_index)
-  END IF
+  endif
 END SUBROUTINE err_get_message
 
 
@@ -54,7 +54,7 @@ SUBROUTINE err_get_failfunc(error_struc, error_index, failfunc)
    
   IF( error_index>0 .AND. error_index <= error_struc%num_errs) THEN
      failfunc = error_struc%ptr_funcname(error_index)
-  END IF
+  endif
 END SUBROUTINE err_get_failfunc
   
 SUBROUTINE err_add_error(error_struc, err_mesg, funct_name)
@@ -63,7 +63,7 @@ SUBROUTINE err_add_error(error_struc, err_mesg, funct_name)
   CHARACTER(len=*), INTENT(IN) :: funct_name
   IF ( error_struc%num_errs+1 > error_struc%array_size .OR. error_struc%array_size == 0) THEN
     call err_increase_array_size(error_struc)
-  END IF
+  endif
   error_struc%num_errs = error_struc%num_errs + 1
   error_struc%ptr_message(error_struc%num_errs) = err_mesg
   error_struc%ptr_funcname(error_struc%num_errs) = funct_name
@@ -98,13 +98,13 @@ SUBROUTINE err_increase_array_size(error_struc)
     DO i=1, error_struc%array_size
       error_struc%ptr_message(i) = ptr_message_old(i)
       error_struc%ptr_funcname(i) = ptr_funcname_old(i)
-    END DO
+    enddo
     IF (error_struc%array_size > 0) THEN
       DEALLOCATE(ptr_message_old)
       DEALLOCATE(ptr_funcname_old)
-    END IF
+    endif
     error_struc%array_size = new_array_size
-  END IF
+  endif
  END SUBROUTINE err_increase_array_size
   
 
