@@ -34,7 +34,7 @@ module make_kernels
             
             if (ndim .eq. 3) then
               distance = distance + (vertical_ratio*(z1-z2))**2
-            end if
+            endif
             distance = sqrt(distance)
 
        end subroutine calculate_anisotropic_distances
@@ -79,7 +79,7 @@ module make_kernels
         integer, pointer                   :: cnp(:)
         integer                            :: cba ! -- current Beta Association
         integer                            :: c_ani_ind !-- current anisotropy index 
-        integer                            :: i,j,k,p,q ! local counters
+        integer                            :: i,j,k,p,q,z ! local counters
         double precision                   :: ltmp ! Temporary value of Lmax
         character (len=ERRORWIDTH)         :: retmsg
         
@@ -152,8 +152,8 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                           if (d_ANI%BetaAssoc(q) .eq. cba) then
                               c_ani_ind = q
                               exit
-                          end if
-                        end do
+                          endif
+                        enddo
                         if (cv_PAR%ndim .eq. 1) then ! -- handle case where ndim=1 with anisotropy (which is meaningless)
                             write(retmsg,*) 'If ndim in the parameter_cv block = 1, par_anisotropy in the algorithmic_cv block must = 0'
                             call utl_writmess(6,retmsg)
@@ -176,18 +176,19 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                                                                  d_ANI%horiz_ratio(c_ani_ind), &
                                                                  d_ANI%vertical_ratio(c_ani_ind),&
                                                                  d_XQR%Q0(i,j))
-                            end if
-                         end if
+                            endif
+                         endif
                     end select !-- anistropy defined by cv_A%par_anisotropy                 
                     d_XQR%Q0(j,i)=d_XQR%Q0(i,j) ! Because the Q0 matrix is symmetric
                   endif
                 enddo
                endif
-              
+
               d_XQR%X(i,d_PAR%BetaAssoc(i))= 1. !Fill the X matrix to associate the correct beta to each parameter
              
              enddo
-             if (minval(cnp).eq.0) then
+
+              if (minval(cnp).eq.0) then
                write(retmsg,10) minloc(cnp)
 10              format('Error: No parameters correspond to beta association value',i6, &
                 '. Excecution stopped.')
@@ -222,7 +223,7 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
      select case (cv_A%store_Q)        
        case (.TRUE.)
         do p = 1, cv_PAR%p  !Loop for each beta that correspond to each different Q0_C 
-          cba = cv_S%var_type(Q0_All(p)%BetaAss)
+          cba = Q0_All(p)%BetaAss
           if (cv_S%var_type(Q0_All(p)%BetaAss)==0) then  ! Q0_C is just a single 1 for nugget
             allocate (Q0_All(p)%Q0_C(1,1)) !Allocation Just a value
             Q0_All(p)%Q0_C(1,1) = 1.
@@ -248,8 +249,8 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                           if (d_ANI%BetaAssoc(q) .eq. cba) then
                               c_ani_ind = q
                               exit
-                          end if
-                        end do
+                          endif
+                        enddo
                         if (cv_PAR%ndim .eq. 1) then ! -- handle case where ndim=1 with anisotropy (which is meaningless)
                             write(retmsg,*) 'If ndim in the parameter_cv block = 1, par_anisotropy in the algorithmic_cv block must = 0'
                             call utl_writmess(6,retmsg)
@@ -272,13 +273,15 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                                                                  d_ANI%horiz_ratio(c_ani_ind), &
                                                                  d_ANI%vertical_ratio(c_ani_ind),&
                                                                  Q0_All(p)%Q0_C(i,j))
-                            end if
-                        end if
+                            endif
+                        endif
                     end select !-- anistropy defined by cv_A%par_anisotropy                 
                 Q0_All(p)%Q0_C(j,i) = Q0_All(p)%Q0_C(i,j) ! Because the Q0 matrix is symmetric
                           
                 enddo
               enddo
+              
+              
             case(1) !just a vector for this beta ---> allocate the matrix [npar * 1] for the p-th beta  
               allocate (Q0_All(p)%Q0_C(Q0_All(p)%npar,1)) !Allocation a vector
               Q0_All(p)%Q0_C = 0. !Initialization
@@ -298,8 +301,8 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                           if (d_ANI%BetaAssoc(q) .eq. cba) then
                               c_ani_ind = q
                               exit
-                          end if
-                        end do
+                          endif
+                        enddo
                         if (cv_PAR%ndim .eq. 1) then ! -- handle case where ndim=1 with anisotropy (which is meaningless)
                             write(retmsg,*) 'If ndim in the parameter_cv block = 1, par_anisotropy in the algorithmic_cv block must = 0'
                             call utl_writmess(6,retmsg)
@@ -313,28 +316,30 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                                                                  cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
                                                                  d_ANI%horiz_ratio(c_ani_ind), &
                                                                  d_ANI%vertical_ratio(c_ani_ind),&
-                                                                 Q0_All(p)%Q0_C(i,1))
+                                                                 Q0_All(p)%Q0_C(j,1))
                             elseif (cv_PAR%ndim .eq. 3) then
-                                call calculate_anisotropic_distances(d_PAR%lox(Q0_All(p)%Beta_Start+i-1,1), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,1), &
-                                                                 d_PAR%lox(Q0_All(p)%Beta_Start+i-1,2), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,2), &
-                                                                 d_PAR%lox(Q0_All(p)%Beta_Start+i-1,3), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,3), &
+                                call calculate_anisotropic_distances(d_PAR%lox(Q0_All(p)%Beta_Start,1), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,1), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start,2), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,2), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start,3), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,3), &
                                                                  cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
                                                                  d_ANI%horiz_ratio(c_ani_ind), &
                                                                  d_ANI%vertical_ratio(c_ani_ind),&
-                                                                 Q0_All(p)%Q0_C(i,1))
-                            end if
-                         end if
+                                                                 Q0_All(p)%Q0_C(j,1))
+                            endif
+                         endif
                     end select !-- anistropy defined by cv_A%par_anisotropy                
                 enddo
-                          
+
+999    format('Q0 for BetAssociation ' i3)   
            end select  !Q0_All(p)%Toep_flag   
           
            ltmp = maxval(Q0_All(p)%Q0_C) !Temporary value of maximum distance in the p-th Q0_C matrix
            if (ltmp.gt.d_XQR%L)  d_XQR%L = ltmp
-         
           endif ! cv_S%var_type(Q0_All(p)%BetaAss)==0
         enddo   !p = 1, cv_PAR%p 
-       
+        
+
+  
         d_XQR%L = 10 * d_XQR%L !before here L was just the maximum distance in all the Q0_C matrices 
       
        case (.FALSE.) ! We need to address this option
@@ -369,7 +374,7 @@ end select ! (cv_A%Q_compression_flag)
     !We use just a loop because R0 is diagonal *** Must change if allow full R0 matrix
     do i=1,nobs
      d_XQR%R0(i,i) = 1./(d_OBS%weight(i)**2)
-    end do
+    enddo
 !******************************************************************************************************
 !********************************** End  Make the R0 matrix. ******************************************
 !******************************************************************************************************
@@ -431,10 +436,10 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
          do j = 1,cv_S%num_theta_type (i)
            k = k + 1
            d_S%struct_par_opt_vec_0(k) = d_S%theta_0(i,j)
-         end do
-       end if 
-     end do
-   end if
+         enddo
+       endif 
+     enddo
+   endif
    
    if (d_S%sig_opt.eq.1) then 
      k = k + 1
@@ -458,10 +463,10 @@ subroutine bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
               m=m+1
               k = k+1                                    
               d_S%invQtheta(k,k) = 1.D0/d_S%theta_cov(m,1)  ! In case of diagonal d_S%theta_cov is a vector                  
-             end do                                            
+             enddo                                            
           else
             m=m+cv_S%num_theta_type(i)
-          end if  
+          endif  
         enddo  
       case (2) ! full matrix                        
         ! MNF --- need to add this eventually              
