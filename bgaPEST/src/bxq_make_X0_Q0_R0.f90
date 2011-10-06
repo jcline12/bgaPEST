@@ -1,7 +1,49 @@
 module make_kernels
        
       contains
-      subroutine bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,nobs,d_PM,Q0_All,cv_PM)
+
+!-------------------------------------------------------------------------------------------------------------
+!---         Subroutine to calculate distance between two points in 2 or 3 dimensions                      ---
+!--- Anisotropy at an angle in horizontal plane or in vertical plane (no associated angle) also considered ---      
+!-------------------------------------------------------------------------------------------------------------
+      subroutine calculate_anisotropic_distances(x1,x2,y1,y2,z1,z2,ndim,horiz_angle,horiz_ratio,vertical_ratio,distance)
+
+      implicit none
+        double precision                   :: rot_theta ! rotation theta angle in radians
+        double precision                   :: sin_th, cos_th !-- sin and cosine of theta
+        double precision, intent(in)       :: x1,x2,y1,y2,z1,z2 ! -- x and y of points 1 and 2 in standard space
+        double precision                   :: x1r,x2r,y1r,y2r ! -- x and y of points 1 and 2 in rotated space
+        double precision                   :: distance ! calculated distance --- to be returned
+        integer                            :: ndim
+        double precision, intent(in)       :: horiz_angle,horiz_ratio,vertical_ratio
+        
+            ! convert the angle of anisotropy from degrees to radians
+            rot_theta = horiz_angle * 3.14159265 / 180.0
+            ! calculate sine and cosine
+            sin_th = sin(rot_theta)
+            cos_th = cos(rot_theta)
+            ! rotate the points
+            x1r = x1*cos_th + y1*sin_th
+            x2r = x2*cos_th + y2*sin_th
+            y1r = x1 * (-sin_th) + y1*cos_th
+            y2r = x2 * (-sin_th) + y2*cos_th
+            ! initialize the distance
+            distance = 0.D0
+            ! calculate the distance in the horizontal, streatching if appropriate
+            distance = (horiz_ratio*(x1-x2))**2 + (y1-y2)**2
+            
+            if (ndim .eq. 3) then
+              distance = distance + (vertical_ratio*(z1-z2))**2
+            end if
+            distance = sqrt(distance)
+
+       end subroutine calculate_anisotropic_distances
+       
+       
+       
+       
+      subroutine bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,nobs,d_PM,Q0_All,cv_PM,d_ANI)     
+      
 !--  Subroutine to create covariance matrix Q0, X matrix, R0 matrix, and if necessary Qbb^-1 and beta0*Qbb^-1      
 !
 !--  The covariance matrix can be:  (The flag (cv_A%Q_compression_flag) controls this)
@@ -32,9 +74,12 @@ module make_kernels
         type(d_observ), intent(in)         :: d_OBS
         type(kernel_XQR),intent(inout)     :: d_XQR
         type(d_prior_mean), intent(inout)  :: d_PM
+        type(d_anisotropy), intent(in)     :: d_ANI
         integer, intent(in)                :: nobs
         integer, pointer                   :: cnp(:)
-        integer                            :: i,j,k,p ! local counters
+        integer                            :: cba ! -- current Beta Association
+        integer                            :: c_ani_ind !-- current anisotropy index 
+        integer                            :: i,j,k,p,q ! local counters
         double precision                   :: ltmp ! Temporary value of Lmax
         character (len=ERRORWIDTH)         :: retmsg
         
@@ -87,6 +132,7 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                 cnp(d_PAR%BetaAssoc(i))= cnp(d_PAR%BetaAssoc(i))+1
                 do j=i+1, cv_PAR%npar
                   if (d_PAR%BetaAssoc(i).eq.d_PAR%BetaAssoc(j)) then !Search in the parameters list the associated parameters and calculate the distances  
+                    cba = d_PAR%BetaAssoc(i)  ! find the current beta association - for use in anisotropy distance calcs
                     if (d_PAR%Group_type(i).ne.d_PAR%Group_type(j)) then !*** This control avoid that the same beta corresponds
                       write(retmsg,40) d_PAR%BetaAssoc(i), i, j         !*** to parameters of different type 
 40                    format('Error: Beta association value ',i6, ' corresponds to different parameter types.' &
@@ -94,10 +140,45 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
                       call utl_writmess(6,retmsg)
                       stop
                     endif   ! Finished control
-                    do k = 1,cv_PAR%ndim            ! calculate the distances                   
-                     d_XQR%Q0(i,j) = d_XQR%Q0(i,j) + (d_PAR%lox(i,k) - d_PAR%lox(j,k))**2 !Here the squared distance
-                    enddo
-                    d_XQR%Q0(i,j) = sqrt(d_XQR%Q0(i,j)) ! Now calculate the sqrt 
+                    !--- calculate distances, considering anisotropy if requested
+                    select case (cv_A%par_anisotropy)
+                      case (0) !-- no anisotropy
+                        do k = 1,cv_PAR%ndim            ! calculate the distances                   
+                         d_XQR%Q0(i,j) = d_XQR%Q0(i,j) + (d_PAR%lox(i,k) - d_PAR%lox(j,k))**2 !Here the squared distance
+                        enddo
+                        d_XQR%Q0(i,j) = sqrt(d_XQR%Q0(i,j))
+                      case (1) !-- anisotropy
+                        do q = 1,cv_PAR%p
+                          if (d_ANI%BetaAssoc(q) .eq. cba) then
+                              c_ani_ind = q
+                              exit
+                          end if
+                        end do
+                        if (cv_PAR%ndim .eq. 1) then ! -- handle case where ndim=1 with anisotropy (which is meaningless)
+                            write(retmsg,*) 'If ndim in the parameter_cv block = 1, par_anisotropy in the algorithmic_cv block must = 0'
+                            call utl_writmess(6,retmsg)
+                            stop
+                        else 
+                            ! calculate the distance, with appropriate stretching for anisotropy
+                            if (cv_PAR%ndim .eq. 2) then
+                                call calculate_anisotropic_distances(d_PAR%lox(i,1),d_PAR%lox(j,1), &
+                                                                 d_PAR%lox(i,2),d_PAR%lox(j,2), &
+                                                                 0.D0, 0.D0, &
+                                                                 cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
+                                                                 d_ANI%horiz_ratio(c_ani_ind), &
+                                                                 d_ANI%vertical_ratio(c_ani_ind),&
+                                                                 d_XQR%Q0(i,j))
+                            else if (cv_PAR%ndim .eq. 3) then
+                                call calculate_anisotropic_distances(d_PAR%lox(i,1),d_PAR%lox(j,1), &
+                                                                 d_PAR%lox(i,2),d_PAR%lox(j,2), &
+                                                                 d_PAR%lox(i,3),d_PAR%lox(j,3), &
+                                                                 cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
+                                                                 d_ANI%horiz_ratio(c_ani_ind), &
+                                                                 d_ANI%vertical_ratio(c_ani_ind),&
+                                                                 d_XQR%Q0(i,j))
+                            end if
+                         end if
+                    end select !-- anistropy defined by cv_A%par_anisotropy                 
                     d_XQR%Q0(j,i)=d_XQR%Q0(i,j) ! Because the Q0 matrix is symmetric
                   endif
                 enddo
@@ -141,6 +222,7 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
      select case (cv_A%store_Q)        
        case (.TRUE.)
         do p = 1, cv_PAR%p  !Loop for each beta that correspond to each different Q0_C 
+          cba = cv_S%var_type(Q0_All(p)%BetaAss)
           if (cv_S%var_type(Q0_All(p)%BetaAss)==0) then  ! Q0_C is just a single 1 for nugget
             allocate (Q0_All(p)%Q0_C(1,1)) !Allocation Just a value
             Q0_All(p)%Q0_C(1,1) = 1.
@@ -151,27 +233,98 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
               Q0_All(p)%Q0_C = 0. !Initialization
               do i =1, Q0_All(p)%npar 
                 do j=i+1, Q0_All(p)%npar 
-                  do k = 1,cv_PAR%ndim            ! calculate the distances                   
-                    Q0_All(p)%Q0_C(i,j) = Q0_All(p)%Q0_C(i,j) + &
-                    & (d_PAR%lox(Q0_All(p)%Beta_Start+i-1,k) - d_PAR%lox(Q0_All(p)%Beta_Start+j-1,k))**2 
-                    !Here the squared distance. 
-                    !Beta_Start identify where in the parameter list, starts the value with the p-th beta association
-                  enddo
-                  Q0_All(p)%Q0_C(i,j) = sqrt(Q0_All(p)%Q0_C(i,j)) ! Now calculate the sqrt 
-                  Q0_All(p)%Q0_C(j,i) = Q0_All(p)%Q0_C(i,j) ! Because the Q0 matrix is symmetric
+                !--- calculate distances, considering anisotropy if requested
+                  select case (cv_A%par_anisotropy)
+                      case (0) !-- no anisotropy
+                          do k = 1,cv_PAR%ndim            ! calculate the distances                   
+                            Q0_All(p)%Q0_C(i,j) = Q0_All(p)%Q0_C(i,j) + &
+                            & (d_PAR%lox(Q0_All(p)%Beta_Start+i-1,k) - d_PAR%lox(Q0_All(p)%Beta_Start+j-1,k))**2 
+                            !Here the squared distance. 
+                            !Beta_Start identify where in the parameter list, starts the value with the p-th beta association
+                          enddo
+                          Q0_All(p)%Q0_C(i,j) = sqrt(Q0_All(p)%Q0_C(i,j)) ! Now calculate the sqrt 
+                      case (1) !-- anisotropy
+                        do q = 1,cv_PAR%p
+                          if (d_ANI%BetaAssoc(q) .eq. cba) then
+                              c_ani_ind = q
+                              exit
+                          end if
+                        end do
+                        if (cv_PAR%ndim .eq. 1) then ! -- handle case where ndim=1 with anisotropy (which is meaningless)
+                            write(retmsg,*) 'If ndim in the parameter_cv block = 1, par_anisotropy in the algorithmic_cv block must = 0'
+                            call utl_writmess(6,retmsg)
+                            stop
+                        else 
+                            ! calculate the distance, with appropriate stretching for anisotropy
+                            if (cv_PAR%ndim .eq. 2) then
+                                call calculate_anisotropic_distances(d_PAR%lox(Q0_All(p)%Beta_Start+i-1,1), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,1), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start+i-1,2), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,2), &
+                                                                 0.D0, 0.D0, &
+                                                                 cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
+                                                                 d_ANI%horiz_ratio(c_ani_ind), &
+                                                                 d_ANI%vertical_ratio(c_ani_ind),&
+                                                                 Q0_All(p)%Q0_C(i,j))
+                            elseif (cv_PAR%ndim .eq. 3) then
+                                call calculate_anisotropic_distances(d_PAR%lox(Q0_All(p)%Beta_Start+i-1,1), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,1), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start+i-1,2), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,2), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start+i-1,3), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,3), &
+                                                                 cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
+                                                                 d_ANI%horiz_ratio(c_ani_ind), &
+                                                                 d_ANI%vertical_ratio(c_ani_ind),&
+                                                                 Q0_All(p)%Q0_C(i,j))
+                            end if
+                        end if
+                    end select !-- anistropy defined by cv_A%par_anisotropy                 
+                Q0_All(p)%Q0_C(j,i) = Q0_All(p)%Q0_C(i,j) ! Because the Q0 matrix is symmetric
+                          
                 enddo
               enddo
             case(1) !just a vector for this beta ---> allocate the matrix [npar * 1] for the p-th beta  
               allocate (Q0_All(p)%Q0_C(Q0_All(p)%npar,1)) !Allocation a vector
               Q0_All(p)%Q0_C = 0. !Initialization
                 do j=2, Q0_All(p)%npar 
-                  do k = 1,cv_PAR%ndim            ! calculate the distances                   
-                    Q0_All(p)%Q0_C(j,1) = Q0_All(p)%Q0_C(j,1) + &
-                    & (d_PAR%lox(Q0_All(p)%Beta_Start,k) - d_PAR%lox(Q0_All(p)%Beta_Start+j-1,k))**2 
-                    !Here the squared distance. 
-                    !Beta_Start identifies where in the parameter list, starts the value with the p-th beta association
-                  enddo
-                  Q0_All(p)%Q0_C(j,1) = sqrt(Q0_All(p)%Q0_C(j,1)) ! Now calculate the sqrt 
+                !--- calculate distances, considering anisotropy if requested
+                  select case (cv_A%par_anisotropy)
+                      case (0) !-- no anisotropy
+                          do k = 1,cv_PAR%ndim            ! calculate the distances                   
+                            Q0_All(p)%Q0_C(j,1) = Q0_All(p)%Q0_C(j,1) + &
+                            & (d_PAR%lox(Q0_All(p)%Beta_Start,k) - d_PAR%lox(Q0_All(p)%Beta_Start+j-1,k))**2 
+                            !Here the squared distance. 
+                            !Beta_Start identifies where in the parameter list, starts the value with the p-th beta association
+                          enddo
+                          Q0_All(p)%Q0_C(j,1) = sqrt(Q0_All(p)%Q0_C(j,1)) ! Now calculate the sqrt 
+                       case (1) !-- anisotropy
+                        do q = 1,cv_PAR%p
+                          if (d_ANI%BetaAssoc(q) .eq. cba) then
+                              c_ani_ind = q
+                              exit
+                          end if
+                        end do
+                        if (cv_PAR%ndim .eq. 1) then ! -- handle case where ndim=1 with anisotropy (which is meaningless)
+                            write(retmsg,*) 'If ndim in the parameter_cv block = 1, par_anisotropy in the algorithmic_cv block must = 0'
+                            call utl_writmess(6,retmsg)
+                            stop
+                        else 
+                            ! calculate the distance, with appropriate stretching for anisotropy
+                            if (cv_PAR%ndim .eq. 2) then
+                                call calculate_anisotropic_distances(d_PAR%lox(Q0_All(p)%Beta_Start,1), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,1), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start,2), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,2), &
+                                                                 0.D0, 0.D0, &
+                                                                 cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
+                                                                 d_ANI%horiz_ratio(c_ani_ind), &
+                                                                 d_ANI%vertical_ratio(c_ani_ind),&
+                                                                 Q0_All(p)%Q0_C(i,1))
+                            elseif (cv_PAR%ndim .eq. 3) then
+                                call calculate_anisotropic_distances(d_PAR%lox(Q0_All(p)%Beta_Start+i-1,1), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,1), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start+i-1,2), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,2), &
+                                                                 d_PAR%lox(Q0_All(p)%Beta_Start+i-1,3), d_PAR%lox(Q0_All(p)%Beta_Start+j-1,3), &
+                                                                 cv_PAR%ndim,d_ANI%horiz_angle(c_ani_ind), &
+                                                                 d_ANI%horiz_ratio(c_ani_ind), &
+                                                                 d_ANI%vertical_ratio(c_ani_ind),&
+                                                                 Q0_All(p)%Q0_C(i,1))
+                            end if
+                         end if
+                    end select !-- anistropy defined by cv_A%par_anisotropy                
                 enddo
                           
            end select  !Q0_All(p)%Toep_flag   

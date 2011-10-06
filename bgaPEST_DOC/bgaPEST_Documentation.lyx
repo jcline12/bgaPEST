@@ -3377,6 +3377,46 @@ Flag to determine how to calculate
  
 \emph on
 default=0
+\change_inserted -74556787 1317914575
+
+\end_layout
+
+\begin_layout Description
+
+\change_inserted -74556787 1317914583
+par_anisotropy 
+\emph on
+integer 
+\emph default
+Flag to determine whether parameter anisotropy should be considered when
+ making the 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ matrix: [0] = do not consider anisotropy, [1]=consider anisotropy.
+ If anisotropy is considered, a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1317914840
+
+
+\backslash
+texttt{parameter
+\backslash
+_anisotropy}
+\end_layout
+
+\end_inset
+
+ block should be considered, as defined below.
+ 
+\emph on
+default=0.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Description
@@ -3394,7 +3434,7 @@ model_command_lines
  
 \emph on
 default=0
-\change_inserted 267031031 1317373569
+\change_inserted -74556787 1317914396
 
 \end_layout
 
@@ -4609,8 +4649,122 @@ string
 \emph default
  Name of the model output file corresponding to the InstructionFile identified
  on the same row.
-\change_inserted -74556787 1316614363
+\change_inserted -74556787 1317914609
 
+\end_layout
+
+\begin_layout Subsubsection
+
+\change_inserted -74556787 1317914629
+Parameter Anisotropy 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1317914643
+
+
+\backslash
+texttt{parameter
+\backslash
+_anisotropy}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1317914872
+Each row of this table contains information for parameter anisotropy for
+ a beta association.
+ This block is read only if the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1317914767
+
+
+\backslash
+texttt{par
+\backslash
+_anisotropy}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ =1 in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1317914858
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ block.
+\change_unchanged
+
+\end_layout
+
+\begin_layout Description
+
+\change_inserted -74556787 1317914895
+BetaAssoc 
+\emph on
+integer
+\emph default
+ Identifier of a beta association.
+\end_layout
+
+\begin_layout Description
+
+\change_inserted -74556787 1317915060
+horiz_angle 
+\emph on
+float 
+\emph default
+Angle, in degrees of the principal direction of anisotropy in a horizontal
+ plane.
+ See FIGURE for details.
+\end_layout
+
+\begin_layout Description
+
+\change_inserted -74556787 1317917419
+horiz_ratio 
+\emph on
+float 
+\emph default
+Ratio of maximum to minimum principal property values in the horizontal
+ plane.
+ See FIGURE for details.
+\end_layout
+
+\begin_layout Description
+
+\change_inserted -74556787 1317917426
+vertical_ratio 
+\emph on
+float 
+\emph default
+Ratio of maximum to minimum principal property values in the vertical direction.
+ See FIGURE for details.
 \end_layout
 
 \begin_layout Subsection

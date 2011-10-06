@@ -91,7 +91,7 @@ program bp_main
       IF(i.GE.5) THEN
         ATEMP=CTLFILE(I-3:I)
         CALL UTL_CASETRANS(ctlfile,'lo')
-        IF(ATEMP.NE.'.bgp') THEN
+        IF(ATEMP.NE.'.bgp') THEN 
           CASENAME = CTLFILE
           CTLFILE(I+1:)='.bgp'
         ELSE
@@ -121,7 +121,7 @@ program bp_main
                     
 !--  INITIALIZE THE INVERSE MODEL
     !Make Q0, R0, X0, and InvQbb if necessary   
-    call bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,cv_OBS%nobs,d_PM,Q0_All,cv_PM)
+    call bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,cv_OBS%nobs,d_PM,Q0_All,cv_PM,d_ANI)
    
     allocate(d_OBS%h(cv_OBS%nobs)) ! Allocate the current model output [y]
     
