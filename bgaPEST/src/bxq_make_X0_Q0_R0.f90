@@ -23,17 +23,17 @@ module make_kernels
             sin_th = sin(rot_theta)
             cos_th = cos(rot_theta)
             ! rotate the points
-            x1r = x1*cos_th + y1*sin_th
-            x2r = x2*cos_th + y2*sin_th
-            y1r = x1 * (-sin_th) + y1*cos_th
-            y2r = x2 * (-sin_th) + y2*cos_th
+            x1r = x1*cos_th + y1*(-sin_th)
+            x2r = x2*cos_th + y2*(-sin_th)
+            y1r = x1 * sin_th + y1*cos_th
+            y2r = x2 * sin_th + y2*cos_th
             ! initialize the distance
             distance = 0.D0
             ! calculate the distance in the horizontal, streatching if appropriate
-            distance = (horiz_ratio*(x1-x2))**2 + (y1-y2)**2
+            distance = (horiz_ratio*((x1r-x2r)**2)) + ((y1r-y2r)**2)
             
             if (ndim .eq. 3) then
-              distance = distance + (vertical_ratio*(z1-z2))**2
+              distance = distance + (vertical_ratio*((z1-z2)**2))
             endif
             distance = sqrt(distance)
 
