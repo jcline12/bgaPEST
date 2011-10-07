@@ -65,7 +65,7 @@ module bayes_pest_reader
         call utl_bomb_out(errstruc)
         n1=mio_finalise(errstruc,miostruc)
         stop 
-       end if
+       endif
         
 ! other variables
        inunit = utl_nextunit()
@@ -79,7 +79,7 @@ module bayes_pest_reader
        if (ifail.ne.0) then
          call ids_get_message_string(errmsg)
          call utl_writmess(6,errmsg)
-       end if
+       endif
        
  ! READ THE VARIABLES FROM THE INPUT FILE
        
@@ -108,7 +108,7 @@ module bayes_pest_reader
                             & inunit,errmsg,miostruc)
        if (cv_PAR%npar .gt. 100000) then
          cv_A%store_Q = .FALSE.
-       end if
+       endif
        
        call bdp_read_observation_groups(BL,cv_OBS,inunit,errmsg)                            
        call bdp_read_data_observations(BL,d_OBS, cv_OBS, &
@@ -118,7 +118,7 @@ module bayes_pest_reader
        call bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,inunit,errmsg)
        if (cv_A%par_anisotropy .eq. 1) then
            call bdp_read_data_par_anisotropy(BL,d_ANI,cv_PAR,inunit,errmsg)
-       end if
+       endif
 ! Deallocate BL type and close up files
        call deallocate_BL(BL)
         close (inunit)
@@ -144,7 +144,7 @@ contains
              if (associated(BL(i)%keywordline))   deallocate (BL(i)%keywordline)
              
              nullify(BL(i)%keywords,BL(i)%keywordstring ,BL(i)%keywordline)
-           end do
+           enddo
        end subroutine deallocate_BL
 
       end subroutine bpr_read 

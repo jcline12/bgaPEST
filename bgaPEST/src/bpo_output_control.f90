@@ -185,7 +185,7 @@ contains
       write(bprunit,20) indent,d_MOD%dercom
    else
       write(bprunit,20) indent,'Not Used'
-   end if
+   endif
 
 !!! model input and output
    write(bprunit,*)
@@ -193,26 +193,26 @@ contains
    write(bprunit,20) indent,'Template files:'
    do i = 1,cv_MIO%ntplfle
      write(bprunit,25)indent,indent,d_MIO%tpl(i)
-   end do
+   enddo
    write(bprunit,20) indent,'for model input files:'
    do i = 1,cv_MIO%ntplfle
      write(bprunit,25)indent,indent,d_MIO%infle(i)
-   end do
+   enddo
    write(bprunit,20) indent,'Instruction files:'
    do i = 1,cv_MIO%ninsfle
      write(bprunit,25)indent,indent,d_MIO%ins(i)
-   end do
+   enddo
    write(bprunit,20) indent,'for model ouput files:'
    do i = 1,cv_MIO%ntplfle
      write(bprunit,25)indent,indent,d_MIO%outfle(i)
-   end do
+   enddo
    if (cv_A%deriv_mode .eq. 1) then
      write(bprunit,20) indent,'Jacobian Matrix Output File:'
      write(bprunit,25) indent,indent,cv_A%jacfle
      write(bprunit,20) indent,'Jacobian Matrix Output Format:'
      write(bprunit,25) indent,indent,cv_A%jacobian_format
      
-   end if
+   endif
 20 format(2A )     ! single indent and str format
 25 format(3A)   ! double indent and str format
 30 format(1A, 1ES12.4)     ! single indent and ES format
@@ -256,7 +256,7 @@ contains
         write(bprunit,25) indent, indent, cv_A%jacfle
         write(bprunit,20) indent,'External derivatives file format:-'
         write(bprunit,25) indent, indent, cv_A%jacobian_format
-    end if
+    endif
     
     write(bprunit,*)        
     write(bprunit,20) indent,'Parameter Anisotropy: [0] do not read parameter_anisotropy block, [1] do read block'
@@ -289,11 +289,11 @@ contains
             write(bprunit,45) indent,indent,'Nlay: ',Q0_all(i)%Nlay
             write(bprunit,20) indent,'Number of Parameters'
             write(bprunit,45) indent,indent,'Npar: ',Q0_all(i)%Npar
-        end do
+        enddo
     else
         !indicate no compression specified
             write(bprunit,65) indent,' No Compression Requested.'
-    end if    
+    endif    
 60 format('Variables for Beta Association: ',I3)
 65 format(2A)
    
@@ -312,10 +312,10 @@ contains
         do i = 1,cv_PAR%p
             write(bprunit,70) indent, i
             write(bprunit,71) indent,indent,d_PM%beta_0(i)
-        end do ! i = 1,cv_PAR%p
+        enddo ! i = 1,cv_PAR%p
     else
         write(bprunit,20) indent,'No Prior Information Provided for Betas'
-    end if
+    endif
 70 format(1A, 'Starting value of Prior Mean for Beta Association: ', I4)
 71 format(1A,1A, 1ES12.4)
     
@@ -351,9 +351,9 @@ contains
                if (cv_S%trans_theta(i) .eq. 1) then
                    write(bprunit,25) indent, indent, 'Power transformation active'
                    write(bprunit,74)indent, indent, indent, 'alpha', cv_S%alpha_trans(i)
-               end if
-            end if
-    end do ! i = 1,cv_PAR%p
+               endif
+            endif
+    enddo ! i = 1,cv_PAR%p
 72 format(1A, 'Structural Parameters for Beta Association: ', I4)    
 73 format(1A, 1A,'Variogram type: ', 1A)
 74 format(4A, ' = ', 1ES12.4)

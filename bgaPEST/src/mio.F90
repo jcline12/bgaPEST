@@ -246,7 +246,7 @@ integer function mio_initialise(estruc,mstruc)
          mio_initialise=1
          call err_reset(estruc)
          call err_add_error(estruc,amessage,function_name)
-       end if
+       endif
        return
 
 end function mio_initialise
@@ -273,14 +273,14 @@ integer function mio_initialise_model_input(estruc,mstruc,numinfile)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if(numinfile.le.0)then
           write(amessage,10) trim(errsub)
 10        format(a,' NUMINFILE variable must be supplied as positive.')
           ifail=1
           go to 9900
-        end if
+        endif
         allocate(mstruc%tempfile(numinfile),mstruc%modinfile(numinfile),mstruc%pardel(numinfile),stat=ierr) !MD??? Is the number of files always the same for all types?
         if(ierr.ne.0) go to 9200
         mstruc%tempfile=' '        ! an array
@@ -304,7 +304,7 @@ integer function mio_initialise_model_input(estruc,mstruc,numinfile)
           mio_initialise_model_input=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_initialise_model_input
@@ -332,14 +332,14 @@ integer function mio_initialise_model_output(estruc,mstruc,numoutfile)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if(numoutfile.le.0)then
           write(amessage,10) trim(errsub)
 10        format(a,' NUMOUTFILE variable must be supplied as positive.')
           ifail=1
           go to 9900
-        end if
+        endif
         allocate(mstruc%insfile(numoutfile),mstruc%modoutfile(numoutfile),mstruc%mrkdel(numoutfile),stat=ierr)
         if(ierr.ne.0) go to 9200
         mstruc%insfile=' '         ! an array
@@ -363,7 +363,7 @@ integer function mio_initialise_model_output(estruc,mstruc,numoutfile)
           mio_initialise_model_output=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_initialise_model_output
@@ -390,14 +390,14 @@ integer function mio_initialise_parameters(estruc,mstruc,npar)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if(npar.le.0)then
           write(amessage,30) trim(errsub)
 30        format(a,' NPAR variable must be supplied as positive.')
           ifail=1
           go to 9900
-        end if
+        endif
         mstruc%npar=npar
 
         allocate(mstruc%nw(npar),mstruc%pword(npar),mstruc%apar(npar),stat=ierr)
@@ -422,7 +422,7 @@ integer function mio_initialise_parameters(estruc,mstruc,npar)
           mio_initialise_parameters=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_initialise_parameters
@@ -449,14 +449,14 @@ integer function mio_initialise_observations(estruc,mstruc,nobs)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if(nobs.le.0)then
           write(amessage,30) trim(errsub)
 30        format(a,' NOBS variable must be supplied as positive.')
           ifail=1
           go to 9900
-        end if
+        endif
         mstruc%nobs=nobs
 
         allocate(mstruc%obsn1(nobs),mstruc%obsn2(nobs),mstruc%iiobs(nobs),mstruc%aobs(nobs),stat=ierr)
@@ -482,7 +482,7 @@ integer function mio_initialise_observations(estruc,mstruc,nobs)
           mio_initialise_observations=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_initialise_observations
@@ -510,7 +510,7 @@ integer function mio_set_number_precision(estruc,mstruc,precision)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         atemp12=adjustl(precision)
         call utl_casetrans(atemp12,'lo')
@@ -522,7 +522,7 @@ integer function mio_set_number_precision(estruc,mstruc,precision)
           write(amessage,30) trim(errsub)
 30        format(a,' the PRECISION argument must be supplied as "single" or "double".')
           ifail=1
-        end if
+        endif
 
 ! -- Function exit point.
 
@@ -533,7 +533,7 @@ integer function mio_set_number_precision(estruc,mstruc,precision)
           mio_set_number_precision=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
 
         return
 
@@ -562,7 +562,7 @@ integer function mio_set_number_decpoint(estruc,mstruc,decpoint)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         atemp12=adjustl(decpoint)
         call utl_casetrans(atemp12,'lo')
@@ -574,7 +574,7 @@ integer function mio_set_number_decpoint(estruc,mstruc,decpoint)
           write(amessage,30) trim(errsub)
 30        format(a,' the DECPOINT argument must be supplied as "point" or "nopoint".')
           ifail=1
-        end if
+        endif
 
 ! -- Function exit point.
 
@@ -585,7 +585,7 @@ integer function mio_set_number_decpoint(estruc,mstruc,decpoint)
           mio_set_number_decpoint=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
 
         return
 
@@ -613,7 +613,7 @@ integer function mio_set_model_command(estruc,mstruc,command)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         mstruc%comline=adjustl(command)
         if(ios.eq.0) call utl_casetrans(mstruc%comline,'lo')
@@ -625,7 +625,7 @@ integer function mio_set_model_command(estruc,mstruc,command)
           mio_set_model_command=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
 
         return
 
@@ -655,7 +655,7 @@ integer function mio_get_model_command(estruc,mstruc,command)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         n=len_trim(mstruc%comline)
         if(n.gt.len(command)) n=len(command)
@@ -668,7 +668,7 @@ integer function mio_get_model_command(estruc,mstruc,command)
           mio_get_model_command=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
 
         return
 
@@ -699,14 +699,14 @@ integer function mio_put_file_model_input(estruc,mstruc,inum,filename1,filename2
 5         format(a,' this function must not be called before function MIO_INITIALISE_MODEL_INPUT has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if((inum.lt.1).or.(inum.gt.mstruc%numinfile))then
           write(amessage,10) trim(errsub)
 10        format(a,' INUM argument out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         afile=adjustl(filename1)
         if(ios.eq.0) call utl_casetrans(afile,'lo')
@@ -726,7 +726,7 @@ integer function mio_put_file_model_input(estruc,mstruc,inum,filename1,filename2
           mio_put_file_model_input=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_put_file_model_input
@@ -758,14 +758,14 @@ integer function mio_put_file_model_output(estruc,mstruc,inum,filename1,filename
 5         format(a,' this function must not be called before function MIO_INITIALISE_MODEL_OUTPUT has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if((inum.lt.1).or.(inum.gt.mstruc%numoutfile))then
           write(amessage,10) trim(errsub)
 10        format(a,' INUM argument out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         afile=adjustl(filename1)
         if(ios.eq.0) call utl_casetrans(afile,'lo')
@@ -784,12 +784,12 @@ integer function mio_put_file_model_output(estruc,mstruc,inum,filename1,filename
                   k=k+1
                   if(k.gt.len(mstruc%modoutfile(inum)))exit
                   mstruc%a(j)=mstruc%modoutfile(inum)(k:k)
-                end do
+                enddo
                 go to 8000
-              end if
-            end if
-          end do
-        end if
+              endif
+            endif
+          enddo
+        endif
 
 8000    continue
 
@@ -804,7 +804,7 @@ integer function mio_put_file_model_output(estruc,mstruc,inum,filename1,filename
           mio_put_file_model_output=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_put_file_model_output
@@ -834,14 +834,14 @@ integer function mio_get_file_model_input(estruc,mstruc,inum,filename1,filename2
 5         format(a,' this function must not be called before function MIO_INITIALISE_MODEL_INPUT has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if((inum.lt.1).or.(inum.gt.mstruc%numinfile))then
           write(amessage,10) trim(errsub)
 10        format(a,' INUM argument out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
         filename1=mstruc%tempfile(inum)
         filename2=mstruc%modinfile(inum)
 
@@ -852,7 +852,7 @@ integer function mio_get_file_model_input(estruc,mstruc,inum,filename1,filename2
           mio_get_file_model_input=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_get_file_model_input
@@ -881,14 +881,14 @@ integer function mio_get_file_model_output(estruc,mstruc,inum,filename1,filename
 5         format(a,' this function must not be called before function MIO_INITIALISE_MODEL_OUTPUT has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if((inum.lt.1).or.(inum.gt.mstruc%numoutfile))then
           write(amessage,10) trim(errsub)
 10        format(a,' INUM argument out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
         filename1=mstruc%insfile(inum)
         filename2=mstruc%modoutfile(inum)
 
@@ -899,7 +899,7 @@ integer function mio_get_file_model_output(estruc,mstruc,inum,filename1,filename
           mio_get_file_model_output=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_get_file_model_output
@@ -932,7 +932,7 @@ integer function mio_put_parameter(estruc,mstruc,inum,apar)
 5         format(a,' this function must not be called before function MIO_INITIALISE_PARAMETERS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Other checking is undertaken.
 
@@ -941,7 +941,7 @@ integer function mio_put_parameter(estruc,mstruc,inum,apar)
 10        format(a,' supplied parameter index out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
         atemp15=adjustl(apar)
         n1=len_trim(atemp15)
         if(n1.gt.12)then
@@ -949,7 +949,7 @@ integer function mio_put_parameter(estruc,mstruc,inum,apar)
 20        format(a,' supplied parameter name "',a,'" greater than 12 characters in length.')
           ifail=1
           go to 9900
-        end if
+        endif
         call utl_casetrans(atemp15,'lo')
         mstruc%apar(inum)=trim(atemp15)
 
@@ -960,7 +960,7 @@ integer function mio_put_parameter(estruc,mstruc,inum,apar)
           mio_put_parameter=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_put_parameter
@@ -993,7 +993,7 @@ integer function mio_parameter_check(estruc,mstruc)
 5         format(a,' this function must not be called before function MIO_INITIALISE_PARAMETERS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Individual parameter names are checked.
 
@@ -1006,19 +1006,19 @@ integer function mio_parameter_check(estruc,mstruc)
             write(amessage,20) trim(errsub),trim(atemp10)
 20          format(a,' no value has been supplied for parameter number ',a,'.')
             go to 9800
-          end if
+          endif
           n2=index(trim(atemp12),' ')
           if(n2.ne.0)then
             write(amessage,30) trim(errsub),trim(atemp12)
 30          format(a,' parameter name "',a,'" contains a space.')
             go to 9800
-          end if
+          endif
           if(index(atemp12,char(9)).ne.0)then
             write(amessage,40) trim(errsub),trim(atemp12)
 40          format(a,' parameter name "',a,'" contains a tab.')
             go to 9800
-          end if
-        end do
+          endif
+        enddo
 
 ! -- Duplicate parameter names are checked for.
 
@@ -1028,14 +1028,14 @@ integer function mio_parameter_check(estruc,mstruc)
 50        format('Error in function MIO_PARAMETER_CHECK: ',  &
           ' cannot allocate sufficient memory to continue execution.')
           go to 9800
-        end if
+        endif
         i=utl_duplicate_check(np,mstruc%apar,awork,aword)
         deallocate(awork,stat=ierr)
         if(i.ne.0)then
           write(amessage,60) trim(errsub),trim(aword)
 60        format(a,' parameter name "',a,'" duplicated in supplied list of parameters.')
           go to 9800
-        end if
+        endif
 
 ! -- The presence of all template and model input files is checked for.
 
@@ -1045,14 +1045,14 @@ integer function mio_parameter_check(estruc,mstruc)
             write(amessage,80) trim(errsub),trim(atemp10)
 80          format(a,' a name has not been provided for template file number ',a,'.')
             go to 9800
-          end if
+          endif
           if(mstruc%modinfile(i).eq.' ')then
             call utl_int2char(i,atemp10)
             write(amessage,90) trim(errsub),trim(atemp10)
 90          format(a,' a name has not been provided for model input file number ',a,'.')
             go to 9800
-          end if
-        end do
+          endif
+        enddo
 
         go to 9900
 
@@ -1064,7 +1064,7 @@ integer function mio_parameter_check(estruc,mstruc)
           mio_parameter_check=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_parameter_check
@@ -1092,14 +1092,14 @@ integer function mio_get_parameter_name(estruc,mstruc,inum,apar)
 5         format(a,' this function must not be called before function MIO_INITIALISE_PARAMETERS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if((inum.lt.1).or.(inum.gt.mstruc%npar)) then
           write(amessage,10) trim(errsub)
 10        format(a,' supplied parameter index out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         apar=mstruc%apar(inum)
 
@@ -1110,7 +1110,7 @@ integer function mio_get_parameter_name(estruc,mstruc,inum,apar)
           mio_get_parameter_name=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_get_parameter_name
@@ -1141,7 +1141,7 @@ integer function mio_get_parameter_index(estruc,mstruc,apar,inum)
 5         format(a,' this function must not be called before function MIO_INITIALISE_PARAMETERS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         atemp15=adjustl(apar)
         ip=len_trim(atemp15)
@@ -1150,7 +1150,7 @@ integer function mio_get_parameter_index(estruc,mstruc,apar,inum)
 20        format(a,' supplied parameter name "',a,'" is greater than 12 characters in length.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         ip=ip_last
         atemp12=adjustl(apar)
@@ -1164,7 +1164,7 @@ integer function mio_get_parameter_index(estruc,mstruc,apar,inum)
         else
           ip_last=ip
           inum=ip
-        end if
+        endif
 
 9900    continue
         if(ifail.eq.0)then
@@ -1173,7 +1173,7 @@ integer function mio_get_parameter_index(estruc,mstruc,apar,inum)
           mio_get_parameter_index=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_get_parameter_index
@@ -1208,7 +1208,7 @@ integer function mio_process_template_files(estruc,mstruc)
 5         format(a,' this function must not be called before function MIO_PARAMETER_CHECK has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
         if(mstruc%ic_process_template_files.eq.2)then
           mstruc%ic_process_template_files=1
           write(amessage,10) trim(errsub)
@@ -1216,14 +1216,14 @@ integer function mio_process_template_files(estruc,mstruc)
           'without re-initialisation of MODEL_INPUT_OUTPUT module.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Processing now begins.
 
         ipar=1
         do i=1,mstruc%npar
           mstruc%nw(i)=1000
-        end do
+        enddo
 
         do i=1,mstruc%numinfile
           call utl_addquote(mstruc%tempfile(i),afile)
@@ -1234,7 +1234,7 @@ integer function mio_process_template_files(estruc,mstruc)
 410         format('Cannot open template file ',a,'.')
             ifail=1
             go to 9900
-          end if
+          endif
           read(iunit,'(a)',err=9000,end=9200) dline
           call utl_casetrans(dline(1:3),'lo')
           if((dline(1:3).ne.'ptf').and.(dline(1:3).ne.'jtf'))go to 9200
@@ -1256,7 +1256,7 @@ integer function mio_process_template_files(estruc,mstruc)
 555         format('Unbalanced parameter delimiters at line ',a,' of template file ',a,'.')
             ifail=1
             go to 9900
-          end if
+          endif
           j2=j2+j1
           call mio_parnam(jfail,j1,j2,tpar)
           if(jfail.eq.1)then
@@ -1272,7 +1272,7 @@ integer function mio_process_template_files(estruc,mstruc)
 557         format('Blank parameter space at line ',a,' of file ',a,'.')
             ifail=1
             go to 9900
-          end if
+          endif
           call mio_which1(jfail,mstruc%npar,ipar,mstruc%apar,tpar)
           if(jfail.ne.0)then
             call utl_int2char(iline,aline)
@@ -1281,12 +1281,12 @@ integer function mio_process_template_files(estruc,mstruc)
             ' has not been cited in parameter list.')
             ifail=1
             go to 9900
-          end if
+          endif
           nnw=j2-j1+1
           if(nnw.lt.mstruc%nw(ipar)) mstruc%nw(ipar)=nnw
           go to 550
 680       close(unit=iunit)
-        end do
+        enddo
 
         mstruc%template_status=1
 
@@ -1309,7 +1309,7 @@ integer function mio_process_template_files(estruc,mstruc)
           mio_process_template_files=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_process_template_files
@@ -1342,7 +1342,7 @@ integer function mio_set_working_directory(estruc,mstruc,workingdir)
 5         format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         afile=workingdir
         if(ios.eq.0) call utl_casetrans(afile,'lo')
@@ -1353,21 +1353,21 @@ integer function mio_set_working_directory(estruc,mstruc,workingdir)
             atemp1='\'
           else
             atemp1='/'
-          end if
+          endif
           if(afile(n:n).eq.atemp1)then
             write(amessage,10) trim(errsub),trim(afile)
 10          format(a,' illegal final character in supplied working directory name "',a,'".')
             ifail=1
             go to 9900
-          end if
+          endif
 
           if(ios.eq.1)then
             atemp1='/'
           else
             atemp1='\'
-          end if
+          endif
           if(afile(n:n).ne.atemp1)afile(n+1:n+1)=atemp1
-        end if
+        endif
         mstruc%workdir=trim(afile)
 
 9900    continue
@@ -1377,7 +1377,7 @@ integer function mio_set_working_directory(estruc,mstruc,workingdir)
           mio_set_working_directory=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_set_working_directory
@@ -1416,14 +1416,14 @@ integer function mio_write_model_input_files(estruc,mstruc,pval)
           'has been called previously.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if(size(pval).lt.mstruc%npar)then
           write(amessage,5) trim(errsub)
 5         format(a,' size of PVAL array supplied to function MIO_WRITE_MODEL_INPUT_FILES is insufficient.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- The writing is now actually done.
 
@@ -1461,7 +1461,7 @@ integer function mio_write_model_input_files(estruc,mstruc,pval)
             'to fit, or too small to be represented with any precision.')
             ifail=1
             go to 9900
-          end if
+          endif
           pval(ipp)=tval
 100     continue
 
@@ -1476,13 +1476,13 @@ integer function mio_write_model_input_files(estruc,mstruc,pval)
 110         format(a,' cannot open template file ',a,'.')
             ifail=1
             go to 9900
-          end if
+          endif
           iunit1=utl_nextunit()
           if(idir.eq.0)then
             mifile=mstruc%modinfile(ifile)
           else
             mifile=trim(mstruc%workdir)//trim(mstruc%modinfile(ifile))
-          end if
+          endif
           open(unit=iunit1,file=mifile,iostat=ierr)
           if(ierr.ne.0)then
             call utl_addquote(mifile,afile)
@@ -1491,7 +1491,7 @@ integer function mio_write_model_input_files(estruc,mstruc,pval)
             'values prior to running model.')
             ifail=1
             go to 9900
-          end if
+          endif
           read(iunit,*,err=9000)
           iline=1
 120       iline=iline+1
@@ -1529,7 +1529,7 @@ integer function mio_write_model_input_files(estruc,mstruc,pval)
             write(amessage,321) trim(errsub),trim(afile)
             ifail=1
             go to 9900
-          end if
+          endif
 500     continue
         go to 9900
 
@@ -1547,7 +1547,7 @@ integer function mio_write_model_input_files(estruc,mstruc,pval)
           mio_write_model_input_files=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_write_model_input_files
@@ -1581,7 +1581,7 @@ integer function mio_get_dimensions(estruc,mstruc,numinfile,numoutfile,npar,nobs
 10        format(a,' this function must not be called before function MIO_INITIALISE has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Values are assigned to output variables.
 
@@ -1599,7 +1599,7 @@ integer function mio_get_dimensions(estruc,mstruc,numinfile,numoutfile,npar,nobs
           mio_get_dimensions=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_get_dimensions
@@ -1655,7 +1655,7 @@ integer function mio_put_observation(estruc,mstruc,inum,aobs)
 5         format(a,' this function must not be called before function MIO_INITIALISE_OBSERVATIONS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Other checking is undertaken.
 
@@ -1664,7 +1664,7 @@ integer function mio_put_observation(estruc,mstruc,inum,aobs)
 10        format(a,' supplied observation index out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
         atemp25=adjustl(aobs)
         n1=len_trim(atemp25)
         if(n1.gt.20)then
@@ -1672,7 +1672,7 @@ integer function mio_put_observation(estruc,mstruc,inum,aobs)
 20        format(a,' supplied observation name "',a,'" greater than 20 characters in length.')
           ifail=1
           go to 9900
-        end if
+        endif
         call utl_casetrans(atemp25,'lo')
         mstruc%aobs(inum)=trim(atemp25)
 
@@ -1683,7 +1683,7 @@ integer function mio_put_observation(estruc,mstruc,inum,aobs)
           mio_put_observation=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_put_observation
@@ -1717,7 +1717,7 @@ integer function mio_observation_check(estruc,mstruc)
 5         format(a,' this function must not be called before function MIO_INITIALISE_OBSERVATIONS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Individual names are checked for.
 
@@ -1730,19 +1730,19 @@ integer function mio_observation_check(estruc,mstruc)
             write(amessage,20) trim(errsub),trim(atemp10)
 20          format(a,' no value has been supplied for observation number ',a,'.')
             go to 9800
-          end if
+          endif
           n2=index(trim(atemp20),' ')
           if(n2.ne.0)then
             write(amessage,30) trim(errsub),trim(atemp20)
 30          format(a,' observation name "',a,'" contains a space.')
             go to 9800
-          end if
+          endif
           if(index(atemp20,char(9)).ne.0)then
             write(amessage,40) trim(errsub),trim(atemp20)
 40          format(a,' observation name "',a,'" contains a tab.')
             go to 9800
-          end if
-        end do
+          endif
+        enddo
 
 ! -- Duplicates are checked for.
 
@@ -1752,14 +1752,14 @@ integer function mio_observation_check(estruc,mstruc)
 50        format('Error in function MIO_OBSERVATION_CHECK: ',  &
           ' cannot allocate sufficient memory to continue execution.')
           go to 9800
-        end if
+        endif
         i=utl_duplicate_check(np,mstruc%aobs,awork,aword)
         deallocate(awork,stat=ierr)
         if(i.ne.0)then
           write(amessage,60) trim(errsub),trim(aword)
 60        format(a,' observation name "',a,'" duplicated in supplied list of observations.')
           go to 9800
-        end if
+        endif
 
 ! -- The presence of all instruction and model output files is checked for.
 
@@ -1769,14 +1769,14 @@ integer function mio_observation_check(estruc,mstruc)
             write(amessage,10) trim(errsub),trim(atemp10)
 10          format(a,' a name has not been provided for instruction file number ',a,'.')
             go to 9800
-          end if
+          endif
           if(mstruc%modoutfile(i).eq.' ')then
             call utl_int2char(i,atemp10)
             write(amessage,11) trim(errsub),trim(atemp10)
 11          format(a,' a name has not been provided for model output file number ',a,'.')
             go to 9800
-          end if
-        end do
+          endif
+        enddo
 
         go to 9900
 
@@ -1788,7 +1788,7 @@ integer function mio_observation_check(estruc,mstruc)
           mio_observation_check=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_observation_check
@@ -1816,14 +1816,14 @@ integer function mio_get_observation_name(estruc,mstruc,inum,aobs)
 5         format(a,' this function must not be called before function MIO_INITIALISE_OBSERVATIONS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         if((inum.lt.1).or.(inum.gt.mstruc%nobs)) then
           write(amessage,10) trim(errsub)
 10        format(a,' supplied observation index out of range.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         aobs=mstruc%aobs(inum)
 
@@ -1834,7 +1834,7 @@ integer function mio_get_observation_name(estruc,mstruc,inum,aobs)
           mio_get_observation_name=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_get_observation_name
@@ -1865,7 +1865,7 @@ integer function mio_get_observation_index(estruc,mstruc,aobs,inum)
 5         format(a,' this function must not be called before function MIO_INITIALISE_OBSERVATIONS has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         atemp25=adjustl(aobs)
         ip=len_trim(atemp25)
@@ -1874,7 +1874,7 @@ integer function mio_get_observation_index(estruc,mstruc,aobs,inum)
 20        format(a,' supplied observation name "',a,'" greater than 20 characters in length.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         ip=ip_last
         atemp20=adjustl(aobs)
@@ -1888,7 +1888,7 @@ integer function mio_get_observation_index(estruc,mstruc,aobs,inum)
         else
           ip_last=ip
           inum=ip
-        end if
+        endif
 
 9900    continue
         if(ifail.eq.0)then
@@ -1897,7 +1897,7 @@ integer function mio_get_observation_index(estruc,mstruc,aobs,inum)
           mio_get_observation_index=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_get_observation_index
@@ -1928,7 +1928,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
 5         format(a,' this function must not be called before function MIO_OBSERVATION_CHECK has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
         if(mstruc%ic_store_instruction_set.eq.2)then
           mstruc%ic_store_instruction_set=1
           write(amessage,10) trim(errsub)
@@ -1936,7 +1936,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
           'without re-initialisation of MODEL_INPUT_OUTPUT module.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Processing is now undertaken.
 
@@ -1954,7 +1954,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
 20          format(a,' cannot open instruction file ',a,'.')
             ifail=1
             go to 9900
-          end if
+          endif
           read(iunit,'(a)',end=9400,err=9000) dline
           call mio_remchar(dline,achar(9))
           call utl_casetrans(dline,'lo')
@@ -1972,12 +1972,12 @@ integer function mio_store_instruction_set(estruc,mstruc)
             if(dline(j:j).ne.' ') then
               if((dline(j:j).eq.'L').or.(dline(j:j).eq.'l')) mstruc%numl=mstruc%numl+1
               go to 100
-            end if
+            endif
 60        continue
 100       mstruc%asize=mstruc%asize+nblc
           go to 50
 180       close(unit=iunit)
-        end do
+        enddo
         nblbmx=nblbmx+1
         do 300 i=1,mstruc%numoutfile
           mstruc%asize=mstruc%asize+2+len(mstruc%modoutfile(i))
@@ -1993,7 +1993,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
           'cannot allocate sufficient memory to store instruction set.')
           ifail=1
           go to 9900
-        end if
+        endif
         mstruc%a=' '              ! a is an array
         
 ! -- The instruction set is now re-read and stored.
@@ -2008,7 +2008,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
             write(amessage,20) trim(errsub),trim(afile)
             ifail=1
             go to 9900
-          end if
+          endif
           read(iunit,*,err=9000)
           ins=ins+1
           dline(1:1)=achar(2)
@@ -2018,7 +2018,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
           nblc=len(mstruc%modoutfile(i))+2
           do j=1,nblc
             mstruc%a(j+isum)=dline(j:j)
-          end do
+          enddo
           isum=isum+nblc
 350       read(iunit,322,end=181,err=9000) dline
 322       format(a)
@@ -2030,7 +2030,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
           mstruc%lcins(ins)=isum+1
           do j=1,nblc
             mstruc%a(j+isum)=dline(j:j)
-          end do
+          enddo
           isum=isum+nblc
           go to 350
 181       close(unit=iunit)
@@ -2056,7 +2056,7 @@ integer function mio_store_instruction_set(estruc,mstruc)
           mio_store_instruction_set=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
         
 end function mio_store_instruction_set
@@ -2090,7 +2090,7 @@ integer function mio_delete_model_output_files(estruc,mstruc)
 5         format(a,' this function must not be called before function MIO_OBSERVATION_CHECK has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
         idir=0
         if(mstruc%workdir.ne.' ') idir=1
@@ -2100,15 +2100,15 @@ integer function mio_delete_model_output_files(estruc,mstruc)
             mofile=mstruc%modoutfile(i)
           else
             mofile=trim(mstruc%workdir)//trim(mstruc%modoutfile(i))
-          end if
+          endif
           if(utl_delete_file(mofile).ne.0)then
             call utl_addquote(mofile,afile)
             write(amessage,10) trim(afile)
 10          format('Cannot delete model output file ',a,' prior to running model.')
             ifail=1
             go to 9900
-          end if
-        end do
+          endif
+        enddo
 
 9900    continue
         if(ifail.eq.0)then
@@ -2117,7 +2117,7 @@ integer function mio_delete_model_output_files(estruc,mstruc)
           mio_delete_model_output_files=1
           call err_reset(estruc)
           call err_add_error(estruc,amessage,function_name)
-        end if
+        endif
         return
 
 end function mio_delete_model_output_files
@@ -2166,7 +2166,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 5         format(a,' this function must not be called before function MIO_STORE_INSTRUCTION_SET has been called.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Next the size of the observation value array is checked.
 
@@ -2175,7 +2175,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 6         format(a,' size of supplied OVAL array is too small.')
           ifail=1
           go to 9900
-        end if
+        endif
 
 ! -- Now processing commences.
 
@@ -2200,7 +2200,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
           nblb=mstruc%lcins(ins+1)-mstruc%lcins(ins)
         else
           nblb=mstruc%asize-mstruc%lcins(ins)+1
-        end if
+        endif
         instruction=' '
         do 20 i=1,nblb
           instruction(i:i)=mstruc%a(mstruc%lcins(ins)+i-1)
@@ -2213,7 +2213,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
           write(amessage,49) trim(errsub)
 49        format(a,' missing marker delimiter in user-supplied instruction.')
           go to 9995
-        end if
+        endif
 51      if(n1.eq.0) go to 1000
         insnum=insnum+1
         if(insnum.eq.1)then
@@ -2228,13 +2228,13 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 52            format(a,' first instruction line in instruction file cannot start ', &
               'with continuation character.')
               go to 9995
-            end if
+            endif
             if(begins.eq.1)then
               ins=ins-1
               go to 10
-            end if
-          end if
-        end if
+            endif
+          endif
+        endif
         if(ichar(instruction(n1:n1)).eq.2)then
           if(ifile.ne.0) close(unit=iunit)
           do 60 i=n1+1,nblb
@@ -2247,14 +2247,14 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
             open(unit=iunit,file=flenme,status='old',iostat=ierr)
             if(ierr.eq.0) exit
             call utl_wait_std(100)
-          end do
+          enddo
           call utl_addquote(flenme,afile)
           if(ierr.ne.0)then
             write(amessage,71) trim (errsub),trim(afile)
 71          format(a,' cannot open model output file ',a,'.')
             instruction=' '
             go to 9995
-          end if
+          endif
           ifile=ifile+1
           cil=0
           mkrdel=mstruc%mrkdel(ifile)
@@ -2265,7 +2265,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
             write(amessage,72) trim(errsub)
 72          format(a,' line advance item can only occur at the beginning of an instruction line.')
             go to 9995
-          end if
+          endif
           almark=0
           il=il+1
           if(mstruc%mcall.eq.1)then
@@ -2276,13 +2276,13 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
             mstruc%ll(il)=nol
           else
             nol=mstruc%ll(il)
-          end if
+          endif
           if(nol.gt.1) then
             do 160 i=1,nol-1
               read(iunit,*,end=9100,err=9850)
               cil=cil+1
 160         continue
-          end if
+          endif
           read(iunit,22,end=9100,err=9850) dline
 22        format(a)
           if(index(dline,char(9)).ne.0) call mio_tabrep()
@@ -2305,27 +2305,27 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
               if(almark.eq.1) then
                 begins=1
                 go to 25
-              end if
+              endif
               go to 9200
-            end if
+            endif
             j2=index(dline(j1+1:nblc),instruction(n1+1:n2-1))
             if(j2.eq.0) then
               if(almark.eq.1) then
                 begins=1
                 go to 25
-              end if
+              endif
               go to 9200
-            end if
+            endif
             j1=j1+j2
             j1=j1+n2-n1-2
-          end if
+          endif
         else if(instruction(n1:n1).eq.'&')then
           if(insnum.ne.1) then
             write(amessage,201) trim(errsub)
 201         format(a,' if present, continuation character must be first instruction on ', &
             'an instruction line.')
             go to 9995
-          end if
+          endif
         else if((instruction(n1:n1).EQ.'w').or.(instruction(n1:n1).eq.'W'))then
           almark=0
           if(j1.ge.nblc) go to 9400
@@ -2348,7 +2348,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 221         format(a,' backwards move to tab position not allowed on line ',a,  &
             ' of model output file ',a,'.')
             go to 9995
-          end if
+          endif
           j1=j2
           if(j1.gt.nblc) then
             call utl_int2char(cil,anum)
@@ -2356,7 +2356,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 222         format(a,' tab position beyond end of line at line ',a,' of ', &
             'model output file ',a,'.')
             go to 9995
-          end if
+          endif
         else if((instruction(n1:n1).eq.'[').or.(instruction(n1:n1).eq.'('))then
           almark=0
           aa=instruction(n1:n1)
@@ -2366,13 +2366,13 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
               n3=index(instruction(n1:n2),']')
             else
               n3=index(instruction(n1:n2),')')
-            end if
+            endif
             if(n3.eq.0)then
               call utl_int2char(cil,anum)
               write(amessage,226) trim(errsub)
 226           format(a,' missing "]" or ")" character in instruction.')
               go to 9995
-            end if
+            endif
             n3=n3+n1-1
             obsnam=instruction(n1+1:n3-1)
             call mio_which1(jfail,mstruc%nobs,iobs,mstruc%aobs,obsnam)
@@ -2383,7 +2383,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 223           format(a,' cannot interpret user-supplied instruction for reading model ', &
               'output file.')
               go to 9995
-            end if
+            endif
             mstruc%obsn1(jobs)=num1
             mstruc%obsn2(jobs)=num2
             mstruc%iiobs(jobs)=iobs
@@ -2391,7 +2391,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
             num1=mstruc%obsn1(jobs)
             num2=mstruc%obsn2(jobs)
             iobs=mstruc%iiobs(jobs)
-          end if
+          endif
           if(aa.eq.'(') then
             call mio_gettot(jfail,num1,num2,nblc)
             if(jfail.ne.0)then
@@ -2401,20 +2401,20 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 224           format(a,' cannot find observation "',a,'" on line ',a,     &
               ' of model output file ',a,'.')
               go to 9995
-            end if
+            endif
           else
             if(num1.gt.nblc)then
               call utl_int2char(cil,anum)
               write(amessage,224) trim(errsub),trim(mstruc%aobs(iobs)),trim(anum),trim(afile)
               go to 9995
-            end if
+            endif
             if(num2.gt.nblc) num2=nblc
             if(dline(num1:num2).eq.' ')then
               call utl_int2char(cil,anum)
               write(amessage,224) trim(errsub),trim(mstruc%aobs(iobs)),trim(anum),trim(afile)
               go to 9995
-            end if
-          end if
+            endif
+          endif
           write(fmt,250) num2-num1+1
 250       format('(f',i4,'.0)')
           if(oval(iobs).gt.-1.0d270) go to 9870
@@ -2439,11 +2439,11 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
               mstruc%iiobs(jobs)=iobs
             else
               iobs=mstruc%iiobs(jobs)
-            end if
+            endif
             dumflg=0
           else
             dumflg=1
-          end if
+          endif
           call mio_getnxt(jfail,j1,num1,num2,nblc)
           if(jfail.ne.0) then
             if(dumflg.eq.0) then
@@ -2454,14 +2454,14 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
               call utl_int2char(cil,anum)
               write(amessage,224) trim(errsub),'dum',trim(anum),trim(afile)
               go to 9995
-            end if
-          end if
+            endif
+          endif
           write(fmt,250) num2-num1+1
           read(dline(num1:num2),fmt,err=270) rtemp
           if(dumflg.eq.0)then
             if(oval(iobs).gt.-1.0d270) go to 9870
             oval(iobs)=rtemp
-          end if
+          endif
           j1=num2
           go to 50
 270       call mio_getint(jfail,instruction,n1,n2,nblb,mkrdel)
@@ -2469,32 +2469,32 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
             write(amessage,271) trim(errsub)
 271         format(a,' missing marker delimiter in user-supplied instruction set.')
             go to 9995
-          end if  
+          endif  
           if(n1.eq.0)then
             if(dumflg.eq.1) go to 9950
             go to 9800
-          end if
+          endif
           if(instruction(n1:n1).ne.mkrdel) then
             if(dumflg.eq.1) go to 9950
             go to 9800
-          end if
+          endif
           j2=index(dline(j1+1:nblc),instruction(n1+1:n2-1))
           if(j2.eq.0) then
             if(dumflg.eq.1) go to 9950
             go to 9800
-          end if
+          endif
           num2=j1+j2-1
           if(num2.lt.num1)then
             if(dumflg.eq.1) go to 9950
             go to 9800
-          end if
+          endif
           write(fmt,250) num2-num1+1
           if(dumflg.eq.1)then
             read(dline(num1:num2),fmt,err=9950) rtemp
           else
             if(oval(iobs).gt.-1.0d270) go to 9870
             read(dline(num1:num2),fmt,err=9800) oval(iobs)
-          end if
+          endif
           j1=num2
           go to 51
         else
@@ -2502,7 +2502,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
 272       format(a,' cannot interpret user-supplied instruction for reading model ',  &
           'output file.')
           go to 9995
-        end if
+        endif
         go to 50
 1000    ins=ins+1
         if(ins.le.mstruc%ninstr) go to 10
@@ -2517,7 +2517,7 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
           instruction=' '
           go to 9995
 1100      continue
-        end if
+        endif
 
         close(unit=iunit)
         instruction=' '
@@ -2580,8 +2580,8 @@ integer function mio_read_model_output_files(estruc,mstruc,oval)
           if(instruction.ne.' ')then
             call err_add_error(estruc,'Instruction follows:-',function_name)
             call err_add_error(estruc,instruction,function_name)
-          end if
-        end if
+          endif
+        endif
         return
 
 end function mio_read_model_output_files
@@ -2611,104 +2611,104 @@ integer function mio_finalise(estruc,mstruc)
           ifail=1
         else
           nullify(mstruc%tempfile)
-        end if
+        endif
         if(associated(mstruc%modinfile))deallocate(mstruc%modinfile,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%modinfile)
-        end if
+        endif
         if(associated(mstruc%pardel))deallocate(mstruc%pardel,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%pardel)
-        end if
+        endif
         if(associated(mstruc%insfile))deallocate(mstruc%insfile,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%insfile)
-        end if
+        endif
         if(associated(mstruc%modoutfile))deallocate(mstruc%modoutfile,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%modoutfile)
-        end if
+        endif
         if(associated(mstruc%mrkdel))deallocate(mstruc%mrkdel,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%mrkdel)
-        end if
+        endif
         if(associated(mstruc%nw))deallocate(mstruc%nw,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%nw)
-        end if
+        endif
         if(associated(mstruc%pword))deallocate(mstruc%pword,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%pword)
-        end if
+        endif
         if(associated(mstruc%obsn1))deallocate(mstruc%obsn1,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%obsn1)
-        end if
+        endif
         if(associated(mstruc%obsn2))deallocate(mstruc%obsn2,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%obsn2)
-        end if
+        endif
         if(associated(mstruc%iiobs))deallocate(mstruc%iiobs,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%iiobs)
-        end if
+        endif
         if(associated(mstruc%a))deallocate(mstruc%a,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%a)
-        end if
+        endif
         if(associated(mstruc%ll))deallocate(mstruc%ll,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%ll)
-        end if
+        endif
         if(associated(mstruc%lcins))deallocate(mstruc%lcins,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%lcins)
-        end if
+        endif
         if(associated(mstruc%apar))deallocate(mstruc%apar,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%apar)
-        end if
+        endif
         if(associated(mstruc%aobs))deallocate(mstruc%aobs,stat=ierr)
         if(ierr.ne.0) then
           ifail=1
         else
           nullify(mstruc%aobs)
-        end if
+        endif
 
 9900    continue
         if(ifail.eq.0)then
           mio_finalise=0
         else if(ifail.eq.1)then
           mio_finalise=0
-        end if
+        endif
 
         return
 
@@ -2741,7 +2741,7 @@ subroutine mio_getnxt(ifail,j1,num1,num2,nblc)
           num2=nblc
         else
           num2=num1+i-2
-        end if
+        endif
 
         return
 
@@ -2760,14 +2760,14 @@ subroutine mio_gettot(ifail,j1,j2,nblc)
         if(j1.gt.nblc)then
           ifail=1
           return
-        end if
+        endif
         if(j2.gt.nblc)j2=nblc
         if(dline(j2:j2).eq.' ') then
           do 10 i=j2,j1,-1
           if(dline(i:i).ne.' ')then
             j2=i
             go to 100
-          end if
+          endif
 10        continue
           ifail=1
           return
@@ -2777,16 +2777,16 @@ subroutine mio_gettot(ifail,j1,j2,nblc)
           if(dline(i:i).eq.' ') then
             j2=i-1
             go to 100
-          end if
+          endif
 20        continue
           j2=nblc
-        end if
+        endif
 100     if(j1.eq.1) go to 200
         do 120 i=j1,1,-1
         if(dline(i:i).eq.' ') then
           j1=i+1
           go to 200
-        end if
+        endif
 120     continue
         j1=1
 200     return
@@ -2807,7 +2807,7 @@ subroutine mio_getint(ifail,buf,n1,n2,nblb,mrkdel)
         if(n2.ge.nblb) then
           n1=0
           return
-        end if
+        endif
         do 10 i=n2+1,nblb
         if((buf(i:i).ne.' ').and.(ichar(buf(i:i)).ne.9)) go to 50
 10      continue
@@ -2825,24 +2825,24 @@ subroutine mio_getint(ifail,buf,n1,n2,nblb,mrkdel)
             i=i
           else
             i=min(i,ii)
-          end if
+          endif
           if(i.ne.0) then
             n2=n1+i-2
           else
             n2=nblb
-          end if
+          endif
         else
           if(n1.eq.nblb)then
             ifail=1
             return
-          end if
+          endif
           i=index(buf(n1+1:nblb),mrkdel)
           if(i.eq.0) then
             ifail=1
             return
-          end if
+          endif
           n2=n1+i
-        end if
+        endif
 
         return
  end subroutine mio_getint
@@ -2879,7 +2879,7 @@ subroutine mio_tabrep()
           dline(k:k)=' '
 60        continue
           i=i+j
-        end if
+        endif
         go to 30
 
 end subroutine mio_tabrep
@@ -2902,7 +2902,7 @@ subroutine mio_parnam(ifail,j1,j2,tpar)
         if(j2-j1.le.1) then
           ifail=1
           return
-        end if
+        endif
         do 10 i=j1+1,j2-1
         if(dline(i:i).eq.' ') go to 10
         go to 30
@@ -2935,7 +2935,7 @@ subroutine mio_cmprss()
         if(j.ne.0) then
           dline(j+1:)=adjustl(dline(j+1:))
           go to 10
-        end if
+        endif
         return
 
 end subroutine mio_cmprss
@@ -2994,17 +2994,17 @@ subroutine mio_which1(ifail,ndim,idim,aname,tname)
             if(tname.eq.aname(i))then
               idim=i
               return
-            end if
+            endif
 20        continue
-        end if
+        endif
         if(idim.ne.1)then
           do 40 i=idim-1,1,-1
           if(tname.eq.aname(i)) then
             idim=i
             return
-          end if
+          endif
 40        continue
-        end if
+        endif
         ifail=1
         return
 
@@ -3029,7 +3029,7 @@ subroutine mio_remchar(astring,ach)
        if(ii.eq.0) then
          if(icount.eq.0)return
          go to 20
-       end if
+       endif
        icount=icount+1
        astring(ii:ii-1+ll)=' '
        go to 10
@@ -3089,7 +3089,7 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           lw=min(15,nw)
         else
           lw=min(23,nw)
-        end if
+        endif
 
         n=0
         if(nopnt.eq.1)n=n+1
@@ -3098,27 +3098,27 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           if(abs(jexp).gt.38)then
             ifail=1
             return
-          end if
+          endif
           if(pos.eq.1) then
             if(lw.ge.13) then
               write(word,'(1pe13.7)',err=80) val
               go to 200
-            end if
+            endif
           else
             if(lw.ge.14)then
               write(word,'(1pe14.7)',err=80) val
               go to 200
-            end if
-          end if
+            endif
+          endif
           if(lw.ge.14-n) then
             lw=14-n
             go to 80
-          end if
+          endif
         else
           if(abs(jexp).gt.275)then
             ifail=2
             return
-          end if
+          endif
           if(pos.eq.1) then
             if(lw.ge.22) then
 #ifdef USE_D_FORMAT
@@ -3127,7 +3127,7 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
               write(word,'(1PE22.15E3)',err=80) val
 #endif
               go to 200
-            end if
+            endif
           else
             if(lw.ge.23) then
 #ifdef USE_D_FORMAT
@@ -3136,13 +3136,13 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
               write(word,'(1PE23.15E3)',err=80) val
 #endif
               go to 200
-            end if
-          end if
+            endif
+          endif
           if(lw.ge.23-n)then
             lw=23-n
             go to 80
-          end if
-        end if
+          endif
+        endif
 
         if(nopnt.eq.1)then
           if((jexp.eq.lw-2+pos).or.(jexp.eq.lw-3+pos))then
@@ -3153,8 +3153,8 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
             if(word(1:1).eq.' ') go to 19
             word(lw+1:lw+1)=' '
             go to 200
-          end if
-        end if
+          endif
+        endif
 19      d=min(lw-2+pos,lw-jexp-3+pos)
 20      if(d.lt.0) go to 80
         write(fmt,30) lw,d
@@ -3163,12 +3163,12 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
         if(index(word,'*').ne.0) then
           d=d-1
           go to 20
-        end if
+        endif
         k=index(word,'.')
         if(k.eq.0)then
           ifail=-1
           return
-        end if
+        endif
         if((k.eq.1).or.((pos.eq.0).and.(k.eq.2)))then
           do 70 j=1,3
           if(k+j.gt.lw) go to 75
@@ -3177,7 +3177,7 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           go to 80
 75        ifail=3
           return
-        end if
+        endif
         go to 200
 
 80      word=' '
@@ -3200,14 +3200,14 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
             d=d+1
           else
             p=1
-          end if
+          endif
           inc=0
 85        if(d.le.0) go to 300
           if(iflag.eq.0)then
             write(fmt,100,err=300) p,d+7,d-1
           else
             write(fmt,100,err=300) 0,d+8,d
-          end if
+          endif
           write(tword,fmt) val
           call utl_casetrans(tword,'hi')
           if(iflag.eq.1) go to 87
@@ -3220,31 +3220,31 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
                   d=d-1
                 else
                   p=p+1
-                end if
+                endif
               else if(lexp.eq.9)then
                 if(jexp-(d-2).lt.10) then
                   p=p+1
                 else
                   d=d-1
-                end if
+                endif
               else if(lexp.eq.99)then
                 if(jexp-(d-2).lt.100)then
                   p=p+1
                 else
                   d=d-1
-                end if
-              end if
+                endif
+              endif
               inc=inc+1
               go to 85
-            end if
-          end if
+            endif
+          endif
 #ifdef USE_D_FORMAT
 87        j=index(tword,'D')
 #else
 87        j=index(tword,'E')
 #endif
           go to 151
-        end if
+        endif
         inc=0
         p=lw-2
         pp=jexp-(p-1)
@@ -3256,8 +3256,8 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           if(pp.le.-10)then
             p=p-1
             if(pp.le.-100)p=p-1
-          end if
-        end if
+          endif
+        endif
         if(pos.eq.0)p=p-1
 90      continue
         d=p-1
@@ -3268,7 +3268,7 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           jfail=1
           p=p+1
           go to 90
-        end if
+        endif
 #ifdef USE_D_FORMAT
 100     format('(',I2,'pD',I2,'.',I2,'D3)')
 #else
@@ -3284,13 +3284,13 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
         if(tword(j-1:j-1).ne.'.')then
           ifail=-1
           return
-        end if
+        endif
         n=1
         if(tword(j+1:j+1).eq.'-') n=n+1
         if(tword(j+2:j+2).ne.'0') then
           n=n+2
           go to 120
-        end if
+        endif
         if(tword(j+3:j+3).ne.'0') n=n+1
 120     n=n+1
         if(j+n-2-pos.lt.lw)then
@@ -3305,19 +3305,19 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           if(inc.eq.1)then
             tword=ttword
             go to 150
-          end if
+          endif
           if(jfail.eq.1) go to 300
           p=p-1
           inc=-1
           go to 90
-        end if
+        endif
 
 150     j=index(tword,'.')
 151     if(pos.eq.0)then
           k=1
         else
          k=2
-        end if
+        endif
         word(1:j-k)=tword(k:j-1)
         jj=j
         j=j-k+1
@@ -3325,22 +3325,22 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           word(j:j)='E'
         else
           word(j:j)='D'
-        end if
+        endif
         jj=jj+2
         if(nopnt.eq.0) jj=jj-1
         if(tword(jj:jj).eq.'-')then
           j=j+1
           word(j:j)='-'
-        end if
+        endif
         if(tword(jj+1:jj+1).ne.'0')then
           j=j+2
           word(j-1:j)=tword(jj+1:jj+2)
           go to 180
-        end if
+        endif
         if(tword(jj+2:jj+2).ne.'0')then
           j=j+1
           word(j:j)=tword(jj+2:jj+2)
-        end if
+        endif
 180     j=j+1
         word(j:j)=tword(jj+3:jj+3)
         if(iflag.eq.1)then
@@ -3348,17 +3348,17 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
             jj=1
           else
             jj=2
-          end if
+          endif
           n=len_trim(word)
           do 190 j=jj,n-1
 190       word(j:j)=word(j+1:j+1)
           word(n:n)=' '
-        end if
+        endif
 
 200     if(len_trim(word).gt.lw)then
           ifail=-2
           return
-        end if
+        endif
         write(fmt,30) lw,0
         read(word,fmt,err=400) tval
         return

@@ -37,18 +37,18 @@ contains
 !-- MIO delete the last set of output files
     if(mio_delete_model_output_files(errstruc,miostruc).ne.0) then
       call utl_bomb_out(errstruc)
-    end if   
+    endif   
  
 !-- MIO write the model input files
     select case (forward_flag)
         case (3)
             if(mio_write_model_input_files(errstruc,miostruc, d_PAR%pars_lns).ne.0) then
                 call utl_bomb_out(errstruc)
-            end if 
+            endif 
         case default
             if(mio_write_model_input_files(errstruc,miostruc, d_PAR%pars).ne.0) then
               call utl_bomb_out(errstruc)
-            end if   
+            endif   
     end select
 
 
@@ -59,13 +59,13 @@ contains
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
               call utl_bomb_out(errstruc)
-            end if 
+            endif 
         case (1) ! external PEST-style Jacobian
             call system(d_MOD%com) ! run the model once, forward, to have outputs with current parameters 
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
               call utl_bomb_out(errstruc) 
-            end if 
+            endif 
             !-- create PEST input files and run PEST          
             call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
             call system('pst_generator.exe')        ! create the necessary PEST control file
@@ -83,13 +83,13 @@ contains
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
               call utl_bomb_out(errstruc)
-            end if 
+            endif 
         case (3) ! same as case 0, but linesearch parameters written as indicated above
             call system(d_MOD%com)
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
               call utl_bomb_out(errstruc)
-            end if 
+            endif 
     end select
     
   

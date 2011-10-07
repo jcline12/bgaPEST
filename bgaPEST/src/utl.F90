@@ -56,7 +56,7 @@ subroutine UTL_CASETRANS(string,hi_or_lo)
         do i=1,len_trim(string)
           if((string(i:i).ge.alo).and.(string(i:i).le.ahi)) &
           string(i:i)=achar(iachar(string(i:i))+inc)
-        end do
+        enddo
 
         return
 
@@ -163,7 +163,7 @@ integer function UTL_DUPLICATE_CHECK(ndim,aname,awork,aword)
         ifail=0
         do  i=1, ndim
           awork(i) = aname(i)
-        end do
+        enddo
 
 ! -- Sort awork.
 
@@ -172,9 +172,9 @@ integer function UTL_DUPLICATE_CHECK(ndim,aname,awork,aword)
           do j = i,2,-1
              if ( w >= awork(j-1) ) exit
              awork(j) = awork(j-1)
-          end do
+          enddo
           awork(j) = w
-        end do
+        enddo
 
 ! -- Look for duplicates.
 
@@ -183,15 +183,15 @@ integer function UTL_DUPLICATE_CHECK(ndim,aname,awork,aword)
             aword=adjustl(awork(i))
             ifail=1
             go to 9900
-          end if
-        end do
+          endif
+        enddo
 
 9900  continue
         if(ifail.eq.0)then
           utl_duplicate_check=0
         else if(ifail.eq.1)then
           utl_duplicate_check=1
-        end if
+        endif
         return
 
 end function UTL_DUPLICATE_CHECK
@@ -241,13 +241,13 @@ subroutine utl_bomb_out(errstruc)
       call err_get_message(errstruc,i,amessage)
       amessage=' '//amessage
       call utl_writmess(6,amessage)
-    end do    
+    enddo    
     
     write(6,*)
     do i = 1,n1
       call err_get_failfunc(errstruc,i,amessage)
       write(6,900) i, trim(amessage)    
-    end do    
+    enddo    
 900 format(' Message No. ',i2,':  Origin Function = ',a)
      stop 
 end subroutine utl_bomb_out   
@@ -277,11 +277,11 @@ end subroutine utl_bomb_out
     if(amessage.eq.' ')then
      write(iunit,*)
      return
-    end if
+    endif
      write(iunit,*)
 	do i=1,min(20,len(amessage))
 	 if(amessage(i:i).ne.' ')go to 21
-20  end do
+20  enddo
 21	leadblank=i-1
 	nblc=len_trim(amessage)
 5       jend=j+78-itake
@@ -293,17 +293,17 @@ end subroutine utl_bomb_out
 	   itake=2+leadblank
 	  else
 	   write(iunit,'(a)') ablank(1:leadblank+2)//amessage(j+1:i)
-	  end if
+	  endif
 	  j=i
 	  go to 5
-	 end if
-	end do
+	 endif
+	enddo
 	if(itake.eq.0)then
 	 write(iunit,'(a)') amessage(j+1:jend)
      itake=2+leadblank
 	else
      write(iunit,'(a)') ablank(1:leadblank+2)//amessage(j+1:jend)
-	end if
+	endif
 	j=jend
 	go to 5
 100     jend=nblc
@@ -311,7 +311,7 @@ end subroutine utl_bomb_out
 	 write(iunit,'(a)') amessage(j+1:jend)
 	else
 	 write(iunit,'(a)') ablank(1:leadblank+2)//amessage(j+1:jend)
-	end if
+	endif
      return
    end subroutine utl_writmess
 
@@ -339,7 +339,7 @@ subroutine UTL_ADDQUOTE(afile,aqfile)
           aqfile(2:)=trim(afile)
           nbb=len_trim(aqfile)+1
           aqfile(nbb:nbb)='"'
-        end if
+        endif
 
         return
 
@@ -370,19 +370,19 @@ integer function UTL_DELETE_FILE(afile)
               close(unit=iunit,iostat=jerr)
               ifail=1
               go to 9900
-            end if
+            endif
           else
             ifail=1
             go to 9900
-          end if
-        end if
+          endif
+        endif
         
 9900    continue
         if(ifail.eq.1)then
           utl_delete_file=1
         else
           utl_delete_file=0
-        end if
+        endif
 
         return
         
@@ -405,7 +405,7 @@ integer function UTL_NEXTUNIT()
         do utl_nextunit=10,100
           inquire(unit=utl_nextunit,opened=lopen)
           if(.not.lopen) return
-        end do
+        enddo
 
         utl_nextunit=0
 
@@ -446,7 +446,7 @@ end function UTL_NEXTUNIT
          COMMAND_LINE(IB+1:IBB)= ARG(I)(1:NB)
          IB=IBB
          IF(IB.GE.LLEN) GO TO 100
-       END DO
+       enddo
 
 
 100   CONTINUE
@@ -481,7 +481,7 @@ end function UTL_NEXTUNIT
         AA='"'
       ELSE IF(CTLFILE(1:1).EQ.'''')THEN
         AA=''''
-      END IF
+      endif
       IF(AA.NE.' ') CTLFILE=CTLFILE(2:)
       I=INDEX(CTLFILE,AA)
       IF(I.LE.1) GO TO 9000
@@ -515,27 +515,27 @@ end function UTL_NEXTUNIT
         RESTART=1
         COMMAND_LINE(IR+1:IR+2)='  '
         IR=1
-      END IF
+      endif
       IF(IJ.NE.0)THEN
         RESTART=2
         COMMAND_LINE(IJ+1:IJ+2)='  '
         IJ=1
-      END IF
+      endif
       IF(IS.NE.0)THEN
         RESTART=3
         COMMAND_LINE(IS+1:IS+2)='  '
         IS=1
-      END IF
+      endif
       IF(ID.NE.0)THEN
         RESTART=4
         COMMAND_LINE(ID+1:ID+2)='  '
         ID=1
-      END IF
+      endif
       IF(IO.NE.0)THEN
         RESTART=5
         COMMAND_LINE(IO+1:IO+2)='  '
         IO=1
-      END IF
+      endif
 
       IF(IR+IJ+IS+ID+IO.GT.1) GO TO 9000
       IF(INDEX(COMMAND_LINE,' /').NE.0) GO TO 9000
@@ -545,7 +545,7 @@ end function UTL_NEXTUNIT
 
       IF(AA.EQ.' ')THEN
         CTLFILE=COMMAND_LINE
-      END IF
+      endif
 
       RETURN
 

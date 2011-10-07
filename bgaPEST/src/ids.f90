@@ -121,14 +121,14 @@ contains
 3          format('Programming error in call to subroutine IDS_BLOCK_STATUS: IUNIT is ', &
            'not connected to an opened file.')
            go to 9890
-         end if
+         endif
          inquire(unit=junit,opened=lopened)
          if(lopened)then
            write(amessage,4)
 4          format('Programming error in call to subroutine IDS_BLOCK_STATUS: JUNIT is ', &
            'already connected to an opened file.')
            go to 9890
-         end if
+         endif
 
 ! -- A check is made that the user has not supplied duplicate block names.
 
@@ -144,10 +144,10 @@ contains
 5                format('Programming error - duplicate names supplied in LABEL array ',  &
                  'in call to subroutine IDS_BLOCK_STATUS.')
                  go to 9890
-               end if
-             end do
-           end do
-         end if
+               endif
+             enddo
+           enddo
+         endif
 
 ! -- We now find the requested blocks.
 
@@ -161,7 +161,7 @@ contains
            else if((blockformat.eq.3).and.(emptyfileblockflag.eq.1))then
              nrow=0
              ncol=0
-           end if
+           endif
 
            do iblock=1,numblock
              atemp=adjustl(label(iblock))
@@ -172,16 +172,16 @@ contains
                    if(numrow(jblock).ne.0)then
                      numrow(iblock)=-999
                      go to 50
-                   end if
-                 end do
-               end if
+                   endif
+                 enddo
+               endif
                if(blockformat.eq.1)then
                  if(fileflag.eq.2)then
                    write(amessage,20) trim(blocklabel),trim(qsubfile)
 20                 format('Block ',a,' in file ',a,' has a blockformat of KEYWORD and is thus ', &
                    'not permitted in a subsidiary file cited in a FILE format block in main input file.')
                    go to 9890
-                 end if
+                 endif
                  if(numrow(iblock).ne.0)then
                    if(numrow(iblock).gt.0)then
                      write(amessage,30) trim(blocklabel),trim(qinfile)
@@ -190,10 +190,10 @@ contains
                      go to 9890
                    else
                      numrow(iblock)=-999
-                   end if
+                   endif
                  else
                    numrow(iblock)=-1
-                 end if
+                 endif
                else
                  if(numrow(iblock).eq.-1)then
                    write(amessage,40) trim(blocklabel)
@@ -202,15 +202,15 @@ contains
                    go to 9890
                  else
                    numrow(iblock)=numrow(iblock)+nrow
-                 end if
-               end if
+                 endif
+               endif
                go to 50
-             end if
-           end do
+             endif
+           enddo
 50         continue
            call find_end_of_block(.TRUE.)
            if(ifail.ne.0) go to 9890
-         end do
+         enddo
 
 100      continue
 
@@ -257,7 +257,7 @@ contains
 2          format('Programming error in call to subroutine IDS_READ_BLOCK_KEYWORDS: subroutine ',  &
            'IDS_BLOCK_STATUS has not yet been called.')
            go to 9890
-         end if
+         endif
 
 ! -- Initialisation
 
@@ -275,7 +275,7 @@ contains
            'IDS_READ_BLOCK_TABLE was called fewer times than there are rows in the (collective) ',   &
            'table(s) for this block.')
            go to 9890
-         end if
+         endif
 
 ! -- We check that there are no duplicates in the keyword list.
 
@@ -291,10 +291,10 @@ contains
 5                format('Programming error in call to subroutine IDS_READ_BLOCK_KEYWORDS: ',  &
                  'duplicate keywords provided in KEYWORDNAME list.')
                  go to 9890
-               end if
-             end do
-           end do
-         end if
+               endif
+             enddo
+           enddo
+         endif
 
 ! -- Now we find the requested block.
 
@@ -308,23 +308,23 @@ contains
 10           format('Error in call to subroutine IDS_READ_BLOCK_KEYWORDS: ',  &
              'cannot find ',a,' block through forward search in file ',a,'.')
              go to 9890
-           end if
+           endif
            if(blocklabel.eq.ablock) exit
            call find_end_of_block(.FALSE.)
            if(ifail.ne.0) go to 9890
-         end do
+         enddo
          if(blockformat.ne.1)then
            if(fileflag.eq.1)then
              qfile=qinfile
            else
              qfile=qsubfile
-           end if
+           endif
            write(amessage,15) trim(blocklabel),trim(qfile)
 15         format('Programming error in call to subroutine IDS_READ_BLOCK_KEYWORDS: ',  &
            'block ',a,' located in file ',a,' is expected to have KEYWORD format if ',  &
            'read using this subroutine.')
            go to 9890
-         end if
+         endif
 
 ! -- Keywords are now read from the block.
 
@@ -345,11 +345,11 @@ contains
                  write(amessage,20) trim(keyword),trim(ablock),trim(aline),trim(qfile)
 20               format(a,' keyword duplicated in block ',a,' at line ',a,' of file ',a,'.')
                  go to 9890
-               end if
-             end if
-           end do
+               endif
+             endif
+           enddo
 40         continue
-         end do
+         enddo
 
 50       continue
          return
@@ -388,7 +388,7 @@ contains
 2          format('Programming error in call to subroutine IDS_READ_BLOCK_TABLE: subroutine ',  &
            'IDS_BLOCK_STATUS has not yet been called.')
            go to 9890
-         end if
+         endif
 
 ! -- Initialisation
 
@@ -399,7 +399,7 @@ contains
 5          format('Programming error in call to subroutine IDS_READ_BLOCK_TABLE: NUMCOL argument greater ', &
            'than MAXCOL. Increase MAXCOL and re-compile program.')
            go to 9890
-         end if
+         endif
 
 ! -- We don't bother checking for duplicate supplied column names as this subroutine may be called
 !    many times.
@@ -420,7 +420,7 @@ contains
              'IDS_READ_BLOCK_TABLE was called fewer times than there are rows in the (collective) ',   &
              'table(s) for this block.')
              go to 9890
-           end if
+           endif
            endoftableblockflag=0
 
 ! -- We find the requested block.
@@ -436,25 +436,25 @@ contains
                'likely that this subroutine has been called more times than the number of rows '  &
                'in the (collective) table(s) with this label.')
                go to 9890
-             end if
+             endif
              if(blocklabel.eq.ablock) then
                exit
              else
                call find_end_of_block(.FALSE.)
-             end if
-           end do
+             endif
+           enddo
            if(blockformat.ne.2)then
              if(fileflag.eq.1)then
                qfile=qinfile
              else
                qfile=qsubfile
-             end if
+             endif
              write(amessage,15) trim(blocklabel),trim(qfile)
 15           format('Programming error in call to subroutine IDS_READ_BLOCK_TABLE: ',  &
              'block ',a,' located in file ',a,' is expected to have TABLE format if ',  &
              'read using this subroutine.')
              go to 9890
-           end if
+           endif
            call read_table_info()
            if(ifail.ne.0) go to 9890
            if(nrow.eq.0)then
@@ -462,7 +462,7 @@ contains
              if(ifail.ne.0) go to 9890
              blockname_in_last=ablock
              go to 10
-           end if
+           endif
 
 ! -- It is inefficient to repeat the following code on each occasion that a line of data is read. If it
 !    could be guaranteed that the user's column list would be the same on each occasion that a line is
@@ -478,11 +478,11 @@ contains
                  colexport(icol)=jcol
                  maxcolexport=icol
                  go to 20
-               end if
-             end do
+               endif
+             enddo
 20           continue
-           end do
-         end if
+           enddo
+         endif
 
 ! -- A line is read.
 
@@ -495,22 +495,22 @@ contains
              if(ifail.ne.0) go to 9890
              n=colexport(icol)
              if(n.ne.0) columnstring(n)=nextword
-           end do
-         end if
+           enddo
+         endif
          if(fileflag.eq.1)then
            filename=infile
            line=iline
          else
            filename=subfile
            line=jline
-         end if
+         endif
 
 ! -- If this is the last line in this table or subtable, go to the end of the table.
 
          if(tablerow.eq.nrow)then
            call find_end_of_block(.FALSE.)
            endoftableblockflag=1
-         end if
+         endif
          blockname_in_last=ablock
 
          return
@@ -559,9 +559,9 @@ contains
              write(amessage,10) trim(qinfile),trim(blocklabel)
 10           format('Unexpected end to file ',a,' encountered while reading ',a,' block.')
              go to 9890
-           end if
+           endif
            newlineflag=1
-         end if
+         endif
 
 ! -- Is there an "=" character on the line?
 
@@ -573,7 +573,7 @@ contains
              endblockflag=1
              call find_end_of_block(.FALSE.)
              return
-           end if
+           endif
            newlineflag=0
 
 ! -- We check for the location of spurious commas.
@@ -603,7 +603,7 @@ contains
                      else
                        iflag1=1
                        cycle
-                     end if
+                     endif
                    else if(cline(i:i).eq.equality)then
                      if(iflag1.eq.1)then
                        call BDP_INT2CHAR(iline,aline)
@@ -612,21 +612,21 @@ contains
                      else
                        iflag2=1
                        cycle
-                     end if
+                     endif
                    else
                      if((cline(i:i).eq.space).or.(cline(i:i).eq.tab))then
                        cycle
                      else
                        iflag1=0
                        iflag2=0
-                     end if
-                   end if
-                 end if
-               end if
-             end do
-           end if
+                     endif
+                   endif
+                 endif
+               endif
+             enddo
+           endif
 
-         end if
+         endif
          n=index(cline(linepos+1:),equality)
          if(n.eq.0)then
            call repchar(cline(linepos+1:),comma,space)
@@ -636,12 +636,12 @@ contains
              if(ifail.ne.0) return
              newlineflag=1
              go to 12
-           end if
+           endif
            call BDP_INT2CHAR(iline,aline)
            write(amessage,20) trim(aline),trim(qinfile)
 20         format('Non-comment, non-keyword text found on line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
 
 ! -- The "=" symbol is deleted and we read the next two words.
 
@@ -653,13 +653,13 @@ contains
            call BDP_INT2CHAR(iline,aline)
            write(amessage,30) trim(aline),trim(qinfile)
            go to 9890
-         end if
+         endif
          if(linepos.gt.nn)then
            call BDP_INT2CHAR(iline,aline)
            write(amessage,25) trim(aline),trim(qinfile)
 25         format('No keyword precedes "=" symbol at line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
          keyword=nextword
          call uppercase(keyword)
          do i=linepos+1,nn
@@ -668,8 +668,8 @@ contains
              write(amessage,30) trim(aline),trim(qinfile)
 30           format('Improper keyword syntax at line ',a,' of file ',a,'.')
              go to 9890
-           end if
-         end do
+           endif
+         enddo
          call find_next_word()
          if(ifail.ne.0) return
          if(nextword.eq.' ')then
@@ -677,14 +677,14 @@ contains
            write(amessage,50) trim(keyword),trim(aline),trim(qinfile)
 50         format('No value provided for ',a,' keyword at line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
          keystring=nextword
          n=len_trim(keystring)
          if(keystring(n:n).eq.equality)then
            call BDP_INT2CHAR(iline,aline)
            write(amessage,25) trim(aline),trim(qinfile)
            go to 9890
-         end if
+         endif
 
          return
 
@@ -726,7 +726,7 @@ contains
              write(amessage,10) trim(qinfile),trim(blocklabelmain)
 10           format('Unexpected end encountered to file ',a,' while reading ',a,' block.')
              go to 9890
-           end if
+           endif
            atemp4=cline(1:4)
            call uppercase(atemp4)
            if(atemp4.eq.'END ')then
@@ -746,12 +746,12 @@ contains
                write(amessage,15) trim(qsubfile),trim(aline),trim(qinfile)
 15             format('Cannot open file ',a,' cited at line ',a,' of file ',a,'.')
                go to 9890
-             end if
+             endif
              fileflag=2
              jline=0
              go to 5
-           end if
-         end if
+           endif
+         endif
          call find_next_word()
          call uppercase(nextword)
          if(fileflag.eq.1)then
@@ -760,13 +760,13 @@ contains
          else
            qfile=qsubfile
            kline=jline
-         end if
+         endif
          if(nextword.ne.'BEGIN')then
            call BDP_INT2CHAR(kline,aline)
            write(amessage,20) trim(aline),trim(qfile)
 20         format('First word on line ',a,' of file ',a,' expected to be "BEGIN".')
            go to 9890
-         end if
+         endif
          call find_next_word()
          if(ifail.ne.0) return
          if(nextword.eq.' ') then
@@ -774,7 +774,7 @@ contains
            write(amessage,30) trim(aline),trim(qfile)
 30         format('No blocklabel supplied after "BEGIN" statement at line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
          blocklabel=nextword
          call uppercase(blocklabel)
          if(fileflag.eq.1)blocklabelmain=blocklabel
@@ -793,7 +793,7 @@ contains
            write(amessage,40) trim(aline),trim(qfile)
 40         format('Unrecognised BLOCKFORMAT at line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
          if(fileflag.eq.1)then
            blockformatmain=blockformat
          else
@@ -804,14 +804,14 @@ contains
 45           format('Only TABLE blocks are allowed in file ',a,' cited in ',a,      &
              ' block of file ',a,'. Error occurs at line ',a,' of file ',a,'.')
              go to 9890
-           end if
+           endif
            if(blocklabel.ne.blocklabelmain)then
              write(amessage,50) trim(blocklabel),trim(qsubfile),trim(blocklabelmain),trim(qinfile)
 50           format('Block ',a,' in file ',a,' has different label from ', &
              'block ',a,' of file ',a,' in which it is cited.')
              go to 9890
-           end if
-         end if
+           endif
+         endif
          position=blockformat
          if(position.eq.2) position=0       ! This is assigned after the table header is read.
          if(blockformat.eq.3)then
@@ -833,12 +833,12 @@ contains
                call BDP_INT2CHAR(iline,aline)
                write(amessage,15) trim(qsubfile),trim(aline),trim(qfile)
                go to 9890
-             end if
+             endif
              fileflag=2
              jline=0
              go to 5
-           end if
-         end if
+           endif
+         endif
 
 100      continue
          newblockflag=1
@@ -868,7 +868,7 @@ contains
            qfile=qinfile
          else
            qfile=qsubfile
-         end if
+         endif
          icount=0
 
 ! -- The end of the block is found.
@@ -894,16 +894,16 @@ contains
                      kline=iline
                    else
                      kline=jline
-                   end if
+                   endif
                    call BDP_INT2CHAR(kline,aline)
                    write(amessage,10) trim(aline),trim(qfile)
 10                 format('Table block END expected at line ',a,' of file ',a,'.')
                    go to 9890
-                 end if
-               end if
-             end if
-           end do
-         end if
+                 endif
+               endif
+             endif
+           enddo
+         endif
          call find_next_word()
          if(ifail.ne.0) return
          if(nextword.eq.' ') go to 9100
@@ -919,9 +919,9 @@ contains
 50             format('Number of data rows in ',a,' block of file ',a,' does not agree with NROW ',  &
                'in block table header.')
                go to 9890
-             end if
-           end if
-         end if
+             endif
+           endif
+         endif
 
 ! -- Variables are re-set.
 
@@ -930,7 +930,7 @@ contains
          if(fileflag.eq.1)then
            blocklabelmain=' '
            blockformatmain=0
-         end if
+         endif
          position=0
 
 
@@ -944,7 +944,7 @@ contains
            kline=iline
          else
            kline=jline
-         end if
+         endif
          call BDP_INT2CHAR(kline,aline)
          write(amessage,9110) trim(aline),trim(qfile)
 9110    format('Label at line ',a,' of file ',a,' is absent, or does not match label at ',  &
@@ -980,16 +980,16 @@ contains
          if(linepos.eq.nb) return
          do i=linepos+1,nb
            if((cline(i:i).ne.tab).and.(cline(i:i).ne.space)) exit
-         end do
+         enddo
          aa=cline(i:i)
          if(aa.eq.comma)then
            linepos=i
            return
-         end if
+         endif
          if((aa.eq.squote).or.(aa.eq.dquote))then
            do j=i+1,nb
              if(cline(j:j).eq.aa) go to 20
-           end do
+           enddo
            go to 9000
 20         continue
            nextword=cline(i+1:j-1)
@@ -1005,24 +1005,24 @@ contains
                else
                  call BDP_INT2CHAR(jline,aline)
                  qfile=qsubfile
-               end if
+               endif
                write(amessage,30) trim(aline),trim(qfile)
 30             format('A space, tab or comma must follow a quote: error on line ',a,' of file ',a,'.')
                go to 9890
-             end if
+             endif
              do k=j+1,nb
                if((cline(k:k).ne.tab).and.(cline(k:k).ne.space))then
                  if(cline(k:k).eq.comma)then
                    linepos=k
                  else
                    linepos=j
-                 end if
+                 endif
                  return
-               end if
-             end do
+               endif
+             enddo
              linepos=j
              return
-           end if
+           endif
          else
            do j=i+1,nb
              if((cline(j:j).eq.space).or.(cline(j:j).eq.tab).or.(cline(j:j).eq.comma))then
@@ -1033,7 +1033,7 @@ contains
                  else
                    nextword=cline(i:j-1)
                    if(lastcharquote()) go to 9000
-                 end if
+                 endif
                  linepos=j
                  return
                else
@@ -1045,29 +1045,29 @@ contains
                        linepos=k
                      else
                        linepos=j-1
-                     end if
+                     endif
                      return
-                   end if
-                 end do
+                   endif
+                 enddo
                  linepos=j-1
                  return
-               end if
-             end if
-           end do
+               endif
+             endif
+           enddo
            if(cline(nb:nb).eq.comma)then
              if(nb.eq.i+1)then
                nextword=' '
              else
                nextword=cline(i:nb-1)
                if(lastcharquote()) go to 9000
-             end if
+             endif
              linepos=nb
            else
              nextword=cline(i:nb)
              if(lastcharquote()) go to 9000
              linepos=nb
-           end if
-         end if
+           endif
+         endif
 
          return
 
@@ -1079,7 +1079,7 @@ contains
          else
            call BDP_INT2CHAR(jline,aline)
            qfile=qsubfile
-         end if
+         endif
          write(amessage,9010) trim(aline),trim(qfile)
 9010     format('Unbalanced quotes at line ',a,' of file ',a,'.')
          go to 9890
@@ -1105,8 +1105,8 @@ contains
            aa=nextword(n:n)
            if((aa.eq.squote).or.(aa.eq.dquote))then
              lastcharquote=.true.
-           end if
-         end if
+           endif
+         endif
 
          return
        end function lastcharquote
@@ -1134,7 +1134,7 @@ contains
            else
              jline=jline+1
              kunit=junit
-           end if
+           endif
            read(kunit,'(a)',err=9000,end=100) cline
 10         continue
            cline=adjustl(cline)
@@ -1147,7 +1147,7 @@ contains
            if(i.ne.0) cline(i:)=' '
            if(cline.eq.' ') cycle
            exit
-         end do
+         enddo
          linepos=0
          return
 
@@ -1161,7 +1161,7 @@ contains
          else
            call BDP_INT2CHAR(jline,aline)
            qfile=qsubfile
-         end if
+         endif
          write(amessage,9010) trim(aline),trim(qfile)
 9010     format('Error encountered when reading line ',a,' of file ',a,'.')
          go to 9890
@@ -1194,7 +1194,7 @@ contains
            qfile=qinfile
          else
            qfile=qsubfile
-         end if
+         endif
 
 ! -- The header is read
 
@@ -1206,14 +1206,14 @@ contains
            kline=iline
          else
            kline=jline
-         end if
+         endif
          n=index(cline,'COLUMNLABELS')
          if(n.eq.0)then
            call BDP_INT2CHAR(kline,aline)
            write(amessage,20) trim(aline),trim(qfile)
 20         format('COLUMNLABELS keyword expected on line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
          cline(n:n+11)=' '
          n=index(cline,'DATAFILES')
          if(n.ne.0)then
@@ -1221,7 +1221,7 @@ contains
            write(amessage,30) trim(aline),trim(qfile)
 30         format('DATAFILES keyword at line ',a,' of file ',a,' is not supported.')
            go to 9890
-         end if
+         endif
 
 ! -- The number of rows and columns is read.
 
@@ -1229,27 +1229,27 @@ contains
            n=index(cline,' =')
            if(n.eq.0) go to 50
            cline(n:n+1)='= '
-         end do
+         enddo
 50       continue
          do k=1,2
            if(k.eq.1)then
              acolrow='NROW'
            else
              acolrow='NCOL'
-           end if
+           endif
            n=index(cline,trim(acolrow))
            if(n.eq.0)then
              call BDP_INT2CHAR(kline,aline)
              write(amessage,60) trim(acolrow),trim(aline),trim(qfile)
 60           format('Cannot find ',a,' keyword on line ',a,' of file ',a,'.')
              go to 9890
-           end if
+           endif
            n=index(cline,equality)
            if(n.eq.0)then
              call BDP_INT2CHAR(kline,aline)
              write(amessage,70) trim(acolrow),trim(aline),trim(qfile)
              go to 9890
-           end if
+           endif
            atemp1=trim(acolrow)//'='
            n=index(cline,trim(atemp1))
            if(n.eq.0)then
@@ -1257,7 +1257,7 @@ contains
              write(amessage,70) trim(acolrow),trim(aline),trim(qfile)
 70           format('Improper syntax for ',a,' keyword on line ',a,' of file ',a,'.')
              go to 9890
-           end if
+           endif
            cline(n+4:n+4)=' '
            atemp=cline(n+5:n+100)
            if(atemp.eq.' ') go to 9100
@@ -1267,8 +1267,8 @@ contains
              if((atemp(i:i).eq.space).or.(atemp(i:i).eq.tab).or.(atemp(i:i).eq.comma)) then
                atemp(i:)=' '
                go to 80
-             end if
-           end do
+             endif
+           enddo
            i=nb+1
 80         i=i-1
            call char2int(atemp(1:i),itemp)
@@ -1278,13 +1278,13 @@ contains
              write(amessage,85) trim(acolrow),trim(aline),trim(qfile)
 85           format('Negative value for ',a,' supplied on line ',a,' of file ',a,'.')
              go to 9890
-           end if
+           endif
            if(k.eq.1)then
              nrow=itemp
            else
              ncol=itemp
-           end if
-         end do
+           endif
+         enddo
          if(ncol.gt.MAXCOL)then
            call BDP_INT2CHAR(MAXCOL,atemp1)
            call BDP_INT2CHAR(kline,aline)
@@ -1292,19 +1292,19 @@ contains
 90         format('Number of columns exceeds maximum allowed number of ',a,' at line ',a,   &
            ' of file 'a,'. Alter MAXCOL and re-compile program.')
            go to 9890
-         end if
+         endif
          if(index(cline,'GROUPNAME').ne.0)then
            call BDP_INT2CHAR(kline,aline)
            write(amessage,94) trim(aline),trim(qfile)
 94         format('GROUPNAME keyword not supported on line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
          if(index(cline,'=').ne.0)then
            call BDP_INT2CHAR(kline,aline)
            write(amessage,95) trim(aline),trim(qfile)
 95         format('Keywords other than NCOL and NROW are not supported on line ',a,' of file ',a,'.')
            go to 9890
-         end if
+         endif
 
 ! -- The column headers are read.
 
@@ -1316,7 +1316,7 @@ contains
            kline=iline
          else
            kline=jline
-         end if
+         endif
          do i=1,ncol
            call find_next_word()
            if(ifail.ne.0) return
@@ -1325,7 +1325,7 @@ contains
              write(amessage,100) trim(aline),trim(qfile)
 100          format('Missing column label(s) at line ',a,' of file ',a,'.')
              go to 9890
-           end if
+           endif
            columnlabel(i)=nextword
            if(i.gt.1)then
              do j=1,i-1
@@ -1334,10 +1334,10 @@ contains
                  write(amessage,120) trim(aline),trim(qfile)
 120              format('Duplicated column label at line ',a,' of file ',a,'.')
                  go to 9890
-               end if
-             end do
-           end if
-         end do
+               endif
+             enddo
+           endif
+         enddo
 
          tablerow=0
          position=2
@@ -1437,7 +1437,7 @@ contains
 
          do i=1,len_trim(astring)
            if(astring(i:i).eq.char1) astring(i:i)=char2
-         end do
+         enddo
 
          return
        end subroutine repchar
@@ -1459,7 +1459,7 @@ contains
 	 do i=1,len_trim(astring)
 	   if((astring(i:i).ge.alo).and.(astring(i:i).le.ahi)) &
 	   astring(i:i)=achar(iachar(astring(i:i))+inc)
-	 end do
+	 enddo
 
 	 return
 
@@ -1482,7 +1482,7 @@ contains
            aqfile(2:)=trim(afile)
            nbb=len_trim(aqfile)+1
            aqfile(nbb:nbb)='"'
-         end if
+         endif
 
          return
 

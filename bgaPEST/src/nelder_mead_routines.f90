@@ -155,15 +155,15 @@ contains
   if ( reqmin <= 0.0D+00 ) then
     ifault = 1
     return
-  end if
+  endif
   if ( n < 1 ) then
     ifault = 1
     return
-  end if
+  endif
   if ( konvge < 1 ) then
     ifault = 1
     return
-  end if
+  endif
   icount = 0
   numres = 0
   jcount = konvge
@@ -176,7 +176,7 @@ contains
   do
     do i = 1, n
       p(i,nn) = start(i)
-    end do
+    enddo
     y(nn) = fn ( start,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
     icount = icount + 1
     do j = 1, n
@@ -184,11 +184,11 @@ contains
       start(j) = start(j) + step(j) * del
       do i = 1, n
         p(i,j) = start(i)
-      end do
+      enddo
       y(j) = fn ( start,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
       icount = icount + 1
       start(j) = x
-    end do
+    enddo
 !  The simplex construction is complete.                    
 !  Find highest and lowest Y values.  YNEWLO = Y(IHI) indicates
 !  the vertex of the simplex to be replaced.
@@ -198,75 +198,75 @@ contains
       if ( y(i) < ylo ) then
         ylo = y(i) 
         ilo = i
-      end if
-    end do
+      endif
+    enddo
 !  Inner loop.
     do
       if ( kcount <= icount ) then
         exit
-      end if
+      endif
       ynewlo = y(1)
       ihi = 1
       do i = 2, nn
         if ( ynewlo < y(i) ) then
           ynewlo = y(i)
           ihi = i
-        end if
-      end do
+        endif
+      enddo
 !  Calculate PBAR, the centroid of the simplex vertices
 !  excepting the vertex with Y value YNEWLO.
       do i = 1, n
         z = 0.0D+00
         do j = 1, nn    
           z = z + p(i,j)
-        end do
+        enddo
         z = z - p(i,ihi)   
         pbar(i) = z / dn   
-      end do
+      enddo
 !  Reflection through the centroid.
       do i = 1, n
         pstar(i) = pbar(i) + rcoeff * ( pbar(i) - p(i,ihi) )
-      end do
+      enddo
       ystar = fn ( pstar,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
       icount = icount + 1
 !  Successful reflection, so extension.
       if ( ystar < ylo ) then
         do i = 1, n
           p2star(i) = pbar(i) + ecoeff * ( pstar(i) - pbar(i) )
-        end do
+        enddo
         y2star = fn ( p2star,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
         icount = icount + 1
 !  Check extension.
         if ( ystar < y2star ) then
           do i = 1, n
             p(i,ihi) = pstar(i)
-          end do
+          enddo
           y(ihi) = ystar
 !  Retain extension or contraction.
         else
           do i = 1, n
             p(i,ihi) = p2star(i)
-          end do
+          enddo
           y(ihi) = y2star
-        end if
+        endif
 !  No extension.
       else
         l = 0
         do i = 1, nn
           if ( ystar < y(i) ) then
             l = l + 1
-          end if
-        end do
+          endif
+        enddo
         if ( 1 < l ) then
           do i = 1, n
             p(i,ihi) = pstar(i)
-          end do
+          enddo
           y(ihi) = ystar
 !  Contraction on the Y(IHI) side of the centroid.
         else if ( l == 0 ) then
           do i = 1, n
             p2star(i) = pbar(i) + ccoeff * ( p(i,ihi) - pbar(i) )
-          end do
+          enddo
           y2star = fn ( p2star,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
           icount = icount + 1
 !  Contract the whole simplex.
@@ -275,82 +275,82 @@ contains
               do i = 1, n
                 p(i,j) = ( p(i,j) + p(i,ilo) ) * 0.5D+00
                 xmin(i) = p(i,j)
-              end do
+              enddo
               y(j) = fn ( xmin,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
               icount = icount + 1
-            end do
+            enddo
             ylo = y(1)
             ilo = 1
             do i = 2, nn
               if ( y(i) < ylo ) then
                 ylo = y(i) 
                 ilo = i
-              end if
-            end do
+              endif
+            enddo
             cycle
 !  Retain contraction.
           else
             do i = 1, n
               p(i,ihi) = p2star(i)
-            end do
+            enddo
             y(ihi) = y2star
-          end if
+          endif
 !  Contraction on the reflection side of the centroid.
         else if ( l == 1 ) then
           do i = 1, n
             p2star(i) = pbar(i) + ccoeff * ( pstar(i) - pbar(i) )
-          end do
+          enddo
           y2star = fn ( p2star,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
           icount = icount + 1
 !  Retain reflection?
           if ( y2star <= ystar ) then
             do i = 1, n
               p(i,ihi) = p2star(i)
-            end do
+            enddo
             y(ihi) = y2star
           else
             do i = 1, n
               p(i,ihi) = pstar(i)
-            end do
+            enddo
             y(ihi) = ystar  
-          end if
-        end if
-      end if
+          endif
+        endif
+      endif
 !  Check if YLO improved.
       if ( y(ihi) < ylo ) then
         ylo = y(ihi)
         ilo = ihi
-      end if
+      endif
       jcount = jcount - 1
       if ( 0 < jcount ) then
         cycle
-      end if
+      endif
 !  Check to see if minimum reached.
       if ( icount <= kcount ) then
         jcount = konvge
         z = 0.0D+00
         do i = 1, nn
           z = z + y(i)
-        end do
+        enddo
         x = z / dnn
         z = 0.0D+00
         do i = 1, nn
           z = z + ( y(i) - x )**2
-        end do
+        enddo
         if ( z <= rq ) then
           exit
-        end if
-      end if
-    end do
+        endif
+      endif
+    enddo
 !  Factorial tests to check that YNEWLO is a local minimum.
     do i = 1, n
       xmin(i) = p(i,ilo)
-    end do
+    enddo
     ynewlo = y(ilo)
     if ( kcount < icount ) then
       ifault = 2
       exit
-    end if
+    endif
     ifault = 0
     do i = 1, n
       del = step(i) * eps
@@ -360,26 +360,26 @@ contains
       if ( z < ynewlo ) then
         ifault = 2
         exit
-      end if
+      endif
       xmin(i) = xmin(i) - del - del
       z = fn ( xmin,d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc )
       icount = icount + 1
       if ( z < ynewlo ) then
         ifault = 2
         exit
-      end if
+      endif
       xmin(i) = xmin(i) + del
-    end do
+    enddo
     if ( ifault == 0 ) then
       exit
-    end if
+    endif
 !  Restart the procedure.
     do i = 1, n
       start(i) = xmin(i)
-    end do
+    enddo
     del = eps
     numres = numres + 1
-  end do
+  enddo
   return
 end subroutine nelmin_ls
 
@@ -448,15 +448,15 @@ end subroutine nelmin_ls
   if ( reqmin <= 0.0D+00 ) then
     ifault = 1
     return
-  end if
+  endif
   if ( n < 1 ) then
     ifault = 1
     return
-  end if
+  endif
   if ( konvge < 1 ) then
     ifault = 1
     return
-  end if
+  endif
   icount = 0
   numres = 0
   jcount = konvge
@@ -469,7 +469,7 @@ end subroutine nelmin_ls
   do
     do i = 1, n
       p(i,nn) = start(i)
-    end do
+    enddo
     y(nn) = fn (start,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
     icount = icount + 1
     do j = 1, n
@@ -477,11 +477,11 @@ end subroutine nelmin_ls
       start(j) = start(j) + step(j) * del
       do i = 1, n
         p(i,j) = start(i)
-      end do
+      enddo
       y(j) = fn (start,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
       icount = icount + 1
       start(j) = x
-    end do
+    enddo
 !  The simplex construction is complete.                    
 !  Find highest and lowest Y values.  YNEWLO = Y(IHI) indicates
 !  the vertex of the simplex to be replaced.
@@ -491,75 +491,75 @@ end subroutine nelmin_ls
       if ( y(i) < ylo ) then
         ylo = y(i) 
         ilo = i
-      end if
-    end do
+      endif
+    enddo
 !  Inner loop.
     do
       if ( kcount <= icount ) then
         exit
-      end if
+      endif
       ynewlo = y(1)
       ihi = 1
       do i = 2, nn
         if ( ynewlo < y(i) ) then
           ynewlo = y(i)
           ihi = i
-        end if
-      end do
+        endif
+      enddo
 !  Calculate PBAR, the centroid of the simplex vertices
 !  excepting the vertex with Y value YNEWLO.
       do i = 1, n
         z = 0.0D+00
         do j = 1, nn    
           z = z + p(i,j)
-        end do
+        enddo
         z = z - p(i,ihi)   
         pbar(i) = z / dn   
-      end do
+      enddo
 !  Reflection through the centroid.
       do i = 1, n
         pstar(i) = pbar(i) + rcoeff * ( pbar(i) - p(i,ihi) )
-      end do
+      enddo
       ystar = fn (pstar,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
       icount = icount + 1
 !  Successful reflection, so extension.
       if ( ystar < ylo ) then
         do i = 1, n
           p2star(i) = pbar(i) + ecoeff * ( pstar(i) - pbar(i) )
-        end do
+        enddo
         y2star = fn (p2star,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
         icount = icount + 1
 !  Check extension.
         if ( ystar < y2star ) then
           do i = 1, n
             p(i,ihi) = pstar(i)
-          end do
+          enddo
           y(ihi) = ystar
 !  Retain extension or contraction.
         else
           do i = 1, n
             p(i,ihi) = p2star(i)
-          end do
+          enddo
           y(ihi) = y2star
-        end if
+        endif
 !  No extension.
       else
         l = 0
         do i = 1, nn
           if ( ystar < y(i) ) then
             l = l + 1
-          end if
-        end do
+          endif
+        enddo
         if ( 1 < l ) then
           do i = 1, n
             p(i,ihi) = pstar(i)
-          end do
+          enddo
           y(ihi) = ystar
 !  Contraction on the Y(IHI) side of the centroid.
         else if ( l == 0 ) then
           do i = 1, n
             p2star(i) = pbar(i) + ccoeff * ( p(i,ihi) - pbar(i) )
-          end do
+          enddo
           y2star = fn (p2star,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
           icount = icount + 1
 !  Contract the whole simplex.
@@ -568,82 +568,82 @@ end subroutine nelmin_ls
               do i = 1, n
                 p(i,j) = ( p(i,j) + p(i,ilo) ) * 0.5D+00
                 xmin(i) = p(i,j)
-              end do
+              enddo
               y(j) = fn (xmin,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
               icount = icount + 1
-            end do
+            enddo
             ylo = y(1)
             ilo = 1
             do i = 2, nn
               if ( y(i) < ylo ) then
                 ylo = y(i) 
                 ilo = i
-              end if
-            end do
+              endif
+            enddo
             cycle
 !  Retain contraction.
           else
             do i = 1, n
               p(i,ihi) = p2star(i)
-            end do
+            enddo
             y(ihi) = y2star
-          end if
+          endif
 !  Contraction on the reflection side of the centroid.
         else if ( l == 1 ) then
           do i = 1, n
             p2star(i) = pbar(i) + ccoeff * ( pstar(i) - pbar(i) )
-          end do
+          enddo
           y2star = fn (p2star,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
           icount = icount + 1
 !  Retain reflection?
           if ( y2star <= ystar ) then
             do i = 1, n
               p(i,ihi) = p2star(i)
-            end do
+            enddo
             y(ihi) = y2star
           else
             do i = 1, n
               p(i,ihi) = pstar(i)
-            end do
+            enddo
             y(ihi) = ystar  
-          end if
-        end if
-      end if
+          endif
+        endif
+      endif
 !  Check if YLO improved.
       if ( y(ihi) < ylo ) then
         ylo = y(ihi)
         ilo = ihi
-      end if
+      endif
       jcount = jcount - 1
       if ( 0 < jcount ) then
         cycle
-      end if
+      endif
 !  Check to see if minimum reached.
       if ( icount <= kcount ) then
         jcount = konvge
         z = 0.0D+00
         do i = 1, nn
           z = z + y(i)
-        end do
+        enddo
         x = z / dnn
         z = 0.0D+00
         do i = 1, nn
           z = z + ( y(i) - x )**2
-        end do
+        enddo
         if ( z <= rq ) then
           exit
-        end if
-      end if
-    end do
+        endif
+      endif
+    enddo
 !  Factorial tests to check that YNEWLO is a local minimum.
     do i = 1, n
       xmin(i) = p(i,ilo)
-    end do
+    enddo
     ynewlo = y(ilo)
     if ( kcount < icount ) then
       ifault = 2
       exit
-    end if
+    endif
     ifault = 0
     do i = 1, n
       del = step(i) * eps
@@ -653,26 +653,26 @@ end subroutine nelmin_ls
       if ( z < ynewlo ) then
         ifault = 2
         exit
-      end if
+      endif
       xmin(i) = xmin(i) - del - del
       z = fn (xmin,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,n,nQ0)
       icount = icount + 1
       if ( z < ynewlo ) then
         ifault = 2
         exit
-      end if
+      endif
       xmin(i) = xmin(i) + del
-    end do
+    enddo
     if ( ifault == 0 ) then
       exit
-    end if
+    endif
 !  Restart the procedure.
     do i = 1, n
       start(i) = xmin(i)
-    end do
+    enddo
     del = eps
     numres = numres + 1
-  end do
+  enddo
   return
 end subroutine nelmin_sp
 
