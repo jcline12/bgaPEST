@@ -61,13 +61,11 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\tracking_changes true
+\tracking_changes false
 \output_changes false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
-\author -74556787 "Michael Fienen" 
-\author 267031031 "marco" 
 \end_header
 
 \begin_body
@@ -353,18 +351,7 @@ Bayesian Geostatistical Inversion Background
 \end_layout
 
 \begin_layout Standard
-The Bayesian geostatistical inverse method 
-\change_deleted -74556787 1316126118
-was described qualitatively in the Introduction.
- In this section, we present a summary of the mathematical details pertaining
- to the probability density functions and the solution method.
- Further details are found in
-\change_inserted -74556787 1316126127
-is described in detail in 
-\change_deleted -74556787 1316126129
- 
-\change_unchanged
-
+The Bayesian geostatistical inverse method is described in detail in 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
@@ -372,14 +359,10 @@ key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
 \end_inset
 
  among others.
-
-\change_inserted -74556787 1316126354
  In this section, we provide an overview of the method.
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316127337
 The core of the Bayesian geostatistical inverse method is Bayes' theorem,
  which states
 \begin_inset Formula 
@@ -431,8 +414,6 @@ p(\mathbf{s|y})\propto L(\mathbf{y|s})p(\mathbf{s})\label{eq:bayes}
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316127338
 \begin_inset Float figure
 placement H
 wide false
@@ -441,8 +422,6 @@ status open
 
 \begin_layout Plain Layout
 \align center
-
-\change_inserted -74556787 1316127338
 \begin_inset Graphics
 	filename figures/normals.pdf
 	scale 55
@@ -453,13 +432,9 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1316127338
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1316127338
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:normals"
@@ -480,8 +455,6 @@ Graphical illustration of Bayes' theorem.
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -529,8 +502,6 @@ d by the spread in the figure.
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 In the Bayesian geostatistical method, the posterior pdf is calculated as
  
 \family roman
@@ -553,8 +524,6 @@ p(\mathbf{s|y})\propto\mathrm{\underbrace{exp\left(\mathbf{-}\frac{1}{2}\left(\m
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 where 
 \series bold
 
@@ -621,8 +590,6 @@ is the epistemic uncertainty covariance, modeled as
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 The best estimate of 
 \begin_inset Formula $\mathbf{s}$
 \end_inset
@@ -642,9 +609,9 @@ The best estimate of
 
  is through
 \begin_inset Formula 
-\[
-\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}
-\]
+\begin{equation}
+\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:bestest}
+\end{equation}
 
 \end_inset
 
@@ -652,11 +619,19 @@ The best estimate of
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 which is the superposition of the prior mean (first term) and an innovation
  term which considers deviations of the predictions from the observations
  (second term).
+ In this context, 
+\begin_inset Formula $\beta$
+\end_inset
+
+ in the first term is not the prior mean, but is the best estimate of the
+ mean (mapped onto the parameter field through the 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ matrix) while the second term is fluctuations about the estimated mean.
  
 \begin_inset Formula $\mathbf{H}$
 \end_inset
@@ -671,8 +646,6 @@ which is the superposition of the prior mean (first term) and an innovation
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 The values for 
 \begin_inset Formula $\mathbf{\hat{\beta}}$
 \end_inset
@@ -706,8 +679,6 @@ The values for
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 where 
 \begin_inset Formula $\mathbf{Q_{yy}}$
 \end_inset
@@ -720,8 +691,6 @@ where
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 In hydrogeologic applications, the numerical forward model is typically
  nonlinear.
  Provided that the nonlinearities introduced are not too extreme, a solution
@@ -754,8 +723,6 @@ key "Kitanidis1995"
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 where 
 \begin_inset Formula $\mathbf{\tilde{H}}$
 \end_inset
@@ -814,8 +781,6 @@ reference "eq:cokriging-1"
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 where 
 \begin_inset Formula $\tilde{\mathbf{Q}}_{\mathbf{yy},k}=\tilde{\mathbf{H}}_{k}\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}+\mathbf{R}$
 \end_inset
@@ -837,8 +802,6 @@ where
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 This can be iterated until there is no difference in the parameter estimates,
  or when there is no further improvement in the objective function.
  In many cases, numerical instability makes convergence difficult.
@@ -881,16 +844,12 @@ reference "eq:BGA"
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 Further detail about this equation and its variables is provided in Appendix
  A in the supplemental online material.
  
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 We adopt an empirical Bayes 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -948,8 +907,6 @@ key "Rubin2003"
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 An extension to this approach is the inclusion of information about the
  prior mean 
 \begin_inset CommandInset citation
@@ -974,8 +931,6 @@ diffuse
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 The forward model is constructed to provide forecasts of values collocated
  in space and time with the measured observations.
  The likelihood function brings the observed data into the calculation by
@@ -1013,8 +968,6 @@ key "Rubin2003"
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 With both the prior pdf and likelihood function expressed as Gaussian distributi
 ons, the posterior pdf (found through equation 11 in Appendix A of the supplemen
 tary online material) is also Gaussian.
@@ -1034,20 +987,16 @@ ce between forecasts and observations is found through calculation of optimal
 \end_layout
 
 \begin_layout Subsection
-
-\change_inserted -74556787 1316126354
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Correlation-Zones"
 
 \end_inset
 
-Facies Associations
+Beta Associations
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
 In an idealized problem, a single covariance model is flexible enough to
  encompass the entire variability of the hydraulic parameters.
  However, in many hydrogeologic applications, lithologic contacts and unconformi
@@ -1089,9 +1038,7 @@ stochastic
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316126354
-We borrow the term 
+For hydrogeologic applications, we adopted the term 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1147,14 +1094,42 @@ facies association
 \end_layout
 
 \begin_layout Standard
+For bgaPEST to be a more general tool (not limited to hydrogeologic modeling),
+ we have revised this term to be 
+\begin_inset Quotes eld
+\end_inset
 
-\change_inserted -74556787 1318019880
+beta association.
+\begin_inset Quotes erd
+\end_inset
+
+ As shown in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bestest"
+
+\end_inset
+
+, the Greek letter 
+\begin_inset Formula $\beta$
+\end_inset
+
+ stands for the mean of a region of distributed parameters.
+ Beta associations can, therefore, delineate regions of a distributed parameter
+ field that have similar statistical properties and correspond to the same
+ mean value.
+ However, importantly, beta associations can also refer to completely different
+ parameter types (for example, hydraulic conductivity and storativity).
+ 
+\end_layout
+
+\begin_layout Standard
 To clarify our terminology in this work, partitions delineated by stochastic
  discontinuity within a distributed parameter field are referred to as 
 \begin_inset Quotes eld
 \end_inset
 
-facies associations,
+beta associations,
 \begin_inset Quotes erd
 \end_inset
 
@@ -1166,20 +1141,19 @@ homogeneous zones.
 \begin_inset Quotes erd
 \end_inset
 
- The facies associations delineate sub-regions of the model domain that
- share correlation characteristics and are uncorrelated from neighboring
- facies associations; they are usually delineated by features that are easily
- identified in measured data or geologic conceptualizations of a given site
- area.
- In facies associations, variability of parameter values within each cell
+ The beta associations delineate sub-regions of the model domain that share
+ correlation characteristics and are uncorrelated from neighboring beta
+ associations; they are usually delineated by features that are easily identifie
+d in measured data or geologic conceptualizations of a given site area.
+ In beta associations, variability of parameter values within each cell
  is allowed and constrained by the a priori covariance structure, whereas
  in homogeneous zones, a single parameter value represents the property
  for the entire zone.
+ Beta associations also delineate regions in the model (whether defined
+ by one or more parameter values) that are of different types.
 \end_layout
 
 \begin_layout Subsection
-
-\change_inserted -74556787 1318019906
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:anisotropy"
@@ -1190,8 +1164,6 @@ Parameter Field Anisotropy
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1318023054
 In distributed parameter fields, such as hydraulic conductivity in groundwater
  models, it is common to encounter anisotropy along an axis that may or
  not be aligned with the coordinate (x, y, z) axes.
@@ -1211,15 +1183,11 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318021929
-
 
 \backslash
 texttt{horiz
 \backslash
 _angle}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -1230,15 +1198,11 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318021964
-
 
 \backslash
 texttt{horiz
 \backslash
 _ratio}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -1249,8 +1213,6 @@ _ratio}
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1318022672
 
 
 \backslash
@@ -1266,8 +1228,6 @@ _max}
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1318022672
 
 
 \backslash
@@ -1287,15 +1247,11 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318022732
-
 
 \backslash
 texttt{horiz
 \backslash
 _angle}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -1306,15 +1262,11 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318022743
-
 
 \backslash
 texttt{horiz
 \backslash
 _ratio}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -1326,8 +1278,6 @@ _ratio}
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1318023040
 
 
 \backslash
@@ -1345,15 +1295,11 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318022831
-
 
 \backslash
-textt{parameter
+texttt{parameter
 \backslash
 _anisotropy}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -1364,15 +1310,11 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318023035
-
 
 \backslash
 texttt{par
 \backslash
 _anisotropy=0}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -1381,32 +1323,23 @@ _anisotropy=0}
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1318023070
 \begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1318021853
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318021830
-
 
 \backslash
 begin{center}
-\change_unchanged
-
 \end_layout
 
 \end_inset
-
 
 
 \begin_inset Graphics
@@ -1415,20 +1348,14 @@ begin{center}
 \end_inset
 
 
-\lang english
-
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1318021835
-
 
 \backslash
 end{center}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -1437,13 +1364,9 @@ end{center}
 \end_layout
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1318021793
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1318022663
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:anisotropy"
@@ -1452,14 +1375,10 @@ name "fig:anisotropy"
 
 Schematic diagram of horizontal anisotropy defining conventions for bgaPEST.
  
-\change_unchanged
-
 \end_layout
 
 \end_inset
 
-
-\change_unchanged
 
 \end_layout
 
@@ -1469,16 +1388,130 @@ Schematic diagram of horizontal anisotropy defining conventions for bgaPEST.
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1318023135
 Anisotropy is introduced in the calculation of distances that are, then,
  used in the calculation of the prior covariance matrix 
 \begin_inset Formula $\mathbf{Q_{ss}}$
 \end_inset
 
  discussed below.
- For every pair of points
-\change_unchanged
+ For every pair of points, they must first be rotated into the principal
+ direction orientation.
+ This is accomplished using a rotation matrix:
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+x_{rot,i}\\
+y_{rot,i}
+\end{array}\right]=\left[\begin{array}{cc}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{array}\right]\left[\begin{array}{c}
+x_{i}\\
+y_{i}
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $i$
+\end_inset
+
+ indicates the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ point of the pair 
+\begin_inset Formula $\left(i=1,2\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is the angle (in degrees) specified by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{horiz
+\backslash
+_angle}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+ are the point coordinates in the original coordinate system, and 
+\begin_inset Formula $x_{rot}$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{rot}$
+\end_inset
+
+ are the location projected into the coordinate system corresponding to
+ the orientation of horizontal anisotropy.
+ 
+\end_layout
+
+\begin_layout Standard
+Once this projection is made, the horizontal distance is calculated as
+\begin_inset Formula 
+\[
+distance=\sqrt{\left(x_{rot,1}-x_{rot,2}\right)^{2}+\texttt{{horiz\_ratio}\times}\left(y_{rot,1}-y_{rot,2}\right)^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For three-dimensional parameter fields, a second anisotropy ratio may be
+ specified as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{vertical
+\backslash
+_ratio}
+\end_layout
+
+\end_inset
+
+.
+ In the vertical direction, no angle is specified, so the rotation step
+ is not required and distance is calculated as
+\begin_inset Formula 
+\[
+distance=\sqrt{\begin{array}{c}
+\left(x_{rot,1}-x_{rot,2}\right)^{2}\\
++\texttt{{horiz\_ratio}\times}\left(y_{rot,1}-y_{rot,2}\right)^{2}\\
++\texttt{{vertical\_ratio}\times}\left(z_{rot,1}-z_{rot,2}\right)^{2}
+\end{array}}
+\]
+
+\end_inset
+
 
 \end_layout
 
@@ -2546,26 +2579,6 @@ To find the most likely values for
 \end_inset
 
 
-\change_deleted -74556787 1316538508
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\change_inserted 267031031 1315582784
-I think there is an error in the objective function.
- It should be 0.5*ln(det(Gyy))+0.5*[(theta ........] or eventually without 0.5 in both
- terms.
-\change_unchanged
-
-\end_layout
-
-\end_inset
-
-
-\change_unchanged
-
 \end_layout
 
 \begin_layout Standard
@@ -2667,14 +2680,10 @@ Repeat steps 2 and 3 until the change in
 \end_layout
 
 \begin_layout Subsection
-
-\change_inserted -74556787 1317646498
 Posterior Covariance
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1317648991
 The posterior covariance can be calculated based on the inverse of the Hessian
  of the objective function 
 \begin_inset CommandInset citation
@@ -2769,11 +2778,7 @@ For these two formulations to be equivalent, it is only necessary for the
 \begin_inset Formula $\frac{1}{2}$
 \end_inset
 
- terms
-\change_inserted -74556787 1317648055
-)
-\change_unchanged
-
+ terms)
 \begin_inset Formula 
 \begin{equation}
 \xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi=\mathbf{s}^{T}\mathbf{G}\mathbf{s}\label{eq:equiv1}
@@ -3606,11 +3611,7 @@ linesearch
 integer 
 \emph default
 Flag to determine whether a line search should be conducted.
-
-\change_inserted 267031031 1317374344
  [0] = do not use linesearch, [1] = use linesearch.
-
-\change_unchanged
  
 \emph on
 
@@ -3646,12 +3647,8 @@ integer
 \emph default
  Form of the theta covariance matrix.
  [0] = none, [1] = diagonal, [2] = full matrix.
-
-\change_inserted 267031031 1317387611
  [0] means no prior covariance on theta provided and it is assumed totally
  unknown.
-
-\change_unchanged
  
 \emph on
 default = 0
@@ -3678,13 +3675,9 @@ Flag to determine how to calculate
  
 \emph on
 default=0
-\change_inserted -74556787 1317914575
-
 \end_layout
 
 \begin_layout Description
-
-\change_inserted -74556787 1317914583
 par_anisotropy 
 \emph on
 integer 
@@ -3701,8 +3694,6 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1317914840
-
 
 \backslash
 texttt{parameter
@@ -3716,8 +3707,6 @@ _anisotropy}
  
 \emph on
 default=0.
-\change_unchanged
-
 \end_layout
 
 \begin_layout Description
@@ -3735,13 +3724,9 @@ model_command_lines
  
 \emph on
 default=0
-\change_inserted -74556787 1317914396
-
 \end_layout
 
 \begin_layout Description
-
-\change_inserted 267031031 1317388070
 posterior_cov_flag 
 \emph on
 integer 
@@ -3756,13 +3741,9 @@ Q_compression_flag=1
  
 \emph on
 default=0
-\change_unchanged
-
 \end_layout
 
 \begin_layout Description
-
-\change_inserted -74556787 1316723296
 jacobian_file 
 \emph on
 string 
@@ -3782,8 +3763,6 @@ scratch.jco
 \end_layout
 
 \begin_layout Description
-
-\change_inserted -74556787 1316723295
 jacobian_format 
 \emph on
 string 
@@ -4045,11 +4024,7 @@ Flag to indicate whether prior covariance of parameters
 \end_inset
 
  is always calculated, so this value is ignored if present.
-
-\change_inserted 267031031 1315582394
  
-\change_unchanged
-
 \end_layout
 
 \begin_layout Description
@@ -4066,13 +4041,9 @@ This is a flag to indicate which variogram type is used to express the prior
  Acceptable choices are [0] = pure nugget, [1] = linear, [2] = exponential.
  Note that choosing linear is equivalent to choosing exponential with fixed
  integral scale 10 times the maximum distance between nodes.
-
-\change_inserted 267031031 1315582428
  
 \shape italic
 default=1
-\change_unchanged
-
 \end_layout
 
 \begin_layout Description
@@ -4084,13 +4055,9 @@ Flag for whether structural parameters are meant to be optimized or not.
  This can be chosen for each structural parameter individually.
  [0] = do not optimize (hold at initial value), [1] = optimize using a marginal
  distribution.
-
-\change_inserted 267031031 1315582435
  
 \shape italic
 default=1
-\change_unchanged
-
 \end_layout
 
 \begin_layout Description
@@ -4101,13 +4068,9 @@ integer
 Flag for whether a power transformation should be applied to the structural
  parameters in the current row.
  [0] = do not transform, [1] = transform.
-
-\change_inserted 267031031 1315582344
  
 \shape italic
 default=1
-\change_unchanged
-
 \shape default
  
 \begin_inset Note Note
@@ -4121,23 +4084,15 @@ somewhere need to indicate which alpha value corresponds to the log in the
 \end_inset
 
 
-\change_inserted 267031031 1315582359
-
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted 267031031 1315582379
 Maybe is better to set the default to 0.
-\change_unchanged
-
 \end_layout
 
 \end_inset
 
-
-\change_unchanged
 
 \end_layout
 
@@ -4154,13 +4109,6 @@ trans_theta
  
 \shape italic
 default = 50
-\change_deleted 267031031 1315582178
-
-\shape default
-.
- 
-\change_unchanged
-
 \end_layout
 
 \begin_layout Subsubsection
@@ -4223,8 +4171,6 @@ Initial value of
 
  which is the starting value of the second structural parameter for prior
  covariance
-\change_inserted 267031031 1315581821
-
 \end_layout
 
 \begin_layout Description
@@ -4238,14 +4184,10 @@ need to sort out this negative value business
 \end_inset
 
 .
-\change_inserted 267031031 1315581456
-
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted 267031031 1315581799
 In case max(num_theta_type) is 2 but for some beta association we need just
  one theta value, the second must be entered negative otherwise we have
  a warning.
@@ -4253,8 +4195,6 @@ In case max(num_theta_type) is 2 but for some beta association we need just
 
 \end_inset
 
-
-\change_unchanged
 
 \end_layout
 
@@ -4298,26 +4238,18 @@ Variance of the current row's
 \end_inset
 
  parameter.
-
-\change_inserted 267031031 1315582503
  
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted 267031031 1317388225
 We need to say that this must be a vector also if we have two structural
  parameters for the same beta association.
  They must be entered sequentially.
-\change_unchanged
-
 \end_layout
 
 \end_inset
 
-
-\change_unchanged
 
 \end_layout
 
@@ -4382,8 +4314,6 @@ Prior variance on
 \end_inset
 
 .
-
-\change_inserted 267031031 1317387896
  
 \family typewriter
 sig_p_var=0.
@@ -4394,13 +4324,9 @@ sig_p_var=0.
  
 \shape italic
 default=0.
-\change_unchanged
-
 \end_layout
 
 \begin_layout Description
-
-\change_inserted 267031031 1315581992
 trans_sig 
 \emph on
 integer 
@@ -4414,8 +4340,6 @@ default=0
 \end_layout
 
 \begin_layout Description
-
-\change_inserted 267031031 1315581980
 alpha_trans 
 \emph on
 float
@@ -4950,20 +4874,14 @@ string
 \emph default
  Name of the model output file corresponding to the InstructionFile identified
  on the same row.
-\change_inserted -74556787 1317914609
-
 \end_layout
 
 \begin_layout Subsubsection
-
-\change_inserted -74556787 1317914629
 Parameter Anisotropy 
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1317914643
 
 
 \backslash
@@ -4978,8 +4896,6 @@ _anisotropy}
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1317914872
 Each row of this table contains information for parameter anisotropy for
  a beta association.
  This block is read only if the variable 
@@ -4988,15 +4904,11 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1317914767
-
 
 \backslash
 texttt{par
 \backslash
 _anisotropy}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -5006,8 +4918,6 @@ _anisotropy}
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1317914858
 
 
 \backslash
@@ -5019,13 +4929,9 @@ _cv}
 \end_inset
 
  block.
-\change_unchanged
-
 \end_layout
 
 \begin_layout Description
-
-\change_inserted -74556787 1317914895
 BetaAssoc 
 \emph on
 integer
@@ -5034,8 +4940,6 @@ integer
 \end_layout
 
 \begin_layout Description
-
-\change_inserted -74556787 1317915060
 horiz_angle 
 \emph on
 float 
@@ -5046,8 +4950,6 @@ Angle, in degrees of the principal direction of anisotropy in a horizontal
 \end_layout
 
 \begin_layout Description
-
-\change_inserted -74556787 1317917419
 horiz_ratio 
 \emph on
 float 
@@ -5058,8 +4960,6 @@ Ratio of maximum to minimum principal property values in the horizontal
 \end_layout
 
 \begin_layout Description
-
-\change_inserted -74556787 1317917426
 vertical_ratio 
 \emph on
 float 
@@ -5069,14 +4969,10 @@ Ratio of maximum to minimum principal property values in the vertical direction.
 \end_layout
 
 \begin_layout Subsection
-
-\change_inserted -74556787 1316617535
 Jacobian Matrix Formats
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316617643
 Two options are available for Jacobian sensitivity matrices 
 \begin_inset Formula $\left(\mathbf{H}\right)$
 \end_inset
@@ -5153,8 +5049,6 @@ key "PESTAdd"
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316615289
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -5167,28 +5061,20 @@ reference "fig:matrix"
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316615080
 \begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1316615254
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1316615108
-
 
 \backslash
 begin{center}
-\change_unchanged
-
 \end_layout
 
 \end_inset
@@ -5214,30 +5100,20 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1316615116
-
 
 \backslash
 end{center}
-\change_unchanged
-
 \end_layout
 
 \end_inset
 
 
-\change_unchanged
-
 \end_layout
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1316615080
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
-\change_inserted -74556787 1316615102
 Example of a standard 
 \family typewriter
 PEST
@@ -5250,27 +5126,19 @@ key "PESTAdd"
 \end_inset
 
 .
-\change_unchanged
-
 \end_layout
 
 \end_inset
 
 
-\change_unchanged
-
 \end_layout
 
 \end_inset
 
-
-\change_unchanged
 
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316641244
 The first line of a matrix file contains 3 integers.
  The first two indicate the number of rows (
 \family typewriter
@@ -5295,8 +5163,6 @@ rated and wrapped to the next line if appropriate.
 \end_layout
 
 \begin_layout Standard
-
-\change_inserted -74556787 1316616216
 In use by 
 \family typewriter
 bgaPEST
@@ -5340,8 +5206,6 @@ key "PESTAdd"
 bgaPEST
 \family default
 .
-\change_unchanged
-
 \end_layout
 
 \begin_layout Standard
