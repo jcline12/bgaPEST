@@ -30,7 +30,7 @@ module make_kernels
             ! initialize the distance
             distance = 0.D0
             ! calculate the distance in the horizontal, streatching if appropriate
-            distance = (horiz_ratio*((x1r-x2r)**2)) + ((y1r-y2r)**2)
+            distance = ((x1r-x2r)**2) + (horiz_ratio*((y1r-y2r)**2))
             
             if (ndim .eq. 3) then
               distance = distance + (vertical_ratio*((z1-z2)**2))
