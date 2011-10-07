@@ -82,6 +82,7 @@ module make_kernels
         integer                            :: i,j,k,p,q,z ! local counters
         integer                            :: toep_debug=0 ! debug flag
         double precision                   :: ltmp ! Temporary value of Lmax
+        integer                            :: debug = 0 !triggger for debugging
         character (len=ERRORWIDTH)         :: retmsg
         
         ! Allocate memory for  X and initialize to 0
@@ -188,6 +189,7 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
               d_XQR%X(i,d_PAR%BetaAssoc(i))= 1. !Fill the X matrix to associate the correct beta to each parameter
              
              enddo
+             if (debug .eq. 1) then
              ! MNF DEBUG
               call bpc_openfile(1500,'Q0_debug_nocomp.dat',1)   ![0] at end indicates read only
                 write(1500,*) 'Entire Q0 Matrix'
@@ -201,6 +203,7 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
               close(1500)
               stop
               ! END MNF DEBUG
+              endif !-- debug
               if (minval(cnp).eq.0) then
                write(retmsg,10) minloc(cnp)
 10              format('Error: No parameters correspond to beta association value',i6, &
@@ -351,7 +354,7 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
            if (ltmp.gt.d_XQR%L)  d_XQR%L = ltmp
           endif ! cv_S%var_type(Q0_All(p)%BetaAss)==0
         enddo   !p = 1, cv_PAR%p 
-        
+     		if (debug .eq. 1) then   
              ! MNF DEBUG
              select case (toep_debug)
               case (0)
@@ -378,6 +381,7 @@ select case (cv_A%Q_compression_flag)  !Select the compressed or not form of Q0 
               end select
               stop
               ! END MNF DEBUG
+              endif !-- debug
   
         d_XQR%L = 10 * d_XQR%L !before here L was just the maximum distance in all the Q0_C matrices 
       

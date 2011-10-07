@@ -1148,7 +1148,7 @@ facies association
 
 \begin_layout Standard
 
-\change_inserted -74556787 1316126354
+\change_inserted -74556787 1318019880
 To clarify our terminology in this work, partitions delineated by stochastic
  discontinuity within a distributed parameter field are referred to as 
 \begin_inset Quotes eld
@@ -1175,8 +1175,309 @@ homogeneous zones.
  is allowed and constrained by the a priori covariance structure, whereas
  in homogeneous zones, a single parameter value represents the property
  for the entire zone.
- Details about the implementation of facies associations is included in
- Appendix A in the supplemental online material.
+\end_layout
+
+\begin_layout Subsection
+
+\change_inserted -74556787 1318019906
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:anisotropy"
+
+\end_inset
+
+Parameter Field Anisotropy
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1318023054
+In distributed parameter fields, such as hydraulic conductivity in groundwater
+ models, it is common to encounter anisotropy along an axis that may or
+ not be aligned with the coordinate (x, y, z) axes.
+ bgaPEST allows the definition of anisotropy in a horizontal plane at any
+ angle from the x-axis and also in the vertical direction.
+ The general layout of horizontal anisotropy is illustrated in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+.
+ The angle from the x-axis (specified in degrees) is defined by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318021929
+
+
+\backslash
+texttt{horiz
+\backslash
+_angle}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ and the amount of anisotropy is defined by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318021964
+
+
+\backslash
+texttt{horiz
+\backslash
+_ratio}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318022672
+
+
+\backslash
+texttt{p
+\backslash
+_max}
+\end_layout
+
+\end_inset
+
+ refers to the direction with maximum parameter values and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318022672
+
+
+\backslash
+texttt{p
+\backslash
+_min}
+\end_layout
+
+\end_inset
+
+ refers to the direction of minimum parameter values.
+ The ratio is used to adjust the effective distance (and thereby the covariance
+ values) along that principal direction.
+ The user supplies values for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318022732
+
+
+\backslash
+texttt{horiz
+\backslash
+_angle}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318022743
+
+
+\backslash
+texttt{horiz
+\backslash
+_ratio}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ for each Beta association.
+ If some Beta associations are not meant to exhibit anisotropy, the user
+ may simply set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318023040
+
+
+\backslash
+texttt{horiz
+\backslash
+_ratio=1.0}
+\end_layout
+
+\end_inset
+
+.
+ If none of the Beta associations exhibit anisotropy, the entire 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318022831
+
+
+\backslash
+textt{parameter
+\backslash
+_anisotropy}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ block can be eliminated by setting the algorithmic control variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318023035
+
+
+\backslash
+texttt{par
+\backslash
+_anisotropy=0}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+ which means the block, if present, is ignored.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1318023070
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318021853
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318021830
+
+
+\backslash
+begin{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+
+\begin_inset Graphics
+	filename figures/anisotropy.pdf
+
+\end_inset
+
+
+\lang english
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318021835
+
+
+\backslash
+end{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318021793
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1318022663
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:anisotropy"
+
+\end_inset
+
+Schematic diagram of horizontal anisotropy defining conventions for bgaPEST.
+ 
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1318023135
+Anisotropy is introduced in the calculation of distances that are, then,
+ used in the calculation of the prior covariance matrix 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ discussed below.
+ For every pair of points
 \change_unchanged
 
 \end_layout
