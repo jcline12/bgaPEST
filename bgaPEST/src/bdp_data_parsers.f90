@@ -511,8 +511,7 @@ end subroutine bdp_read_data_prior_mean
                     n1=mio_finalise(errstruc,miostruc)
                     stop 
                   endif
-                
-              
+                d_PAR%parnme(j) = trim(adjustl(tmp_nm))
                 call drealread(ifail, columnstring(2),d_PAR%pars(j))
                 d_PAR%group(j) = trim(adjustl(columnstring(3)))
                 call intread(ifail, columnstring(4),d_PAR%BetaAssoc(j))
