@@ -270,12 +270,12 @@ program bp_main
             do i = 1,cv_PAR%npar
               V(i) = VV(i,i)
             enddo
+        endif
           finalparunit = utl_nextunit()  
           curr_par_file = trim(casename) // '.bpp.fin'
           call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
           call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit)
           close(finalparunit)
-      endif
      endif
     !*************************************************************************************************************************
     !*********** END OF THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************
