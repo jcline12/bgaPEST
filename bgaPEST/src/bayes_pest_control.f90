@@ -45,7 +45,6 @@ module bayes_pest_control
             double precision	::	bga_conv           !MD Geostatistical method (more external loop) convergence value
             integer		        ::	it_max_structural  !MD Max number of iterations for struct parameters
             integer		        ::	it_max_phi         !MD Max number of iterations for objective function
-            integer             ::  it_max_bga         !MD Max number of iterations for geostatistical method
             integer             ::  lns_flag           !MD Linesearch procedure flag: [0] not perform [1] perform 
             integer             ::  it_max_lns         !MD Max number of iterations for linesearch procedure
             logical             ::  store_Q            !MD TRUE --> Store Q FALSE --> Not store Q --> We need to address this option

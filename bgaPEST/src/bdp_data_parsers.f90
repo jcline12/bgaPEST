@@ -44,8 +44,6 @@ contains
              case ('it_max_structural')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%it_max_structural)
              case ('it_max_phi')
-               call intread(ifail,BL(1)%keywordstring(i), cv_A%it_max_phi)
-             case ('it_max_bga')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%it_max_bga)
              case ('linesearch')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%lns_flag)

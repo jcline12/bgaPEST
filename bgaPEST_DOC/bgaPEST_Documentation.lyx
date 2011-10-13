@@ -3562,17 +3562,6 @@ default=0.001
 \end_layout
 
 \begin_layout Description
-bga_conv
-\emph on
- float 
-\emph default
-Convergence criterion for the entire algorithm.
- 
-\emph on
-default=0.001
-\end_layout
-
-\begin_layout Description
 it_max_structural 
 \emph on
 integer 
