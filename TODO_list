@@ -14,8 +14,8 @@ Things we need to do:
 5) could use some memory management. For example, deallocate Jacobian before calling PEST
 
 6) handle all the output that is not yet dealt with in the progress of the algorithm.
-       Specifically need to output REC file (bpr), progressive output from linesearch,
-       and objective function history.
+       Specifically need to output REC file (bpr), progressive output from linesearch, and objective function history.
+6a) need to report structural parameter values each iteration.
 
 7) ***DONE*** --> hangup was with linesearch. see that the mean is being properly used - looks
     maybe like perturbations are going on the prior mean rather than the estimated mean!!
