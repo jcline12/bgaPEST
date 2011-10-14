@@ -43,13 +43,9 @@ contains
             BL(1)%numrows         = UNINIT_INT
             BL(1)%numkw           = 15 
             allocate (BL(1)%keywords(BL(1)%numkw))
-<<<<<<< HEAD
+
             BL(1)%keywords = (/'structural_conv','phi_conv',              &
             & 'it_max_structural','it_max_phi','it_max_bga','linesearch', &
-=======
-            BL(1)%keywords = (/'structural_conv','phi_conv','bga_conv',   &
-            & 'it_max_structural','it_max_phi','linesearch', &
->>>>>>> origin/master
             & 'it_max_linesearch', 'theta_cov_form',                      &
             & 'Q_compression_flag', 'store_Q', 'posterior_cov_flag',      &
             & 'deriv_mode','jacobian_format','jacobian_file','par_anisotropy'/)   
