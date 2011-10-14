@@ -230,7 +230,6 @@ contains
     write(bprunit,20) indent,'Objective Function Convergence'
     write(bprunit,35) indent,indent,'phi_conv: ',cv_A%phi_conv
     write(bprunit,20) indent,'Outermost BGA Convergence'
-    write(bprunit,35) indent,indent,'bga_conv: ',cv_A%bga_conv       
     write(bprunit,20) indent,'Maximum Number of Structural Paramter Iterations'
     write(bprunit,45) indent,indent,'it_max_structural: ',cv_A%it_max_structural       
     write(bprunit,20) indent,'Maximum Number of Objective Function Iterations'

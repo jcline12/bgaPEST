@@ -42,7 +42,6 @@ module bayes_pest_control
       type  :: cv_algorithmic   ! ALGORITHMIC CONTROL VARIABLES
             double precision	::	structural_conv    !MD Structural parameter convergence values
             double precision	::	phi_conv           !MD Objective function convergence value
-            double precision	::	bga_conv           !MD Geostatistical method (more external loop) convergence value
             integer		        ::	it_max_structural  !MD Max number of iterations for struct parameters
             integer		        ::	it_max_phi         !MD Max number of iterations for objective function
             integer             ::  it_max_bga         !MD Max number of iterations for geostatistical method

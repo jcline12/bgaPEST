@@ -39,8 +39,6 @@ contains
                call drealread(ifail,BL(1)%keywordstring(i), cv_A%structural_conv)
              case ('phi_conv')
                call drealread(ifail,BL(1)%keywordstring(i), cv_A%phi_conv)
-             case ('bga_conv')
-               call drealread(ifail,BL(1)%keywordstring(i), cv_A%bga_conv)
              case ('it_max_structural')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%it_max_structural)
              case ('it_max_phi')

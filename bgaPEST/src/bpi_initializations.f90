@@ -27,7 +27,6 @@ contains
        ! INITIALIZATIONS
             cv_A%structural_conv    = 0.001  !MD Structural parameter convergence values  
             cv_A%phi_conv           = 0.001  !MD Objective function convergence value
-            cv_A%bga_conv           = 0.001  !MD Geostatistical method (more external loop) convergence value 
             cv_A%it_max_structural  = 10     !MD Max number of iterations for structral parameter estimation    	    
             cv_A%it_max_phi         = 10     !MD Max number of iterations for quasi-linear estimation method    
             cv_A%it_max_bga         = 10     !MD Max number of iterations for entire geostatistical method     
@@ -43,9 +42,9 @@ contains
             cv_A%par_anisotropy     = 0      ! flag for whether anisotropy block will be read [0]=no, [1] = yes
             BL(1)%label           = 'algorithmic_cv'
             BL(1)%numrows         = UNINIT_INT
-            BL(1)%numkw           = 16 
+            BL(1)%numkw           = 15 
             allocate (BL(1)%keywords(BL(1)%numkw))
-            BL(1)%keywords = (/'structural_conv','phi_conv','bga_conv',   &
+            BL(1)%keywords = (/'structural_conv','phi_conv',              &
             & 'it_max_structural','it_max_phi','it_max_bga','linesearch', &
             & 'it_max_linesearch', 'theta_cov_form',                      &
             & 'Q_compression_flag', 'store_Q', 'posterior_cov_flag',      &
