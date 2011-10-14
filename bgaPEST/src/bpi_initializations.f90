@@ -29,7 +29,6 @@ contains
             cv_A%phi_conv           = 0.001  !MD Objective function convergence value
             cv_A%it_max_structural  = 10     !MD Max number of iterations for structral parameter estimation    	    
             cv_A%it_max_phi         = 10     !MD Max number of iterations for quasi-linear estimation method    
-            cv_A%it_max_bga         = 10     !MD Max number of iterations for entire geostatistical method     
             cv_A%lns_flag           = 0      !MD Linesearch procedure flag: [0] not perform [1] perform 
             cv_A%it_max_lns         = 10     !MD Max number of iterations for linesearch procedure
             cv_A%store_Q            = .TRUE. !flag for whether or not to store Q.  s/b false if npar is too big
@@ -44,8 +43,13 @@ contains
             BL(1)%numrows         = UNINIT_INT
             BL(1)%numkw           = 15 
             allocate (BL(1)%keywords(BL(1)%numkw))
+<<<<<<< HEAD
             BL(1)%keywords = (/'structural_conv','phi_conv',              &
             & 'it_max_structural','it_max_phi','it_max_bga','linesearch', &
+=======
+            BL(1)%keywords = (/'structural_conv','phi_conv','bga_conv',   &
+            & 'it_max_structural','it_max_phi','linesearch', &
+>>>>>>> origin/master
             & 'it_max_linesearch', 'theta_cov_form',                      &
             & 'Q_compression_flag', 'store_Q', 'posterior_cov_flag',      &
             & 'deriv_mode','jacobian_format','jacobian_file','par_anisotropy'/)   
