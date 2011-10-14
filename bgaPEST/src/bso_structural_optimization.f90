@@ -24,7 +24,7 @@ module struct_param_optimization
    type(d_prior_mean),   intent(in)     :: d_PM
    type(cv_param),       intent(in)     :: cv_PAR 
    type(d_param),        intent(inout)  :: d_PAR        
-   type(cv_struct),      intent(in)     :: cv_S 
+   type(cv_struct),      intent(inout)     :: cv_S 
    type(d_struct),       intent(inout)  :: d_S
    type(Q0_compr),       intent(in)     :: Q0_All(:)
    type(cv_prior_mean),  intent(in)     :: cv_PM
@@ -97,6 +97,8 @@ module struct_param_optimization
        call utl_writmess(6,retmsg) 
    endif
    
+   cv_S%str_obj_fun = ynewlo ! Minimum value of the objective function 
+   
    !****************************************************************************************************************************************
    !------ Here we reform d_S%theta and d_S%sig overwriting the elements optimized by Nelder-Mead and leaving unchanged the others. --------
    !---------- The values that minimize the structural parameter objective function are also assigned to d_S%struct_par_opt_vec ------------
@@ -140,6 +142,102 @@ module struct_param_optimization
    !*******************************************************************************************************************************************     
    
  end subroutine marginal_struct_param_optim
+
+
+subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
+
+
+   implicit none
+   
+   type(cv_observ),      intent(in)     :: cv_OBS
+   type(d_observ),       intent(in)     :: d_OBS
+   type(d_algorithmic),  intent(inout)  :: d_A 
+   type(d_prior_mean),   intent(in)     :: d_PM
+   type(cv_param),       intent(in)     :: cv_PAR 
+   type(cv_struct),      intent(inout)  :: cv_S 
+   type(cv_prior_mean),  intent(in)     :: cv_PM
+   
+   integer                              :: pivot(cv_OBS%nobs), errcode,i
+   double precision                     :: z(cv_OBS%nobs), curr_struct 
+   double precision                     :: lndetGyy, ztiGyyz
+   double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
+   double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs)
+   double precision, pointer            :: HXB(:), TMPV(:)  
+   double precision, pointer            :: HXQbb(:,:)
+   double precision, pointer            :: OMEGA(:,:)
+   
+   !----- intitialize variables
+     lndetGyy  = 0.D0
+     ztiGyyz   = 0.D0
+     UinvGyy   = UNINIT_REAL   ! matrix
+     Gyy       = UNINIT_REAL   ! matrix
+  
+   ! At this point we need HXB, HXQbb, OMEGA only if we have prior information about beta. 
+   if (cv_PM%betas_flag.ne.0) then   !------> we have prior information about beta   
+      !Calculate HXB
+      allocate(HXB(cv_OBS%nobs))
+      HXB = UNINIT_REAL ! -- matrix (nobs)
+      call DGEMV('n',cv_OBS%nobs, cv_PAR%p, 1.D0, d_A%HX, cv_OBS%nobs, &
+              d_PM%beta_0, 1, 0.D0, HXB,1)
+      !Form the linearization-corrected residuals and deallocate HXB no more necessary.
+      z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
+      if (associated(HXB))  deallocate(HXB)
+      !Form HXQbb
+      allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
+      call dgemm('n', 'n', cv_OBS%nobs, cv_PAR%p,  cv_PAR%p, 1.D0, d_A%HX, &
+              cv_OBS%nobs, d_PM%Qbb, cv_PAR%p, 0.D0, HXQbb, cv_OBS%nobs)
+      !Form OMEGA = HXQbb x (HX)' and deallocate HXQbb no more necessary.
+      allocate(OMEGA(cv_OBS%nobs,cv_OBS%nobs))
+      call dgemm('n', 't', cv_OBS%nobs, cv_OBS%nobs,  cv_PAR%p, 1.D0, HXQbb, &
+              cv_OBS%nobs, d_A%HX,  cv_OBS%nobs, 0.D0, OMEGA, cv_OBS%nobs)
+      if (associated(HXQbb))  deallocate(HXQbb)
+      !Form Gyy = Qyy + OMEGA and deallocate OMEGA no more necessary.
+      Gyy = OMEGA + d_A%Qyy
+      if (associated(OMEGA))  deallocate(OMEGA)
+   else !------> we don't have prior information about beta
+     !Form the linearization residuals z  
+     z = d_OBS%obs - d_OBS%h + d_A%Hsold
+     !Form Gyy = Qyy 
+     Gyy = d_A%Qyy
+   endif  
+   !***********************************************************************************************************
+   
+   !*******************************************************************************   
+   !--- Calculate the determinant term of the str. pars objective function --------
+   !----------------------------- 0.5ln(det(Gyy)) ---------------------------------
+   !-- First perform LU decomposition on Gyy 
+   UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
+   call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
+   do i = 1,cv_OBS%nobs                             
+     lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i)))  
+   enddo                                            
+   lndetGyy = 0.5 * lndetGyy
+   !*******************************************************************************
+   
+   !*******************************************************************************   
+   !------------ Calculate the misfit term of the objective function --------------
+   !------------------------ 0.5(z' x invGyy x z) ---------------------------------
+   !Calculate the inverse of Gyy
+   UinvGyy = Gyy   ! nobs x nobs, re-use UinvGyy, now as InvGyy
+   call INVGM(cv_OBS%nobs,UinvGyy)
+   !Form inv(Gyy)*z
+   allocate(TMPV(cv_OBS%nobs))
+     call DGEMV('n',cv_OBS%nobs, cv_OBS%nobs, 1.D0, UinvGyy, cv_OBS%nobs, &
+            z, 1, 0.D0, TMPV,1) !On exit TMPV is invGyy*z
+   !Multiply z' * TMPV and 0.5 
+   call DGEMV('t',cv_OBS%nobs, 1, 5.0D-1, z, cv_OBS%nobs, &
+          TMPV, 1, 0.D0, ztiGyyz,1)
+   if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
+   !*******************************************************************************
+   
+   !****************************************************************************** 
+   !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------
+   cv_S%str_obj_fun = lndetGyy + ztiGyyz
+   !******************************************************************************
+   
+end subroutine beg_str_object_fun
+
+
 
 end module struct_param_optimization
 

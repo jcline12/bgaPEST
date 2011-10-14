@@ -68,8 +68,9 @@ program bp_main
        character (len=20)           :: outer_iter ! aka b_ind - this is the temporary holder for printing out the outer iteration number 
        double precision,dimension(1) :: curr_structural_conv, curr_phi_conv !Current iteration convergence values for structural parameters and quasi linear objective function
        double precision,dimension(1) :: curr_phi !Current value for quasi linear objective function
-       double precision, pointer    :: curr_struct_vec(:) !Current vector of theta and sigma values to be optimized for
+       double precision, pointer    :: prev_struct(:) !Previous vector of theta and sigma values to be optimized for or previous objective function
        double precision, pointer    :: VV(:,:), V(:) !VV is the posterior covariance matrix, V is only the diagonal of VV 
+       double precision             :: structural_conv
        double precision             :: huge_val=huge(huge_val) !Largest machine number
 
 ! -- PRINT OUT THE BANNER INFORMATION
@@ -127,8 +128,14 @@ program bp_main
     
 !-- IF STRUCTURAL PARAMETERS WILL BE OPTIMIZED FOR, SET UP REQUIRED INFORMATION
     if ((maxval(cv_S%struct_par_opt).eq.1).or.(d_S%sig_opt.eq.1)) then
-       call bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
-       allocate(curr_struct_vec(cv_S%num_theta_opt))
+      call bxq_theta_cov_calcs(cv_PAR,cv_S,d_S,cv_PM,cv_A)
+      if (cv_A%structural_conv.ge.0.) then
+        allocate(prev_struct(1))
+        prev_struct = UNINIT_REAL
+      else  
+        allocate(prev_struct(cv_S%num_theta_opt))
+        prev_struct = d_S%struct_par_opt_vec_0
+      endif
     endif
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
@@ -232,19 +239,32 @@ program bp_main
              write(retmsg,11) b_ind
 11           format('Warning: Maximum number of iterations exceeded in quasi-linear parameter optimization loop during bgaPEST iteration',i4, & 
                & '. Structural parameters will not be re-calculated, so final structural parameters and posterior covariance (if requested)' &
-               & 'are based on the last iteration.')
+               & ' are based on the last iteration.')
              call utl_writmess(6,retmsg) 
              exit
           else
-             curr_struct_vec = d_S%struct_par_opt_vec !Current struct pars vector. At the first bga loop d_S%struct_par_opt_vec is d_S%struct_par_opt_vec_0  
+             if ((cv_A%structural_conv.ge.0.).and.(b_ind.eq.1)) then            !In case of objective function monitoring, here the evaluation of
+               call beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM) !the objective function with the initial parameters 
+               prev_struct=cv_S%str_obj_fun                                     !(only at the first bga loop)
+             endif                                                              
+               
              call marginal_struct_param_optim(d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,b_ind,cv_S%num_theta_opt)
              !Here d_S%struct_par_opt_vec is the vector of the optimized theta and sigma values
-             curr_structural_conv(1) = sqrt(sum((curr_struct_vec - d_S%struct_par_opt_vec)**2)) !Calculate norm of difference between actual and previous vectors
-             if (curr_structural_conv(1).le.cv_A%structural_conv) then !If yes, structural parameters have converged, the structural parameters estimation
-               cv_S%struct_par_opt = 0                     !loop is no more required. Set to zero cv_S%struct_par_opt and d_S%sig_opt so the structural 
-               d_S%sig_opt = 0                             !parameters estimation loop is no more entered. The optimized struct_par_opt_vec is used to run the 
-                                                           !quasi-linear loop that should be the last one. Probably we need some output before exit.
-               if (associated(curr_struct_vec)) deallocate(curr_struct_vec) 
+            
+             if (cv_A%structural_conv.ge.0.) then
+               curr_structural_conv=abs(prev_struct - cv_S%str_obj_fun) !Calculate difference between actual and previous objective function values
+               structural_conv = cv_A%structural_conv                   !The structural convergenge value remain the one assigned into .bgp file
+               prev_struct = cv_S%str_obj_fun                           !Assign the current value of the objective function to the previous
+             else
+               curr_structural_conv = sqrt(sum((prev_struct - d_S%struct_par_opt_vec)**2)) !Calculate norm of difference between actual and previous vectors
+               structural_conv = -cv_A%structural_conv             !The structural convergenge value changes sign respect to the one assigned into .bgp file  
+               prev_struct = d_S%struct_par_opt_vec                !Assign the current vector of structural parameters to the previous vector
+             endif  
+             
+             if (curr_structural_conv(1).le.structural_conv) then !If yes, structural parameters have converged.
+               cv_S%struct_par_opt = 0  !Set to zero cv_S%struct_par_opt and d_S%sig_opt so the structural parameters estimation loop is no more entered.
+               d_S%sig_opt = 0          !The optimized struct_par_opt_vec is used to run the quasi-linear loop that is the last one. 
+               if (associated(prev_struct)) deallocate(prev_struct) 
              endif
           endif !-- special warning if exceed maximum number of main algorithm iterations (it_max_bga) without convergence
        else

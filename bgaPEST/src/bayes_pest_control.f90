@@ -92,6 +92,7 @@ module bayes_pest_control
             integer, pointer	    	::	num_theta_type(:)
             integer, pointer	    	::	trans_theta(:)
             double precision, pointer	::	alpha_trans(:)
+            double precision            ::  str_obj_fun = 0.   ! Objective function for structural parameters
             integer                     ::  num_theta_opt = 0 ! num_theta_opt is number of theta pars to optimize
       end type cv_struct
       
