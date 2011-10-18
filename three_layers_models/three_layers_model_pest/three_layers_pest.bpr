@@ -1,0 +1,2787 @@
+ 
+ 
+          bgaPEST RUN RECORD: CASE three_layers_pest                                                                                                                                                                                                                                               
+ Case Dimensions :-
+                    Number of Parameters:    4200
+              Number of Parameter Groups:       3
+                  Number of Observations:      36
+            Number of Observation Groups:       3
+ 
+ Model Command Line :-
+    modflow.bat                                       
+ Jacobian Command Line :-
+    Not Used
+ 
+ Model Interface Files:-
+    Template files:
+        three_layers.tpl                                                                                    
+    for model input files:
+        three_layers.mlt                                                                                    
+    Instruction files:
+        three_layers_hbs.ins                                                                                
+    for model ouput files:
+        three_layers.hbs                                                                                    
+ 
+ Algorithmic control variables:-
+    Structural Paramter Convergence
+        structural_conv:   4.0000E-07
+    Objective Function Convergence
+        phi_conv:   4.0000E-04
+    Outermost BGA Convergence
+        bga_conv:   4.0000E-03
+    Maximum Number of Structural Paramter Iterations
+        it_max_structural:         15
+    Maximum Number of Objective Function Iterations
+        it_max_phi:         15
+    Maximum Number of Outermost BGA Iterations
+        it_max_bga:         15
+    Linesearch Flag: [0] indicates no linesearh, [1] indicates perform linesarch
+        lns_flag:          0
+    Maximum Number of Linesearch Iterations
+        it_max_lns:          5
+    Logical Flag for storing Q Matrix
+        store_Q:     T
+    Form of theta covariance: [0] none, [1], diag, [2] full matrix
+        theta_cov_form:          0
+    Compression of Q0 matrix: [0] none - compute full Q0, [1], Q0 for each beta
+        Q_ compression_flag:          0
+    Derivatives mode: [0] External PEST Perturbations, [1] specified Jacobian command line
+        deriv_mode:          0
+ 
+    Parameter Anisotropy: [0] do not read parameter_anisotropy block, [1] do read block
+        par_anisotropy:          0
+ 
+       3 Beta Associations were defined:
+     No Compression Requested.
+ 
+ 
+    No Prior Information Provided for Betas
+ 
+ Structural parameter control variables:-
+    Structural Parameters for Beta Association:    1
+        Variogram type: linear
+        Initial structural parameter values:
+            slope =   1.0000E-05
+        Flag determining whether structural parameters are optimized for or fixed:
+            struct_par_opt:    1
+        Power transformation active
+            alpha =   1.0000E+02
+    Structural Parameters for Beta Association:    2
+        Variogram type: linear
+        Initial structural parameter values:
+            slope =   2.0000E-05
+        Flag determining whether structural parameters are optimized for or fixed:
+            struct_par_opt:    1
+        Power transformation active
+            alpha =   1.0000E+02
+    Structural Parameters for Beta Association:    3
+        Variogram type: linear
+        Initial structural parameter values:
+            slope =   3.0000E-05
+        Flag determining whether structural parameters are optimized for or fixed:
+            struct_par_opt:    1
+        Power transformation active
+            alpha =   1.0000E+02
+ 
+ Initial Parameter Definitions:-
+    For initial parameter values see file :- three_layers_pest.bpp.0
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   9.1759E+05
+                     Misfit PHI :   8.9013E+05
+             Regularization PHI :   2.7453E+04
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   6.2543E+05
+                     Misfit PHI :   6.1185E+05
+             Regularization PHI :   1.3578E+04
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   9.5999E+04
+                     Misfit PHI :   9.1508E+04
+             Regularization PHI :   4.4914E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.1790E+04
+                     Misfit PHI :   1.6686E+04
+             Regularization PHI :   5.1046E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   1.2045E+04
+                     Misfit PHI :   8.5827E+03
+             Regularization PHI :   3.4621E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.4310E+04
+                     Misfit PHI :   1.1091E+04
+             Regularization PHI :   3.2197E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   8.6019E+03
+                     Misfit PHI :   5.8893E+03
+             Regularization PHI :   2.7126E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   7.7365E+03
+                     Misfit PHI :   4.9132E+03
+             Regularization PHI :   2.8233E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   5.6342E+03
+                     Misfit PHI :   3.2504E+03
+             Regularization PHI :   2.3838E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.1_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   5.0216E+03
+                     Misfit PHI :   3.0264E+03
+             Regularization PHI :   1.9952E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.1_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   4.1515E+03
+                     Misfit PHI :   2.8697E+03
+             Regularization PHI :   1.2818E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.1_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   4.9069E+03
+                     Misfit PHI :   3.7753E+03
+             Regularization PHI :   1.1316E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.1_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   3.1948E+03
+                     Misfit PHI :   2.1624E+03
+             Regularization PHI :   1.0324E+03
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.1_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   2.3657E+03
+                     Misfit PHI :   1.5127E+03
+             Regularization PHI :   8.5291E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.1_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   2.3509E+03
+                     Misfit PHI :   1.4205E+03
+             Regularization PHI :   9.3040E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.1_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.1_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   1.8739E+03
+                     Misfit PHI :   1.4324E+03
+             Regularization PHI :   4.4147E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   1.2177E+03
+                     Misfit PHI :   7.6832E+02
+             Regularization PHI :   4.4934E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   1.1028E+03
+                     Misfit PHI :   6.1456E+02
+             Regularization PHI :   4.8827E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   8.0011E+02
+                     Misfit PHI :   4.2037E+02
+             Regularization PHI :   3.7974E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   1.2794E+03
+                     Misfit PHI :   8.2333E+02
+             Regularization PHI :   4.5607E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   7.0560E+02
+                     Misfit PHI :   2.5324E+02
+             Regularization PHI :   4.5235E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   6.9447E+02
+                     Misfit PHI :   2.4163E+02
+             Regularization PHI :   4.5284E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   6.7068E+02
+                     Misfit PHI :   2.2549E+02
+             Regularization PHI :   4.4518E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   7.3646E+02
+                     Misfit PHI :   2.7543E+02
+             Regularization PHI :   4.6102E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.2_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   6.9265E+02
+                     Misfit PHI :   2.3710E+02
+             Regularization PHI :   4.5556E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.2_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   6.8187E+02
+                     Misfit PHI :   2.4954E+02
+             Regularization PHI :   4.3233E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.2_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   8.3262E+02
+                     Misfit PHI :   4.0111E+02
+             Regularization PHI :   4.3152E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.2_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   7.7590E+02
+                     Misfit PHI :   3.5836E+02
+             Regularization PHI :   4.1754E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.2_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   8.4414E+02
+                     Misfit PHI :   3.9389E+02
+             Regularization PHI :   4.5025E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.2_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   6.9294E+02
+                     Misfit PHI :   2.3326E+02
+             Regularization PHI :   4.5968E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.2_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.2_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   6.5535E+02
+                     Misfit PHI :   5.5712E+02
+             Regularization PHI :   9.8233E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.9954E+02
+                     Misfit PHI :   2.0055E+02
+             Regularization PHI :   9.8983E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.3853E+02
+                     Misfit PHI :   1.3957E+02
+             Regularization PHI :   9.8957E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.5377E+02
+                     Misfit PHI :   1.5943E+02
+             Regularization PHI :   9.4342E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   2.2535E+02
+                     Misfit PHI :   1.3349E+02
+             Regularization PHI :   9.1863E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   5.0867E+02
+                     Misfit PHI :   4.1940E+02
+             Regularization PHI :   8.9274E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   7.5577E+02
+                     Misfit PHI :   6.3620E+02
+             Regularization PHI :   1.1958E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   3.1253E+02
+                     Misfit PHI :   1.9660E+02
+             Regularization PHI :   1.1593E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   2.6677E+02
+                     Misfit PHI :   1.5361E+02
+             Regularization PHI :   1.1316E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.3_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   2.0211E+02
+                     Misfit PHI :   9.3875E+01
+             Regularization PHI :   1.0824E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.3_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   2.4453E+02
+                     Misfit PHI :   1.3098E+02
+             Regularization PHI :   1.1355E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.3_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   1.2955E+02
+                     Misfit PHI :   3.9265E+01
+             Regularization PHI :   9.0283E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.3_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   6.0408E+02
+                     Misfit PHI :   5.0345E+02
+             Regularization PHI :   1.0063E+02
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.3_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   2.0365E+02
+                     Misfit PHI :   1.0837E+02
+             Regularization PHI :   9.5278E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.3_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   2.5042E+02
+                     Misfit PHI :   1.5966E+02
+             Regularization PHI :   9.0757E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.3_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.3_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   3.4732E+03
+                     Misfit PHI :   3.4659E+03
+             Regularization PHI :   7.2863E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   5.3201E+03
+                     Misfit PHI :   5.3103E+03
+             Regularization PHI :   9.7883E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   4.3544E+02
+                     Misfit PHI :   4.2654E+02
+             Regularization PHI :   8.8978E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   1.2353E+03
+                     Misfit PHI :   1.2270E+03
+             Regularization PHI :   8.2715E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   2.3349E+03
+                     Misfit PHI :   2.3258E+03
+             Regularization PHI :   9.1329E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.7610E+03
+                     Misfit PHI :   1.7512E+03
+             Regularization PHI :   9.7907E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   1.5429E+03
+                     Misfit PHI :   1.5340E+03
+             Regularization PHI :   8.9521E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   8.4650E+02
+                     Misfit PHI :   8.3748E+02
+             Regularization PHI :   9.0198E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   1.2064E+03
+                     Misfit PHI :   1.1988E+03
+             Regularization PHI :   7.6298E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.4_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   3.6402E+03
+                     Misfit PHI :   3.6322E+03
+             Regularization PHI :   8.0042E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.4_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   4.5054E+03
+                     Misfit PHI :   4.4968E+03
+             Regularization PHI :   8.6546E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.4_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   1.4437E+03
+                     Misfit PHI :   1.4354E+03
+             Regularization PHI :   8.3457E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.4_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   2.2135E+03
+                     Misfit PHI :   2.2045E+03
+             Regularization PHI :   8.9805E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.4_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   5.3528E+03
+                     Misfit PHI :   5.3443E+03
+             Regularization PHI :   8.4673E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.4_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   4.4972E+03
+                     Misfit PHI :   4.4871E+03
+             Regularization PHI :   1.0094E+01
+ 
+        For current parameter values see file :- three_layers_pest.bpp.4_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.4_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   1.4306E+03
+                     Misfit PHI :   1.4238E+03
+             Regularization PHI :   6.7657E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   7.1631E+02
+                     Misfit PHI :   7.1037E+02
+             Regularization PHI :   5.9409E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.3924E+03
+                     Misfit PHI :   2.3864E+03
+             Regularization PHI :   6.0362E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.9723E+03
+                     Misfit PHI :   2.9668E+03
+             Regularization PHI :   5.5160E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   7.6302E+03
+                     Misfit PHI :   7.6236E+03
+             Regularization PHI :   6.6410E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.6119E+03
+                     Misfit PHI :   1.6060E+03
+             Regularization PHI :   5.9017E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   1.5463E+03
+                     Misfit PHI :   1.5403E+03
+             Regularization PHI :   5.9549E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   5.4006E+03
+                     Misfit PHI :   5.3946E+03
+             Regularization PHI :   5.9498E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   2.1289E+03
+                     Misfit PHI :   2.1228E+03
+             Regularization PHI :   6.1940E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.5_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   1.8244E+03
+                     Misfit PHI :   1.8180E+03
+             Regularization PHI :   6.3846E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.5_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   2.2598E+03
+                     Misfit PHI :   2.2529E+03
+             Regularization PHI :   6.8822E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.5_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   9.3048E+02
+                     Misfit PHI :   9.2376E+02
+             Regularization PHI :   6.7267E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.5_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   7.5956E+02
+                     Misfit PHI :   7.5463E+02
+             Regularization PHI :   4.9345E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.5_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   7.3094E+03
+                     Misfit PHI :   7.3032E+03
+             Regularization PHI :   6.2640E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.5_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   7.9721E+02
+                     Misfit PHI :   7.9065E+02
+             Regularization PHI :   6.5621E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.5_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.5_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   7.8309E+02
+                     Misfit PHI :   7.7702E+02
+             Regularization PHI :   6.0756E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   1.1441E+03
+                     Misfit PHI :   1.1380E+03
+             Regularization PHI :   6.1129E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   1.8660E+03
+                     Misfit PHI :   1.8593E+03
+             Regularization PHI :   6.6314E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   1.2397E+03
+                     Misfit PHI :   1.2333E+03
+             Regularization PHI :   6.3787E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   9.0359E+02
+                     Misfit PHI :   8.9726E+02
+             Regularization PHI :   6.3269E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   3.3929E+02
+                     Misfit PHI :   3.3348E+02
+             Regularization PHI :   5.8096E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   3.0559E+03
+                     Misfit PHI :   3.0497E+03
+             Regularization PHI :   6.2241E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   4.4163E+02
+                     Misfit PHI :   4.3578E+02
+             Regularization PHI :   5.8517E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   6.4649E+02
+                     Misfit PHI :   6.4038E+02
+             Regularization PHI :   6.1102E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.6_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   1.2596E+03
+                     Misfit PHI :   1.2536E+03
+             Regularization PHI :   6.0353E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.6_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   1.0115E+03
+                     Misfit PHI :   1.0052E+03
+             Regularization PHI :   6.3466E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.6_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   3.5055E+02
+                     Misfit PHI :   3.4459E+02
+             Regularization PHI :   5.9653E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.6_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   1.3370E+03
+                     Misfit PHI :   1.3319E+03
+             Regularization PHI :   5.1345E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.6_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   4.8896E+03
+                     Misfit PHI :   4.8831E+03
+             Regularization PHI :   6.5363E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.6_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   1.2109E+03
+                     Misfit PHI :   1.2050E+03
+             Regularization PHI :   5.9819E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.6_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.6_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   1.4670E+03
+                     Misfit PHI :   1.4610E+03
+             Regularization PHI :   5.9289E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   1.7579E+03
+                     Misfit PHI :   1.7520E+03
+             Regularization PHI :   5.9403E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.8007E+03
+                     Misfit PHI :   2.7945E+03
+             Regularization PHI :   6.1826E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   8.0724E+02
+                     Misfit PHI :   8.0116E+02
+             Regularization PHI :   6.0774E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   7.9088E+02
+                     Misfit PHI :   7.8456E+02
+             Regularization PHI :   6.3192E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.0337E+03
+                     Misfit PHI :   1.0278E+03
+             Regularization PHI :   5.9030E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   2.2004E+03
+                     Misfit PHI :   2.1941E+03
+             Regularization PHI :   6.2576E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   3.0690E+03
+                     Misfit PHI :   3.0627E+03
+             Regularization PHI :   6.3116E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   1.1612E+03
+                     Misfit PHI :   1.1549E+03
+             Regularization PHI :   6.2385E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.7_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   2.1328E+03
+                     Misfit PHI :   2.1257E+03
+             Regularization PHI :   7.0483E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.7_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   1.0673E+03
+                     Misfit PHI :   1.0605E+03
+             Regularization PHI :   6.7939E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.7_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   1.3584E+03
+                     Misfit PHI :   1.3523E+03
+             Regularization PHI :   6.0670E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.7_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   6.7076E+02
+                     Misfit PHI :   6.6470E+02
+             Regularization PHI :   6.0589E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.7_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   1.2751E+03
+                     Misfit PHI :   1.2687E+03
+             Regularization PHI :   6.3519E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.7_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   6.4759E+02
+                     Misfit PHI :   6.4193E+02
+             Regularization PHI :   5.6570E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.7_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.7_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   4.8133E+03
+                     Misfit PHI :   4.8071E+03
+             Regularization PHI :   6.2362E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.0444E+03
+                     Misfit PHI :   2.0378E+03
+             Regularization PHI :   6.5345E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.3488E+02
+                     Misfit PHI :   2.2891E+02
+             Regularization PHI :   5.9673E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   1.0041E+03
+                     Misfit PHI :   9.9845E+02
+             Regularization PHI :   5.6760E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   1.0345E+03
+                     Misfit PHI :   1.0286E+03
+             Regularization PHI :   5.8707E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.6202E+03
+                     Misfit PHI :   1.6150E+03
+             Regularization PHI :   5.1780E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   4.8812E+03
+                     Misfit PHI :   4.8752E+03
+             Regularization PHI :   5.9949E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   1.7718E+03
+                     Misfit PHI :   1.7655E+03
+             Regularization PHI :   6.3228E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   7.5383E+02
+                     Misfit PHI :   7.4770E+02
+             Regularization PHI :   6.1280E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.8_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   1.9304E+03
+                     Misfit PHI :   1.9247E+03
+             Regularization PHI :   5.7394E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.8_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   1.7351E+03
+                     Misfit PHI :   1.7293E+03
+             Regularization PHI :   5.8542E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.8_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   1.1588E+03
+                     Misfit PHI :   1.1530E+03
+             Regularization PHI :   5.8309E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.8_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   2.6476E+03
+                     Misfit PHI :   2.6415E+03
+             Regularization PHI :   6.0652E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.8_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   1.5780E+03
+                     Misfit PHI :   1.5717E+03
+             Regularization PHI :   6.3067E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.8_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          8
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   5.0028E+02
+                     Misfit PHI :   4.9388E+02
+             Regularization PHI :   6.4026E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.8_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.8_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   4.3138E+02
+                     Misfit PHI :   4.2506E+02
+             Regularization PHI :   6.3177E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_1                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_1                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   1.0260E+03
+                     Misfit PHI :   1.0199E+03
+             Regularization PHI :   6.0391E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_2                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_2                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.4760E+03
+                     Misfit PHI :   2.4699E+03
+             Regularization PHI :   6.0784E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_3                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_3                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   1.0197E+03
+                     Misfit PHI :   1.0138E+03
+             Regularization PHI :   5.8885E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_4                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_4                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   1.5454E+03
+                     Misfit PHI :   1.5391E+03
+             Regularization PHI :   6.3324E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_5                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_5                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.5759E+03
+                     Misfit PHI :   1.5695E+03
+             Regularization PHI :   6.3237E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_6                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_6                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   1.1726E+03
+                     Misfit PHI :   1.1660E+03
+             Regularization PHI :   6.5498E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_7                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_7                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   6.7638E+02
+                     Misfit PHI :   6.7012E+02
+             Regularization PHI :   6.2586E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_8                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_8                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   2.1664E+03
+                     Misfit PHI :   2.1602E+03
+             Regularization PHI :   6.2288E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_9                                                                           
+        For current residual values see file :- three_layers_pest.bre.9_9                                                                           
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   1.5573E+03
+                     Misfit PHI :   1.5516E+03
+             Regularization PHI :   5.7112E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_10                                                                          
+        For current residual values see file :- three_layers_pest.bre.9_10                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   1.8066E+03
+                     Misfit PHI :   1.8005E+03
+             Regularization PHI :   6.0908E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_11                                                                          
+        For current residual values see file :- three_layers_pest.bre.9_11                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   1.7658E+03
+                     Misfit PHI :   1.7594E+03
+             Regularization PHI :   6.4081E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_12                                                                          
+        For current residual values see file :- three_layers_pest.bre.9_12                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   8.3317E+02
+                     Misfit PHI :   8.2696E+02
+             Regularization PHI :   6.2112E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_13                                                                          
+        For current residual values see file :- three_layers_pest.bre.9_13                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   4.3822E+02
+                     Misfit PHI :   4.3216E+02
+             Regularization PHI :   6.0572E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_14                                                                          
+        For current residual values see file :- three_layers_pest.bre.9_14                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          9
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   6.6459E+02
+                     Misfit PHI :   6.5843E+02
+             Regularization PHI :   6.1530E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.9_15                                                                          
+        For current residual values see file :- three_layers_pest.bre.9_15                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   1.3755E+03
+                     Misfit PHI :   1.3693E+03
+             Regularization PHI :   6.2404E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_1                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_1                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   4.6486E+02
+                     Misfit PHI :   4.5946E+02
+             Regularization PHI :   5.4058E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_2                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_2                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   3.0646E+03
+                     Misfit PHI :   3.0585E+03
+             Regularization PHI :   6.0484E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_3                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_3                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   1.4844E+03
+                     Misfit PHI :   1.4781E+03
+             Regularization PHI :   6.2266E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_4                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_4                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   9.9445E+02
+                     Misfit PHI :   9.8840E+02
+             Regularization PHI :   6.0497E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_5                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_5                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   5.2215E+02
+                     Misfit PHI :   5.1611E+02
+             Regularization PHI :   6.0345E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_6                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_6                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   2.4447E+03
+                     Misfit PHI :   2.4387E+03
+             Regularization PHI :   5.9748E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_7                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_7                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   6.3078E+02
+                     Misfit PHI :   6.2493E+02
+             Regularization PHI :   5.8480E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_8                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_8                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   2.1344E+03
+                     Misfit PHI :   2.1283E+03
+             Regularization PHI :   6.0192E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_9                                                                          
+        For current residual values see file :- three_layers_pest.bre.10_9                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   5.0030E+02
+                     Misfit PHI :   4.9494E+02
+             Regularization PHI :   5.3549E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_10                                                                         
+        For current residual values see file :- three_layers_pest.bre.10_10                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   2.9980E+03
+                     Misfit PHI :   2.9916E+03
+             Regularization PHI :   6.3692E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_11                                                                         
+        For current residual values see file :- three_layers_pest.bre.10_11                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   1.8728E+03
+                     Misfit PHI :   1.8671E+03
+             Regularization PHI :   5.6448E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_12                                                                         
+        For current residual values see file :- three_layers_pest.bre.10_12                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   2.2216E+03
+                     Misfit PHI :   2.2156E+03
+             Regularization PHI :   5.9942E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_13                                                                         
+        For current residual values see file :- three_layers_pest.bre.10_13                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   1.1841E+03
+                     Misfit PHI :   1.1781E+03
+             Regularization PHI :   5.9901E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_14                                                                         
+        For current residual values see file :- three_layers_pest.bre.10_14                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         10
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   1.1044E+03
+                     Misfit PHI :   1.0984E+03
+             Regularization PHI :   5.9603E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.10_15                                                                         
+        For current residual values see file :- three_layers_pest.bre.10_15                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   2.1458E+03
+                     Misfit PHI :   2.1398E+03
+             Regularization PHI :   5.9851E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_1                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_1                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   5.5920E+02
+                     Misfit PHI :   5.5321E+02
+             Regularization PHI :   5.9893E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_2                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_2                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   8.1555E+02
+                     Misfit PHI :   8.0954E+02
+             Regularization PHI :   6.0135E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_3                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_3                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   1.3628E+03
+                     Misfit PHI :   1.3563E+03
+             Regularization PHI :   6.4621E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_4                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_4                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   4.5433E+02
+                     Misfit PHI :   4.4791E+02
+             Regularization PHI :   6.4177E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_5                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_5                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   5.1210E+02
+                     Misfit PHI :   5.0626E+02
+             Regularization PHI :   5.8431E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_6                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_6                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   2.1123E+03
+                     Misfit PHI :   2.1059E+03
+             Regularization PHI :   6.4254E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_7                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_7                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   9.8843E+02
+                     Misfit PHI :   9.8299E+02
+             Regularization PHI :   5.4417E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_8                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_8                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   1.2357E+04
+                     Misfit PHI :   1.2351E+04
+             Regularization PHI :   6.3781E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_9                                                                          
+        For current residual values see file :- three_layers_pest.bre.11_9                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   1.2265E+03
+                     Misfit PHI :   1.2204E+03
+             Regularization PHI :   6.0833E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_10                                                                         
+        For current residual values see file :- three_layers_pest.bre.11_10                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   2.1555E+03
+                     Misfit PHI :   2.1498E+03
+             Regularization PHI :   5.7200E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_11                                                                         
+        For current residual values see file :- three_layers_pest.bre.11_11                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   4.3879E+03
+                     Misfit PHI :   4.3810E+03
+             Regularization PHI :   6.8369E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_12                                                                         
+        For current residual values see file :- three_layers_pest.bre.11_12                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   1.5685E+03
+                     Misfit PHI :   1.5606E+03
+             Regularization PHI :   7.8620E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_13                                                                         
+        For current residual values see file :- three_layers_pest.bre.11_13                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   1.0255E+03
+                     Misfit PHI :   1.0183E+03
+             Regularization PHI :   7.1632E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_14                                                                         
+        For current residual values see file :- three_layers_pest.bre.11_14                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         11
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   1.8659E+03
+                     Misfit PHI :   1.8595E+03
+             Regularization PHI :   6.3716E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.11_15                                                                         
+        For current residual values see file :- three_layers_pest.bre.11_15                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   6.2787E+02
+                     Misfit PHI :   6.2200E+02
+             Regularization PHI :   5.8668E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_1                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_1                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   3.3485E+03
+                     Misfit PHI :   3.3423E+03
+             Regularization PHI :   6.2297E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_2                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_2                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   1.8684E+03
+                     Misfit PHI :   1.8622E+03
+             Regularization PHI :   6.1845E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_3                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_3                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   8.9605E+02
+                     Misfit PHI :   8.8999E+02
+             Regularization PHI :   6.0598E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_4                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_4                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   6.7966E+02
+                     Misfit PHI :   6.7354E+02
+             Regularization PHI :   6.1145E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_5                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_5                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   6.1190E+02
+                     Misfit PHI :   6.0571E+02
+             Regularization PHI :   6.1923E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_6                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_6                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   8.2723E+02
+                     Misfit PHI :   8.2178E+02
+             Regularization PHI :   5.4426E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_7                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_7                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   9.3189E+03
+                     Misfit PHI :   9.3131E+03
+             Regularization PHI :   5.7647E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_8                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_8                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   4.7819E+03
+                     Misfit PHI :   4.7756E+03
+             Regularization PHI :   6.3513E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_9                                                                          
+        For current residual values see file :- three_layers_pest.bre.12_9                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   2.1947E+03
+                     Misfit PHI :   2.1884E+03
+             Regularization PHI :   6.2985E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_10                                                                         
+        For current residual values see file :- three_layers_pest.bre.12_10                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   1.6774E+03
+                     Misfit PHI :   1.6711E+03
+             Regularization PHI :   6.3063E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_11                                                                         
+        For current residual values see file :- three_layers_pest.bre.12_11                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   8.2134E+02
+                     Misfit PHI :   8.1522E+02
+             Regularization PHI :   6.1267E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_12                                                                         
+        For current residual values see file :- three_layers_pest.bre.12_12                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   5.8854E+02
+                     Misfit PHI :   5.8210E+02
+             Regularization PHI :   6.4450E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_13                                                                         
+        For current residual values see file :- three_layers_pest.bre.12_13                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   3.0019E+02
+                     Misfit PHI :   2.9397E+02
+             Regularization PHI :   6.2204E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_14                                                                         
+        For current residual values see file :- three_layers_pest.bre.12_14                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         12
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   1.2153E+03
+                     Misfit PHI :   1.2089E+03
+             Regularization PHI :   6.3614E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.12_15                                                                         
+        For current residual values see file :- three_layers_pest.bre.12_15                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   4.0684E+02
+                     Misfit PHI :   4.0105E+02
+             Regularization PHI :   5.7888E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_1                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_1                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   1.1770E+03
+                     Misfit PHI :   1.1709E+03
+             Regularization PHI :   6.1606E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_2                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_2                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   5.4260E+02
+                     Misfit PHI :   5.3625E+02
+             Regularization PHI :   6.3516E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_3                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_3                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   7.0927E+02
+                     Misfit PHI :   7.0345E+02
+             Regularization PHI :   5.8234E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_4                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_4                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   2.4171E+03
+                     Misfit PHI :   2.4108E+03
+             Regularization PHI :   6.2647E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_5                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_5                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.9537E+03
+                     Misfit PHI :   1.9468E+03
+             Regularization PHI :   6.9066E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_6                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_6                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   4.6264E+02
+                     Misfit PHI :   4.5586E+02
+             Regularization PHI :   6.7720E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_7                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_7                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   1.0397E+03
+                     Misfit PHI :   1.0338E+03
+             Regularization PHI :   5.8980E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_8                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_8                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   1.4676E+03
+                     Misfit PHI :   1.4612E+03
+             Regularization PHI :   6.3665E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_9                                                                          
+        For current residual values see file :- three_layers_pest.bre.13_9                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   2.5088E+03
+                     Misfit PHI :   2.5026E+03
+             Regularization PHI :   6.2718E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_10                                                                         
+        For current residual values see file :- three_layers_pest.bre.13_10                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   1.7559E+03
+                     Misfit PHI :   1.7492E+03
+             Regularization PHI :   6.6564E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_11                                                                         
+        For current residual values see file :- three_layers_pest.bre.13_11                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   8.0118E+02
+                     Misfit PHI :   7.9419E+02
+             Regularization PHI :   6.9967E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_12                                                                         
+        For current residual values see file :- three_layers_pest.bre.13_12                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   6.0830E+02
+                     Misfit PHI :   6.0150E+02
+             Regularization PHI :   6.8012E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_13                                                                         
+        For current residual values see file :- three_layers_pest.bre.13_13                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   4.6879E+02
+                     Misfit PHI :   4.6232E+02
+             Regularization PHI :   6.4767E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_14                                                                         
+        For current residual values see file :- three_layers_pest.bre.13_14                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         13
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   3.3615E+03
+                     Misfit PHI :   3.3546E+03
+             Regularization PHI :   6.9040E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.13_15                                                                         
+        For current residual values see file :- three_layers_pest.bre.13_15                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   1.0403E+03
+                     Misfit PHI :   1.0337E+03
+             Regularization PHI :   6.6228E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_1                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_1                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   7.4712E+02
+                     Misfit PHI :   7.4067E+02
+             Regularization PHI :   6.4494E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_2                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_2                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   5.8172E+02
+                     Misfit PHI :   5.7579E+02
+             Regularization PHI :   5.9379E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_3                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_3                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   4.9643E+02
+                     Misfit PHI :   4.9022E+02
+             Regularization PHI :   6.2183E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_4                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_4                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   5.2692E+02
+                     Misfit PHI :   5.2091E+02
+             Regularization PHI :   6.0132E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_5                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_5                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   1.1502E+03
+                     Misfit PHI :   1.1440E+03
+             Regularization PHI :   6.2309E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_6                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_6                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   3.1607E+02
+                     Misfit PHI :   3.1068E+02
+             Regularization PHI :   5.3905E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_7                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_7                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   1.7277E+03
+                     Misfit PHI :   1.7212E+03
+             Regularization PHI :   6.5012E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_8                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_8                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   6.8425E+02
+                     Misfit PHI :   6.7808E+02
+             Regularization PHI :   6.1753E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_9                                                                          
+        For current residual values see file :- three_layers_pest.bre.14_9                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   1.6150E+03
+                     Misfit PHI :   1.6093E+03
+             Regularization PHI :   5.7187E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_10                                                                         
+        For current residual values see file :- three_layers_pest.bre.14_10                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   2.7256E+03
+                     Misfit PHI :   2.7193E+03
+             Regularization PHI :   6.3265E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_11                                                                         
+        For current residual values see file :- three_layers_pest.bre.14_11                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   6.5585E+02
+                     Misfit PHI :   6.4916E+02
+             Regularization PHI :   6.6897E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_12                                                                         
+        For current residual values see file :- three_layers_pest.bre.14_12                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   4.6841E+02
+                     Misfit PHI :   4.6183E+02
+             Regularization PHI :   6.5794E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_13                                                                         
+        For current residual values see file :- three_layers_pest.bre.14_13                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   1.9472E+02
+                     Misfit PHI :   1.8842E+02
+             Regularization PHI :   6.3037E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_14                                                                         
+        For current residual values see file :- three_layers_pest.bre.14_14                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         14
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   1.0072E+03
+                     Misfit PHI :   1.0012E+03
+             Regularization PHI :   5.9974E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.14_15                                                                         
+        For current residual values see file :- three_layers_pest.bre.14_15                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   6.3486E+02
+                     Misfit PHI :   6.2935E+02
+             Regularization PHI :   5.5049E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_1                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_1                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   7.4203E+02
+                     Misfit PHI :   7.3649E+02
+             Regularization PHI :   5.5437E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_2                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_2                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.5024E+02
+                     Misfit PHI :   2.4460E+02
+             Regularization PHI :   5.6394E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_3                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_3                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.1638E+02
+                     Misfit PHI :   2.1046E+02
+             Regularization PHI :   5.9190E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_4                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_4                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   6.6795E+01
+                     Misfit PHI :   6.1165E+01
+             Regularization PHI :   5.6293E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_5                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_5                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   6.6519E+02
+                     Misfit PHI :   6.5965E+02
+             Regularization PHI :   5.5398E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_6                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_6                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          7
+ 
+                      Total PHI :   4.1027E+02
+                     Misfit PHI :   4.0490E+02
+             Regularization PHI :   5.3696E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_7                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_7                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          8
+ 
+                      Total PHI :   7.7254E+02
+                     Misfit PHI :   7.6701E+02
+             Regularization PHI :   5.5253E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_8                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_8                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:          9
+ 
+                      Total PHI :   5.7987E+02
+                     Misfit PHI :   5.7412E+02
+             Regularization PHI :   5.7516E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_9                                                                          
+        For current residual values see file :- three_layers_pest.bre.15_9                                                                          
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:         10
+ 
+                      Total PHI :   1.2468E+02
+                     Misfit PHI :   1.1894E+02
+             Regularization PHI :   5.7448E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_10                                                                         
+        For current residual values see file :- three_layers_pest.bre.15_10                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:         11
+ 
+                      Total PHI :   3.7854E+02
+                     Misfit PHI :   3.7231E+02
+             Regularization PHI :   6.2320E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_11                                                                         
+        For current residual values see file :- three_layers_pest.bre.15_11                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:         12
+ 
+                      Total PHI :   1.1057E+02
+                     Misfit PHI :   1.0452E+02
+             Regularization PHI :   6.0483E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_12                                                                         
+        For current residual values see file :- three_layers_pest.bre.15_12                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:         13
+ 
+                      Total PHI :   3.5164E+02
+                     Misfit PHI :   3.4569E+02
+             Regularization PHI :   5.9471E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_13                                                                         
+        For current residual values see file :- three_layers_pest.bre.15_13                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:         14
+ 
+                      Total PHI :   2.5232E+02
+                     Misfit PHI :   2.4636E+02
+             Regularization PHI :   5.9536E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_14                                                                         
+        For current residual values see file :- three_layers_pest.bre.15_14                                                                         
+ 
+ 
+ ***********************************
+    Outer Iteration Number:         15
+    Inner Iteration Number:         15
+ 
+                      Total PHI :   2.3407E+02
+                     Misfit PHI :   2.2915E+02
+             Regularization PHI :   4.9229E+00
+ 
+        For current parameter values see file :- three_layers_pest.bpp.15_15                                                                         
+        For current residual values see file :- three_layers_pest.bre.15_15                                                                         
