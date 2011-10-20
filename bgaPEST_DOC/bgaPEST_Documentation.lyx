@@ -108,8 +108,8 @@ Environmental modeling serves many purposes for managing natural resources.
 \end_layout
 
 \begin_layout Standard
-This concept is so important, that one may interpret a model as a data-processin
-g tool as much as a simulator of physical processes; the data processing
+This concept is so important that one may interpret a model as a data-processing
+ tool as much as a simulator of physical processes; the data processing
  being a pipeline from field observation to model parameters and ultimately
  to predictions.
  Another interpretation is a Bayesian one in which the model is a vehicle
@@ -117,7 +117,7 @@ g tool as much as a simulator of physical processes; the data processing
 \emph on
 a priori
 \emph default
- understanding of the system to a conditional 
+ understanding of the system to a conditional, 
 \emph on
 a posteriori
 \emph default
@@ -158,7 +158,7 @@ where:
 
  indicates conditionality.
  In words, Bayes' theorem states that the posterior probability of parameters
- conditional on the data 
+ conditional on the observations 
 \begin_inset Formula $p\left(\mathbf{s}|\mathbf{y}\right)$
 \end_inset
 
@@ -197,10 +197,10 @@ a posteriori
 (also called posterior) distributions are conditional upon the specific
  data used in the calibration process.
  Implicitly, they are also conditional on all other modeling and data decisions
- that go into formulating the problem: which model and what packages are
- chosen, numerical considerations such as discretization and solver convergence
- criteria, boundary conditions that may or may not be considered static
- and known, variance values and weights given to individual observations
+ that go into formulating the problem: which model and what model options
+ are chosen, numerical considerations such as discretization and solver
+ convergence criteria, boundary conditions that may or may not be considered
+ static and known, variance values and weights given to individual observations
  and parameters, and others.
  The point is, if any of these things change, it is expected, in the Bayesian
  context, that the parameters estimated will also change.
