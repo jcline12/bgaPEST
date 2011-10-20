@@ -235,11 +235,12 @@ reference "eq:bayes1"
  is critical as well because this represents the state of knowledge about
  the parameters in the system prior to updating through the calibration
  process.
- In BGA, the assumptions made prior calibration are limited to an assumption
- of the mean value of each facies association, and a characteristic about
- continuity or smoothness of the parameter field.
+ In this report, the assumptions made prior to calibration are limited to
+ an assumption of the mean value of each distinct parameter type and region
+ within the model domain (beta association--described below), and a characterist
+ic about continuity or smoothness of the parameter field.
  The degree to which this characteristic is enforced is dictated by the
- data and the subsequent performance of the model.
+ observations and the subsequent performance of the model.
  This is very similar (and in some cases, mathematically equivalent) to
  Tikhonov regularization.
  Limiting the information assumed 
@@ -255,7 +256,8 @@ key "jaynesBook"
 
 \end_inset
 
-) such that the driver of the problem is more the data than prior assumptions.
+) such that the driver of the problem is more the observations than prior
+ assumptions.
  Additionally, so-called structural parameters that enforce the characteristic
  are estimated using restricted maximum likelihood.
  All of these aspects of the algorithm, taken together, may be considered
@@ -290,8 +292,8 @@ Purpose and Scope
 
 \begin_layout Standard
 This Report is intended to serve two main purposes.
- First, a Bayesian approach to parameter estimation--expressing in the context
- of the Bayesian Geostatistical Inverse Method (BGA)--is introduced to provide
+ First, a Bayesian approach to parameter estimation--expressed in the context
+ of the Bayesian Geostatistical Approach (BGA)--is introduced to provide
  a framework for moving a model from a general simulator of a physical process
  to a specific tool, based on a set of calibration information, that can
  be used for management of a particular site and issue.
@@ -328,30 +330,40 @@ This initial implementation is written in FORTRAN-90 with limited capabilities
 \end_layout
 
 \begin_layout Standard
-Part of the approach, as discussed elsewhere in this Report, is based on
- a distributed paramaterization scheme meant to be flexible in that certain
- regions of the model (called facies associations) are assigned a unique
- parameter value to be estimated for each model node or cell.
+Part of the approach, as discussed beta in this Report, is based on a distribute
+d paramaterization scheme meant to be flexible in that certain regions of
+ the model (called facies associations) are assigned a unique parameter
+ value to be estimated for each model node or cell.
  This leads to a large number of parameters which is accompanied by computationa
 l challenges.
- Some of these challenges are alleviated by restricting facies associations
+ Some of these challenges can be alleviated by restricting beta associations
  in which distributed parameterization schema are implemented to have constant
  spacing in both lateral directions and must have consistent layer thickness.
- These three value need only be constant in their respective dimensions
+ These three values need only be constant in their respective dimensions
  but they may differ from dimension to dimension.
  This restriction allows for implementation of a Toeplitz compression making
  it possible to use many more parameters than would otherwise be possible.
- The partitioning into facies associations makes it easy to combine distributed
+ The partitioning into beta associations makes it easy to combine distributed
  parameters in areas of most interest and where data are more available,
  and homogeneous zones in areas surrounding the main focus.
-\end_layout
-
-\begin_layout Section
-Bayesian Geostatistical Inversion Background
+ The use of a Toeplitz compression is optional and, in cases where sufficient
+ computational resources allow it, compression may be skipped and the restrictio
+ns on even spacing are not invoked.
 \end_layout
 
 \begin_layout Standard
-The Bayesian geostatistical inverse method is described in detail in 
+The remainder of this report provides some details on the mathematical theory
+ behind BGA, followed by detailed instructions for using the computer program.
+ Conventions and assumptions for using the program are included in the discussio
+n.
+\end_layout
+
+\begin_layout Section
+Bayesian Geostatistical Approach Background
+\end_layout
+
+\begin_layout Standard
+The Bayesian geostatistical approach is described in detail in 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
@@ -502,8 +514,8 @@ d by the spread in the figure.
 \end_layout
 
 \begin_layout Standard
-In the Bayesian geostatistical method, the posterior pdf is calculated as
- 
+In the Bayesian geostatistical approach, the posterior pdf is calculated
+ as 
 \family roman
 \series medium
 \shape up
@@ -515,7 +527,7 @@ In the Bayesian geostatistical method, the posterior pdf is calculated as
 
 \begin_inset Formula 
 \begin{equation}
-p(\mathbf{s|y})\propto\mathrm{\underbrace{exp\left(\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right)}_{L\left(\mathbf{y}|\mathbf{s}\right)}\underbrace{exp\left(\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right)}_{p\left(\mathbf{s}\right)}}\label{eq:BGA}
+p(\mathbf{s|y})\propto\mathrm{\underbrace{\exp\left(\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right)}_{L\left(\mathbf{y}|\mathbf{s}\right)}\underbrace{\exp\left(\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right)}_{p\left(\mathbf{s}\right)}}\label{eq:BGA}
 \end{equation}
 
 \end_inset
@@ -642,7 +654,15 @@ which is the superposition of the prior mean (first term) and an innovation
 \begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
 \end_inset
 
- calculated using adjoint-state methods.
+, which can be calculated using either finite difference or adjoint-state
+ methods.
+ In bgaPEST, finite-difference calculations for 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ are calculated using PEST whereas adjoint-state calculations depend on
+ the specific model being used and must be calculated using an external
+ program.
 \end_layout
 
 \begin_layout Standard
@@ -693,7 +713,14 @@ where
 \begin_layout Standard
 In hydrogeologic applications, the numerical forward model is typically
  nonlinear.
- Provided that the nonlinearities introduced are not too extreme, a solution
+ Further nonlinearity can be induced by using a logarithmic transformation,
+ which is a convenient way to enforce non-negativity on parameters and is
+ often an appropriate transformation for hydraulic conductivity parameters
+ in groundwater models.
+\end_layout
+
+\begin_layout Standard
+Provided that the nonlinearities introduced are not too extreme, a solution
  can be obtained through successive linearizations following the quasi-linear
  extension 
 \begin_inset CommandInset citation
@@ -805,22 +832,16 @@ where
 This can be iterated until there is no difference in the parameter estimates,
  or when there is no further improvement in the objective function.
  In many cases, numerical instability makes convergence difficult.
- A modified Levenberg-Marquardt approach is adopted for this work which
- splits the system in Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:iterations-1"
-
+ A line search is implemented in which a linear a search is performed between
+ the most recent best estimate of the parameters 
+\begin_inset Formula $\left(\mathbf{\hat{s}}\right)$
 \end_inset
 
- into a projection step and an innovation step 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "NowakCirpka2004"
-
+ and the current linearization of the parameters 
+\begin_inset Formula $\left(\mathbf{\widetilde{\mathbf{s}}}\right)$
 \end_inset
 
-.
+, seeking a parameter value that minimizes an objective function.
  The objective function to minimize is 
 \begin_inset Formula $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
 \end_inset
@@ -844,9 +865,98 @@ reference "eq:BGA"
 \end_layout
 
 \begin_layout Standard
-Further detail about this equation and its variables is provided in Appendix
- A in the supplemental online material.
- 
+The linesearch optimizes a single parameter, 
+\begin_inset Formula $\rho$
+\end_inset
+
+, along a linear dimension between 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{\hat{s}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\widetilde{\mathbf{s}}}$
+\end_inset
+
+ as
+\begin_inset Formula 
+\[
+\mathbf{s}_{opt}=\mathbf{\mathbf{\hat{s}}}\rho+\mathbf{\widetilde{\mathbf{s}}}\left(1-\rho\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{s}_{opt}$
+\end_inset
+
+ minimizes the objective function, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathcal{L},$
+\end_inset
+
+ using a Nelder-Mead simplex 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "see, e.g., "
+key "Press1992"
+
+\end_inset
+
+, which guarantees monotonic decrease in 
+\begin_inset Formula $\mathcal{L}$
+\end_inset
+
+ over successive iterations.
+ It is recommended to limit the number of linesearch iterations to a relatively
+ low number, as the goal of handling weak linearity is balanced against
+ the computations required to perform the linesearch.
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $ $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Empirical Bayes
 \end_layout
 
 \begin_layout Standard
@@ -2145,7 +2255,7 @@ where
 \end_layout
 
 \begin_layout Subsection
-Implementation of Partitions into Facies Associations
+Implementation of Partitions into Beta Associations
 \end_layout
 
 \begin_layout Standard
@@ -2216,191 +2326,7 @@ reference "sub:Prior-Probability-Density"
 \begin_inset Formula $\mathbf{\hat{\beta}}$
 \end_inset
 
- is calculated for each zone.
-\end_layout
-
-\begin_layout Subsection
-Quasi-linear Extension
-\end_layout
-
-\begin_layout Standard
-The development of the Bayesian geostatistical inverse method outlined above
- assumes a linear model 
-\begin_inset Formula $\mathbf{h(s)}$
-\end_inset
-
- such that the sensitivity matrix 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
- is constant.
- In hydrogeologic applications, the numerical forward model is typically
- nonlinear.
- Furthermore, it is convenient to work with a log-transformation of hydraulic
- conductivity (
-\begin_inset Formula $\mathbf{k})$
-\end_inset
-
- such that
-\begin_inset Formula 
-\begin{equation}
-\mathbf{s=\mathrm{ln}k}.\label{eq:slnk}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Provided that the nonlinearities introduced are not too extreme, a solution
- can be obtained through successive linearizations following the quasi-linear
- extension 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Kitanidis1995"
-
-\end_inset
-
-.
- The forward model, 
-\begin_inset Formula $\mathbf{h(s)}$
-\end_inset
-
- is expanded about the current best estimate of the parameters 
-\begin_inset Formula $\mathbf{\tilde{s}}$
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\mathbf{h}(\mathbf{s})\mathbf{\approx h}(\mathbf{\tilde{s}})\mathbf{+\tilde{H}}(\mathbf{s-\tilde{s}})
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{\tilde{H}}$
-\end_inset
-
-, as a function of 
-\begin_inset Formula $\mathbf{\tilde{s,}}$
-\end_inset
-
- is evaluated at each linearization.
- Linearizations are performed until the change in 
-\begin_inset Formula $\mathbf{\tilde{s}}$
-\end_inset
-
- in successive iterations does not change over a specified tolerance.
- We assign the subscript 
-\begin_inset Formula $_{k}$
-\end_inset
-
- to indicate iteration number, and correct the measurements for the 
-\begin_inset Formula $k^{th}$
-\end_inset
-
- linearization as 
-\begin_inset Formula 
-\[
-\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}.
-\]
-
-\end_inset
-
- Then the cokriging equations (Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:cokriging"
-
-\end_inset
-
-) are updated
-\begin_inset Formula 
-\begin{equation}
-\left[\begin{array}{cc}
-\tilde{\mathbf{Q}}_{\mathbf{yy},k} & \tilde{\mathbf{H}}_{k}\mathbf{X}\\
-\mathbf{X}^{T}\tilde{\mathbf{H}}_{k}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
-\end{array}\right]\left[\begin{array}{c}
-\mathbf{\xi}_{k}\\
-\hat{\mathbf{\beta}}_{k}
-\end{array}\right]=\left[\begin{array}{c}
-\mathbf{y}_{k}^{'}\\
-\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
-\end{array}\right]\label{eq:iterations}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\tilde{\mathbf{Q}}_{\mathbf{yy},k}=\tilde{\mathbf{H}}_{k}\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}+\mathbf{R}$
-\end_inset
-
- .
- From this set of equations, the next estimate of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- is
-\begin_inset Formula 
-\[
-\tilde{\mathbf{s}}_{k+1}=\mathbf{X\hat{\beta}}_{k}+\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}\mathbf{\xi}_{k}.
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This can be iterated until there is no difference in the parameter estimates,
- or when there is no further improvement in the objective function.
- In many cases, numerical instability makes convergence difficult.
- A modified Levenberg-Marquardt approach is adopted for this work which
- splits the system in Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:iterations"
-
-\end_inset
-
- into a projection step and an innovation step 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "NowakCirpka2004"
-
-\end_inset
-
-.
- The objective function to minimize is 
-\begin_inset Formula $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
-\end_inset
-
- which is equivalent to maximizing Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:posterior"
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\mathcal{L}=\mathbf{-}\ln p\left(\mathbf{s|y}\right)=(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})+\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}
-\]
-
-\end_inset
-
-
+ is calculated for each beta association.
 \end_layout
 
 \begin_layout Subsection
@@ -2410,7 +2336,7 @@ name "sub:Structural-Parameters"
 
 \end_inset
 
-Structural Parameters
+Structural Parameters and Restricted Maximum Likelihood
 \end_layout
 
 \begin_layout Standard
