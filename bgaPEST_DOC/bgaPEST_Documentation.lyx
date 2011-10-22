@@ -87,7 +87,7 @@ M.
  Hunt, 
 \end_layout
 
-\begin_layout Section
+\begin_layout Section*
 Introduction
 \end_layout
 
@@ -286,7 +286,7 @@ reference "eq:bayes1"
  
 \end_layout
 
-\begin_layout Section
+\begin_layout Section*
 Purpose and Scope
 \end_layout
 
@@ -327,6 +327,9 @@ This initial implementation is written in FORTRAN-90 with limited capabilities
  For users on Macintosh or Linux systems, all the code must be compiled
  for the native platform and Python should already be installed so the Python
  scripts may be called directly without need to compile them separately.
+ The use of external derivatives calculation with PEST and Python will be
+ replaced by integration of a general parallel run management suite (GENIE)
+ in the near future.
 \end_layout
 
 \begin_layout Standard
@@ -358,7 +361,7 @@ The remainder of this report provides some details on the mathematical theory
 n.
 \end_layout
 
-\begin_layout Section
+\begin_layout Section*
 Bayesian Geostatistical Approach Background
 \end_layout
 
@@ -371,7 +374,7 @@ key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
 \end_inset
 
  among others.
- In this section, we provide an overview of the method.
+ In this Section, we provide an overview of the method.
 \end_layout
 
 \begin_layout Standard
@@ -955,7 +958,7 @@ key "Press1992"
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
 Empirical Bayes
 \end_layout
 
@@ -1003,8 +1006,8 @@ reference "eq:BGA"
  This approach is consistent with the principle of maximum entropy such
  that the smoothest solution is chosen, based on the structural parameters
  estimated from the data.
- For a discussion of subtle formal differences from the principle of maximum
- entropy, see 
+ For a discussion of subtle formal differences from minimum relative entropy,
+ see 
 \begin_inset CommandInset citation
 LatexCommand citet
 after "p. 333-342"
@@ -1036,11 +1039,12 @@ diffuse
 \begin_inset Quotes erd
 \end_inset
 
- and principally serves the role of providing numerical stability.
+ and principally serves the role of providing numerical stability rather
+ than compelling the solution to adhere closely to prior values.
 \end_layout
 
 \begin_layout Standard
-The forward model is constructed to provide forecasts of values collocated
+The forward model is constructed to provide outputs of values collocated
  in space and time with the measured observations.
  The likelihood function brings the observed data into the calculation by
  quantifying the difference (misfit) between the model forecasts and collocated
@@ -1078,8 +1082,7 @@ key "Rubin2003"
 
 \begin_layout Standard
 With both the prior pdf and likelihood function expressed as Gaussian distributi
-ons, the posterior pdf (found through equation 11 in Appendix A of the supplemen
-tary online material) is also Gaussian.
+ons, the posterior pdf (discussed below) is also Gaussian.
  The values of the parameters 
 \begin_inset Formula $\mathbf{s}$
 \end_inset
@@ -1095,7 +1098,7 @@ ce between forecasts and observations is found through calculation of optimal
  epistemic uncertainty.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Correlation-Zones"
@@ -1129,7 +1132,7 @@ key "FienenWRR2008"
 
  can greatly improve results.
  This partitioning is implemented by imposing discontinuities in the stochastic
- field that censor correlation between all cells that do not occur in the
+ field that censor correlation among all cells that do not occur in the
  same partition.
  In this context, 
 \begin_inset Quotes eld
@@ -1144,6 +1147,10 @@ stochastic
  imposed discontinuities are themselves considered deterministic and certain.
  This partitioning is consistent with zonal boundaries in models made up
  of homogeneous zones.
+ Furthermore, multiple types of parameters (for example, hydraulic conductivity
+ and recharge) may be estimated.
+ Similar censoring of correlation among difference types of parameters is
+ also necessary in most applications through partitioning.
 \end_layout
 
 \begin_layout Standard
@@ -1155,7 +1162,14 @@ facies association
 \begin_inset Quotes erd
 \end_inset
 
- from the facies architecture field to describe these partitions.
+ from the facies architecture field to describe these partitions 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "fienenIsthmusWRR"
+
+\end_inset
+
+.
  The term 
 \begin_inset Quotes eld
 \end_inset
@@ -1228,7 +1242,7 @@ reference "eq:bestest"
  field that have similar statistical properties and correspond to the same
  mean value.
  However, importantly, beta associations can also refer to completely different
- parameter types (for example, hydraulic conductivity and storativity).
+ parameter types (for example, hydraulic conductivity and recharge).
  
 \end_layout
 
@@ -1255,14 +1269,118 @@ homogeneous zones.
  associations; they are usually delineated by features that are easily identifie
 d in measured data or geologic conceptualizations of a given site area.
  In beta associations, variability of parameter values within each cell
- is allowed and constrained by the a priori covariance structure, whereas
- in homogeneous zones, a single parameter value represents the property
- for the entire zone.
+ is allowed and constrained by the 
+\emph on
+a priori
+\emph default
+ covariance structure, whereas in homogeneous zones, a single parameter
+ value represents the property for the entire zone.
  Beta associations also delineate regions in the model (whether defined
  by one or more parameter values) that are of different types.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Paragraph*
+Beta Associations and Zones
+\emph on
+ Why aren't 
+\begin_inset Quotes eld
+\end_inset
+
+beta associations
+\begin_inset Quotes erd
+\end_inset
+
+ just called 
+\begin_inset Quotes eld
+\end_inset
+
+zones
+\begin_inset Quotes erd
+\end_inset
+
+
+\emph default
+?
+\end_layout
+
+\begin_layout Plain Layout
+Beta associations are a term specific to bgaPEST.
+ As discussed in the main text, this term evolved from the term 
+\begin_inset Quotes eld
+\end_inset
+
+facies association,
+\begin_inset Quotes erd
+\end_inset
+
+ which describes partitioning of parameter fields based on hydrogeologic
+ characteristics.
+ This term was used in place of 
+\begin_inset Quotes eld
+\end_inset
+
+zones
+\begin_inset Quotes erd
+\end_inset
+
+ because of a long history of zones referring to regions of piecewise homogeneit
+y.
+ Beta associations are 
+\emph on
+not
+\emph default
+ homogeneous, so a distinct term was sought that described the characteristic
+ of regions partitioned due to their correlation characteristics.
+ To be more general than only hydrogeologic applications, and also to account
+ for the fact the distinct parameter types require distinct partitions,
+ 
+\begin_inset Quotes eld
+\end_inset
+
+beta associations
+\begin_inset Quotes erd
+\end_inset
+
+ was the term chosen.
+ Each of these partitions has a distinct prior mean value 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ to be estimated, so the associations are made based on different 
+\begin_inset Formula $\beta$
+\end_inset
+
+ values resulting in the term 
+\begin_inset Quotes eld
+\end_inset
+
+beta associations.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:anisotropy"
@@ -1624,7 +1742,7 @@ distance=\sqrt{\begin{array}{c}
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Prior-Probability-Density"
@@ -1665,6 +1783,10 @@ where
 \end_inset
 
  indicates expected value, 
+\begin_inset Formula $m$
+\end_inset
+
+ is the number of parameters, 
 \begin_inset Formula $\mathbf{\beta}$
 \end_inset
 
@@ -1681,7 +1803,7 @@ where
 \end_inset
 
  matrix of base functions.
- In the absence of prior drift the 
+ In the absence of prior drift, the 
 \begin_inset Formula $\mathbf{\beta}$
 \end_inset
 
@@ -1741,7 +1863,8 @@ key "FienenWRR2008"
 \begin_inset Formula $\mathbf{X}$
 \end_inset
 
- through trends expressed in the nonzero terms.
+ through trends expressed in the nonzero terms, although this is not currently
+ implemented in bgaPEST.
 \end_layout
 
 \begin_layout Standard
@@ -1829,7 +1952,7 @@ reference "eq:exp_GCF"
 \end_layout
 
 \begin_layout Standard
-We set 
+We can also set 
 \begin_inset Formula $\ell=10\times\mathrm{max(\mathbf{\left|d\right|})}$
 \end_inset
 
@@ -1852,19 +1975,14 @@ key "FienenWRR2008"
 \begin_inset Formula $\mathbf{\theta}$
 \end_inset
 
- is calculated through restricted maximum likelihood (Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Structural-Parameters"
-
-\end_inset
-
-).
+ is calculated through restricted maximum likelihood.
  For the remainder of this derivation, 
 \begin_inset Formula $\mathbf{\theta}$
 \end_inset
 
  is assumed known.
+ In bgaPEST, as discussed below in the input instructions, either the exponentia
+l or linear variogram models may be used.
 \end_layout
 
 \begin_layout Standard
@@ -1931,7 +2049,7 @@ p(\mathbf{s},\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\bet
 \begin_inset Formula $\beta^{*}$
 \end_inset
 
- .
+.
  Incorporating the prior information yields a prior pdf for 
 \begin_inset Formula $\mathbf{s}$
 \end_inset
@@ -1972,10 +2090,54 @@ The incorporation of prior mean information, even assuming very high variance
 \begin_inset Formula $\mathbf{Q_{\beta\beta},}$
 \end_inset
 
- provides significant numerical stability without overly biasing the results.
+ can provide numerical stability without overly biasing the results.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
+Prior Covariance Matrix Storage Issues
+\end_layout
+
+\begin_layout Standard
+In underdetermined problems suitable for bgaPEST, the number of parameters
+ can be very large.
+ The prior covariance matrix discussed above can, therefore, grow to such
+ large dimensions that it cannot be practically stored in computer memory.
+ However, two techniques are provided to alleviate some of this storage
+ stress: compression and Toeplitz transformation.
+\end_layout
+
+\begin_layout Standard
+Compression takes advantage of the fact that values in the 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix relating parameters in different beta associations, by definition,
+ have the value of zero.
+ As a result, a general 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix can be viewed as a partitioned matrix of nonzero blocks 
+\begin_inset Formula $\left(\mathbf{G}_{\mathbf{ss},\beta i}\right)$
+\end_inset
+
+ and zero blocks
+\begin_inset Formula 
+\[
+\mathbf{G_{ss}=\left[\begin{array}{cccc}
+\mathbf{G}_{\mathbf{ss},\beta i}\\
+\\
+\\
+\\
+\end{array}\right]}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
 Likelihood Function
 \end_layout
 
@@ -2042,7 +2204,7 @@ key "Rubin2003"
  so
 \begin_inset Formula 
 \begin{equation}
-\mathbf{R=\sigma_{R}^{2}I}\label{eq:R}
+\mathbf{R=\sigma_{R}^{2}W}\label{eq:R}
 \end{equation}
 
 \end_inset
@@ -2052,15 +2214,40 @@ key "Rubin2003"
 \end_inset
 
  is the epistemic uncertainty parameter and 
-\begin_inset Formula $\mathbf{I}$
+\series bold
+
+\begin_inset Formula $\mathbf{W}$
 \end_inset
 
+
+\series default
  is an 
 \begin_inset Formula $(n\times n)$
 \end_inset
 
- identity matrix.
- In reality, the component of epistemic uncertainty due to measurement error
+ diagonal weight matrix in which each element is 
+\begin_inset Formula $\mathbf{W}_{ii}=\frac{1}{\omega_{i}^{2}}$
+\end_inset
+
+ where 
+\begin_inset Formula $\omega_{i}$
+\end_inset
+
+ is the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ weight, specified by the user.
+ The purpose of the values of 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is to allow for different confidence in different individual observations
+ or groups of observations.
+\end_layout
+
+\begin_layout Standard
+In reality, the component of epistemic uncertainty due to measurement error
  is likely uncorrelated, but the component due to modeling and conceptual
  uncertainty is likely systematic and correlated 
 \begin_inset CommandInset citation
@@ -2122,17 +2309,10 @@ The structural parameter for the likelihood function is
 \begin_inset Formula $\theta$
 \end_inset
 
- using restricted maximum likelihood (Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Structural-Parameters"
-
-\end_inset
-
-).
+ using restricted maximum likelihood.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
 Posterior Probability Density Function
 \end_layout
 
@@ -2193,7 +2373,7 @@ The best estimate of
 
 \begin_layout Standard
 which is the superposition of the prior mean (first term) and an innovation
- term which considers deviations of the predictions from the observations
+ term which considers deviations of the model outputs from the observations
  (second term).
  
 \begin_inset Formula $\mathbf{H}$
@@ -2205,7 +2385,7 @@ which is the superposition of the prior mean (first term) and an innovation
 \begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
 \end_inset
 
- calculated using adjoint-state methods.
+ is calculated using either finite-difference or adjoint-state methods.
 \end_layout
 
 \begin_layout Standard
@@ -2253,13 +2433,13 @@ where
 .
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
 Implementation of Partitions into Beta Associations
 \end_layout
 
 \begin_layout Standard
-The concept of facies associations is discussed in the main paper and details
- of their implementation are explained here.
+The concept of beta associations is discussed above and details of their
+ implementation are explained here.
  First, the prior covariance matrix 
 \begin_inset Formula $\mathbf{Q_{ss}}$
 \end_inset
@@ -2281,7 +2461,7 @@ The concept of facies associations is discussed in the main paper and details
 \end_inset
 
  In other cases, and necessarily if the covariance model differs in various
- zones, multiple elements of 
+ beta association, multiple elements of 
 \begin_inset Formula $\mathbf{\theta}$
 \end_inset
 
@@ -2293,7 +2473,7 @@ A distinct prior mean parameter
 \begin_inset Formula $\mathbf{\beta^{*}}$
 \end_inset
 
- is assigned for each zone, and the matrix 
+ is assigned for each beta association, and the matrix 
 \begin_inset Formula $\mathbf{X}$
 \end_inset
 
@@ -2304,14 +2484,7 @@ reference "eq:Es"
 
 \end_inset
 
-) is determined as explained in Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Prior-Probability-Density"
-
-\end_inset
-
-.
+) is determined as explained in above.
  In cases where the mean of each zone is completely unknown, no values for
  
 \begin_inset Formula $\mathbf{\beta^{*}}$
@@ -2328,7 +2501,7 @@ reference "sub:Prior-Probability-Density"
  is calculated for each beta association.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Structural-Parameters"
@@ -2341,9 +2514,10 @@ Structural Parameters and Restricted Maximum Likelihood
 \begin_layout Standard
 A vital element to the method outlined above is proper selection of the
  structural parameters.
- Structural parameters, also called hyperparameters, are the parameters
- that characterize the covariance structure of both the epistemic uncertainty
- related to the observations, and the variability of the parameters.
+ Structural parameters, also called hyperparameters or nuisance parameters,
+ are the parameters that characterize the covariance structure of both the
+ epistemic uncertainty related to the observations, and the inherent variability
+ of the parameters.
  In this work, structural parameters include the epistemic uncertainty term
  in Equation 
 \begin_inset CommandInset ref
@@ -2356,7 +2530,7 @@ reference "eq:R"
 \begin_inset Formula $\left(\sigma_{R}^{2}\right)$
 \end_inset
 
- and the variogram slope parameter in Equation 
+ and the prior PDF variogram parameters in Equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:Qss"
@@ -2604,7 +2778,7 @@ Repeat steps 2 and 3 until the change in
  
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsection*
 Posterior Covariance
 \end_layout
 
@@ -2667,11 +2841,2094 @@ key "Kitanidis1995,Kitanidis1996ana"
 .
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
+\start_of_appendix
+Input Instructions
+\end_layout
+
+\begin_layout Standard
+In this appendix, the general strategy for input instructions is described.
+ The input is arranged in a file called 
+\family typewriter
+<casename>.bgp
+\family default
+, which is made up of input blocks, as discussed below.
+ Following a discussion of more detail of the general input protocols, subsectio
+ns in which specific input blocks are discussed including variables and
+ data that can be input in them are presented.
+ 
+\end_layout
+
+\begin_layout Subsection*
+General Structure of Input
+\end_layout
+
+\begin_layout Standard
+The general input structure is designed on a subset of the JUPITER protocol
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BantaEtAl2006"
+
+\end_inset
+
+.
+ The advantage of this protocol over XML or the previous input format for
+ PEST is that annotations that are easily read by humans are part of the
+ input protocol.
+ The full JUPITER protocol, however, has memory and computational overhead
+ that can become a problem for large and complicated data sets.
+ The protocol used here, therefore, is simplified but should be easily recogniza
+ble to users of other JUPITER-compatible programs.
+\end_layout
+
+\begin_layout Standard
+The strategy for input is designed to use 
+\family typewriter
+BLOCKS
+\family default
+ that are made up of either 
+\family typewriter
+KEYWORDS
+\family default
+ for individual variables or 
+\family typewriter
+TABLES
+\family default
+ for a series of data.
+ The specification of whether a given block uses 
+\family typewriter
+KEYWORDS
+\family default
+ or 
+\family typewriter
+TABLES
+\family default
+ is preordained and the input blocks defined below indicate which is required.
+\end_layout
+
+\begin_layout Subsubsection*
+Blocks
+\end_layout
+
+\begin_layout Standard
+Input Blocks are allowed to take one of two forms: either 
+\family typewriter
+KEYWORDS 
+\family default
+or
+\family typewriter
+ TABLES
+\family default
+.
+ All input blocks are delineated by the words 
+\family typewriter
+BEGIN
+\family default
+ and 
+\family typewriter
+END
+\family default
+.
+ The header line also includes the name and type of the block and the final
+ line contains the name of the block.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN prior_mean_cv KEYWORDS
+\begin_inset Newline newline
+\end_inset
+
+prior_betas=1
+\begin_inset Newline newline
+\end_inset
+
+beta_cov_form = 0
+\begin_inset Newline newline
+\end_inset
+
+END prior_mean_cv
+\end_layout
+
+\begin_layout Subsubsection*
+Keywords
+\end_layout
+
+\begin_layout Standard
+Keyword variables correspond to single values identifies with an 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+ sign.
+ Multiple 
+\family typewriter
+KEYWORDS
+\family default
+ can be entered on each line in an input file but no spaces are allowed
+ in 
+\family typewriter
+KEYWORDS
+\family default
+ names or variable values.
+ An example is: 
+\family typewriter
+prior_betas=1.
+\end_layout
+
+\begin_layout Subsubsection*
+Tables
+\end_layout
+
+\begin_layout Standard
+Table variables are used for tabular data series that have multiple values
+ in categories.
+ Tables are identified by listing the number of rows (
+\family typewriter
+nrow
+\family default
+), number of columns (
+\family typewriter
+ncol
+\family default
+), and providing the keyword 
+\family typewriter
+columnlabels
+\family default
+.
+ This is followed by 
+\family typewriter
+nrow
+\family default
+ rows of data, with values arranged in 
+\family typewriter
+ncol
+\family default
+ columns, corresponding to the same order as the 
+\family typewriter
+columnlabels
+\family default
+, and delimited by one or more spaces.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv TABLE 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+nrow=2 ncol=5 columnlabels 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BetaAssoc Toep_flag Nrow Ncol Nlay 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+1 0 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+2 1 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Subsubsection*
+Files 
+\end_layout
+
+\begin_layout Standard
+A user may want to shorten the length of the main input file by redirecting
+ certain input to external text files.
+ This can be done by signaling an input block with the word 
+\family typewriter
+FILES
+\family default
+, to read a file containing the entire set of information for the block.
+ Regardless of whether the external text file contains a 
+\family typewriter
+KEYWORDS
+\family default
+ or 
+\family typewriter
+TABLE
+\family default
+ block, a block definition must be in place directing the program to the
+ external file.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv FILE 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+compression.txt
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Standard
+In this exmple, the contents of the file compression.txt would be:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv TABLE 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+nrow=2 ncol=5 columnlabels 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BetaAssoc Toep_flag Nrow Ncol Nlay 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+1 0 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+2 1 21 21 1 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Subsection*
+bgaPEST Input Blocks
+\end_layout
+
+\begin_layout Standard
+The specific input blocks used in bgaPEST are discussed, in order of appearance
+ in the 
+\family typewriter
+<casename>.bgp
+\family default
+ file.
+ For each block, data types are identified either as 
+\emph on
+float
+\emph default
+, 
+\emph on
+integer
+\emph default
+, or 
+\emph on
+string
+\emph default
+.
+ Values entered as 
+\emph on
+float
+\emph default
+ can include scientific/engineering notation, but in all cases should contain
+ a 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+ even if no fractional detail is included.
+ Conversely, 
+\emph on
+integers
+\emph default
+ must not contain 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Variables identified as 
+\emph on
+string
+\emph default
+ may not include spaces because whitespace is used as the delimiter for
+ rows in tables and separating keywords.
+\end_layout
+
+\begin_layout Standard
+Each block is also defined with a suffix of 
+\begin_inset Quotes eld
+\end_inset
+
+cv
+\begin_inset Quotes erd
+\end_inset
+
+ for 
+\begin_inset Quotes eld
+\end_inset
+
+control variables,
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+data
+\begin_inset Quotes erd
+\end_inset
+
+ for data.
+\end_layout
+
+\begin_layout Subsubsection*
+Algorithmic Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+The following 
+\family typewriter
+KEYWORDS
+\family default
+ variables are in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ block.
+\end_layout
+
+\begin_layout Description
+structural_conv 
+\emph on
+float
+\emph default
+ Convergence criterion for structural parameter convergence.
+ 
+\emph on
+default=0.001
+\end_layout
+
+\begin_layout Description
+phi_conv 
+\emph on
+float 
+\emph default
+Convergence criterion for objective function convergence.
+ 
+\emph on
+default=0.001
+\end_layout
+
+\begin_layout Description
+it_max_structural 
+\emph on
+integer 
+\emph default
+Total number of iterations allowed in structural parameter optimization.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Description
+it_max_phi 
+\emph on
+integer 
+\emph default
+Total number of iterations allowed in each quasi-linear estimation optimization.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Description
+it_max_bga 
+\emph on
+integer 
+\emph default
+Total number of outer iterations allowed for the entire algorithm.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Description
+linesearch 
+\emph on
+integer 
+\emph default
+Flag to determine whether a line search should be conducted.
+ [0] = do not use linesearch, [1] = use linesearch.
+ 
+\emph on
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+should probably change this to boolean, but must do so in the code too
+\end_layout
+
+\end_inset
+
+default=0
+\end_layout
+
+\begin_layout Description
+it_max_linesearch
+\emph on
+ integer 
+\emph default
+Total number of outer iterations allowed for the line search.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Description
+theta_cov_form 
+\emph on
+integer
+\emph default
+ Form of the theta covariance matrix.
+ [0] = none, [1] = diagonal, [2] = full matrix.
+ [0] means no prior covariance on theta provided and it is assumed totally
+ unknown.
+ 
+\emph on
+default = 0
+\end_layout
+
+\begin_layout Description
+Q_compression_flag
+\emph on
+ integer 
+\emph default
+Flag to determine how to calculate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ [0] = no compression--calculate full 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix, [1] = Calculate separate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix for each beta association.
+ 
+\emph on
+default=0
+\end_layout
+
+\begin_layout Description
+par_anisotropy 
+\emph on
+integer 
+\emph default
+Flag to determine whether parameter anisotropy should be considered when
+ making the 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ matrix: [0] = do not consider anisotropy, [1]=consider anisotropy.
+ If anisotropy is considered, a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_anisotropy}
+\end_layout
+
+\end_inset
+
+ block should be considered, as defined below.
+ 
+\emph on
+default=0.
+\end_layout
+
+\begin_layout Description
+deriv_mode
+\emph on
+ integer 
+\emph default
+Flag to determine whether sensitivities are calculated using an external
+ call to PEST or using a user-supplied program (such as adjoint state).
+ [0] = use PEST, [1] = use external program identified below in the 
+\family typewriter
+model_command_lines
+\family default
+ block.
+ 
+\emph on
+default=0
+\end_layout
+
+\begin_layout Description
+posterior_cov_flag 
+\emph on
+integer 
+\emph default
+Flag to determine whether posterior covariance matrix should be calculated.
+ [0] = do not calculate posterior, [1] = calculate posterior.
+ If 
+\family typewriter
+Q_compression_flag=1
+\family default
+, only the diagonal of the posterior covariance matrix is calculated.
+ 
+\emph on
+default=0
+\end_layout
+
+\begin_layout Description
+jacobian_file 
+\emph on
+string 
+\emph default
+Name of the file generated by an external program if deriv_mode=1.
+ 
+\emph on
+default=
+\begin_inset Quotes erd
+\end_inset
+
+scratch.jco
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+jacobian_format 
+\emph on
+string 
+\emph default
+Format of the file indicated in jacobian_file.
+ [binary] indicates a binary file formatted as a JCO file from PEST, [ascii]
+ indicates a file of a standard PEST matrix format, discussed below in this
+ documentation.
+ 
+\emph on
+default=
+\begin_inset Quotes erd
+\end_inset
+
+binary
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Prior Mean Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{prior
+\backslash
+_mean
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+The following 
+\family typewriter
+KEYWORDS
+\family default
+ variables are in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ block.
+\end_layout
+
+\begin_layout Description
+prior_betas 
+\emph on
+integer
+\emph default
+ Flag indicating whether information about prior mean 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+will be supplied.
+ [0] = no, [1] = yes.
+\end_layout
+
+\begin_layout Description
+beta_cov_form 
+\emph on
+integer 
+\emph default
+Form of the prior mean 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ covariance matrix 
+\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
+\end_inset
+
+.
+ [0] = none, [1] = diagonal, [2] = full matrix.
+ 
+\emph on
+default = 0
+\end_layout
+
+\begin_layout Subsubsection*
+Prior Mean Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{prior
+\backslash
+_mean
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+ This is also the block where beta associations are defined, even if prior
+ means are not defined.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identifier of each beta association (one per row).
+ These should be sequential integers.
+\end_layout
+
+\begin_layout Description
+Partrans 
+\emph on
+string 
+\emph default
+Transformation indicator.
+ Acceptable values are 
+\family typewriter
+log
+\family default
+ and 
+\family typewriter
+none
+\family default
+.
+\end_layout
+
+\begin_layout Description
+beta_0 
+\emph on
+float
+\emph default
+ Value of prior mean value 
+\begin_inset Formula $\left(\beta_{0}\right)$
+\end_inset
+
+ for the row's beta association.
+\end_layout
+
+\begin_layout Description
+beta_cov_# 
+\emph on
+float 
+\emph default
+The number of values provided is based on the value of beta_cov_form specified
+ above:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+
+\series medium
+If
+\series default
+ beta_cov_form=1, one value is provided.
+ 
+\end_layout
+
+\begin_layout Description
+
+\series medium
+If
+\series default
+ beta_cov_form=2, nrow values are provided, corresponding to the current
+ row of the beta covariance matrix 
+\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection*
+Structural Parameter Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{structural
+\backslash
+_parameter
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identified of each beta association (one per row).
+ These should be sequential integers.
+\end_layout
+
+\begin_layout Description
+prior_cov_mode 
+\emph on
+integer 
+\emph default
+Flag to indicate whether prior covariance of parameters 
+\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
+\end_inset
+
+ is supplied or calculated.
+ This is reserved for future use - currently 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ is always calculated, so this value is ignored if present.
+ 
+\end_layout
+
+\begin_layout Description
+var_type 
+\emph on
+integer 
+\emph default
+This is a flag to indicate which variogram type is used to express the prior
+ covariance 
+\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
+\end_inset
+
+.
+ Acceptable choices are [0] = pure nugget, [1] = linear, [2] = exponential.
+ Note that choosing linear is equivalent to choosing exponential with fixed
+ integral scale 10 times the maximum distance between nodes.
+ 
+\shape italic
+default=1
+\end_layout
+
+\begin_layout Description
+struct_par_opr 
+\emph on
+integer 
+\emph default
+Flag for whether structural parameters are meant to be optimized or not.
+ This can be chosen for each structural parameter individually.
+ [0] = do not optimize (hold at initial value), [1] = optimize using a marginal
+ distribution.
+ 
+\shape italic
+default=1
+\end_layout
+
+\begin_layout Description
+trans_theta 
+\emph on
+integer 
+\emph default
+Flag for whether a power transformation should be applied to the structural
+ parameters in the current row.
+ [0] = do not transform, [1] = transform.
+ 
+\shape italic
+default=1
+\shape default
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+somewhere need to indicate which alpha value corresponds to the log in the
+ limit
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Maybe is better to set the default to 0.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+alpha_trans 
+\emph on
+float
+\emph default
+ Exponent of the power transformation if 
+\family typewriter
+trans_theta
+\family default
+ = 1.
+ 
+\shape italic
+default = 50
+\end_layout
+
+\begin_layout Subsubsection*
+Structural Parameter Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{structural
+\backslash
+_parameter
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identified of each beta association (one per row).
+ These should be sequential integers.
+\end_layout
+
+\begin_layout Description
+theta_0_1 
+\emph on
+float 
+\emph default
+Initial value of 
+\begin_inset Formula $\theta_{1,0}$
+\end_inset
+
+ which is the starting value of the first structural parameter for prior
+ covariance.
+\end_layout
+
+\begin_layout Description
+theta_0_2 
+\emph on
+float 
+\emph default
+Initial value of 
+\begin_inset Formula $\theta_{2,0}$
+\end_inset
+
+ which is the starting value of the second structural parameter for prior
+ covariance
+\end_layout
+
+\begin_layout Description
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+need to sort out this negative value business
+\end_layout
+
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In case max(num_theta_type) is 2 but for some beta association we need just
+ one theta value, the second must be entered negative otherwise we have
+ a warning.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Structural Parameter Covariance Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{structural
+\backslash
+_parameter
+\backslash
+_cov}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+The only covariance model currently supported is diagonal, so there must
+ be one covariance value for each 
+\begin_inset Formula $\theta$
+\end_inset
+
+ parameter.
+\end_layout
+
+\begin_layout Description
+theta_cov_1 
+\emph on
+float 
+\emph default
+Variance of the current row's 
+\begin_inset Formula $\theta$
+\end_inset
+
+ parameter.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+We need to say that this must be a vector also if we have two structural
+ parameters for the same beta association.
+ They must be entered sequentially.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Epistemic Error Term 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{epistemic
+\backslash
+_error
+\backslash
+_term}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Description
+sig_0 
+\emph on
+float 
+\emph default
+Initial value of the epistemic error 
+\begin_inset Formula $\left(\sigma_{o}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+sig_opt 
+\emph on
+integer 
+\emph default
+Flag indicating whether epistemic error should be optimized for or not.
+ [0] = do not optimize, [1] = optimize.
+ If 
+\family typewriter
+sig_opt
+\family default
+ = 0, then the value of 
+\family typewriter
+sig_0
+\family default
+ is used throughout the inversion.
+\end_layout
+
+\begin_layout Description
+sig_p_var 
+\emph on
+float 
+\emph default
+Prior variance on 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
+ 
+\family typewriter
+sig_p_var=0.
+
+\family default
+ means no prior variance on epistemic error is provided and it is assumed
+ totally unknown.
+ 
+\shape italic
+default=0.
+\end_layout
+
+\begin_layout Description
+trans_sig 
+\emph on
+integer 
+\emph default
+Flag for whether a power transformation should be applied to the epistemic
+ error.
+ [0] = do not transform, [1] = transform.
+ 
+\shape italic
+default=0
+\end_layout
+
+\begin_layout Description
+alpha_trans 
+\emph on
+float
+\emph default
+ Exponent of the power transformation if 
+\family typewriter
+trans_sig
+\family default
+ = 1.
+ 
+\shape italic
+default = 50
+\end_layout
+
+\begin_layout Subsubsection*
+Parameter Control Values 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Description
+ndim 
+\emph on
+integer
+\emph default
+ Number of dimensions over which parameters span.
+\end_layout
+
+\begin_layout Subsubsection*
+Prior Covariance Compression Control Variables 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Q
+\backslash
+_compression
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer 
+\emph default
+Identified of each beta association (one per row).
+ These typically are sequential integers.
+\end_layout
+
+\begin_layout Description
+Toep_flag 
+\emph on
+integer
+\emph default
+ This is a flag to determine whether a Toeplitz transformation should be
+ applied to the prior covariance matrix 
+\begin_inset Formula $\mbox{\left(\mathbf{Q_{ss}}\right) }$
+\end_inset
+
+.
+ [0] = do not use Toeplitz transformation, [1] = do use Toeplitz transformation.
+\end_layout
+
+\begin_layout Description
+Nrow 
+\emph on
+integer 
+\emph default
+Number of rows in the current Beta association (only read if Toep_flag =
+ 1).
+\end_layout
+
+\begin_layout Description
+Ncol 
+\emph on
+integer 
+\emph default
+Number of columns in the current Beta association (only read if Toep_flag
+ = 1).
+\end_layout
+
+\begin_layout Description
+Nlay 
+\emph on
+integer 
+\emph default
+Number of layers in the current Beta association (only read if Toep_flag
+ = 1).
+\end_layout
+
+\begin_layout Subsubsection*
+Parameter Groups 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_groups}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table corresponds to one of the parameter groups.
+ These groups are used to group together parameters by type and are not
+ the same as beta associations.
+\end_layout
+
+\begin_layout Description
+groupname 
+\emph on
+string
+\emph default
+ Name of the group in the current row.
+ Note that these cannot contain spaces.
+\end_layout
+
+\begin_layout Description
+grouptype 
+\emph on
+integer
+\emph default
+ Type of group in the current row.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+It does not appear that we are using this for anything at the moment.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Parameter Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Description
+ParamName 
+\emph on
+string
+\emph default
+ Name for the parameter.
+\end_layout
+
+\begin_layout Description
+StartValue 
+\emph on
+float 
+\emph default
+Staring parameter value.
+\end_layout
+
+\begin_layout Description
+GroupName 
+\emph on
+string
+\emph default
+ Name of the group to which the parameter belongs.
+ This name must be defined in the 
+\family typewriter
+parameter_groups
+\family default
+ block.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer
+\emph default
+ Beta association to which this parameter belongs.
+\end_layout
+
+\begin_layout Description
+SenMethod 
+\emph on
+integer
+\emph default
+ Senstivity method used for this parameter type.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+not currently being used
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+x1 
+\emph on
+float
+\emph default
+ Location in the first dimension.
+\end_layout
+
+\begin_layout Description
+x2 
+\emph on
+float
+\emph default
+ Location in the second dimension.
+ Only read if 
+\family typewriter
+ndim
+\family default
+ >= 2.
+\end_layout
+
+\begin_layout Description
+x3 
+\emph on
+float
+\emph default
+ Location in the third dimension.
+ Only read if 
+\family typewriter
+ndim
+\family default
+ = 3.
+\end_layout
+
+\begin_layout Subsubsection*
+Observation Groups 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{observation
+\backslash
+_groups}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table corresponds to one of the observation groups.
+ These groups are used to group together observations by type and are used
+ to report portions of the objective function.
+\end_layout
+
+\begin_layout Description
+groupname 
+\emph on
+string
+\emph default
+ Name of the group in the current row.
+ Note that these cannot contain spaces.
+\end_layout
+
+\begin_layout Subsubsection*
+Observation Data 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{observation
+\backslash
+_data}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+One observation is presented on each line.
+\end_layout
+
+\begin_layout Description
+ObsName 
+\emph on
+string
+\emph default
+ Name of an observation.
+\end_layout
+
+\begin_layout Description
+ObsValue 
+\emph on
+float
+\emph default
+ Value of the observation.
+\end_layout
+
+\begin_layout Description
+GroupName 
+\emph on
+string
+\emph default
+ Name of the group to which the observation belongs.
+ This name must be defined in the 
+\family typewriter
+observation_groups
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Description
+Weight 
+\emph on
+float
+\emph default
+ A relative weight that gets applied to the epistemic error.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+default to 1.0? Allow this to be optional?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Model Command Lines 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{model
+\backslash
+_command
+\backslash
+_lines}
+\end_layout
+
+\end_inset
+
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+Currently a single forward model command and an option derivative model
+ command can be supplied here.
+ These string keywords can include path information if the command line
+ batch files or shell scripts are not located in the current working directory,
+ but spaces are not allowed.
+\end_layout
+
+\begin_layout Description
+Command 
+\emph on
+string
+\emph default
+ This is the batch file or shell script that runs the forward model.
+\end_layout
+
+\begin_layout Description
+DerivCommand 
+\emph on
+string
+\emph default
+ This is the optional batch file or shell script that is used to calculate
+ derivatives.
+ This is only used if 
+\family typewriter
+deriv_method
+\family default
+ = 1 in the 
+\family typewriter
+algorithmic_cv
+\family default
+ block.
+\end_layout
+
+\begin_layout Subsubsection*
+Model Input Files 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{model
+\backslash
+_input
+\backslash
+_files}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table includes a matched template file and model input
+ file.
+ This allows the program to create the correct input files for the model.
+\end_layout
+
+\begin_layout Description
+TemplateFile 
+\emph on
+string
+\emph default
+ Name of a template file for making model input.
+ Must end in 
+\family typewriter
+.tpl
+\family default
+.
+\end_layout
+
+\begin_layout Description
+ModInFile 
+\emph on
+string
+\emph default
+ Name of the model input file corresponding to the TemplateFile identified
+ on the same row.
+\end_layout
+
+\begin_layout Subsubsection*
+Model Output Files 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{model
+\backslash
+_output
+\backslash
+_files}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table includes a matched instruction file and model output
+ file.
+ This allows the program to read the results of model runs correctly.
+\end_layout
+
+\begin_layout Description
+InstructionFile 
+\emph on
+string
+\emph default
+ Name of an instruction file for reading model output.
+ Must end in 
+\family typewriter
+.ins
+\family default
+.
+\end_layout
+
+\begin_layout Description
+ModOutFile 
+\emph on
+string
+\emph default
+ Name of the model output file corresponding to the InstructionFile identified
+ on the same row.
+\end_layout
+
+\begin_layout Subsubsection*
+Parameter Anisotropy 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_anisotropy}
+\end_layout
+
+\end_inset
+
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table contains information for parameter anisotropy for
+ a beta association.
+ This block is read only if the variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{par
+\backslash
+_anisotropy}
+\end_layout
+
+\end_inset
+
+ =1 in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{algorithmic
+\backslash
+_cv}
+\end_layout
+
+\end_inset
+
+ block.
+\end_layout
+
+\begin_layout Description
+BetaAssoc 
+\emph on
+integer
+\emph default
+ Identifier of a beta association.
+\end_layout
+
+\begin_layout Description
+horiz_angle 
+\emph on
+float 
+\emph default
+Angle, in degrees of the principal direction of anisotropy in a horizontal
+ plane.
+ See FIGURE for details.
+\end_layout
+
+\begin_layout Description
+horiz_ratio 
+\emph on
+float 
+\emph default
+Ratio of maximum to minimum principal property values in the horizontal
+ plane.
+ See FIGURE for details.
+\end_layout
+
+\begin_layout Description
+vertical_ratio 
+\emph on
+float 
+\emph default
+Ratio of maximum to minimum principal property values in the vertical direction.
+ See FIGURE for details.
+\end_layout
+
+\begin_layout Subsection*
+Jacobian Matrix Formats
+\end_layout
+
+\begin_layout Standard
+Two options are available for Jacobian sensitivity matrices 
+\begin_inset Formula $\left(\mathbf{H}\right)$
+\end_inset
+
+ to be read by 
+\family typewriter
+bgaPEST
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=0
+\family default
+, 
+\family typewriter
+PEST
+\family default
+ is used, external to 
+\family typewriter
+bgaPEST
+\family default
+, to calculate the Jacobian matrix resulting in a binary file with the extension
+ 
+\family typewriter
+.jco
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=
+\family default
+1 then an external program is used to calculate 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ and a file written by the external program must be communicated to 
+\family typewriter
+bgaPEST
+\family default
+.
+ This file can either be a 
+\family typewriter
+.jco
+\family default
+ file or a 
+\family typewriter
+.jac
+\family default
+ file which is an ASCII file following the format of a standard matrix file
+ used by 
+\family typewriter
+PEST
+\family default
+, as described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+, Section 4.4.3.
+ An example and description of the format of a standard 
+\family typewriter
+PEST
+\family default
+ matrix follow, quoting from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:matrix"
+
+\end_inset
+
+ depicts an example matrix file holding a matrix with three rows and four
+ columns.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:matrix"
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/standard_PEST_matrix.pdf
+	lyxscale 40
+	scale 25
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Example of a standard 
+\family typewriter
+PEST
+\family default
+ matrix file, adapted from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The first line of a matrix file contains 3 integers.
+ The first two indicate the number of rows (
+\family typewriter
+NROW
+\family default
+) and number of columns (
+\family typewriter
+NCOL
+\family default
+) in the following matrix.
+ The next integer (named 
+\family typewriter
+ICODE
+\family default
+) is a code, the role of which will be discussed shortly.
+ Following the header line is the matrix itself, in which entries are space-sepa
+rated and wrapped to the next line if appropriate.
+ The maximum line length is 500 characters, so wrapping to the next line
+ must occur within 500 characters.
+ It is recommended to wrap lines after 8 values and to maintain maximum
+ possible precision.
+\end_layout
+
+\begin_layout Standard
+In use by 
+\family typewriter
+bgaPEST
+\family default
+, 
+\family typewriter
+ICODE
+\family default
+ is set to 2, so the string “
+\family typewriter
+* row names
+\family default
+” is printed next, followed by 
+\family typewriter
+NROW
+\family default
+ names (of 20 characters or less in length), containing the names associated
+ with rows of the matrix.
+ 
+\family typewriter
+NCOL
+\family default
+ column names follow in a similar format, following the string “
+\family typewriter
+* column names
+\family default
+”.
+ Other options for 
+\family typewriter
+ICODE
+\family default
+ are described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+ but are not used by 
+\family typewriter
+bgaPEST
+\family default
+.
+\end_layout
+
+\begin_layout Section
 A computationally efficient method to calculate the objective function
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsubsection*
 Unknown Mean
 \end_layout
 
@@ -3001,7 +5258,7 @@ reference "eq:zero"
  is correct by virtue of the fact that both terms are equal scalars.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsubsection*
 Diffuse Mean
 \end_layout
 
@@ -3037,2089 +5294,6 @@ J_{eff}=\frac{1}{2}\xi^{T}\left(\mathbf{H}\left(\mathbf{Q}+\mathbf{X}\mathbf{Q}_
 \end_inset
 
 
-\end_layout
-
-\begin_layout Section
-\start_of_appendix
-Input Instructions
-\end_layout
-
-\begin_layout Standard
-In this appendix, the general strategy for input instructions is described.
- The input is arranged in a file called 
-\family typewriter
-<casename>.bgp
-\family default
-, which is made up of input blocks, as discussed below.
- Following a discussion of more detail of the general input protocols, subsectio
-ns in which specific input blocks are discussed including variables and
- data that can be input in them are presented.
- 
-\end_layout
-
-\begin_layout Subsection
-General Structure of Input
-\end_layout
-
-\begin_layout Standard
-The general input structure is designed on a subset of the JUPITER protocol
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "BantaEtAl2006"
-
-\end_inset
-
-.
- The advantage of this protocol over XML or the previous input format for
- PEST is that annotations that are easily read by humans are part of the
- input protocol.
- The full JUPITER protocol, however, has memory and computational overhead
- that can become a problem for large and complicated data sets.
- The protocol used here, therefore, is simplified but should be easily recogniza
-ble to users of other JUPITER-compatible programs.
-\end_layout
-
-\begin_layout Standard
-The strategy for input is designed to use 
-\family typewriter
-BLOCKS
-\family default
- that are made up of either 
-\family typewriter
-KEYWORDS
-\family default
- for individual variables or 
-\family typewriter
-TABLES
-\family default
- for a series of data.
- The specification of whether a given block uses 
-\family typewriter
-KEYWORDS
-\family default
- or 
-\family typewriter
-TABLES
-\family default
- is preordained and the input blocks defined below indicate which is required.
-\end_layout
-
-\begin_layout Subsubsection
-Blocks
-\end_layout
-
-\begin_layout Standard
-Input Blocks are allowed to take one of two forms: either 
-\family typewriter
-KEYWORDS 
-\family default
-or
-\family typewriter
- TABLES
-\family default
-.
- All input blocks are delineated by the words 
-\family typewriter
-BEGIN
-\family default
- and 
-\family typewriter
-END
-\family default
-.
- The header line also includes the name and type of the block and the final
- line contains the name of the block.
- For example:
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-BEGIN prior_mean_cv KEYWORDS
-\begin_inset Newline newline
-\end_inset
-
-prior_betas=1
-\begin_inset Newline newline
-\end_inset
-
-beta_cov_form = 0
-\begin_inset Newline newline
-\end_inset
-
-END prior_mean_cv
-\end_layout
-
-\begin_layout Subsubsection
-Keywords
-\end_layout
-
-\begin_layout Standard
-Keyword variables correspond to single values identifies with an 
-\begin_inset Quotes eld
-\end_inset
-
-=
-\begin_inset Quotes erd
-\end_inset
-
- sign.
- Multiple 
-\family typewriter
-KEYWORDS
-\family default
- can be entered on each line in an input file but no spaces are allowed
- in 
-\family typewriter
-KEYWORDS
-\family default
- names or variable values.
- An example is: 
-\family typewriter
-prior_betas=1.
-\end_layout
-
-\begin_layout Subsubsection
-Tables
-\end_layout
-
-\begin_layout Standard
-Table variables are used for tabular data series that have multiple values
- in categories.
- Tables are identified by listing the number of rows (
-\family typewriter
-nrow
-\family default
-), number of columns (
-\family typewriter
-ncol
-\family default
-), and providing the keyword 
-\family typewriter
-columnlabels
-\family default
-.
- This is followed by 
-\family typewriter
-nrow
-\family default
- rows of data, with values arranged in 
-\family typewriter
-ncol
-\family default
- columns, corresponding to the same order as the 
-\family typewriter
-columnlabels
-\family default
-, and delimited by one or more spaces.
- For example:
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-BEGIN Q_compression_cv TABLE 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-nrow=2 ncol=5 columnlabels 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-BetaAssoc Toep_flag Nrow Ncol Nlay 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-1 0 21 21 1 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-2 1 21 21 1 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-END Q_compression_cv
-\end_layout
-
-\begin_layout Subsubsection
-Files 
-\end_layout
-
-\begin_layout Standard
-A user may want to shorten the length of the main input file by redirecting
- certain input to external text files.
- This can be done by signaling an input block with the word 
-\family typewriter
-FILES
-\family default
-, to read a file containing the entire set of information for the block.
- Regardless of whether the external text file contains a 
-\family typewriter
-KEYWORDS
-\family default
- or 
-\family typewriter
-TABLE
-\family default
- block, a block definition must be in place directing the program to the
- external file.
- For example:
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-BEGIN Q_compression_cv FILE 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-compression.txt
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-END Q_compression_cv
-\end_layout
-
-\begin_layout Standard
-In this exmple, the contents of the file compression.txt would be:
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-BEGIN Q_compression_cv TABLE 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-nrow=2 ncol=5 columnlabels 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-BetaAssoc Toep_flag Nrow Ncol Nlay 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-1 0 21 21 1 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-2 1 21 21 1 
-\end_layout
-
-\begin_layout Standard
-
-\family typewriter
-END Q_compression_cv
-\end_layout
-
-\begin_layout Subsection
-bgaPEST Input Blocks
-\end_layout
-
-\begin_layout Standard
-The specific input blocks used in bgaPEST are discussed, in order of appearance
- in the 
-\family typewriter
-<casename>.bgp
-\family default
- file.
- For each block, data types are identified either as 
-\emph on
-float
-\emph default
-, 
-\emph on
-integer
-\emph default
-, or 
-\emph on
-string
-\emph default
-.
- Values entered as 
-\emph on
-float
-\emph default
- can include scientific/engineering notation, but in all cases should contain
- a 
-\begin_inset Quotes eld
-\end_inset
-
-.
-\begin_inset Quotes erd
-\end_inset
-
- even if no fractional detail is included.
- Conversely, 
-\emph on
-integers
-\emph default
- must not contain 
-\begin_inset Quotes eld
-\end_inset
-
-.
-\begin_inset Quotes erd
-\end_inset
-
-.
- Variables identified as 
-\emph on
-string
-\emph default
- may not include spaces because whitespace is used as the delimiter for
- rows in tables and separating keywords.
-\end_layout
-
-\begin_layout Standard
-Each block is also defined with a suffix of 
-\begin_inset Quotes eld
-\end_inset
-
-cv
-\begin_inset Quotes erd
-\end_inset
-
- for 
-\begin_inset Quotes eld
-\end_inset
-
-control variables,
-\begin_inset Quotes erd
-\end_inset
-
- or 
-\begin_inset Quotes eld
-\end_inset
-
-data
-\begin_inset Quotes erd
-\end_inset
-
- for data.
-\end_layout
-
-\begin_layout Subsubsection
-Algorithmic Control Variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{algorithmic
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- KEYWORDS
-\end_layout
-
-\begin_layout Standard
-The following 
-\family typewriter
-KEYWORDS
-\family default
- variables are in the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{algorithmic
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- block.
-\end_layout
-
-\begin_layout Description
-structural_conv 
-\emph on
-float
-\emph default
- Convergence criterion for structural parameter convergence.
- 
-\emph on
-default=0.001
-\end_layout
-
-\begin_layout Description
-phi_conv 
-\emph on
-float 
-\emph default
-Convergence criterion for objective function convergence.
- 
-\emph on
-default=0.001
-\end_layout
-
-\begin_layout Description
-it_max_structural 
-\emph on
-integer 
-\emph default
-Total number of iterations allowed in structural parameter optimization.
- 
-\emph on
-default=10
-\end_layout
-
-\begin_layout Description
-it_max_phi 
-\emph on
-integer 
-\emph default
-Total number of iterations allowed in each quasi-linear estimation optimization.
- 
-\emph on
-default=10
-\end_layout
-
-\begin_layout Description
-it_max_bga 
-\emph on
-integer 
-\emph default
-Total number of outer iterations allowed for the entire algorithm.
- 
-\emph on
-default=10
-\end_layout
-
-\begin_layout Description
-linesearch 
-\emph on
-integer 
-\emph default
-Flag to determine whether a line search should be conducted.
- [0] = do not use linesearch, [1] = use linesearch.
- 
-\emph on
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\emph on
-should probably change this to boolean, but must do so in the code too
-\end_layout
-
-\end_inset
-
-default=0
-\end_layout
-
-\begin_layout Description
-it_max_linesearch
-\emph on
- integer 
-\emph default
-Total number of outer iterations allowed for the line search.
- 
-\emph on
-default=10
-\end_layout
-
-\begin_layout Description
-theta_cov_form 
-\emph on
-integer
-\emph default
- Form of the theta covariance matrix.
- [0] = none, [1] = diagonal, [2] = full matrix.
- [0] means no prior covariance on theta provided and it is assumed totally
- unknown.
- 
-\emph on
-default = 0
-\end_layout
-
-\begin_layout Description
-Q_compression_flag
-\emph on
- integer 
-\emph default
-Flag to determine how to calculate 
-\begin_inset Formula $Q_{0}$
-\end_inset
-
- [0] = no compression--calculate full 
-\begin_inset Formula $Q_{0}$
-\end_inset
-
- matrix, [1] = Calculate separate 
-\begin_inset Formula $Q_{0}$
-\end_inset
-
- matrix for each beta association.
- 
-\emph on
-default=0
-\end_layout
-
-\begin_layout Description
-par_anisotropy 
-\emph on
-integer 
-\emph default
-Flag to determine whether parameter anisotropy should be considered when
- making the 
-\begin_inset Formula $\mathbf{Q}$
-\end_inset
-
- matrix: [0] = do not consider anisotropy, [1]=consider anisotropy.
- If anisotropy is considered, a 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{parameter
-\backslash
-_anisotropy}
-\end_layout
-
-\end_inset
-
- block should be considered, as defined below.
- 
-\emph on
-default=0.
-\end_layout
-
-\begin_layout Description
-deriv_mode
-\emph on
- integer 
-\emph default
-Flag to determine whether sensitivities are calculated using an external
- call to PEST or using a user-supplied program (such as adjoint state).
- [0] = use PEST, [1] = use external program identified below in the 
-\family typewriter
-model_command_lines
-\family default
- block.
- 
-\emph on
-default=0
-\end_layout
-
-\begin_layout Description
-posterior_cov_flag 
-\emph on
-integer 
-\emph default
-Flag to determine whether posterior covariance matrix should be calculated.
- [0] = do not calculate posterior, [1] = calculate posterior.
- If 
-\family typewriter
-Q_compression_flag=1
-\family default
-, only the diagonal of the posterior covariance matrix is calculated.
- 
-\emph on
-default=0
-\end_layout
-
-\begin_layout Description
-jacobian_file 
-\emph on
-string 
-\emph default
-Name of the file generated by an external program if deriv_mode=1.
- 
-\emph on
-default=
-\begin_inset Quotes erd
-\end_inset
-
-scratch.jco
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Description
-jacobian_format 
-\emph on
-string 
-\emph default
-Format of the file indicated in jacobian_file.
- [binary] indicates a binary file formatted as a JCO file from PEST, [ascii]
- indicates a file of a standard PEST matrix format, discussed below in this
- documentation.
- 
-\emph on
-default=
-\begin_inset Quotes erd
-\end_inset
-
-binary
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Prior Mean Control Variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{prior
-\backslash
-_mean
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- KEYWORDS
-\end_layout
-
-\begin_layout Standard
-The following 
-\family typewriter
-KEYWORDS
-\family default
- variables are in the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{algorithmic
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- block.
-\end_layout
-
-\begin_layout Description
-prior_betas 
-\emph on
-integer
-\emph default
- Flag indicating whether information about prior mean 
-\begin_inset Formula $\left(\beta\right)$
-\end_inset
-
- 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-will be supplied.
- [0] = no, [1] = yes.
-\end_layout
-
-\begin_layout Description
-beta_cov_form 
-\emph on
-integer 
-\emph default
-Form of the prior mean 
-\begin_inset Formula $\left(\beta\right)$
-\end_inset
-
- covariance matrix 
-\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
-\end_inset
-
-.
- [0] = none, [1] = diagonal, [2] = full matrix.
- 
-\emph on
-default = 0
-\end_layout
-
-\begin_layout Subsubsection
-Prior Mean Data 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{prior
-\backslash
-_mean
-\backslash
-_data}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-This table must contain the same number of rows as there are beta associations
- to be defined.
- The rows must be in ascending order of beta association numbers.
- This is also the block where beta associations are defined, even if prior
- means are not defined.
-\end_layout
-
-\begin_layout Description
-BetaAssoc 
-\emph on
-integer 
-\emph default
-Identifier of each beta association (one per row).
- These should be sequential integers.
-\end_layout
-
-\begin_layout Description
-Partrans 
-\emph on
-string 
-\emph default
-Transformation indicator.
- Acceptable values are 
-\family typewriter
-log
-\family default
- and 
-\family typewriter
-none
-\family default
-.
-\end_layout
-
-\begin_layout Description
-beta_0 
-\emph on
-float
-\emph default
- Value of prior mean value 
-\begin_inset Formula $\left(\beta_{0}\right)$
-\end_inset
-
- for the row's beta association.
-\end_layout
-
-\begin_layout Description
-beta_cov_# 
-\emph on
-float 
-\emph default
-The number of values provided is based on the value of beta_cov_form specified
- above:
-\end_layout
-
-\begin_deeper
-\begin_layout Description
-
-\series medium
-If
-\series default
- beta_cov_form=1, one value is provided.
- 
-\end_layout
-
-\begin_layout Description
-
-\series medium
-If
-\series default
- beta_cov_form=2, nrow values are provided, corresponding to the current
- row of the beta covariance matrix 
-\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
-\end_inset
-
-.
-\end_layout
-
-\end_deeper
-\begin_layout Subsubsection
-Structural Parameter Control Variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{structural
-\backslash
-_parameter
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-This table must contain the same number of rows as there are beta associations
- to be defined.
- The rows must be in ascending order of beta association numbers.
-\end_layout
-
-\begin_layout Description
-BetaAssoc 
-\emph on
-integer 
-\emph default
-Identified of each beta association (one per row).
- These should be sequential integers.
-\end_layout
-
-\begin_layout Description
-prior_cov_mode 
-\emph on
-integer 
-\emph default
-Flag to indicate whether prior covariance of parameters 
-\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
-\end_inset
-
- is supplied or calculated.
- This is reserved for future use - currently 
-\begin_inset Formula $\mathbf{Q_{ss}}$
-\end_inset
-
- is always calculated, so this value is ignored if present.
- 
-\end_layout
-
-\begin_layout Description
-var_type 
-\emph on
-integer 
-\emph default
-This is a flag to indicate which variogram type is used to express the prior
- covariance 
-\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
-\end_inset
-
-.
- Acceptable choices are [0] = pure nugget, [1] = linear, [2] = exponential.
- Note that choosing linear is equivalent to choosing exponential with fixed
- integral scale 10 times the maximum distance between nodes.
- 
-\shape italic
-default=1
-\end_layout
-
-\begin_layout Description
-struct_par_opr 
-\emph on
-integer 
-\emph default
-Flag for whether structural parameters are meant to be optimized or not.
- This can be chosen for each structural parameter individually.
- [0] = do not optimize (hold at initial value), [1] = optimize using a marginal
- distribution.
- 
-\shape italic
-default=1
-\end_layout
-
-\begin_layout Description
-trans_theta 
-\emph on
-integer 
-\emph default
-Flag for whether a power transformation should be applied to the structural
- parameters in the current row.
- [0] = do not transform, [1] = transform.
- 
-\shape italic
-default=1
-\shape default
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-somewhere need to indicate which alpha value corresponds to the log in the
- limit
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Maybe is better to set the default to 0.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Description
-alpha_trans 
-\emph on
-float
-\emph default
- Exponent of the power transformation if 
-\family typewriter
-trans_theta
-\family default
- = 1.
- 
-\shape italic
-default = 50
-\end_layout
-
-\begin_layout Subsubsection
-Structural Parameter Data 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{structural
-\backslash
-_parameter
-\backslash
-_data}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-This table must contain the same number of rows as there are beta associations
- to be defined.
- The rows must be in ascending order of beta association numbers.
-\end_layout
-
-\begin_layout Description
-BetaAssoc 
-\emph on
-integer 
-\emph default
-Identified of each beta association (one per row).
- These should be sequential integers.
-\end_layout
-
-\begin_layout Description
-theta_0_1 
-\emph on
-float 
-\emph default
-Initial value of 
-\begin_inset Formula $\theta_{1,0}$
-\end_inset
-
- which is the starting value of the first structural parameter for prior
- covariance.
-\end_layout
-
-\begin_layout Description
-theta_0_2 
-\emph on
-float 
-\emph default
-Initial value of 
-\begin_inset Formula $\theta_{2,0}$
-\end_inset
-
- which is the starting value of the second structural parameter for prior
- covariance
-\end_layout
-
-\begin_layout Description
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-need to sort out this negative value business
-\end_layout
-
-\end_inset
-
-.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-In case max(num_theta_type) is 2 but for some beta association we need just
- one theta value, the second must be entered negative otherwise we have
- a warning.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Structural Parameter Covariance Data 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{structural
-\backslash
-_parameter
-\backslash
-_cov}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-The only covariance model currently supported is diagonal, so there must
- be one covariance value for each 
-\begin_inset Formula $\theta$
-\end_inset
-
- parameter.
-\end_layout
-
-\begin_layout Description
-theta_cov_1 
-\emph on
-float 
-\emph default
-Variance of the current row's 
-\begin_inset Formula $\theta$
-\end_inset
-
- parameter.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-We need to say that this must be a vector also if we have two structural
- parameters for the same beta association.
- They must be entered sequentially.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Epistemic Error Term 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{epistemic
-\backslash
-_error
-\backslash
-_term}
-\end_layout
-
-\end_inset
-
- KEYWORDS
-\end_layout
-
-\begin_layout Description
-sig_0 
-\emph on
-float 
-\emph default
-Initial value of the epistemic error 
-\begin_inset Formula $\left(\sigma_{o}\right)$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Description
-sig_opt 
-\emph on
-integer 
-\emph default
-Flag indicating whether epistemic error should be optimized for or not.
- [0] = do not optimize, [1] = optimize.
- If 
-\family typewriter
-sig_opt
-\family default
- = 0, then the value of 
-\family typewriter
-sig_0
-\family default
- is used throughout the inversion.
-\end_layout
-
-\begin_layout Description
-sig_p_var 
-\emph on
-float 
-\emph default
-Prior variance on 
-\begin_inset Formula $\sigma$
-\end_inset
-
-.
- 
-\family typewriter
-sig_p_var=0.
-
-\family default
- means no prior variance on epistemic error is provided and it is assumed
- totally unknown.
- 
-\shape italic
-default=0.
-\end_layout
-
-\begin_layout Description
-trans_sig 
-\emph on
-integer 
-\emph default
-Flag for whether a power transformation should be applied to the epistemic
- error.
- [0] = do not transform, [1] = transform.
- 
-\shape italic
-default=0
-\end_layout
-
-\begin_layout Description
-alpha_trans 
-\emph on
-float
-\emph default
- Exponent of the power transformation if 
-\family typewriter
-trans_sig
-\family default
- = 1.
- 
-\shape italic
-default = 50
-\end_layout
-
-\begin_layout Subsubsection
-Parameter Control Values 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{parameter
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- KEYWORDS
-\end_layout
-
-\begin_layout Description
-ndim 
-\emph on
-integer
-\emph default
- Number of dimensions over which parameters span.
-\end_layout
-
-\begin_layout Subsubsection
-Prior Covariance Compression Control Variables 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{Q
-\backslash
-_compression
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-This table must contain the same number of rows as there are beta associations
- to be defined.
- The rows must be in ascending order of beta association numbers.
-\end_layout
-
-\begin_layout Description
-BetaAssoc 
-\emph on
-integer 
-\emph default
-Identified of each beta association (one per row).
- These typically are sequential integers.
-\end_layout
-
-\begin_layout Description
-Toep_flag 
-\emph on
-integer
-\emph default
- This is a flag to determine whether a Toeplitz transformation should be
- applied to the prior covariance matrix 
-\begin_inset Formula $\mbox{\left(\mathbf{Q_{ss}}\right) }$
-\end_inset
-
-.
- [0] = do not use Toeplitz transformation, [1] = do use Toeplitz transformation.
-\end_layout
-
-\begin_layout Description
-Nrow 
-\emph on
-integer 
-\emph default
-Number of rows in the current Beta association (only read if Toep_flag =
- 1).
-\end_layout
-
-\begin_layout Description
-Ncol 
-\emph on
-integer 
-\emph default
-Number of columns in the current Beta association (only read if Toep_flag
- = 1).
-\end_layout
-
-\begin_layout Description
-Nlay 
-\emph on
-integer 
-\emph default
-Number of layers in the current Beta association (only read if Toep_flag
- = 1).
-\end_layout
-
-\begin_layout Subsubsection
-Parameter Groups 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{parameter
-\backslash
-_groups}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-Each row of this table corresponds to one of the parameter groups.
- These groups are used to group together parameters by type and are not
- the same as beta associations.
-\end_layout
-
-\begin_layout Description
-groupname 
-\emph on
-string
-\emph default
- Name of the group in the current row.
- Note that these cannot contain spaces.
-\end_layout
-
-\begin_layout Description
-grouptype 
-\emph on
-integer
-\emph default
- Type of group in the current row.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-It does not appear that we are using this for anything at the moment.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Parameter Data 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{parameter
-\backslash
-_data}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Description
-ParamName 
-\emph on
-string
-\emph default
- Name for the parameter.
-\end_layout
-
-\begin_layout Description
-StartValue 
-\emph on
-float 
-\emph default
-Staring parameter value.
-\end_layout
-
-\begin_layout Description
-GroupName 
-\emph on
-string
-\emph default
- Name of the group to which the parameter belongs.
- This name must be defined in the 
-\family typewriter
-parameter_groups
-\family default
- block.
-\end_layout
-
-\begin_layout Description
-BetaAssoc 
-\emph on
-integer
-\emph default
- Beta association to which this parameter belongs.
-\end_layout
-
-\begin_layout Description
-SenMethod 
-\emph on
-integer
-\emph default
- Senstivity method used for this parameter type.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-not currently being used
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Description
-x1 
-\emph on
-float
-\emph default
- Location in the first dimension.
-\end_layout
-
-\begin_layout Description
-x2 
-\emph on
-float
-\emph default
- Location in the second dimension.
- Only read if 
-\family typewriter
-ndim
-\family default
- >= 2.
-\end_layout
-
-\begin_layout Description
-x3 
-\emph on
-float
-\emph default
- Location in the third dimension.
- Only read if 
-\family typewriter
-ndim
-\family default
- = 3.
-\end_layout
-
-\begin_layout Subsubsection
-Observation Groups 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{observation
-\backslash
-_groups}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-Each row of this table corresponds to one of the observation groups.
- These groups are used to group together observations by type and are used
- to report portions of the objective function.
-\end_layout
-
-\begin_layout Description
-groupname 
-\emph on
-string
-\emph default
- Name of the group in the current row.
- Note that these cannot contain spaces.
-\end_layout
-
-\begin_layout Subsubsection
-Observation Data 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{observation
-\backslash
-_data}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-One observation is presented on each line.
-\end_layout
-
-\begin_layout Description
-ObsName 
-\emph on
-string
-\emph default
- Name of an observation.
-\end_layout
-
-\begin_layout Description
-ObsValue 
-\emph on
-float
-\emph default
- Value of the observation.
-\end_layout
-
-\begin_layout Description
-GroupName 
-\emph on
-string
-\emph default
- Name of the group to which the observation belongs.
- This name must be defined in the 
-\family typewriter
-observation_groups
-\family default
- block.
- 
-\end_layout
-
-\begin_layout Description
-Weight 
-\emph on
-float
-\emph default
- A relative weight that gets applied to the epistemic error.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-default to 1.0? Allow this to be optional?
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Model Command Lines 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{model
-\backslash
-_command
-\backslash
-_lines}
-\end_layout
-
-\end_inset
-
- KEYWORDS
-\end_layout
-
-\begin_layout Standard
-Currently a single forward model command and an option derivative model
- command can be supplied here.
- These string keywords can include path information if the command line
- batch files or shell scripts are not located in the current working directory,
- but spaces are not allowed.
-\end_layout
-
-\begin_layout Description
-Command 
-\emph on
-string
-\emph default
- This is the batch file or shell script that runs the forward model.
-\end_layout
-
-\begin_layout Description
-DerivCommand 
-\emph on
-string
-\emph default
- This is the optional batch file or shell script that is used to calculate
- derivatives.
- This is only used if 
-\family typewriter
-deriv_method
-\family default
- = 1 in the 
-\family typewriter
-algorithmic_cv
-\family default
- block.
-\end_layout
-
-\begin_layout Subsubsection
-Model Input Files 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{model
-\backslash
-_input
-\backslash
-_files}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-Each row of this table includes a matched template file and model input
- file.
- This allows the program to create the correct input files for the model.
-\end_layout
-
-\begin_layout Description
-TemplateFile 
-\emph on
-string
-\emph default
- Name of a template file for making model input.
- Must end in 
-\family typewriter
-.tpl
-\family default
-.
-\end_layout
-
-\begin_layout Description
-ModInFile 
-\emph on
-string
-\emph default
- Name of the model input file corresponding to the TemplateFile identified
- on the same row.
-\end_layout
-
-\begin_layout Subsubsection
-Model Output Files 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{model
-\backslash
-_output
-\backslash
-_files}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-Each row of this table includes a matched instruction file and model output
- file.
- This allows the program to read the results of model runs correctly.
-\end_layout
-
-\begin_layout Description
-InstructionFile 
-\emph on
-string
-\emph default
- Name of an instruction file for reading model output.
- Must end in 
-\family typewriter
-.ins
-\family default
-.
-\end_layout
-
-\begin_layout Description
-ModOutFile 
-\emph on
-string
-\emph default
- Name of the model output file corresponding to the InstructionFile identified
- on the same row.
-\end_layout
-
-\begin_layout Subsubsection
-Parameter Anisotropy 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{parameter
-\backslash
-_anisotropy}
-\end_layout
-
-\end_inset
-
- TABLE
-\end_layout
-
-\begin_layout Standard
-Each row of this table contains information for parameter anisotropy for
- a beta association.
- This block is read only if the variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{par
-\backslash
-_anisotropy}
-\end_layout
-
-\end_inset
-
- =1 in the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{algorithmic
-\backslash
-_cv}
-\end_layout
-
-\end_inset
-
- block.
-\end_layout
-
-\begin_layout Description
-BetaAssoc 
-\emph on
-integer
-\emph default
- Identifier of a beta association.
-\end_layout
-
-\begin_layout Description
-horiz_angle 
-\emph on
-float 
-\emph default
-Angle, in degrees of the principal direction of anisotropy in a horizontal
- plane.
- See FIGURE for details.
-\end_layout
-
-\begin_layout Description
-horiz_ratio 
-\emph on
-float 
-\emph default
-Ratio of maximum to minimum principal property values in the horizontal
- plane.
- See FIGURE for details.
-\end_layout
-
-\begin_layout Description
-vertical_ratio 
-\emph on
-float 
-\emph default
-Ratio of maximum to minimum principal property values in the vertical direction.
- See FIGURE for details.
-\end_layout
-
-\begin_layout Subsection
-Jacobian Matrix Formats
-\end_layout
-
-\begin_layout Standard
-Two options are available for Jacobian sensitivity matrices 
-\begin_inset Formula $\left(\mathbf{H}\right)$
-\end_inset
-
- to be read by 
-\family typewriter
-bgaPEST
-\family default
-.
- If 
-\family typewriter
-deriv_mode=0
-\family default
-, 
-\family typewriter
-PEST
-\family default
- is used, external to 
-\family typewriter
-bgaPEST
-\family default
-, to calculate the Jacobian matrix resulting in a binary file with the extension
- 
-\family typewriter
-.jco
-\family default
-.
- If 
-\family typewriter
-deriv_mode=
-\family default
-1 then an external program is used to calculate 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
- and a file written by the external program must be communicated to 
-\family typewriter
-bgaPEST
-\family default
-.
- This file can either be a 
-\family typewriter
-.jco
-\family default
- file or a 
-\family typewriter
-.jac
-\family default
- file which is an ASCII file following the format of a standard matrix file
- used by 
-\family typewriter
-PEST
-\family default
-, as described in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "PESTAdd"
-
-\end_inset
-
-, section 4.4.3.
- An example and description of the format of a standard 
-\family typewriter
-PEST
-\family default
- matrix follow, quoting from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "PESTAdd"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:matrix"
-
-\end_inset
-
- depicts an example matrix file holding a matrix with three rows and four
- columns.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:matrix"
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename figures/standard_PEST_matrix.pdf
-	lyxscale 40
-	scale 25
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Example of a standard 
-\family typewriter
-PEST
-\family default
- matrix file, adapted from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "PESTAdd"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The first line of a matrix file contains 3 integers.
- The first two indicate the number of rows (
-\family typewriter
-NROW
-\family default
-) and number of columns (
-\family typewriter
-NCOL
-\family default
-) in the following matrix.
- The next integer (named 
-\family typewriter
-ICODE
-\family default
-) is a code, the role of which will be discussed shortly.
- Following the header line is the matrix itself, in which entries are space-sepa
-rated and wrapped to the next line if appropriate.
- The maximum line length is 500 characters, so wrapping to the next line
- must occur within 500 characters.
- It is recommended to wrap lines after 8 values and to maintain maximum
- possible precision.
-\end_layout
-
-\begin_layout Standard
-In use by 
-\family typewriter
-bgaPEST
-\family default
-, 
-\family typewriter
-ICODE
-\family default
- is set to 2, so the string “
-\family typewriter
-* row names
-\family default
-” is printed next, followed by 
-\family typewriter
-NROW
-\family default
- names (of 20 characters or less in length), containing the names associated
- with rows of the matrix.
- 
-\family typewriter
-NCOL
-\family default
- column names follow in a similar format, following the string “
-\family typewriter
-* column names
-\family default
-”.
- Other options for 
-\family typewriter
-ICODE
-\family default
- are described in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "PESTAdd"
-
-\end_inset
-
- but are not used by 
-\family typewriter
-bgaPEST
-\family default
-.
 \end_layout
 
 \begin_layout Standard
