@@ -967,7 +967,7 @@ key "Robbins1956,casella1985"
 
 \end_inset
 
- approach to inference in this method meaning that the general characteristics
+ approach to inference in this method, meaning that the general characteristics
  of the prior and epistemic covariances introduced above are provided in
  the model setup, but the values of structural parameters that control the
  balance between smoothness and misfit are estimated from the data.
@@ -999,8 +999,7 @@ reference "eq:BGA"
 \begin_inset Formula $\left(\sigma_{R}^{2}\mbox{ and \mbox{\theta}}\right)$
 \end_inset
 
- from the data is performed using Restricted Maximum Likelihood as discussed
- in Appendix A in the supplemental online material.
+ from the data is performed using Restricted Maximum Likelihood.
  This approach is consistent with the principle of maximum entropy such
  that the smoothest solution is chosen, based on the structural parameters
  estimated from the data.
