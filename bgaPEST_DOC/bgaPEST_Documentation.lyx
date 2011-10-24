@@ -1294,7 +1294,7 @@ height_special "totalheight"
 status open
 
 \begin_layout Paragraph*
-Beta Associations and Zones
+Beta Associations and Zones:
 \emph on
  Why aren't 
 \begin_inset Quotes eld
@@ -2124,13 +2124,234 @@ Compression takes advantage of the fact that values in the
  and zero blocks
 \begin_inset Formula 
 \[
-\mathbf{G_{ss}=\left[\begin{array}{cccc}
-\mathbf{G}_{\mathbf{ss},\beta i}\\
-\\
-\\
-\\
-\end{array}\right]}
+\mathbf{G}_{\mathbf{ss}}=\left[\begin{array}{cccc}
+\mathbf{G}_{\mathbf{ss},\beta1} & \mathbf{0} & \mathbf{0} & \mathbf{0}\\
+\mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta1} & \mathbf{0} & \mathbf{0}\\
+\mathbf{0} & \mathbf{0} & \ddots & \mathbf{0}\\
+\mathbf{0} & \mathbf{0} & \mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta p}
+\end{array}\right].
 \]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There is no need to store the zero elements provided that accommodations
+ are made to avoid multiplications that involve the zeros.
+ These accommodations have been made in bgaPEST and compression is, therefore,
+ allowed.
+\end_layout
+
+\begin_layout Standard
+In cases where spacial spacing is constant in respective directions, 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ is a Toeplitz matrix 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "toeplitz"
+
+\end_inset
+
+.
+ A square, symmetric 
+\begin_inset Formula $j\times j$
+\end_inset
+
+ matrix is Toeplitz in form if it has diagonals that all have the same value
+ as in this example
+\begin_inset Formula 
+\[
+\mathbf{T}=\text{\left[\begin{array}{ccccc}
+t_{0} & t_{1} & \dots\ & t_{j-2} & t_{j-1}\\
+t_{1} & t_{0} & t_{1} & \ddots\ & t_{j-2}\\
+\vdots\ & t_{1} & t_{0} & \ddots\ & \vdots\\
+t_{j-2} & \ddots\ & \ddots\ & \ddots\ & t_{1}\\
+t_{j-1} & t_{j-2} & \dots\ & t_{1} & t_{0}
+\end{array}\right]}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This matrix has the properties that there are only 
+\begin_inset Formula $j$
+\end_inset
+
+ unique values, and these values occur in a regular order such that only
+ a vector of length 
+\begin_inset Formula $j$
+\end_inset
+
+ needs to be stored from which individual rows can be constructed to perform
+ matrix multiplication operations.
+ The spacing, as indicated above, must be constant.
+ For example, in a spatial model such as properties in a groundwater model,
+ 
+\begin_inset Formula $\Delta x,$
+\end_inset
+
+ 
+\begin_inset Formula $\Delta y,$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta z$
+\end_inset
+
+ must be constant, but these values need to be equal to each other.
+ While this is restrictive in the sense that it implies a regular grid that
+ may not correspond to geometry in the field.
+ However, the regular grid required to take advantage of Toeplitz storage
+ and operations can be assigned to one beta association with a surrounding,
+ irregular grid put in another beta association with fewer parameter values.
+\end_layout
+
+\begin_layout Standard
+In order to use Toeplitz structure in three dimensions, there must be a
+ three-level embedding of Toeplitz matrices 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "MarcoDiss"
+
+\end_inset
+
+.
+ The first level corresponds to the model layers, the second level corresponds
+ to model rows, and the third level corresponds to model columns.
+ Inspection of the schematic example in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:toep"
+
+\end_inset
+
+ shows that every distinct value represented in the entire matrix is found
+ in the first (leftmost) column.
+ Cycling of rows or columns, relative to the single stored vector, can be
+ used to reconstruct any row or column of the main matrix to be used in
+ multiplication operations.
+ In bgaPEST, a combination of Toeplitz and complete blocks can make up the
+ 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix in Compressed form, as discussed above.
+\end_layout
+
+\begin_layout Standard
+Detailed input instructions for bgaPEST are presented in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+.
+ It is important to note, however, that if Toeplitz compression is invoked,
+ parameters must be listed in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{.bgp}
+\end_layout
+
+\end_inset
+
+ input file in order, sorted first by layer, then by column, and finally
+ by row.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+
+\begin_inset Graphics
+	filename figures/toeplitz_3_level.pdf
+	scale 55
+
+\end_inset
+
+
+\lang english
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:toep"
+
+\end_inset
+
+Schematic graphical visualization of a three-level embedded set of Toeplitz
+ blocks in a covariance matrix (modified from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "MarcoDiss"
+
+\end_inset
+
+).
+ The smallest squares represent individual matrix entries (values) and the
+ colors correspond to distinct values.
+ In this synthetic example, it is assumed that there are three rows, three
+ columns, and three layers in the underlying model.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
@@ -2841,8 +3062,56 @@ key "Kitanidis1995,Kitanidis1996ana"
 .
 \end_layout
 
+\begin_layout Section*
+Running bgaPEST
+\end_layout
+
+\begin_layout Standard
+The bgaPEST program is run from the command line by typing 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{bgaPEST.exe <casename>.bgp}
+\end_layout
+
+\end_inset
+
+ where 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{<casename>}
+\end_layout
+
+\end_inset
+
+ is a filename containing input instructions.
+ Detailed input instruction are in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+ 
+\end_layout
+
 \begin_layout Section
 \start_of_appendix
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Input-Instructions"
+
+\end_inset
+
 Input Instructions
 \end_layout
 
@@ -3224,6 +3493,47 @@ data
  for data.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Paragraph*
+A note on default variable values
+\end_layout
+
+\begin_layout Plain Layout
+In the input instructions below, some variables list a default value.
+ Part of the design strategy of this software was to not burden users with
+ determining appropriate values for each and every variable that controls
+ the algorithm.
+ As a result, default values are provided for some variables.
+ In those cases, input by the user in the 
+\family typewriter
+.bgp
+\family default
+ file is optional.
+ If no value is provided by the user, the default value will be used by
+ bgaPEST.
+ If a variable not listed with a default value in these input instructions
+ is omitted by a user, bgaPEST will return with an error indicating that
+ the variable is not present.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection*
 Algorithmic Control Variables 
 \begin_inset ERT
@@ -3330,18 +3640,6 @@ Flag to determine whether a line search should be conducted.
  [0] = do not use linesearch, [1] = use linesearch.
  
 \emph on
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\emph on
-should probably change this to boolean, but must do so in the code too
-\end_layout
-
-\end_inset
-
 default=0
 \end_layout
 
