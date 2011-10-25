@@ -173,8 +173,9 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
                case(1) !Means Toeplitz. Q0(p) is just a vector with the distances
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
-                 call toep_mult_post(Q0_All(p),d_A%H(:,start_v:end_v), cv_OBS%nobs, &
-                 & (d_S%theta(Q0_All(p)%BetaAss,1)),d_XQR%L,d_XQR%L, d_A%Qsy , V)
+                 call toep_mult_post(Q0_All,p, d_A, cv_OBS%nobs, &
+                 & (d_S%theta(Q0_All(p)%BetaAss,1)),d_XQR%L,d_XQR%L, d_A%Qsy , V, &
+                 & start_v, end_v)
              end select  !Q0_All(p)%Toep_flag)      
           case (2) ! means exponential ---> we need theta1 and theta2. We have 2 option: Toeplitz or not
              select case (Q0_All(p)%Toep_flag) !Selection of Toeplitz [1] or not [0]
@@ -199,9 +200,9 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
                case(1) !Means Toeplitz. Q0(p) is just a vector with the distances
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
-                 call toep_mult_post(Q0_All(p),d_A%H(:,start_v:end_v), cv_OBS%nobs, &
+                 call toep_mult_post(Q0_All, p, d_A, cv_OBS%nobs, &
                    & (d_S%theta(Q0_All(p)%BetaAss,1)),(d_S%theta(Q0_All(p)%BetaAss,2)),1.D0 , &
-                   & d_A%Qsy,V)
+                   & d_A%Qsy,V, start_v, end_v)
              end select  !Q0_All(p)%Toep_flag)
               
           end select !(cv_S%var_type(Q0_All(p)%BetaAss))
@@ -279,42 +280,50 @@ end subroutine form_post_covariance
 !*****************************************************************************************************
 !****** Subroutine to make Qsy in case of Toeplitz matrix ********************************************
 !*****************************************************************************************************
-subroutine toep_mult_post(Q0,H,nobs,theta_1,theta_2,Lmax,Qsy,V)
+subroutine toep_mult_post(Q0_All,ip,d_A,nobs,theta_1,theta_2,Lmax,Qsy,V,start_v,end_v)
 
-type(Q0_compr),       intent(in)     :: Q0
-double precision,     intent(in)     :: H(nobs,Q0%npar)
+type(Q0_compr),       intent(in)     :: Q0_All(:)
+type(d_algorithmic),  intent(in)     :: d_A
 double precision,     intent(inout)  :: Qsy(:,:), V(:) 
 double precision,     intent(in)     :: theta_1,theta_2,Lmax
 integer,              intent(in)     :: nobs
-double precision                     :: Qtmpb(Q0%npar),Qtmpg(Q0%npar),Qtmpl(Q0%npar),Qv(Q0%npar),TMP(Q0%npar)
+double precision, pointer            :: Qtmpb(:),Qtmpg(:),Qtmpl(:),Qv(:),TMP(:)
 double precision                     :: TMVSY(nobs)
 integer                              :: ncol,nbl,nlay
 integer                              :: blkg,blkl
-integer                              :: i,l,k,p,it,jt
+integer                              :: i,l,k,p,it,jt,ip
+integer                              :: start_v, end_v
 
 !Note: In case of linear variogram theta_1 must be theta_1, 
 !theta_2 and Lmax must be the 10 times the maximum distance in Q0_All
 !In case of exponential variogram theta_1 must be theta_1,
 !theta_2 must be theta_2 and Lmax must be 1
 
-ncol=Q0%Ncol
-nbl=Q0%Nrow
-nlay=Q0%Nlay
+
+allocate (Qtmpb(Q0_All(ip)%npar))
+allocate (Qtmpg(Q0_All(ip)%npar))
+allocate (Qtmpl(Q0_All(ip)%npar))
+allocate (Qv(Q0_All(ip)%npar))
+allocate (TMP(Q0_All(ip)%npar))
+
+ncol=Q0_All(ip)%Ncol
+nbl =Q0_All(ip)%Nrow
+nlay=Q0_All(ip)%Nlay
 Qv=0.
-Qtmpb=Q0%Q0_C(:,1)
-Qtmpg=Q0%Q0_C(:,1)
-Qtmpl=Q0%Q0_C(:,1)
+Qtmpb=Q0_All(ip)%Q0_C(:,1)
+Qtmpg=Q0_All(ip)%Q0_C(:,1)
+Qtmpl=Q0_All(ip)%Q0_C(:,1)
 new_block=.true.
 blkg=1
 blkl=1
 i=0
 
-do p=1, Q0%npar !Index for all the columns of the matrix
+do p=1, Q0_All(ip)%npar !Index for all the columns of the matrix
 
 if (i/ncol.eq.1) then
   if(blkg/nbl.eq.1)    then
      blkl = blkl+1
-     Qtmpb(1:(ncol*nbl)) = Q0%Q0_C((ncol*nbl*(blkl-1))+1:((ncol*nbl)*(blkl-1))+(ncol*nbl),1)
+     Qtmpb(1:(ncol*nbl)) = Q0_All(ip)%Q0_C((ncol*nbl*(blkl-1))+1:((ncol*nbl)*(blkl-1))+(ncol*nbl),1)
      Qtmpb((ncol*nbl)+1:(ncol*nbl*nlay)) = Qtmpl(1:(ncol*nbl*nlay)-(ncol*nbl))
      Qtmpl = Qtmpb
      Qtmpg = Qtmpb
@@ -356,13 +365,18 @@ Qtmpb=Qv
 !**** We assign the result to the p-th row (instead of column) of Qsy to obtain Q*Ht ******************************
 !**** that, at the end of the loop, is the Qsy for the specified beta  ********************************************
 !******************************************************************************************************************
-
 TMP = (theta_1*Lmax*exp(-Qv/theta_2))
-V(Q0%Beta_start+p-1) = TMP(p) !V here is the diagonal of Qss
+V(Q0_All(ip)%Beta_start+p-1) = TMP(p) !V here is the diagonal of Qss
 
-call DGEMV('n',nobs,Q0%npar,1.D0,H,nobs,TMP,1,0.D0,TMVSY,1)
-Qsy(Q0%Beta_start+p-1,:)=TMVSY
+call DGEMV('n',nobs,Q0_All(ip)%npar,1.D0,d_A%H(:,start_v:end_v),nobs,TMP,1,0.D0,TMVSY,1)
+Qsy(Q0_All(ip)%Beta_start+p-1,:)=TMVSY
 enddo  !End of loop for each column of the entire Q matrix
+
+if (associated(Qtmpb)) deallocate(Qtmpb)
+if (associated(Qtmpg)) deallocate(Qtmpg)
+if (associated(Qtmpl)) deallocate(Qtmpl)
+if (associated(Qv))    deallocate(Qv)
+if (associated(TMP))   deallocate(TMP)
 
 end subroutine toep_mult_post
 !*****************************************************************************************************

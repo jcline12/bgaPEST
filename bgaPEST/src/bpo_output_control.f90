@@ -101,13 +101,10 @@ contains
     write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal','95pctLCL','95pctLCL'
 
         !--- handle transformations to estimation space as appropriate
-        do i = 1, cv_PAR%p 
-          if (d_PM%Partrans(i).eq.1) then
-            where (d_PAR%BetaAssoc.eq.i)
-              finalparvalue = log(d_PAR%pars)   !MD At the beginning pars is the vector of the initial values of the parameters 
-                 ! as read in the file. Then became the best estimate. Here we transform in the estimation space if required
-            end where
-          endif
+        do i = 1,cv_PAR%npar 
+         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
+            finalparvalue(i) = log(d_PAR%pars(i))   
+         endif
         enddo   
         
         !-- calculate LCL, and UCL
@@ -118,14 +115,12 @@ contains
         ucl = ucl + 2*SD
 
         !-- backtransform to physical space as appropriate
-        do i = 1, cv_PAR%p 
-          if (d_PM%Partrans(i).eq.1) then
-            where (d_PAR%BetaAssoc.eq.i)
-              finalparvalue = exp(finalparvalue)
-              ucl = exp(ucl)
-              lcl = exp(lcl)
-            end where
-          endif
+        do i = 1,cv_PAR%npar 
+         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
+              finalparvalue(i) = exp(finalparvalue(i))
+              ucl(i) = exp(ucl(i))
+              lcl(i) = exp(lcl(i))
+         endif
         enddo 
                 
         !--  write parameter values, LCL, and UCL

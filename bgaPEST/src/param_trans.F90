@@ -25,21 +25,16 @@ contains
        type (cv_observ)             :: cv_OBS
        type (d_prior_mean)          :: d_PM
        
-        
-       do i = 1, cv_PAR%p 
-          if (d_PM%Partrans(i).eq.1) then
-            do j = 1, cv_OBS%nobs
-               where (d_PAR%BetaAssoc.eq.i)
-                 d_A%H(j,:)=d_A%H(j,:)*d_PAR%pars
-               end where
-            enddo
-            where (d_PAR%BetaAssoc.eq.i)
-              d_PAR%pars_old = log(d_PAR%pars)   !MD At the beginning pars is the vector of the initial values of the parameters 
+       do i = 1,cv_PAR%npar 
+         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
+           do j = 1, cv_OBS%nobs
+             d_A%H(j,i)=d_A%H(j,i)*d_PAR%pars(i)
+           end do
+           d_PAR%pars_old(i) = log(d_PAR%pars(i))   !MD At the beginning pars is the vector of the initial values of the parameters 
                  ! as read in the file. Then became the best estimate. Here we transform in the estimation space if required
-            end where
-          endif
-        enddo
-
+         end if
+       end do
+       
   end subroutine sen_par_trans
   
    subroutine par_back_trans(cv_PAR, d_PAR, d_PM)
@@ -54,14 +49,12 @@ contains
        type (d_param)               :: d_PAR
        type (d_prior_mean)          :: d_PM
                
-       do i = 1, cv_PAR%p
-          if (d_PM%Partrans(i).eq.1) then
-            where (d_PAR%BetaAssoc.eq.i)
-              d_PAR%pars = exp(d_PAR%pars) !Back-transform the parameters in the physical space
-            end where
-          endif
+       do i = 1, cv_PAR%npar
+         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
+           d_PAR%pars(i) = exp(d_PAR%pars(i))  !Back-transform the parameters in the physical space
+         end if
        enddo
-
+       
   end subroutine par_back_trans
   
   subroutine par_back_trans_lns(cv_PAR, d_PAR, d_PM) 
@@ -76,12 +69,10 @@ contains
        type (d_param)               :: d_PAR
        type (d_prior_mean)          :: d_PM
         
-       do i = 1, cv_PAR%p
-          if (d_PM%Partrans(i).eq.1) then
-            where (d_PAR%BetaAssoc.eq.i)
-              d_PAR%pars_lns = exp(d_PAR%pars_lns) !Back-transform the parameters in the physical space
-            end where
-           endif
+       do i = 1, cv_PAR%npar
+         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
+           d_PAR%pars_lns(i) = exp(d_PAR%pars_lns(i)) !Back-transform the parameters in the physical space
+         endif
        enddo
 
   end subroutine par_back_trans_lns
