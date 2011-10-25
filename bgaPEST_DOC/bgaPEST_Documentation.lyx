@@ -2166,11 +2166,11 @@ key "toeplitz"
 \begin_inset Formula 
 \[
 \mathbf{T}=\text{\left[\begin{array}{ccccc}
-t_{0} & t_{1} & \dots\ & t_{j-2} & t_{j-1}\\
-t_{1} & t_{0} & t_{1} & \ddots\ & t_{j-2}\\
-\vdots\ & t_{1} & t_{0} & \ddots\ & \vdots\\
-t_{j-2} & \ddots\ & \ddots\ & \ddots\ & t_{1}\\
-t_{j-1} & t_{j-2} & \dots\ & t_{1} & t_{0}
+ t_{0}  &  t_{1}  &  \dots\  &  t_{j-2}  &  t_{j-1}\\
+t_{1}  &  t_{0}  &  t_{1}  &  \ddots\  &  t_{j-2}\\
+\vdots\  &  t_{1}  &  t_{0}  &  \ddots\  &  \vdots\\
+t_{j-2}  &  \ddots\  &  \ddots\  &  \ddots\  &  t_{1}\\
+t_{j-1}  &  t_{j-2}  &  \dots\  &  t_{1}  &  t_{0} 
 \end{array}\right]}.
 \]
 
@@ -2294,15 +2294,12 @@ begin{center}
 \end_inset
 
 
-
 \begin_inset Graphics
 	filename figures/toeplitz_3_level.pdf
 	scale 55
 
 \end_inset
 
-
-\lang english
 
 \begin_inset ERT
 status open
@@ -4960,7 +4957,14 @@ float
 \emph default
 Angle, in degrees of the principal direction of anisotropy in a horizontal
  plane.
- See FIGURE for details.
+ See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+ for details.
 \end_layout
 
 \begin_layout Description
@@ -4970,7 +4974,14 @@ float
 \emph default
 Ratio of maximum to minimum principal property values in the horizontal
  plane.
- See FIGURE for details.
+ See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+ for details.
 \end_layout
 
 \begin_layout Description
@@ -4979,15 +4990,83 @@ vertical_ratio
 float 
 \emph default
 Ratio of maximum to minimum principal property values in the vertical direction.
- See FIGURE for details.
+ See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+ for details.
 \end_layout
 
 \begin_layout Subsection*
-Jacobian Matrix Formats
+PEST Matrix Formats for Jacobian and Posterior Covariance
 \end_layout
 
 \begin_layout Standard
-Two options are available for Jacobian sensitivity matrices 
+On two occasions in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{bgaPEST}
+\end_layout
+
+\end_inset
+
+ a matrix text file format from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{PEST}
+\end_layout
+
+\end_inset
+
+ is used to store matrices: when posterior covariance output from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{bgaPEST}
+\end_layout
+
+\end_inset
+
+ is specified as a full matrix; and when Jacobian sensitivity matrix information
+ is exchanged from an external code with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{bgaPEST}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The posterior covariance matrix may take two forms: a full matrix; or a
+ diagonal matrix.
+ These options are discussed below.
+ Two options are available for Jacobian sensitivity matrices 
 \begin_inset Formula $\left(\mathbf{H}\right)$
 \end_inset
 
@@ -5177,7 +5256,7 @@ rated and wrapped to the next line if appropriate.
 \end_layout
 
 \begin_layout Standard
-In use by 
+In use for Jacobian matrices by 
 \family typewriter
 bgaPEST
 \family default
@@ -5204,7 +5283,11 @@ NCOL
 * column names
 \family default
 ”.
- Other options for 
+ 
+\end_layout
+
+\begin_layout Standard
+Other options for 
 \family typewriter
 ICODE
 \family default
@@ -5215,11 +5298,49 @@ key "PESTAdd"
 
 \end_inset
 
- but are not used by 
+ and are used 
 \family typewriter
 bgaPEST
 \family default
-.
+ for output of the posterior covariance matrix.
+ The two options for posterior covariance output both refer to square matrixes
+ that have the same names of columns and rows.
+ As a result, only one list of names follows the data following the string
+ “
+\family typewriter
+* row and column names
+\family default
+”.
+ 
+\end_layout
+
+\begin_layout Standard
+If compression is used in the prior covariance matrix, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{bgaPEST}
+\end_layout
+
+\end_inset
+
+ only outputs the diagonal elements of the posterior covariance.
+ In this case, 
+\family typewriter
+ICODE=-1
+\family default
+ and only the diagonal entries are listed, one per line, after the header
+ line.
+ If compression is not used, the entire posterior covariance matrix is printed
+ using 
+\family typewriter
+ICODE=1
+\family default
+ with 8 values per line.
 \end_layout
 
 \begin_layout Section

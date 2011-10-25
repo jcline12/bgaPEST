@@ -42,7 +42,7 @@ program bp_main
        integer                      :: s_ind, p_ind, b_ind  !Indices for structural parameters, quasi-linear and bga method loops
        type (mio_struc)             :: miostruc
        type (err_failure_struc)     :: errstruc  
-       integer                      :: ifail, restart, outunit, bprunit, cparunit, cobsunit, finalparunit
+       integer                      :: ifail, restart, outunit, bprunit, cparunit, cobsunit, finalparunit, postcovunit
        type (cv_algorithmic)        :: cv_A 
        type (d_algorithmic)         :: d_A
        type (cv_prior_mean)         :: cv_PM
@@ -60,7 +60,7 @@ program bp_main
        type (kernel_XQR)            :: d_XQR
        type (d_anisotropy)          :: d_ANI
        character (len=ERRORWIDTH)   :: retmsg
-       character (len=100)          :: command_line, curr_par_file, curr_resid_file
+       character (len=100)          :: command_line, curr_par_file, curr_resid_file,post_cov_file
        character (len=FILEWIDTH)    :: ctlfile
        character (len=FILEWIDTH)    :: casename
        character (len=FILEWIDTH)    :: atemp
@@ -296,6 +296,20 @@ program bp_main
           call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
           call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit)
           close(finalparunit)
+          ! --- Also write a separate file with only the posterior covariance values
+          postcovunit = utl_nextunit() 
+          post_cov_file = trim(casename) // '.post.cov' 
+          call bpc_openfile(postcovunit,trim(post_cov_file),1) ![1] at end indicates open with write access
+          select case (cv_A%Q_compression_flag) 
+            case (0) ! full covariance matrix
+              allocate(V(1))
+              V = 0. ! need a dummy value to pass for V          
+            case (1) ! compressed      
+              allocate(VV(1,1))
+              VV = 0.
+          end select
+           call  bpo_write_posterior_covariance(cv_A%Q_compression_flag,cv_PAR,d_PAR,d_PM,V,VV,postcovunit)
+          close(postcovunit)
      endif
     !*************************************************************************************************************************
     !*********** END OF THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************

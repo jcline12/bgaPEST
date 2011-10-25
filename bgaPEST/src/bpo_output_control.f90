@@ -77,6 +77,48 @@ contains
            
    end subroutine bpo_write_residuals
    
+   
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!            subroutine to WRITE POSTERIOR COVARIANCE MATRIX OR VECTOR TO OUTPUT FILE        !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   subroutine bpo_write_posterior_covariance(compress_flag,cv_PAR,d_PAR,d_PM,V,VV,writunit)
+      type (cv_param)                 :: cv_PAR
+      type (d_param)                  :: d_PAR
+      type (d_prior_mean), intent(in) :: d_PM
+      integer, intent(in)             :: compress_flag
+      double precision, intent(in)    :: V(:)    ! diagonal of posterior covariance in the case of compression
+      double precision, intent(in)    :: VV(:,:) ! full posterior covariance matrix if no compression
+      integer, intent(in)             :: writunit
+      integer                         :: i,j,k
+   
+     select case (compress_flag)
+       case (0) ! no compression - full posterior covariance matrix
+          write(writunit,"(3I10)") cv_PAR%npar,cv_PAR%npar,1
+            k = 0
+            do i = 1,cv_PAR%npar
+              do j = 1,cv_PAR%npar
+                k = k+1
+                write(writunit,"(1ES18.8)",advance="no") VV(i,j)
+                if (MOD(k,8) .eq. 0) then
+                  write(writunit,*)
+                endif
+              enddo
+            enddo
+            write(writunit,*)
+       case (1) ! compressed matrix - only diagonals from posterior covariance matrix
+          write(writunit,"(3I10)") cv_PAR%npar,cv_PAR%npar,-1
+            do i = 1,cv_PAR%npar
+              write(writunit,"(1ES18.8)"),V(i)
+            enddo
+     end select
+     write(writunit,*) '*row and column names'
+     do i = 1,cv_PAR%npar
+       write(writunit,*) d_PAR%parnme(i)
+     enddo
+     
+   end subroutine bpo_write_posterior_covariance  
+   
+   
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!            subroutine to WRITE FINAL PARAMETER VALUES with CONFIDENCE INTERVALS TO A BPP FILE        !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
