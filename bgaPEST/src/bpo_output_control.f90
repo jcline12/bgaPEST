@@ -413,6 +413,12 @@ contains
 85  format(3A) 
     end subroutine bpo_write_bpr_header
 
+
+
+
+
+
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!        subroutine to WRITE INTERMEDIATE INFORMATION TO BOTH RECORD (BPR) FILE and TO STANDARD OUT     !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -446,4 +452,48 @@ contains
     end subroutine bpo_write_bpr_intermed
     
     
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!        subroutine to WRITE INTERMEDIATE Structural Parameter INFORMATION TO BOTH RECORD (BPR) FILE and TO STANDARD OUT     !!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    subroutine bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
+        type(d_param), intent(in)           :: d_PAR
+        type (cv_param), intent(in)         :: cv_PAR
+        type (cv_struct), intent(in)        :: cv_S 
+        type (d_struct), intent(in)         :: d_S 
+        integer, intent(in)                 :: bprunit
+        integer                             :: i,j
+        character (len=4)                   :: indent = '    '
+    
+!!! Current Structural Parameter Values
+    write(bprunit,*)
+    write(bprunit,200) indent, '***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***'
+    do i = 1,cv_PAR%p
+        !-- indicate the variogram type and current structural parameter values
+        
+      if (cv_S%struct_par_opt(i) .eq. 1) then
+        write(bprunit,172) indent, i
+        select case (cv_S%var_type(i))
+         case (0)
+          
+            write(bprunit,173) indent, indent, 'nugget'
+!            write(bprunit,25) indent, indent, 'Initial structural parameter values:'
+            write(bprunit,174) indent,  indent,indent, 'nugget variance', d_S%theta(i,1)
+         case (1)
+            write(bprunit,173) indent, indent, 'linear'
+!            write(bprunit,25) indent, indent, 'Initial structural parameter values:'
+            write(bprunit,174) indent,  indent,indent, 'slope', d_S%theta(i,1)
+         case (2)
+            write(bprunit,173) indent, indent, 'exponential'
+!            write(bprunit,25) indent, indent, 'Initial structural parameter values:'
+            write(bprunit,174) indent, indent, indent, 'variance', d_S%theta(i,1)
+            write(bprunit,174) indent,  indent,indent, 'correlation length', d_S%theta(i,2)
+        end select
+      endif          
+    enddo ! i = 1,cv_PAR%p
+172 format(1A, 'Current Structural Parameters for Beta Association: ', I4)    
+173 format(1A, 1A,'Variogram type: ', 1A)
+174 format(4A, ' = ', 1ES12.4)
+175 format(4A,1I4)
+200 format(2A )     ! single indent and str format
+    end subroutine bpo_write_bpr_intermed_structpar
 end module bayes_output_control

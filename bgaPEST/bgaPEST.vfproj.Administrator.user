@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioUserFile ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{1888682D-31D2-4D29-833D-69AF1F11B04F}">
 	<Configurations>
-		<Configuration Name="Debug|Win32" CommandArguments="testaniso.bgp" WorkingDirectory="y:\Documents\MODELING_CENTER\bgaPEST\bgaPEST\Example"/>
+		<Configuration Name="Debug|Win32" CommandArguments="BP_test_PEST.bgp" WorkingDirectory="Z:\Users\mnfienen1\Documents\MODELING_CENTER\bgaPEST\bgaPEST\Example"/>
 		<Configuration Name="Release|Win32"/></Configurations></VisualStudioUserFile>

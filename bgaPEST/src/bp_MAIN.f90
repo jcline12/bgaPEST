@@ -143,7 +143,7 @@ program bp_main
         call bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
     endif
     
-!-- WRITE THE HEADER INFORMATION TO THE REC FILE
+!-- WRITE THE HEADER INFORMATION TO THE BPR Run Record FILE
     call bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS,d_MOD, cv_A, &
                 cv_MIO, d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR)
 
@@ -229,7 +229,7 @@ program bp_main
     !***************************************************************************************************************************  
     !************************************* END OF QUASI-LINEAR PARAMETER ESTIMATION LOOP ***************************************
     !***************************************************************************************************************************
-    
+     
     
     !***************************************************************************************************************************  
     !********************** FROM HERE THE STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *****************************
@@ -267,7 +267,10 @@ program bp_main
                if (associated(prev_struct)) deallocate(prev_struct) 
              endif
           endif !-- special warning if exceed maximum number of main algorithm iterations (it_max_bga) without convergence
+       ! -- write the intermediate files to the BPR file
+       call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
        else
+         call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
          exit !If the structural pars optimization is not required or structural pars have converged (run the last quasi_linear), exit the bga_loop
        endif
     !***************************************************************************************************************************  
@@ -302,7 +305,7 @@ program bp_main
         call bpc_openfile(postcovunit,trim(post_cov_file),1) ![1] at end indicates open with write access
         if (cv_A%Q_compression_flag.eq.0) then
           if (associated(V)) deallocate(V) 
-        endif
+        endif 
         call  bpo_write_posterior_covariance(cv_A%Q_compression_flag,cv_PAR,d_PAR,d_PM,V,VV,postcovunit)
         close(postcovunit)
      endif

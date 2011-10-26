@@ -1,6 +1,6 @@
 BEGIN algorithmic_cv KEYWORDS
- structural_conv=0.004 phi_conv=0.4 bga_conv=0.4
- it_max_structural=2 it_max_phi=2 it_max_bga=2 
+ structural_conv=0.004 phi_conv=0.004 bga_conv=0.004
+ it_max_structural=15 it_max_phi=15 it_max_bga=15 
  linesearch=1         it_max_linesearch=6
  theta_cov_form=1 Q_compression_flag=1
  deriv_mode = 1

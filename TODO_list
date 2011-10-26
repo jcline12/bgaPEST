@@ -10,13 +10,15 @@ Things we need to do:
    be sure the well is sufficiently stressing or maybe add recharge.
 
 4) clean up the "not currently being used" variables
+   ***DONE***
 
 5) could use some memory management. For example, deallocate Jacobian before calling PEST
 
 6) handle all the output that is not yet dealt with in the progress of the algorithm.
        Specifically need to output REC file (bpr), progressive output from linesearch, and objective function history.
+     ***DONE***
 6a) need to report structural parameter values each iteration.
-
+      ***DONE***
 7) ***DONE*** --> hangup was with linesearch. see that the mean is being properly used - looks
     maybe like perturbations are going on the prior mean rather than the estimated mean!!
 
@@ -57,11 +59,12 @@ Things we need to do:
 15) ***DONE*** --> See notes PDF: Nelder Mead convergence criteria
 
 16) in documentation - indicate facies association can be used for different TYPES of parameters hence name BETA ASSOCIATION
-
+   ***DONE*** 
 17) ***DONE***need warnings for exceeding max iterations -- to screen and to BPR file
 
 18) also need to report structural parameter values both at beginning and for each iteration
-
+  ***DONE***
 19) ***DONE***need to document the new cv_A variables jacobian_format and jacobian_file in the DOC file
 
-20) In calculation of distances, allow for vertical and horizontal anisotropy. 
+20) In calculation of distances, allow for vertical and horizontal anisotropy.
+   ***DONE*** --- did not allow for dip, however, so currently assuming flat layers 

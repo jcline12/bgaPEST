@@ -1109,7 +1109,7 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
             cv_S%var_type       =  1
             cv_S%struct_par_opt =  1
             cv_S%num_theta_type =  UNINIT_INT
-            cv_S%trans_theta    =  1
+            cv_S%trans_theta    =  0
             cv_S%alpha_trans    = 50
 
        end subroutine bdp_alloc_init_cv_S

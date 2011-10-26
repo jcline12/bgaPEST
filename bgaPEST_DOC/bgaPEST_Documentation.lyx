@@ -3064,6 +3064,111 @@ Running bgaPEST
 \end_layout
 
 \begin_layout Standard
+The bgaPEST program uses a single input file and generates several output
+ files.
+ These files are discussed in the remainder of this section.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart"
+
+\end_inset
+
+ shows the general progression of a bgaPEST parameter estimation run.
+ The entire process is controlled by variables in the input 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{.bgp}
+\end_layout
+
+\end_inset
+
+ file discussed below.
+ Outer iterations (also called bga iterations) are wrapped around the entire
+ parameter estimation process with the exception of calculating posterior
+ covariance.
+ Inner iterations are performed NEED TO THINK ABOUT HOW EXACTLY TO CHARACTERIZE
+ THIS!
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/flowchart_short.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:flowchart"
+
+\end_inset
+
+Abbreviated flowchart showing the progression of the major bgaPEST procedures.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Input Files
+\end_layout
+
+\begin_layout Standard
 The bgaPEST program is run from the command line by typing 
 \begin_inset ERT
 status open
@@ -3098,6 +3203,16 @@ reference "sec:Input-Instructions"
 
 \end_inset
 
+.
+\end_layout
+
+\begin_layout Subsection*
+Output Files
+\end_layout
+
+\begin_layout Standard
+Several output files are generated throughout the progression of a single
+ bgaPEST run.
  
 \end_layout
 
@@ -4058,7 +4173,7 @@ default=1
 \end_layout
 
 \begin_layout Description
-struct_par_opr 
+struct_par_opt 
 \emph on
 integer 
 \emph default
@@ -4081,30 +4196,9 @@ Flag for whether a power transformation should be applied to the structural
  [0] = do not transform, [1] = transform.
  
 \shape italic
-default=1
+default=0
 \shape default
  
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-somewhere need to indicate which alpha value corresponds to the log in the
- limit
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Maybe is better to set the default to 0.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Description
@@ -4181,32 +4275,9 @@ Initial value of
 \end_inset
 
  which is the starting value of the second structural parameter for prior
- covariance
-\end_layout
-
-\begin_layout Description
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-need to sort out this negative value business
-\end_layout
-
-\end_inset
-
-.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-In case max(num_theta_type) is 2 but for some beta association we need just
- one theta value, the second must be entered negative otherwise we have
- a warning.
-\end_layout
-
-\end_inset
-
-
+ covariance.
+ If using a linear or nugget variogram, an arbitrary negative value should
+ be entered here.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -4249,19 +4320,18 @@ Variance of the current row's
 \end_inset
 
  parameter.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-We need to say that this must be a vector also if we have two structural
- parameters for the same beta association.
- They must be entered sequentially.
-\end_layout
-
+ If using an exponential variogram, then a single beta association will
+ have two structural parameters.
+ To handle this possibility, the variance values should be listed, one per
+ line, in the order of beta associations, then in order 
+\begin_inset Formula $\theta_{1}$
 \end_inset
 
+ then 
+\begin_inset Formula $\theta_{2}$
+\end_inset
 
+ .
 \end_layout
 
 \begin_layout Subsubsection*
@@ -4503,24 +4573,6 @@ string
  Note that these cannot contain spaces.
 \end_layout
 
-\begin_layout Description
-grouptype 
-\emph on
-integer
-\emph default
- Type of group in the current row.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-It does not appear that we are using this for anything at the moment.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection*
 Parameter Data 
 \begin_inset ERT
@@ -4583,16 +4635,8 @@ SenMethod
 integer
 \emph default
  Senstivity method used for this parameter type.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-not currently being used
-\end_layout
-
-\end_inset
-
-
+ This parameter may now be arbitrary--it is reserved for future use and
+ currently is ignored.
 \end_layout
 
 \begin_layout Description
@@ -4722,16 +4766,6 @@ Weight
 float
 \emph default
  A relative weight that gets applied to the epistemic error.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-default to 1.0? Allow this to be optional?
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsubsection*
