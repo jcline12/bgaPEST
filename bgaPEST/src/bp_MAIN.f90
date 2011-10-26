@@ -285,31 +285,26 @@ program bp_main
       call form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All,cv_PM,d_PM,d_S,VV,V)
       !-- write out the final parameter values and confidence intervals
         if (cv_A%Q_compression_flag .eq. 0) then  !Select if the Q0 matrix is compressed or not
-            allocate(V(cv_PAR%npar))
-            V = 0.D0 ! initialize the vector for V
-            do i = 1,cv_PAR%npar
-              V(i) = VV(i,i)
-            enddo
+          allocate(V(cv_PAR%npar))
+          V = 0.D0 ! initialize the vector for V
+          do i = 1,cv_PAR%npar
+            V(i) = VV(i,i)
+          enddo
         endif
-          finalparunit = utl_nextunit()  
-          curr_par_file = trim(casename) // '.bpp.fin'
-          call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
-          call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit)
-          close(finalparunit)
-          ! --- Also write a separate file with only the posterior covariance values
-          postcovunit = utl_nextunit() 
-          post_cov_file = trim(casename) // '.post.cov' 
-          call bpc_openfile(postcovunit,trim(post_cov_file),1) ![1] at end indicates open with write access
-          select case (cv_A%Q_compression_flag) 
-            case (0) ! full covariance matrix
-              allocate(V(1))
-              V = 0. ! need a dummy value to pass for V          
-            case (1) ! compressed      
-              allocate(VV(1,1))
-              VV = 0.
-          end select
-           call  bpo_write_posterior_covariance(cv_A%Q_compression_flag,cv_PAR,d_PAR,d_PM,V,VV,postcovunit)
-          close(postcovunit)
+        finalparunit = utl_nextunit()  
+        curr_par_file = trim(casename) // '.bpp.fin'
+        call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
+        call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit)
+        close(finalparunit)
+        ! --- Also write a separate file with only the posterior covariance values
+        postcovunit = utl_nextunit() 
+        post_cov_file = trim(casename) // '.post.cov' 
+        call bpc_openfile(postcovunit,trim(post_cov_file),1) ![1] at end indicates open with write access
+        if (cv_A%Q_compression_flag.eq.0) then
+          if (associated(V)) deallocate(V) 
+        endif
+        call  bpo_write_posterior_covariance(cv_A%Q_compression_flag,cv_PAR,d_PAR,d_PM,V,VV,postcovunit)
+        close(postcovunit)
      endif
     !*************************************************************************************************************************
     !*********** END OF THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************

@@ -122,17 +122,18 @@ contains
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!            subroutine to WRITE FINAL PARAMETER VALUES with CONFIDENCE INTERVALS TO A BPP FILE        !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,SD,writunit)
+   subroutine bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,writunit)
       type (cv_param)                 :: cv_PAR
       type (d_param)                  :: d_PAR
       type (d_prior_mean), intent(in) :: d_PM
-      double precision                :: finalparvalue(cv_PAR%npar)
-      double precision                :: SD(:)
+      double precision, intent(in)    :: V(:)
       integer, intent(in)             :: writunit
       character(50)                   :: outlinefmt
       character(20)                   :: parwstr,pargwstr
-      double precision, pointer       :: lcl(:),ucl(:)
+      double precision, pointer       :: lcl(:),ucl(:),finalparvalue(:)
       integer                         :: i,j
+    
+    allocate(finalparvalue(cv_PAR%npar))
     allocate(lcl(cv_PAR%npar))
     allocate(ucl(cv_PAR%npar))
     
@@ -152,9 +153,8 @@ contains
         !-- calculate LCL, and UCL
         lcl = finalparvalue
         ucl = finalparvalue
-        SD = sqrt(SD) !-- provided values were variances
-        lcl = lcl - 2*SD
-        ucl = ucl + 2*SD
+        lcl = lcl - 2*sqrt(V)
+        ucl = ucl + 2*sqrt(V)
 
         !-- backtransform to physical space as appropriate
         do i = 1,cv_PAR%npar 
@@ -171,7 +171,11 @@ contains
             write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),finalparvalue(j), &
                      lcl(j),ucl(j)
         enddo
-   
+        
+        if (associated(lcl)) deallocate(lcl)
+        if (associated(ucl)) deallocate(ucl)
+        if (associated(finalparvalue)) deallocate(finalparvalue)  
+         
    end subroutine bpo_write_allpars_95ci
       
    
