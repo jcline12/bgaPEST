@@ -250,7 +250,7 @@ program bp_main
                
              call marginal_struct_param_optim(d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d_A,d_PAR,cv_S,d_S,d_PM,cv_PAR,cv_PM,b_ind,cv_S%num_theta_opt)
              !Here d_S%struct_par_opt_vec is the vector of the optimized theta and sigma values
-            
+              
              if (cv_A%structural_conv.ge.0.) then
                curr_structural_conv=abs(prev_struct - cv_S%str_obj_fun) !Calculate difference between actual and previous objective function values
                structural_conv = cv_A%structural_conv                   !The structural convergenge value remain the one assigned into .bgp file

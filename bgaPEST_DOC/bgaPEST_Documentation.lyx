@@ -88,6 +88,29 @@ M.
 \end_layout
 
 \begin_layout Section*
+Acknowledgements
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+New USGS style has acknowledgements posted at the front.
+ There will be many sources of support to acknowledge, but I'll start a
+ list here.
+\end_layout
+
+\begin_layout Standard
+This work was supported by several important sources including: The National
+ Research Council Postdoctoral Research Associateship, The US Geological
+ Survey Office of Groundwater, the USGS Water and Environmental Biogeochemical
+ Budgets (WEBB) Program, The USGS Exchange Visitor Program and the USGS
+ Wisconsin Water Science Center for supporting a six-month exchange in which
+ Marco D'Oria was hosted in Wisconsin, The Italian AIPO (Agenzia Interregionale
+ per il fume Po : The Interregional Agency for the Po River), and the University
+ of Parma, Italy, Department of Civil Engineering.
+\end_layout
+
+\begin_layout Section*
 Introduction
 \end_layout
 
@@ -3066,7 +3089,8 @@ Running bgaPEST
 \begin_layout Standard
 The bgaPEST program uses a single input file and generates several output
  files.
- These files are discussed in the remainder of this section.
+ These files are discussed in the context of progression of the bgaPEST
+ program in the remainder of this section.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3089,11 +3113,45 @@ texttt{.bgp}
 \end_inset
 
  file discussed below.
- Outer iterations (also called bga iterations) are wrapped around the entire
+ 
+\end_layout
+
+\begin_layout Standard
+Outer iterations (also called bga iterations) are wrapped around the entire
  parameter estimation process with the exception of calculating posterior
  covariance.
- Inner iterations are performed NEED TO THINK ABOUT HOW EXACTLY TO CHARACTERIZE
- THIS!
+ Inner iterations are performed to account for the restricted maximum likelihood
+ estimation of structural parameters.
+ If structural parameters are not chosen to be estimated, then a single
+ outer iteration is performed using the initial values of structural parameters
+ and inner iterations are performed until convergence or until the number
+ of iterations reaches 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{it
+\backslash
+_max
+\backslash
+_phi}
+\end_layout
+
+\end_inset
+
+.
+ If a linesearch is requested, this is performed within the inner iterations.
+ If structural parameter optimization is requested, it is performed after
+ convergence or maximum inner iterations are reached.
+ Then, restricted maximum likelihood is performed to estimate a new set
+ of structural parameters.
+ The interdependence between structural parameters and model parameters
+ requires reiteration of the inner iterations and structural parameter estimatio
+n until both have converged or the maximum number of outer iterations has
+ been reached.
 \end_layout
 
 \begin_layout Standard
@@ -3213,7 +3271,186 @@ Output Files
 \begin_layout Standard
 Several output files are generated throughout the progression of a single
  bgaPEST run.
+ These files are summarized in this section.
+\end_layout
+
+\begin_layout Subsubsection*
+bgaPEST Record File 
+\family typewriter
+<casename>.bpr
+\end_layout
+
+\begin_layout Standard
+The main output file for bgaPEST is called 
+\family typewriter
+<casename>.bpr
+\family default
+.
+ Initial values of bgaPEST input are repeated to form a record for the bgaPEST
+ run.
+ After each inner iteration, as defined above, the objective function is
+ reported and external files are written that include current parameter
+ values and observation values.
+ After each outer iteration, structural parameter values are also reported
+ for each beat association in which structural parameter estimation was
+ requested and for the epistemic uncertainty term, if requested.
+\end_layout
+
+\begin_layout Subsubsection*
+bgaPEST Parameter Value Files 
+\family typewriter
+<casename>.bpp.<#Oi>_<#Ii>
+\end_layout
+
+\begin_layout Standard
+The parameter values are written to files called 
+\family typewriter
+<casename>.bpp.<#Oi>_<#Ii> 
+\family default
+where
+\family typewriter
+ <#Oi> 
+\family default
+is the outer iteration number and
+\family typewriter
+ <#Ii> 
+\family default
+is the inner iteration number.
+ These ascii files are printed in columns with the following headers: 
+\family typewriter
+ParamName
+\family default
+; 
+\family typewriter
+ParamGroup
+\family default
+; 
+\family typewriter
+BetaAssoc
+\family default
+; 
+\family typewriter
+ParamVal
+\family default
+.
+ At the beginning of a bgaPEST run, a file 
+\family typewriter
+<casename>.bpp.0 
+\family default
+is written in the same format to record the initial parameter values used.
+ This is done to avoid cluttering the .bpr file with what is often a very
+ long list of parameters and their values.
+ Parameter values that were subjected to logarithmic transformation are
+ reported in their linear space, 
+\emph on
+not 
+\emph default
+log-transformed space.
+\end_layout
+
+\begin_layout Standard
+Another special case of parameter value files is written at the end of a
+ bgaPEST run and called 
+\family typewriter
+<casename>.bpp.fin
+\family default
+.
+ This file contains the final parameter values estimated as optimal by bgaPEST.
+ Furthermore, if posterior covariance calculation was requested, two additional
+ columns are added: 
+\family typewriter
+95pctLCL
+\family default
+ and 
+\family typewriter
+95pctUCL
+\family default
+ which are the 95% lower and upper confidence limits, respectively.
+ These confidence limits are obtained by applying the subtraction and addition,
+ respectively, of 
+\begin_inset Formula $2\times\sqrt{\mathbf{V}_{ii}}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{s}_{i}$
+\end_inset
+
+--the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ optimal parameter value.
+ In this case, 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is the posterior covariance, so 
+\begin_inset Formula $\sqrt{\mathbf{V}_{ii}}$
+\end_inset
+
+ is the standard deviation of the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ parameter.
+ The 95% confidence limits are reported in linear space, 
+\emph on
+not
+\emph default
+ log-transformed space, so for log-transformed parameters, the upper and
+ lower 95% percent confidence limits are not symmetrical about the parameter
+ value.
  
+\end_layout
+
+\begin_layout Subsubsection*
+bgaPEST Observation Value Files 
+\family typewriter
+<casename>.bre.<#Oi>_<#Ii>
+\end_layout
+
+\begin_layout Standard
+The observation values obtained by running the forward model with the currently
+ estimated parameters are written to files called 
+\family typewriter
+<casename>.bre.<#Oi>_<#Ii> 
+\family default
+following a similar convention as with the .bpp files above.
+ The ascii files are printed with the following headers: 
+\family typewriter
+ObsName
+\family default
+;
+\family typewriter
+ ObsGroup
+\family default
+;
+\family typewriter
+ Modeled
+\family default
+;
+\family typewriter
+ Measured
+\family default
+.
+ These files may be easily copied into a spreadsheet or read with a plotting
+ program to calculate and plot residuals.
+\end_layout
+
+\begin_layout Subsubsection*
+Posterior Covariance File 
+\family typewriter
+<casename>.post.cov
+\end_layout
+
+\begin_layout Standard
+If the input variable 
+\family typewriter
+posterior_cov_flag=1
+\family default
+, then posterior covariance is calculated.
+ In addition to this information being used to report 95% confidence limits
+ as described above, 
 \end_layout
 
 \begin_layout Section
