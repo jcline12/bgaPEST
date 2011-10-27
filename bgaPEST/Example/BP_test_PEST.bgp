@@ -1,13 +1,13 @@
 BEGIN algorithmic_cv KEYWORDS
- structural_conv=0.004 phi_conv=0.004 bga_conv=0.004
- it_max_structural=5 it_max_phi=5 it_max_bga=5 
+ structural_conv=0.004 phi_conv=0.004 bga_conv=1.0e-3
+ it_max_structural=10 it_max_phi=15 it_max_bga=15 
  linesearch=1         it_max_linesearch=3
  theta_cov_form=1 Q_compression_flag=1
  deriv_mode = 1
  jacobian_format = ascii
  jacobian_file = S1_1.jac
  posterior_cov_flag = 1
- par_anisotropy=1
+ par_anisotropy=0
 END algorithmic_cv 
 
 BEGIN prior_mean_cv KEYWORDS
@@ -41,7 +41,7 @@ BEGIN structural_parameters_cov TABLE
 END structural_parameters_cov
 
 BEGIN epistemic_error_term KEYWORDS
-  sig_0 = 1.000e-001   sig_opt = 1  sig_p_var=0.001
+  sig_0 = 1.000e-001   sig_opt = 1  sig_p_var=0.00001
 END epistemic_error_term
 
 BEGIN parameter_cv KEYWORDS  

@@ -120,26 +120,21 @@ contains
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!            subroutine to WRITE FINAL PARAMETER VALUES with CONFIDENCE INTERVALS TO A BPP FILE        !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,writunit)
+   subroutine bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,writunit,ci95_flag)
       type (cv_param)                 :: cv_PAR
       type (d_param)                  :: d_PAR
       type (d_prior_mean), intent(in) :: d_PM
       double precision, intent(in)    :: V(:)
-      integer, intent(in)             :: writunit
+      integer, intent(in)             :: writunit,ci95_flag
       character(50)                   :: outlinefmt
       character(20)                   :: parwstr,pargwstr
       double precision, pointer       :: lcl(:),ucl(:),finalparvalue(:)
       integer                         :: i,j
-    
-    allocate(finalparvalue(cv_PAR%npar))
-    allocate(lcl(cv_PAR%npar))
-    allocate(ucl(cv_PAR%npar))
-    
-    finalparvalue = d_PAR%pars !-- these are the optimal values, still in physical space   
-    call utl_int2char(PARNWIDTH,parwstr)
-    call utl_int2char(PARGROUPNMWID,pargwstr) 
-    write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16,1A16,1A16)')") trim(parwstr),trim(pargwstr)
-    write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal','95pctLCL','95pctLCL'
+
+        allocate(finalparvalue(cv_PAR%npar))
+        finalparvalue = d_PAR%pars !-- these are the optimal values, still in physical space   
+        call utl_int2char(PARNWIDTH,parwstr)
+        call utl_int2char(PARGROUPNMWID,pargwstr) 
 
         !--- handle transformations to estimation space as appropriate
         do i = 1,cv_PAR%npar 
@@ -147,7 +142,15 @@ contains
             finalparvalue(i) = log(d_PAR%pars(i))   
          endif
         enddo   
+
+    if (ci95_flag .eq. 1) then  ! only calculate LCL and UCL if posterior covariance was calculated
+
+        allocate(lcl(cv_PAR%npar))
+        allocate(ucl(cv_PAR%npar))
         
+        write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16,1A16,1A16)')") trim(parwstr),trim(pargwstr)
+        write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal','95pctLCL','95pctLCL'
+   
         !-- calculate LCL, and UCL
         lcl = finalparvalue
         ucl = finalparvalue
@@ -162,16 +165,33 @@ contains
               lcl(i) = exp(lcl(i))
          endif
         enddo 
-                
+            
         !--  write parameter values, LCL, and UCL
         do j = 1,cv_PAR%npar    
             write(outlinefmt,"('(1A',A,',1A',A,',1I13,1E16.8,1E16.8,1E16.8)')")  trim(parwstr),trim(pargwstr)
             write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),finalparvalue(j), &
                      lcl(j),ucl(j)
         enddo
-        
         if (associated(lcl)) deallocate(lcl)
         if (associated(ucl)) deallocate(ucl)
+        
+    else ! -- write final parameter values without confidence intervals if no posterior covariance was calculated
+        write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16)')") trim(parwstr),trim(pargwstr)
+        write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal'
+        !-- backtransform to physical space as appropriate
+        do i = 1,cv_PAR%npar 
+         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
+              finalparvalue(i) = exp(finalparvalue(i))
+         endif
+        enddo 
+            
+        !--  write parameter values, LCL, and UCL
+        do j = 1,cv_PAR%npar    
+            write(outlinefmt,"('(1A',A,',1A',A,',1I13,1E16.8)')")  trim(parwstr),trim(pargwstr)
+            write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),finalparvalue(j)
+        enddo
+        
+     endif ! -- ci95_flag
         if (associated(finalparvalue)) deallocate(finalparvalue)  
          
    end subroutine bpo_write_allpars_95ci
@@ -269,6 +289,7 @@ contains
     write(bprunit,20) indent,'Objective Function Convergence'
     write(bprunit,35) indent,indent,'phi_conv: ',cv_A%phi_conv
     write(bprunit,20) indent,'Outermost BGA Convergence'
+    write(bprunit,35) indent,indent,'bga_conv: ',cv_A%bga_conv    
     write(bprunit,20) indent,'Maximum Number of Structural Paramter Iterations'
     write(bprunit,45) indent,indent,'it_max_structural: ',cv_A%it_max_structural       
     write(bprunit,20) indent,'Maximum Number of Objective Function Iterations'
@@ -391,11 +412,15 @@ contains
                    write(bprunit,74)indent, indent, indent, 'alpha', cv_S%alpha_trans(i)
                endif
             endif
+            
     enddo ! i = 1,cv_PAR%p
+    write(bprunit,'(3A)')indent,indent,'Epistemic Uncertainty :-'
+    write(bprunit,76) indent, indent, d_S%sig
 72 format(1A, 'Structural Parameters for Beta Association: ', I4)    
 73 format(1A, 1A,'Variogram type: ', 1A)
-74 format(4A, ' = ', 1ES12.4)
+74 format(4A, ' = ', 1ES12.6)
 75 format(4A,1I4)
+76 format(1A, 1A, 'sigma (epistemic) = ',1ES12.6)
 
   
         
@@ -488,10 +513,15 @@ contains
         end select
       endif          
     enddo ! i = 1,cv_PAR%p
+    if (d_S%sig_opt .eq. 1) then
+        write(bprunit,'(3A)')indent,indent,'Epistemic Uncertainty :-'
+        write(bprunit,176) indent, indent, d_S%sig
+    endif
 172 format(1A, 'Current Structural Parameters for Beta Association: ', I4)    
 173 format(1A, 1A,'Variogram type: ', 1A)
-174 format(4A, ' = ', 1ES12.4)
+174 format(4A, ' = ', 1ES12.6)
 175 format(4A,1I4)
+176 format(1A, 1A, 'sigma (epistemic) = ',1ES12.6)
 200 format(2A )     ! single indent and str format
     end subroutine bpo_write_bpr_intermed_structpar
 end module bayes_output_control

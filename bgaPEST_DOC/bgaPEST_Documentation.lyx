@@ -356,10 +356,10 @@ This initial implementation is written in FORTRAN-90 with limited capabilities
 \end_layout
 
 \begin_layout Standard
-Part of the approach, as discussed beta in this Report, is based on a distribute
+Part of the approach, as discussed beta in this report, is based on a distribute
 d paramaterization scheme meant to be flexible in that certain regions of
- the model (called facies associations) are assigned a unique parameter
- value to be estimated for each model node or cell.
+ the model (called beta associations) are assigned a unique parameter value
+ to be estimated for each model node or cell.
  This leads to a large number of parameters which is accompanied by computationa
 l challenges.
  Some of these challenges can be alleviated by restricting beta associations
@@ -3213,13 +3213,215 @@ Abbreviated flowchart showing the progression of the major bgaPEST procedures.
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection*
+Control Variables
+\end_layout
+
+\begin_layout Standard
+Two types of variables are used in bgaPEST: control variables and data variables.
+ Data variables are values such as model parameters, observations, file
+ names, and other data that are needed by the bgaPEST program.
+ Control variables, on the other hand, are in a sense abstracted one level
+ from data and are meta-parameters that impact either the reading/writing
+ of data or control the progression of the algorithm.
+ Many control variables are straightforward (for example, 
+\family typewriter
+beta_cov_form
+\family default
+\emph on
+, 
+\emph default
+an integer, is the form of the prior mean 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ covariance matrix 
+\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
+\end_inset
+
+.
+ [0] = none, [1] = diagonal, [2] = full matrix.
+ 
+\emph on
+default = 0).
+
+\emph default
+ Such variables are defined in the context of the input instructions of
+ in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+.
+ However, other control variables are accompanied by important conventions
+ regarding their impact on the performance of the algorithm.
+ For these cases, in this section, more detail is provided about certain
+ control variables.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_bga
+\family default
+ 
+\emph on
+integer 
+\emph default
+Total number of outer iterations allowed for the entire algorithm.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_phi 
+\family default
+\emph on
+integer 
+\emph default
+Total number of iterations allowed in each quasi-linear estimation optimization.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_structural
+\family default
+ 
+\emph on
+integer 
+\emph default
+Total number of iterations allowed in structural parameter optimization.
+ 
+\emph on
+default=10
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+structural_conv
+\family default
+ 
+\emph on
+float
+\emph default
+ Convergence criterion for structural parameter convergence.
+ 
+\emph on
+default=0.001
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+phi_conv
+\family default
+ 
+\emph on
+float 
+\emph default
+Convergence criterion for objective function convergence.
+ 
+\emph on
+default=0.001
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+linesearch
+\family default
+ 
+\emph on
+integer 
+\emph default
+Flag to determine whether a line search should be conducted.
+ [0] = do not use linesearch, [1] = use linesearch.
+ 
+\emph on
+default=0
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_linesearch
+\family default
+\emph on
+ integer 
+\emph default
+Total number of outer iterations allowed for the line search.
+ 
+\emph on
+default=4
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Q_compression_flag
+\family default
+\emph on
+ integer 
+\emph default
+Flag to determine how to calculate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ [0] = no compression--calculate full 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix, [1] = Calculate separate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix for each beta association.
+ 
+\emph on
+default=0
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+posterior_cov_flag
+\family default
+ 
+\emph on
+integer 
+\emph default
+Flag to determine whether posterior covariance matrix should be calculated.
+ [0] = do not calculate posterior covariance matrix, [1] = calculate posterior
+ covariance.
+ If 
+\family typewriter
+Q_compression_flag=1
+\family default
+, only the diagonal of the posterior covariance matrix is calculated.
+ If 
+\family typewriter
+posterior_cov_flag=0
+\family default
+ then 95% confidence intervals are not calculated and the output file 
+\family typewriter
+<casename>.bpp.fin
+\family default
+ discussed below does not include confidence intervals.
 \end_layout
 
 \begin_layout Subsection*
@@ -3338,8 +3540,11 @@ ParamVal
 <casename>.bpp.0 
 \family default
 is written in the same format to record the initial parameter values used.
- This is done to avoid cluttering the .bpr file with what is often a very
- long list of parameters and their values.
+ This is done to avoid cluttering the 
+\family typewriter
+<casename>.bpr
+\family default
+ file with what is often a very long list of parameters and their values.
  Parameter values that were subjected to logarithmic transformation are
  reported in their linear space, 
 \emph on
@@ -3415,7 +3620,11 @@ The observation values obtained by running the forward model with the currently
 \family typewriter
 <casename>.bre.<#Oi>_<#Ii> 
 \family default
-following a similar convention as with the .bpp files above.
+following a similar convention as with the 
+\family typewriter
+<casename>.bpp
+\family default
+ files above.
  The ascii files are printed with the following headers: 
 \family typewriter
 ObsName
@@ -3448,9 +3657,108 @@ If the input variable
 \family typewriter
 posterior_cov_flag=1
 \family default
-, then posterior covariance is calculated.
+, then posterior covariance of the parameters 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ is calculated.
  In addition to this information being used to report 95% confidence limits
- as described above, 
+ as described above, the posterior covariance matrix is also written to
+ the file 
+\family typewriter
+<casename>.post.cov
+\family default
+.
+ If the variable 
+\family typewriter
+Q_compression_flag=1
+\family default
+, then compression is used for saving the prior covariance matrix.
+ This is done when a large number of parameters is used and, thus, the full
+ covariance matrices are unwieldy.
+ Based on this choice, the posterior covariance is either reported as the
+ diagonal of the posterior covariance matrix 
+\begin_inset Formula $\left(diag\left(\mathbf{V}\right)\right)$
+\end_inset
+
+ if 
+\family typewriter
+Q_compression_flag=1
+\family default
+ or the full covariance matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ if 
+\family typewriter
+Q_compression_flag=0
+\family default
+.
+ The output formats are discussed at the end of Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Paragraph*
+Posterior Covariance and Parameter log-Transformations
+\end_layout
+
+\begin_layout Plain Layout
+In this section, it was indicated that in the 
+\family typewriter
+<casename>.bpp.fin
+\family default
+ file, parameter values and 95% confidence intervals are reported in linear
+ (untransformed) space while in the 
+\family typewriter
+<casename>.post.cov 
+\family default
+file, posterior covariance values are reported in estimation (log-transformed)
+ space.
+ Why the difference? The two files are serving slightly different purposes.
+ The parameter output file presents values in the units they are entered
+ in (and, persumably, the units ``seen
+\begin_inset Quotes erd
+\end_inset
+
+ by the forward model).
+ As a result, 95% confidence intervals are reported in the same way.
+ Furthermore, the addition and subtraction of 
+\begin_inset Formula $2\times\sqrt{\mathbf{V}_{ii}}$
+\end_inset
+
+ must be applied to the parameters before back-transformation, which explains
+ the asymmetry of the confidence limits.
+ On the other hand, the full posterior covariance matrix is intended for
+ other analysis (propagation of variance through to predictions, conditional
+ realizations, and others) in which the information should be retained in
+ estimation (log-transformed) space.
+ In the end, the decision of how to report these values is one of convention,
+ and this side box is intended to make clear which was chosen in each case.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -3639,36 +3947,26 @@ columnlabels
 \begin_layout Standard
 
 \family typewriter
-BEGIN Q_compression_cv TABLE 
-\end_layout
+BEGIN Q_compression_cv TABLE
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 nrow=2 ncol=5 columnlabels 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 BetaAssoc Toep_flag Nrow Ncol Nlay 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 1 0 21 21 1 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 2 1 21 21 1 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 END Q_compression_cv
 \end_layout
 
@@ -3701,57 +3999,43 @@ TABLE
 
 \family typewriter
 BEGIN Q_compression_cv FILE 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 compression.txt
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 END Q_compression_cv
 \end_layout
 
 \begin_layout Standard
-In this exmple, the contents of the file compression.txt would be:
+In this example, the contents of the file compression.txt would be:
 \end_layout
 
 \begin_layout Standard
 
 \family typewriter
 BEGIN Q_compression_cv TABLE 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 nrow=2 ncol=5 columnlabels 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 BetaAssoc Toep_flag Nrow Ncol Nlay 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 1 0 21 21 1 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 2 1 21 21 1 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-
-\family typewriter
 END Q_compression_cv
 \end_layout
 
@@ -3840,6 +4124,10 @@ data
 \end_inset
 
  for data.
+ Control variables are those that govern the behavior of the algorithm as
+ a whole as opposed to data points (such as parameter values, structural
+ parameter values, etc.).
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3931,6 +4219,10 @@ structural_conv
 float
 \emph default
  Convergence criterion for structural parameter convergence.
+ If positive, convergence is based on the absolute difference in structural
+ parameter objective function over consecutive iterations.
+ If negative, convergence is based on the norm of the difference between
+ consecutive structural parameter values.
  
 \emph on
 default=0.001
@@ -3941,10 +4233,28 @@ phi_conv
 \emph on
 float 
 \emph default
-Convergence criterion for objective function convergence.
+Convergence criterion for objective function inner iterations.
  
 \emph on
 default=0.001
+\end_layout
+
+\begin_layout Description
+bga_conv 
+\emph on
+float 
+\emph default
+Convergence criterion for objective function outer iterations.
+ 
+\emph on
+default=
+\begin_inset Formula $10\times$
+\end_inset
+
+
+\family typewriter
+\emph default
+phi_conv
 \end_layout
 
 \begin_layout Description
@@ -4000,7 +4310,7 @@ it_max_linesearch
 Total number of outer iterations allowed for the line search.
  
 \emph on
-default=10
+default=4
 \end_layout
 
 \begin_layout Description
@@ -4095,7 +4405,8 @@ posterior_cov_flag
 integer 
 \emph default
 Flag to determine whether posterior covariance matrix should be calculated.
- [0] = do not calculate posterior, [1] = calculate posterior.
+ [0] = do not calculate posterior covariance matrix, [1] = calculate posterior
+ covariance matrix.
  If 
 \family typewriter
 Q_compression_flag=1
@@ -4327,8 +4638,12 @@ If
 \series medium
 If
 \series default
- beta_cov_form=2, nrow values are provided, corresponding to the current
- row of the beta covariance matrix 
+ beta_cov_form=2, 
+\family typewriter
+nrow
+\family default
+ values are provided, corresponding to the current row of the beta covariance
+ matrix 
 \begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
 \end_inset
 

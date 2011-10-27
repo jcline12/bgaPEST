@@ -38,7 +38,7 @@ program bp_main
 
 !--  Main Data Arrays for OBS and PARS and ALGORITHM   
        integer                      :: n1, i, j
-       integer                      :: forward_flag_der
+       integer                      :: forward_flag_der, ci95_flag
        integer                      :: s_ind, p_ind, b_ind  !Indices for structural parameters, quasi-linear and bga method loops
        type (mio_struc)             :: miostruc
        type (err_failure_struc)     :: errstruc  
@@ -66,7 +66,8 @@ program bp_main
        character (len=FILEWIDTH)    :: atemp
        character (len=20)           :: inner_iter ! aka p_ind - this is the temporary holder for printing out the inner iteration number
        character (len=20)           :: outer_iter ! aka b_ind - this is the temporary holder for printing out the outer iteration number 
-       double precision,dimension(1) :: curr_structural_conv, curr_phi_conv !Current iteration convergence values for structural parameters and quasi linear objective function
+       double precision,dimension(1) :: curr_structural_conv, curr_phi_conv       !Current iteration convergence values for 
+       double precision,dimension(1) :: curr_bga_conv, curr_bga_phi,prev_bga_phi  !structural parameters and quasi linear objective function 
        double precision,dimension(1) :: curr_phi !Current value for quasi linear objective function
        double precision, pointer    :: prev_struct(:) !Previous vector of theta and sigma values to be optimized for or previous objective function
        double precision, pointer    :: VV(:,:), V(:) !VV is the posterior covariance matrix, V is only the diagonal of VV 
@@ -119,7 +120,7 @@ program bp_main
 !--  SETUP THE MODEL INPUT AND OUTPUT INFORMATION (TPL/INPUT AND INS/OUTPUT PAIRINGS)
     call bpm_setup_mio(errstruc, cv_MIO, d_MIO,  cv_PAR%npargp, &
                        cv_OBS%nobsgp, cv_PAR%npar, cv_OBS%nobs, miostruc)
-                    
+                     
 !--  INITIALIZE THE INVERSE MODEL
     !Make Q0, R0, X0, and InvQbb if necessary   
     call bxq_make_X0_Q0_R0_InvQbb(d_PAR,cv_S,d_S,cv_PAR,d_XQR,cv_A,d_OBS,cv_OBS%nobs,d_PM,Q0_All,cv_PM,d_ANI)
@@ -147,6 +148,11 @@ program bp_main
     call bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS,d_MOD, cv_A, &
                 cv_MIO, d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR)
 
+!!! --- Initialize outer loop convergence values
+          curr_bga_conv = huge_val ! initialize current outer loop convergence
+          prev_bga_phi  = huge_val ! initialize current outer loop convergence
+          curr_bga_phi  = huge_val ! initialize current bga objective function 
+
     do b_ind = 1, cv_A%it_max_bga  !*********************************************************************** (more external loop)
     
     !***************************************************************************************************************************  
@@ -155,6 +161,7 @@ program bp_main
     
           curr_phi_conv = huge_val !Initialize current quasi linear objective function convergence
           curr_phi      = huge_val !Initialize current quasi-linear objective function value
+
           do p_ind = 1, cv_A%it_max_phi !************************************************************* (first intermediate loop)
                                         !********** quasi-liner parameter estimation for given structural parameters ***********
       
@@ -198,6 +205,7 @@ program bp_main
             !-- set temporary string version of iteration numbers and phi to write out
             curr_phi_conv = abs(curr_phi - d_PAR%phi_T) 
             curr_phi = d_PAR%phi_T
+            
             call UTL_INT2CHAR(p_ind,inner_iter)
             call UTL_INT2CHAR(b_ind,outer_iter)  
             curr_par_file = trim(casename) // '.bpp.' // trim(outer_iter) // '_' // trim(inner_iter)
@@ -223,9 +231,9 @@ program bp_main
                  & '. Convergence was not achieved, but iterations will cease.')
                 call utl_writmess(6,retmsg)  
             endif !- checking for convergence or exceeding maximum iterations
-
+            
           enddo  !(first intermediate loop) quasi-linear method  --> p_ind
-          
+          curr_bga_phi = d_PAR%phi_T  ! Set the current bga outer loop convergence to equal the current value of PHI_T
     !***************************************************************************************************************************  
     !************************************* END OF QUASI-LINEAR PARAMETER ESTIMATION LOOP ***************************************
     !***************************************************************************************************************************
@@ -276,6 +284,18 @@ program bp_main
     !***************************************************************************************************************************  
     !*************************** END OF STRUCTURAL PARAMETER ESTIMATION LOOP  (ONLY IF REQUIRED) *******************************
     !***************************************************************************************************************************  
+    
+    
+    
+    !*********************************************
+    ! Evaluate outer bga convergence 
+    !*********************************************
+       curr_bga_conv = abs(prev_bga_phi - curr_bga_phi)
+       if (curr_bga_conv(1) .le. cv_A%bga_conv) then
+          exit
+       else
+         prev_bga_phi = curr_bga_phi
+       endif
        
     enddo      !(more external loop) --> b_ind
     
@@ -285,6 +305,7 @@ program bp_main
     !********************* it is only the diagonal (vector V) in case of compression of Q ************************************
     !*************************************************************************************************************************
      if (cv_A%post_cov_flag.eq.1) then
+       ci95_flag = 1 ! - flag determining whether to write 95% confidence intervals or not
       call form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All,cv_PM,d_PM,d_S,VV,V)
       !-- write out the final parameter values and confidence intervals
         if (cv_A%Q_compression_flag .eq. 0) then  !Select if the Q0 matrix is compressed or not
@@ -297,7 +318,7 @@ program bp_main
         finalparunit = utl_nextunit()  
         curr_par_file = trim(casename) // '.bpp.fin'
         call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
-        call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit)
+        call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit,ci95_flag)
         close(finalparunit)
         ! --- Also write a separate file with only the posterior covariance values
         postcovunit = utl_nextunit() 
@@ -308,6 +329,16 @@ program bp_main
         endif 
         call  bpo_write_posterior_covariance(cv_A%Q_compression_flag,cv_PAR,d_PAR,d_PM,V,VV,postcovunit)
         close(postcovunit)
+     else ! still need to write the final parameters out
+       ci95_flag = 0 ! - flag determining whether to write 95% confidence intervals or not
+        allocate(V(1))
+        V = 0.
+        finalparunit = utl_nextunit()  
+        curr_par_file = trim(casename) // '.bpp.fin'
+        call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
+        call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit,ci95_flag)
+        close(finalparunit)
+        if (associated(V)) deallocate(V)
      endif
     !*************************************************************************************************************************
     !*********** END OF THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************

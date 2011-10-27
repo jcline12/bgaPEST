@@ -45,6 +45,8 @@ contains
                call intread(ifail,BL(1)%keywordstring(i), cv_A%it_max_phi)
              case ('it_max_bga')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%it_max_bga)
+             case ('bga_conv')
+               call drealread(ifail,BL(1)%keywordstring(i), cv_A%bga_conv)  
              case ('linesearch')
                call intread(ifail,BL(1)%keywordstring(i), cv_A%lns_flag)
              case ('it_max_linesearch')
@@ -70,6 +72,9 @@ contains
           if(cv_A%deriv_mode.eq.0) then
              cv_A%jacobian_format = 'binary'
              cv_A%jacfle = 'scratch.jco'
+          endif
+          if (cv_A%bga_conv.eq.0.01) then
+             cv_A%bga_conv = cv_A%phi_conv*10.
           endif
  end subroutine bdp_read_cv_algorithmic
      

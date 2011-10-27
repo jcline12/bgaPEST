@@ -5,7 +5,6 @@ module bayes_pest_control
 !     Initializations to default values take place here as well.
 !     a m!ke@usgs joint
 !           
-!     a m!ke@usgs joint
 !     mike fienen - mnfienen@usgs.gov  
 !     V 0.0  3/5/08  
 !     Modified by M.D. 22/9/09 
@@ -42,6 +41,7 @@ module bayes_pest_control
       type  :: cv_algorithmic   ! ALGORITHMIC CONTROL VARIABLES
             double precision	::	structural_conv    !MD Structural parameter convergence values
             double precision	::	phi_conv           !MD Objective function convergence value
+            double precision    ::  bga_conv           ! overall objective function convergence (outer loop)
             integer		        ::	it_max_structural  !MD Max number of iterations for struct parameters
             integer		        ::	it_max_phi         !MD Max number of iterations for objective function
             integer             ::  it_max_bga         !MD Max number of iterations for geostatistical method
