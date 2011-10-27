@@ -7,7 +7,6 @@
         implicit none
         type dmatrix
              integer                         :: nrow,ncol,icode
-             double precision, pointer       :: vector(:)
              character*20, pointer           :: arow(:)
              character*20, pointer           :: acol(:)
         end type dmatrix
@@ -16,18 +15,18 @@
         
         contains 
         
-        subroutine readJAC(jacfle,X)
+        subroutine readJAC(jacfle,d_A)
         implicit none
 ! -- Program readJCO reads a ascii Jacobian "jac" file
 ! -- Code adapted from mat_read subroutine in matman.f code distributed with PEST
  
         integer jacunit
-        integer               :: ifail       ! return as zero if an error
-        character*(*)         :: jacfle      ! the jacobian matrix file
-        character(500)        :: amessage    ! string to write error message to
-        character(500)        :: cline       ! a character work string 
-        type (dmatrix)        :: mat         ! the matrix to be read
-        DOUBLE PRECISION, pointer :: X(:,:)  ! read the Jacobian into X rather than mat%array
+        integer                             :: ifail       ! return as zero if an error
+        character*(*)                       :: jacfle      ! the jacobian matrix file
+        character(500)                      :: amessage    ! string to write error message to
+        character(500)                      :: cline       ! a character work string 
+        type (dmatrix)                      :: mat         ! the matrix to be read
+        type(d_algorithmic),  intent(inout) :: d_A
         integer        :: ierr,ncol,nrow,icode,irow,icol
         integer        :: lw(3),rw(3)
         character*6 aarow
@@ -37,6 +36,9 @@
                                          ! [1] for read.
                                          ! currently, the names are not used for anything
 
+       if (associated(mat%arow)) deallocate(mat%arow)
+       if (associated(mat%acol)) deallocate(mat%acol)
+       
 ! -- Initialisation
        ifail=0
        jacunit = utl_nextunit()
@@ -84,7 +86,6 @@
        mat%nrow=nrow
        mat%ncol=ncol
        mat%icode=icode
-       allocate(X(nrow,ncol),stat=ierr)
        if(ierr.ne.0) go to 9400
        if (read_names .eq. 1) then
         allocate(mat%arow(nrow),mat%acol(ncol),stat=ierr)
@@ -95,8 +96,8 @@
 ! -- The matrix is read.
 
        do irow=1,nrow
-           read(jacunit,*,err=9100,end=9200) (X(irow,icol),icol=1,ncol)
-         enddo
+           read(jacunit,*,err=9100,end=9200) (d_A%H(irow,icol),icol=1,ncol)
+       enddo
          
 ! -- The row and column labels are read. NOTE - not currently used for anything
        if (read_names.eq.1) then     
@@ -163,7 +164,7 @@
         end subroutine readJAC
         
         
-        subroutine readJCO(jacfle, X)
+        subroutine readJCO(jacfle, d_A)
         IMPLICIT NONE
 
 ! -- Program readJCO reads a binary Jacobian "jco" file 
@@ -177,7 +178,7 @@
         CHARACTER*200 COMLIN
 
 
-        DOUBLE PRECISION, pointer :: X(:,:)
+        type(d_algorithmic),  intent(inout) :: d_A
         CHARACTER*12 APAR(:)
         CHARACTER*12 AOBS1(:)
         CHARACTER*20 AOBS(:)
@@ -203,9 +204,9 @@
         endif
 
         IF(NEWFLAG.EQ.1)THEN
-          ALLOCATE(X(NXROW,NESPAR),AOBS(NXROW),APAR(NESPAR), STAT=IERR)
+          ALLOCATE(AOBS(NXROW),APAR(NESPAR), STAT=IERR)
         ELSE
-          ALLOCATE(X(NXROW,NESPAR),AOBS1(NXROW),APAR(NESPAR),AOBS(NXROW),STAT=IERR)
+          ALLOCATE(AOBS1(NXROW),APAR(NESPAR),AOBS(NXROW),STAT=IERR)
         endif
         IF(IERR.NE.0)THEN
           WRITE(*,200)
@@ -214,16 +215,16 @@
         endif
 
         IF(NEWFLAG.EQ.1)THEN
-          X=0.0D0                ! AN ARRAY
+          d_A%H=0.0D0                ! AN ARRAY
           READ(jacunit,ERR=9000,END=9100)ICOUNT
           DO I=1,ICOUNT
             READ(jacunit,ERR=9000,END=9100) J,DTEMP
             IES=(J-1)/NXROW+1
             IROW=J-(IES-1)*NXROW
-            X(IROW,IES)=DTEMP
+            d_A%H(IROW,IES)=DTEMP
           enddo
         ELSE
-          READ(jacunit,ERR=9000,END=9100) ((X(J,I),J=1,NXROW),I=1,NESPAR)
+          READ(jacunit,ERR=9000,END=9100) ((d_A%H(J,I),J=1,NXROW),I=1,NESPAR)
         endif
         DO IPP=1,NESPAR
           READ(jacunit,ERR=9000,END=9100) APAR(IPP)
@@ -266,7 +267,7 @@
 
 9990    CONTINUE
 
-        DEALLOCATE(X,APAR,AOBS,STAT=IERR)
+        DEALLOCATE(APAR,AOBS,STAT=IERR)
         IF(NEWFLAG.EQ.0)THEN
           DEALLOCATE(AOBS1,STAT=IERR)
         endif
