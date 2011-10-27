@@ -6,7 +6,7 @@
 module bayes_pest_model
 
 contains
-   subroutine bpf_model_run(errstruc, d_MOD, cv_PAR, d_PAR, cv_OBS, cv_A, obsval, H,forward_flag, miostruc)
+   subroutine bpf_model_run(errstruc, d_MOD, cv_PAR, d_PAR, cv_OBS, cv_A, d_OBS, d_A,forward_flag, miostruc)
     use utilities
     use bayes_pest_control
     use model_input_output
@@ -24,13 +24,13 @@ contains
     type (cv_param)                     :: cv_PAR
     type (cv_observ)                    :: cv_OBS
     type (cv_algorithmic)               :: cv_A
-    double precision, pointer           :: obsval(:)
+    type(d_algorithmic),  intent(inout) :: d_A
+    type (d_observ)                     :: d_OBS
     integer, intent(in)                 :: forward_flag ! 0, 1, 2, or 3
                                         ! 0 is forward run
                                         ! 1 is external PEST-style Jacobian
                                         ! 2 is dercom alternative Jacobian
                                         ! 3 is forward run for linesearch using d_PAR%pars_lns
-    double precision, pointer           :: H(:,:)  ! Jacobian matrix  
     integer                             :: i, ifail
     character (len=100)                 :: adjfle
 
@@ -57,37 +57,37 @@ contains
         case (0) ! single forward run
             call system(d_MOD%com)
             !-- MIO read the ouput file results and update 
-            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+            if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
               call utl_bomb_out(errstruc)
             endif 
         case (1) ! external PEST-style Jacobian
             call system(d_MOD%com) ! run the model once, forward, to have outputs with current parameters 
             !-- MIO read the ouput file results and update 
-            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+            if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
               call utl_bomb_out(errstruc) 
             endif 
             !-- create PEST input files and run PEST          
             call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
             call system('pst_generator.exe')        ! create the necessary PEST control file
             call system('run_pest_scratch.bat')     ! run PEST externally for derivatives
-            call readJCO('scratch.jco', H)
+            call readJCO('scratch.jco', d_A%H)
         case (2) ! dercom alternative Jacobian
             call system(d_MOD%dercom) 
             ! for now, assume this alternative is MODFLOW_ADJOINT
             select case (cv_A%jacobian_format)
               case ('binary')
-                call readJCO(cv_A%jacfle,H)
+                call readJCO(cv_A%jacfle, d_A%H)
               case ('ascii')
-                call readJAC(cv_A%jacfle,H)
+                call readJAC(cv_A%jacfle, d_A%H)
             end select
             !-- MIO read the ouput file results and update 
-            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+            if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
               call utl_bomb_out(errstruc)
             endif 
         case (3) ! same as case 0, but linesearch parameters written as indicated above
             call system(d_MOD%com)
             !-- MIO read the ouput file results and update 
-            if(mio_read_model_output_files(errstruc,miostruc, obsval).ne.0) then
+            if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
               call utl_bomb_out(errstruc)
             endif 
     end select

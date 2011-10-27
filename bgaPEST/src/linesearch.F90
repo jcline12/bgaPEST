@@ -112,7 +112,7 @@ end module linesearch
   endif 
     
   !-- RUN THE FORWARD MODEL (INCLUDES DELETING OLD OUTPUT, WRITING NEW INPUT, RUNNING MODEL, AND READING NEW OUTPUT)
-  call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS,  cv_A, d_OBS%h, d_A%H, 3, miostruc)
+  call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS,  cv_A, d_OBS, d_A, 3, miostruc)
   !-- CALCULATE THE OBJECTIVE FUNCTIONS 
   call cal_ob_funcs(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A, d_PAR, cv_PM)
   

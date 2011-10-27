@@ -24,7 +24,7 @@ module struct_param_optimization
    type(d_prior_mean),   intent(in)     :: d_PM
    type(cv_param),       intent(in)     :: cv_PAR 
    type(d_param),        intent(inout)  :: d_PAR        
-   type(cv_struct),      intent(inout)     :: cv_S 
+   type(cv_struct),      intent(inout)  :: cv_S 
    type(d_struct),       intent(inout)  :: d_S
    type(Q0_compr),       intent(in)     :: Q0_All(:)
    type(cv_prior_mean),  intent(in)     :: cv_PM
@@ -157,14 +157,20 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
    type(cv_struct),      intent(inout)  :: cv_S 
    type(cv_prior_mean),  intent(in)     :: cv_PM
    
-   integer                              :: pivot(cv_OBS%nobs), errcode,i
-   double precision                     :: z(cv_OBS%nobs), curr_struct 
+   integer                              :: errcode,i, curr_struct 
+   double precision, pointer            :: z(:), pivot(:)
    double precision                     :: lndetGyy, ztiGyyz
-   double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
-   double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs)
+   double precision, pointer            :: UinvGyy(:,:) ! used as both U and InvGyy
+   double precision, pointer            :: Gyy(:,:)
    double precision, pointer            :: HXB(:), TMPV(:)  
    double precision, pointer            :: HXQbb(:,:)
    double precision, pointer            :: OMEGA(:,:)
+   
+   allocate (pivot(cv_OBS%nobs))
+   allocate (z(cv_OBS%nobs))
+   allocate (UinvGyy(cv_OBS%nobs,cv_OBS%nobs))
+   allocate (Gyy(cv_OBS%nobs,cv_OBS%nobs))
+   
    
    !----- intitialize variables
      lndetGyy  = 0.D0
@@ -208,6 +214,7 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
    !-- First perform LU decomposition on Gyy 
    UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
    call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
+   if (associated(pivot))  deallocate(pivot)
    do i = 1,cv_OBS%nobs                             
      lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i)))  
    enddo                                            
@@ -229,6 +236,10 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
           TMPV, 1, 0.D0, ztiGyyz,1)
    if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
    !*******************************************************************************
+   
+   if (associated(z))       deallocate(z)
+   if (associated(UinvGyy)) deallocate(UinvGyy)
+   if (associated(Gyy))     deallocate(Gyy)
    
    !****************************************************************************** 
    !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------
@@ -273,16 +284,22 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    type(Q0_compr),       intent(in)     :: Q0_All(nQ0)
    type(cv_prior_mean),  intent(in)     :: cv_PM
    
-   integer                              :: pivot(cv_OBS%nobs), errcode, i, j, k
+   integer                              :: errcode, i, j, k
    double precision                     :: str_par_opt_vec (n)!This must be the pars vector to be optimized for. Must be the first argument in SP_min (NelMead requires this) 
-   double precision                     :: z(cv_OBS%nobs) 
+   double precision, pointer            :: z(:), pivot(:)
    double precision                     :: lndetGyy, ztiGyyz, dthQttdth
-   double precision                     :: UinvGyy(cv_OBS%nobs,cv_OBS%nobs) ! used as both U and InvGyy
-   double precision                     :: Gyy(cv_OBS%nobs,cv_OBS%nobs),  dtheta(cv_S%num_theta_opt)
+   double precision, pointer            :: UinvGyy(:,:) ! used as both U and InvGyy
+   double precision, pointer            :: Gyy(:,:), dtheta(:)
    double precision, pointer            :: HXB(:), TMPV(:)  
    double precision, pointer            :: HXQbb(:,:)
    double precision, pointer            :: OMEGA(:,:)
    
+   
+   allocate (pivot(cv_OBS%nobs))
+   allocate (z(cv_OBS%nobs))
+   allocate (UinvGyy(cv_OBS%nobs,cv_OBS%nobs))
+   allocate (Gyy(cv_OBS%nobs,cv_OBS%nobs))
+      
    !----- intitialize variables
      errcode   = UNINIT_INT
      lndetGyy  = 0.D0
@@ -290,7 +307,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
      dthQttdth = 0.D0
      UinvGyy   = UNINIT_REAL   ! matrix
      Gyy       = UNINIT_REAL   ! matrix
-     dtheta    = UNINIT_REAL   ! matrix
+     
      
    !******************************************************************************************************
    !First we need to reform d_S%theta and d_S%sig overwriting the elements that must be optimized for and  
@@ -381,6 +398,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    !-- First perform LU decomposition on Gyy 
    UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
    call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
+   if (associated(pivot))       deallocate(pivot)
    do i = 1,cv_OBS%nobs                             
      lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i)))  
    enddo                                            
@@ -411,6 +429,8 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    !-- This "if" statement is not strictly necessary (because with the previous assumptions dthQttdth 
    !-- will be zero anyway), but we avoid useless computations.
    if  ((cv_A%theta_cov_form.ne.0).or.(d_S%sig_p_var.ne.0.)) then !"if" not strictly necessary, see above
+     allocate (dtheta(cv_S%num_theta_opt))
+     dtheta    = UNINIT_REAL   ! matrix
      !Form dtheta
      dtheta = d_S%struct_par_opt_vec - d_S%struct_par_opt_vec_0
      !Form invQtt*dtheta
@@ -420,9 +440,14 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
      !Multiply dtheta' * TMPV and 0.5
      call DGEMV('t',cv_S%num_theta_opt, 1, 5.0D-1, dtheta, cv_S%num_theta_opt, &
      TMPV, 1, 0.D0, dthQttdth,1)
-     if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
+     if (associated(TMPV))   deallocate(TMPV) !Deallocate TMPV no more necessary here
+     if (associated(dtheta)) deallocate(dtheta)
    endif   
    !**************************************************************************************************
+   
+   if (associated(z))       deallocate(z)
+   if (associated(UinvGyy)) deallocate(UinvGyy)
+   if (associated(Gyy))     deallocate(Gyy)
    
    !****************************************************************************** 
    !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------

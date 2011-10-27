@@ -166,7 +166,7 @@ program bp_main
                     forward_flag_der = 2
                     
              end select
-             call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS, cv_A,  d_OBS%h, d_A%H, forward_flag_der, miostruc)
+             call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS, cv_A,  d_OBS, d_A, forward_flag_der, miostruc)
   
   
    
@@ -208,11 +208,11 @@ program bp_main
       
             cparunit = utl_nextunit()
             call bpc_openfile(cparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
-            call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit)
+            call bpo_write_allpars(cv_PAR,d_PAR,cparunit)
             close(cparunit)
             cobsunit = utl_nextunit()
             call bpc_openfile(cobsunit,trim(curr_resid_file),1) ![1] at end indicates open with write access
-            call bpo_write_residuals(cv_OBS,d_OBS,d_OBS%h,cobsunit)
+            call bpo_write_residuals(cv_OBS,d_OBS,cobsunit)
             close(cobsunit) 
             !-- check for convergence - exit if convergence has been achieved  
             if (curr_phi_conv(1) .le. cv_A%phi_conv) then

@@ -33,6 +33,11 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
         double precision,    pointer        :: V(:)
         integer                             :: i, j, k, p, it, start_v, end_v
       
+  if (associated(d_A%Qsy))      deallocate(d_A%Qsy)
+  if (associated(d_A%HQHt))     deallocate(d_A%HQHt)
+  if (associated(d_A%Qyy))      deallocate(d_A%Qyy)
+
+  
   select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or not       
       
   case(0) !Full Q0 matrix         
@@ -288,7 +293,7 @@ double precision,     intent(inout)  :: Qsy(:,:), V(:)
 double precision,     intent(in)     :: theta_1,theta_2,Lmax
 integer,              intent(in)     :: nobs
 double precision, pointer            :: Qtmpb(:),Qtmpg(:),Qtmpl(:),Qv(:),TMP(:)
-double precision                     :: TMVSY(nobs)
+double precision, pointer            :: TMVSY(:)
 integer                              :: ncol,nbl,nlay
 integer                              :: blkg,blkl
 integer                              :: i,l,k,p,it,jt,ip
@@ -305,6 +310,7 @@ allocate (Qtmpg(Q0_All(ip)%npar))
 allocate (Qtmpl(Q0_All(ip)%npar))
 allocate (Qv(Q0_All(ip)%npar))
 allocate (TMP(Q0_All(ip)%npar))
+allocate (TMVSY(nobs))
 
 ncol=Q0_All(ip)%Ncol
 nbl =Q0_All(ip)%Nrow
@@ -377,6 +383,7 @@ if (associated(Qtmpg)) deallocate(Qtmpg)
 if (associated(Qtmpl)) deallocate(Qtmpl)
 if (associated(Qv))    deallocate(Qv)
 if (associated(TMP))   deallocate(TMP)
+if (associated(TMVSY)) deallocate(TMVSY)
 
 end subroutine toep_mult_post
 !*****************************************************************************************************

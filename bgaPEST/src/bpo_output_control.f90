@@ -39,10 +39,9 @@ contains
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!            subroutine to WRITE ALL PARAMETER VALUES TO A BPP FILE        !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_allpars(cv_PAR,d_PAR,cparvalue,writunit)
+   subroutine bpo_write_allpars(cv_PAR,d_PAR,writunit)
       type (cv_param)              :: cv_PAR
       type (d_param)               :: d_PAR
-      double precision, intent(in) :: cparvalue(:)
       integer, intent(in)          :: writunit
       character(50)                :: outlinefmt
       character(20)                :: parwstr,pargwstr
@@ -53,7 +52,7 @@ contains
     write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal'
     do i = 1,cv_PAR%npar
         write(outlinefmt,"('(1A',A,',1A',A,',1I13,1E16.8)')")  trim(parwstr),trim(pargwstr)
-        write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(i)),trim(d_PAR%group(i)), d_PAR%BetaAssoc(i),cparvalue(i)
+        write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(i)),trim(d_PAR%group(i)), d_PAR%BetaAssoc(i),d_PAR%pars(i)
     enddo
    
    end subroutine bpo_write_allpars
@@ -61,10 +60,9 @@ contains
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!            subroutine to WRITE ALL RESIDUAL VALUES TO A BRE FILE         !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   subroutine bpo_write_residuals(cv_OBS,d_OBS,cobsvalue,writunit)
+   subroutine bpo_write_residuals(cv_OBS,d_OBS, writunit)
       type (cv_observ)                :: cv_OBS
       type (d_observ)                 :: d_OBS
-      double precision, intent(in)    :: cobsvalue(:)
       integer, intent(in)             :: writunit
       character(50)                   :: outlinefmt
 
@@ -407,7 +405,7 @@ contains
     cparunit = utl_nextunit()
     !-- write out the initial parameter values as bpp.0
     call bpc_openfile(cparunit,trim(trim(casename) // '.bpp.0'),1) ![1] at end indicates open with write access
-    call bpo_write_allpars(cv_PAR,d_PAR,d_PAR%pars,cparunit)
+    call bpo_write_allpars(cv_PAR,d_PAR,cparunit)
     close(cparunit)
     write(bprunit,85) indent,'For initial parameter values see file :- ', trim(trim(casename) // '.bpp.0')
 85  format(3A) 

@@ -30,6 +30,9 @@ subroutine bmo_form_Qss_Qsy_HQsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, 
         double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
         integer                             :: i, j, k, p, it, start_v, end_v
         
+if (associated(d_A%Qsy))      deallocate(d_A%Qsy)
+if (associated(d_A%HQHt))     deallocate(d_A%HQHt)
+
 select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or not     
      
  case(0) !Full Q0 matrix         
@@ -201,6 +204,7 @@ subroutine bmo_form_Qyy(d_XQR, sig, cv_OBS, d_A)
         type(cv_observ),     intent(in)     :: cv_OBS  
         type(d_algorithmic), intent(inout)  :: d_A
 
+if (associated(d_A%Qyy))     deallocate(d_A%Qyy)
 
 !*****************************************************************************************************
 ! Make Qyy which is H*Qss*Ht + sig*R0 = HQsy + sig*R0
@@ -228,6 +232,8 @@ subroutine bmo_H_only_operations(d_XQR, d_A,cv_OBS,d_PAR,cv_PAR)
         type(d_algorithmic), intent(inout)  :: d_A
         type(d_param),       intent(inout)  :: d_PAR
         
+if (associated(d_A%HX))        deallocate(d_A%HX)
+if (associated(d_A%Hsold))     deallocate(d_A%Hsold)
 
 !*****************************************************************************************************
 ! Make H*X
@@ -272,6 +278,9 @@ subroutine bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A,
         type (cv_prior_mean), intent(in)    :: cv_PM
         double precision,    pointer        :: LHS(:,:), RHS (:) , Soln(:), C_S(:)
         integer                             :: i, j, k
+
+if (associated(d_A%ksi))        deallocate(d_A%ksi)
+if (associated(d_A%beta_hat))   deallocate(d_A%beta_hat)
 
 !*****************************************************************************************************
 ! Make RHS which is y' and -InvQbbB0 *** Is a vector (nobs + p)
@@ -356,6 +365,10 @@ subroutine bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A,
 ! End Calculate the solution  
 !*****************************************************************************************************
 
+if (associated(RHS))        deallocate(RHS)
+if (associated(LHS))        deallocate(LHS)
+if (associated(Soln))       deallocate(Soln)
+if (associated(C_S))        deallocate(C_S)
 
 !*****************************************************************************************************
 ! Calculate best estimate s_hat which is d_PAR%pars = X*beta_hat + Qsy * ksi
@@ -396,7 +409,7 @@ double precision,     intent(inout)  :: Qsy(:,:)
 double precision,     intent(in)     :: theta_1,theta_2,Lmax
 integer,              intent(in)     :: nobs
 double precision, pointer            :: Qtmpb(:),Qtmpg(:),Qtmpl(:),Qv(:),TMP(:)
-double precision                     :: TMVSY(nobs)
+double precision, pointer            :: TMVSY(:)
 integer                              :: ncol,nbl,nlay
 integer                              :: blkg,blkl
 integer                              :: i,l,k,p,it,jt,ip
@@ -413,6 +426,7 @@ allocate (Qtmpg(Q0_All(ip)%npar))
 allocate (Qtmpl(Q0_All(ip)%npar))
 allocate (Qv(Q0_All(ip)%npar))
 allocate (TMP(Q0_All(ip)%npar))
+allocate (TMVSY(nobs))
 
 ncol=Q0_All(ip)%Ncol
 nbl =Q0_All(ip)%Nrow
@@ -484,6 +498,7 @@ if (associated(Qtmpg)) deallocate(Qtmpg)
 if (associated(Qtmpl)) deallocate(Qtmpl)
 if (associated(Qv))    deallocate(Qv)
 if (associated(TMP))   deallocate(TMP)
+if (associated(TMVSY)) deallocate(TMVSY)
 
 
 end subroutine toep_mult
