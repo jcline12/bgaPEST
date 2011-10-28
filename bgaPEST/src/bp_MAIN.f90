@@ -270,15 +270,21 @@ program bp_main
              endif  
              
              if (curr_structural_conv(1).le.structural_conv) then !If yes, structural parameters have converged.
+               call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR) ! write out the final structural parameters
                cv_S%struct_par_opt = 0  !Set to zero cv_S%struct_par_opt and d_S%sig_opt so the structural parameters estimation loop is no more entered.
                d_S%sig_opt = 0          !The optimized struct_par_opt_vec is used to run the quasi-linear loop that is the last one. 
                if (associated(prev_struct)) deallocate(prev_struct) 
              endif
           endif !-- special warning if exceed maximum number of main algorithm iterations (it_max_bga) without convergence
        ! -- write the intermediate files to the BPR file
-       call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
-       else
+         cv_S%struct_par_opt = 1
          call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
+         cv_S%struct_par_opt = 0
+       else
+         ! need to be sure that final values get written out.
+         cv_S%struct_par_opt = 1
+         call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
+         cv_S%struct_par_opt = 0
          exit !If the structural pars optimization is not required or structural pars have converged (run the last quasi_linear), exit the bga_loop
        endif
     !***************************************************************************************************************************  

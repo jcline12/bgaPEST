@@ -414,7 +414,7 @@ contains
             endif
             
     enddo ! i = 1,cv_PAR%p
-    write(bprunit,'(3A)')indent,indent,'Epistemic Uncertainty :-'
+    write(bprunit,'(3A)')indent,'','Epistemic Uncertainty :-'
     write(bprunit,76) indent, indent, d_S%sig
 72 format(1A, 'Structural Parameters for Beta Association: ', I4)    
 73 format(1A, 1A,'Variogram type: ', 1A)
@@ -514,7 +514,7 @@ contains
       endif          
     enddo ! i = 1,cv_PAR%p
     if (d_S%sig_opt .eq. 1) then
-        write(bprunit,'(3A)')indent,indent,'Epistemic Uncertainty :-'
+        write(bprunit,'(3A)')indent,'','Epistemic Uncertainty :-'
         write(bprunit,176) indent, indent, d_S%sig
     endif
 172 format(1A, 'Current Structural Parameters for Beta Association: ', I4)    

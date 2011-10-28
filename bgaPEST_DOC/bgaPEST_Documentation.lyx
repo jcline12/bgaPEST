@@ -78,13 +78,50 @@ on and Instructions
 \end_layout
 
 \begin_layout Author
-M.
- N.
- Fienen, M.
- D'Oria, J.E.
- Doherty, and R.
- J.
- Hunt, 
+Michael N.
+ Fienen
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+US Geological Survey, Wisconsin Water Science Center, Middleton, Wisconsin
+ USA
+\end_layout
+
+\end_inset
+
+, Marco D'Oria
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Department of Civil Engineering, University of Parma, Parma, Italy
+\end_layout
+
+\end_inset
+
+, John E.
+ Doherty
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Watermark Numerical Computing, Brisbane, Australia
+\end_layout
+
+\end_inset
+
+, and Randall J.
+ Hunt
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+*
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section*
@@ -2603,9 +2640,9 @@ The best estimate of
 
  is through
 \begin_inset Formula 
-\[
-\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}
-\]
+\begin{equation}
+\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:shat}
+\end{equation}
 
 \end_inset
 
@@ -2669,6 +2706,166 @@ where
 
  is the auto-covariance matrix of the observations, defined as 
 \begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Quasi-Linear Extension
+\end_layout
+
+\begin_layout Standard
+As discussed by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+, we must adjust calculations of the posterior pdf to account for nonlinearity.
+ To do this, we we expand the solution in a first-order Taylor expansion,
+ resulting in an updated set of cokriging equations from Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging"
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}-\mathbf{h}\left(\mathbf{\tilde{s}}\right)+\mathbf{H}\tilde{\mathbf{s}}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging_nonlinear}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At each iteration (later referred to as inner iterations), the system in
+ Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging_nonlinear"
+
+\end_inset
+
+ is solved, resulting in an updated estimate of 
+\begin_inset Formula $\hat{\mathbf{s}}$
+\end_inset
+
+ calculated through Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:shat"
+
+\end_inset
+
+.
+ At each iteration, the objective function, based on minimizing the negative
+ logarithm of the posterior pdf (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:posterior"
+
+\end_inset
+
+) is evaluated using the current value of 
+\begin_inset Formula $\mathbf{\hat{s}}$
+\end_inset
+
+: this is equivalent to finding the values of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ that 
+\emph on
+maximize 
+\emph default
+the posterior probability.
+ Switching to a minimization problem and taking the logarithm has computational
+ advantages.
+ 
+\end_layout
+
+\begin_layout Standard
+The objective function, then, is 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{\Phi}_{T}=\mathbf{\Phi}_{M}+\mathbf{\Phi}_{R}\label{eq:phiT}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{\Phi}_{T}$
+\end_inset
+
+ is the total objective function, 
+\begin_inset Formula $\mathbf{\Phi}_{M}$
+\end_inset
+
+ is the misfit objective function (also corresponding to the likelihood
+ function) and 
+\begin_inset Formula $\mathbf{\Phi}_{R}$
+\end_inset
+
+ is the regularization objective function (also corresponding to the prior
+ pdf).
+ The components of Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phiT"
+
+\end_inset
+
+ are
+\begin_inset Formula 
+\[
+\mathbf{\Phi}_{M}=\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and
+\begin_inset Formula 
+\[
+\mathbf{\Phi}_{R}=(\mathbf{\hat{s}-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{\hat{s}-X\beta^{*}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where the 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ terms are absorbed into the constant of proportionality and both the negative
+ signs and exponentiation are obviated by taking the negative logarithm
+ of 
+\begin_inset Formula $p\left(\mathbf{s}|\mathbf{y}\right)$
 \end_inset
 
 .
@@ -2759,8 +2956,8 @@ A vital element to the method outlined above is proper selection of the
  are the parameters that characterize the covariance structure of both the
  epistemic uncertainty related to the observations, and the inherent variability
  of the parameters.
- In this work, structural parameters include the epistemic uncertainty term
- in Equation 
+ In this work, structural parameters may include the epistemic uncertainty
+ term in Equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:R"
@@ -2913,7 +3110,7 @@ To find the most likely values for
  resulting in the objective function
 \begin_inset Formula 
 \[
-\min_{\mathbf{\theta}}\mathrm{\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
+\mathbf{\Phi}_{S}=\mathrm{\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
 \]
 
 \end_inset
@@ -3289,7 +3486,8 @@ it_max_phi
 \emph on
 integer 
 \emph default
-Total number of iterations allowed in each quasi-linear estimation optimization.
+Total number of inner iterations allowed in each quasi-linear estimation
+ optimization.
  
 \emph on
 default=10
@@ -3320,6 +3518,67 @@ structural_conv
 float
 \emph default
  Convergence criterion for structural parameter convergence.
+ Positive or negative values can be used to trigger two different measures
+ of convergence, as noted below.
+ In either case, however, convergence is compared to the absolute value
+ of 
+\family typewriter
+structural_conv
+\family default
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+If positive, convergence is based on the absolute difference in structural
+ parameter objective function over consecutive iterations.
+ 
+\begin_inset Formula 
+\[
+\mathrm{conv}=\mathrm{abs}\left(\mathbf{\Phi}_{S,i}-\mathbf{\Phi}_{S,i-1}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $i\mbox{ }$
+\end_inset
+
+ is the current structural parameter optimization iteration, 
+\begin_inset Formula $i-1$
+\end_inset
+
+ is the previous structural parameter optimization iteration, and 
+\begin_inset Formula $\mathbf{\Phi}_{S}$
+\end_inset
+
+ is the structural parameter objective function.
+\begin_inset Newline newline
+\end_inset
+
+If negative, convergence is based on the norm of the difference between
+ consecutive structural parameter values.
+\begin_inset Formula 
+\[
+\mathrm{conv=}\sqrt{\left(\mathbf{\theta}_{i}-\mathbf{\theta}_{i-1}\right)^{T}\left(\mathbf{\theta}_{i}-\mathbf{\theta}_{i-1}\right)}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $i-1$
+\end_inset
+
+ are as defined above, and 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ is a vector containing all structural parameters currently being estimated
+ (may include epistemic uncertainty, if requested).
  
 \emph on
 default=0.001
@@ -3335,6 +3594,36 @@ phi_conv
 float 
 \emph default
 Convergence criterion for objective function convergence.
+ The convergence at each inner iteration is evaluated as the absolute difference
+ from one inner iteration to the next.
+ This is evaluated as
+\begin_inset Formula 
+\[
+\mathrm{conv}=\mathrm{abs}\left(\mathbf{\Phi}_{T,i_{in}}-\mathbf{\Phi}_{T,i_{in}-1}\right)
+\]
+
+\end_inset
+
+ where
+\emph on
+ 
+\begin_inset Formula $i_{in}$
+\end_inset
+
+ 
+\emph default
+is the current inner iteration, and 
+\begin_inset Formula $\mathbf{\Phi}_{T}$
+\end_inset
+
+ is the total objective function (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phiT"
+
+\end_inset
+
+).
  
 \emph on
 default=0.001
@@ -3343,17 +3632,58 @@ default=0.001
 \begin_layout Description
 
 \family typewriter
-linesearch
+bga_conv
 \family default
  
 \emph on
-integer 
+float 
 \emph default
-Flag to determine whether a line search should be conducted.
- [0] = do not use linesearch, [1] = use linesearch.
- 
+Convergence criterion for objective function outer iterations.
+ The convergence at each outer iteration is evaluated as the absolute difference
+ from one outer iteration to the next.
+ This accounts for both convergence of 
+\begin_inset Formula $\mathbf{\Phi}_{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\Phi}_{S}$
+\end_inset
+
+.
+ The convergence is evaluated as 
+\begin_inset Formula 
+\[
+\mathrm{conv}=\mathrm{abs}\left(\mathbf{\Phi}_{T,i_{out}}-\mathbf{\Phi}_{T,i_{out}-1}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $i_{out}$
+\end_inset
+
+ is the outer iteration, and 
+\begin_inset Formula $\mathbf{\Phi}_{T}$
+\end_inset
+
+ is the total objective function (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phiT"
+
+\end_inset
+
+).
+
 \emph on
-default=0
+ default=
+\begin_inset Formula $10\times$
+\end_inset
+
+
+\family typewriter
+\emph default
+phi_conv
 \end_layout
 
 \begin_layout Description
@@ -3391,6 +3721,9 @@ Flag to determine how to calculate
 \end_inset
 
  matrix for each beta association.
+ In addition to controlling the behavior of prior covariance compression,
+ this flag also determineds whether a full posterior covariance matrix or
+ only the diagonal are calculated.
  
 \emph on
 default=0
@@ -4214,7 +4547,11 @@ _cv}
 \end_layout
 
 \begin_layout Description
-structural_conv 
+
+\family typewriter
+structural_conv
+\family default
+ 
 \emph on
 float
 \emph default
@@ -4229,7 +4566,11 @@ default=0.001
 \end_layout
 
 \begin_layout Description
-phi_conv 
+
+\family typewriter
+phi_conv
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -4240,7 +4581,11 @@ default=0.001
 \end_layout
 
 \begin_layout Description
-bga_conv 
+
+\family typewriter
+bga_conv
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -4258,7 +4603,11 @@ phi_conv
 \end_layout
 
 \begin_layout Description
-it_max_structural 
+
+\family typewriter
+it_max_structural
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4269,7 +4618,11 @@ default=10
 \end_layout
 
 \begin_layout Description
-it_max_phi 
+
+\family typewriter
+it_max_phi
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4280,7 +4633,11 @@ default=10
 \end_layout
 
 \begin_layout Description
-it_max_bga 
+
+\family typewriter
+it_max_bga
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4291,7 +4648,11 @@ default=10
 \end_layout
 
 \begin_layout Description
-linesearch 
+
+\family typewriter
+linesearch
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4303,7 +4664,10 @@ default=0
 \end_layout
 
 \begin_layout Description
+
+\family typewriter
 it_max_linesearch
+\family default
 \emph on
  integer 
 \emph default
@@ -4314,7 +4678,11 @@ default=4
 \end_layout
 
 \begin_layout Description
-theta_cov_form 
+
+\family typewriter
+theta_cov_form
+\family default
+ 
 \emph on
 integer
 \emph default
@@ -4328,7 +4696,10 @@ default = 0
 \end_layout
 
 \begin_layout Description
+
+\family typewriter
 Q_compression_flag
+\family default
 \emph on
  integer 
 \emph default
@@ -4351,7 +4722,11 @@ default=0
 \end_layout
 
 \begin_layout Description
-par_anisotropy 
+
+\family typewriter
+par_anisotropy
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4383,7 +4758,10 @@ default=0.
 \end_layout
 
 \begin_layout Description
+
+\family typewriter
 deriv_mode
+\family default
 \emph on
  integer 
 \emph default
@@ -4400,7 +4778,11 @@ default=0
 \end_layout
 
 \begin_layout Description
-posterior_cov_flag 
+
+\family typewriter
+posterior_cov_flag
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4418,7 +4800,11 @@ default=0
 \end_layout
 
 \begin_layout Description
-jacobian_file 
+
+\family typewriter
+jacobian_file
+\family default
+ 
 \emph on
 string 
 \emph default
@@ -4437,7 +4823,11 @@ scratch.jco
 \end_layout
 
 \begin_layout Description
-jacobian_format 
+
+\family typewriter
+jacobian_format
+\family default
+ 
 \emph on
 string 
 \emph default
@@ -4503,7 +4893,11 @@ _cv}
 \end_layout
 
 \begin_layout Description
-prior_betas 
+
+\family typewriter
+prior_betas
+\family default
+ 
 \emph on
 integer
 \emph default
@@ -4528,7 +4922,11 @@ will be supplied.
 \end_layout
 
 \begin_layout Description
-beta_cov_form 
+
+\family typewriter
+beta_cov_form
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4577,7 +4975,11 @@ This table must contain the same number of rows as there are beta associations
 \end_layout
 
 \begin_layout Description
-BetaAssoc 
+
+\family typewriter
+BetaAssoc
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4586,7 +4988,11 @@ Identifier of each beta association (one per row).
 \end_layout
 
 \begin_layout Description
-Partrans 
+
+\family typewriter
+Partrans
+\family default
+ 
 \emph on
 string 
 \emph default
@@ -4603,7 +5009,11 @@ none
 \end_layout
 
 \begin_layout Description
-beta_0 
+
+\family typewriter
+beta_0
+\family default
+ 
 \emph on
 float
 \emph default
@@ -4615,7 +5025,11 @@ float
 \end_layout
 
 \begin_layout Description
-beta_cov_# 
+
+\family typewriter
+beta_cov_#
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -4679,7 +5093,11 @@ This table must contain the same number of rows as there are beta associations
 \end_layout
 
 \begin_layout Description
-BetaAssoc 
+
+\family typewriter
+BetaAssoc
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4688,7 +5106,11 @@ Identified of each beta association (one per row).
 \end_layout
 
 \begin_layout Description
-prior_cov_mode 
+
+\family typewriter
+prior_cov_mode
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4706,7 +5128,11 @@ Flag to indicate whether prior covariance of parameters
 \end_layout
 
 \begin_layout Description
-var_type 
+
+\family typewriter
+var_type
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4725,7 +5151,10 @@ default=1
 \end_layout
 
 \begin_layout Description
+
+\family typewriter
 struct_par_opt 
+\family default
 \emph on
 integer 
 \emph default
@@ -4739,7 +5168,11 @@ default=1
 \end_layout
 
 \begin_layout Description
-trans_theta 
+
+\family typewriter
+trans_theta
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4754,7 +5187,11 @@ default=0
 \end_layout
 
 \begin_layout Description
-alpha_trans 
+
+\family typewriter
+alpha_trans
+\family default
+ 
 \emph on
 float
 \emph default
@@ -4796,7 +5233,11 @@ This table must contain the same number of rows as there are beta associations
 \end_layout
 
 \begin_layout Description
-BetaAssoc 
+
+\family typewriter
+BetaAssoc
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4805,7 +5246,11 @@ Identified of each beta association (one per row).
 \end_layout
 
 \begin_layout Description
-theta_0_1 
+
+\family typewriter
+theta_0_1
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -4818,7 +5263,10 @@ Initial value of
 \end_layout
 
 \begin_layout Description
+
+\family typewriter
 theta_0_2 
+\family default
 \emph on
 float 
 \emph default
@@ -4863,7 +5311,11 @@ The only covariance model currently supported is diagonal, so there must
 \end_layout
 
 \begin_layout Description
-theta_cov_1 
+
+\family typewriter
+theta_cov_1
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -4908,7 +5360,11 @@ _term}
 \end_layout
 
 \begin_layout Description
-sig_0 
+
+\family typewriter
+sig_0
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -4920,7 +5376,11 @@ Initial value of the epistemic error
 \end_layout
 
 \begin_layout Description
-sig_opt 
+
+\family typewriter
+sig_opt
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4938,7 +5398,11 @@ sig_0
 \end_layout
 
 \begin_layout Description
-sig_p_var 
+
+\family typewriter
+sig_p_var
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -4960,7 +5424,11 @@ default=0.
 \end_layout
 
 \begin_layout Description
-trans_sig 
+
+\family typewriter
+trans_sig
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -4973,7 +5441,11 @@ default=0
 \end_layout
 
 \begin_layout Description
-alpha_trans 
+
+\family typewriter
+alpha_trans
+\family default
+ 
 \emph on
 float
 \emph default
@@ -5007,7 +5479,11 @@ _cv}
 \end_layout
 
 \begin_layout Description
-ndim 
+
+\family typewriter
+ndim
+\family default
+ 
 \emph on
 integer
 \emph default
@@ -5042,7 +5518,11 @@ This table must contain the same number of rows as there are beta associations
 \end_layout
 
 \begin_layout Description
-BetaAssoc 
+
+\family typewriter
+BetaAssoc
+\family default
+ 
 \emph on
 integer 
 \emph default
@@ -5051,7 +5531,11 @@ Identified of each beta association (one per row).
 \end_layout
 
 \begin_layout Description
-Toep_flag 
+
+\family typewriter
+Toep_flag
+\family default
+ 
 \emph on
 integer
 \emph default
@@ -5065,30 +5549,51 @@ integer
 \end_layout
 
 \begin_layout Description
-Nrow 
+
+\family typewriter
+Nrow
+\family default
+ 
 \emph on
 integer 
 \emph default
-Number of rows in the current Beta association (only read if Toep_flag =
- 1).
+Number of rows in the current Beta association (only read if 
+\family typewriter
+Toep_flag = 1
+\family default
+).
 \end_layout
 
 \begin_layout Description
-Ncol 
+
+\family typewriter
+Ncol
+\family default
+ 
 \emph on
 integer 
 \emph default
-Number of columns in the current Beta association (only read if Toep_flag
- = 1).
+Number of columns in the current Beta association (only read if 
+\family typewriter
+Toep_flag = 1
+\family default
+).
 \end_layout
 
 \begin_layout Description
-Nlay 
+
+\family typewriter
+Nlay
+\family default
+ 
 \emph on
 integer 
 \emph default
-Number of layers in the current Beta association (only read if Toep_flag
- = 1).
+Number of layers in the current Beta association (only read if 
+\family typewriter
+Toep_flag = 1
+\family default
+).
 \end_layout
 
 \begin_layout Subsubsection*
@@ -5117,7 +5622,11 @@ Each row of this table corresponds to one of the parameter groups.
 \end_layout
 
 \begin_layout Description
-groupname 
+
+\family typewriter
+groupname
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5145,7 +5654,11 @@ _data}
 \end_layout
 
 \begin_layout Description
-ParamName 
+
+\family typewriter
+ParamName
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5153,7 +5666,11 @@ string
 \end_layout
 
 \begin_layout Description
-StartValue 
+
+\family typewriter
+StartValue
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -5161,7 +5678,11 @@ Staring parameter value.
 \end_layout
 
 \begin_layout Description
-GroupName 
+
+\family typewriter
+GroupName
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5174,7 +5695,11 @@ parameter_groups
 \end_layout
 
 \begin_layout Description
-BetaAssoc 
+
+\family typewriter
+BetaAssoc
+\family default
+ 
 \emph on
 integer
 \emph default
@@ -5182,7 +5707,11 @@ integer
 \end_layout
 
 \begin_layout Description
-SenMethod 
+
+\family typewriter
+SenMethod
+\family default
+ 
 \emph on
 integer
 \emph default
@@ -5192,7 +5721,11 @@ integer
 \end_layout
 
 \begin_layout Description
-x1 
+
+\family typewriter
+x1
+\family default
+ 
 \emph on
 float
 \emph default
@@ -5200,29 +5733,37 @@ float
 \end_layout
 
 \begin_layout Description
-x2 
+
+\family typewriter
+x2
+\family default
+ 
 \emph on
 float
 \emph default
  Location in the second dimension.
  Only read if 
 \family typewriter
-ndim
+ndim >= 2
 \family default
- >= 2.
+.
 \end_layout
 
 \begin_layout Description
-x3 
+
+\family typewriter
+x3
+\family default
+ 
 \emph on
 float
 \emph default
  Location in the third dimension.
  Only read if 
 \family typewriter
-ndim
+ndim = 3
 \family default
- = 3.
+.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -5251,7 +5792,11 @@ Each row of this table corresponds to one of the observation groups.
 \end_layout
 
 \begin_layout Description
-groupname 
+
+\family typewriter
+groupname
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5283,7 +5828,11 @@ One observation is presented on each line.
 \end_layout
 
 \begin_layout Description
-ObsName 
+
+\family typewriter
+ObsName
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5291,7 +5840,11 @@ string
 \end_layout
 
 \begin_layout Description
-ObsValue 
+
+\family typewriter
+ObsValue
+\family default
+ 
 \emph on
 float
 \emph default
@@ -5299,7 +5852,11 @@ float
 \end_layout
 
 \begin_layout Description
-GroupName 
+
+\family typewriter
+GroupName
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5313,7 +5870,11 @@ observation_groups
 \end_layout
 
 \begin_layout Description
-Weight 
+
+\family typewriter
+Weight
+\family default
+ 
 \emph on
 float
 \emph default
@@ -5350,7 +5911,11 @@ Currently a single forward model command and an option derivative model
 \end_layout
 
 \begin_layout Description
-Command 
+
+\family typewriter
+Command
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5358,7 +5923,11 @@ string
 \end_layout
 
 \begin_layout Description
-DerivCommand 
+
+\family typewriter
+DerivCommand
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5366,9 +5935,9 @@ string
  derivatives.
  This is only used if 
 \family typewriter
-deriv_method
+deriv_method = 1
 \family default
- = 1 in the 
+ in the 
 \family typewriter
 algorithmic_cv
 \family default
@@ -5403,7 +5972,11 @@ Each row of this table includes a matched template file and model input
 \end_layout
 
 \begin_layout Description
-TemplateFile 
+
+\family typewriter
+TemplateFile
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5416,7 +5989,11 @@ string
 \end_layout
 
 \begin_layout Description
-ModInFile 
+
+\family typewriter
+ModInFile
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5452,7 +6029,11 @@ Each row of this table includes a matched instruction file and model output
 \end_layout
 
 \begin_layout Description
-InstructionFile 
+
+\family typewriter
+InstructionFile
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5465,7 +6046,11 @@ string
 \end_layout
 
 \begin_layout Description
-ModOutFile 
+
+\family typewriter
+ModOutFile
+\family default
+ 
 \emph on
 string
 \emph default
@@ -5529,7 +6114,11 @@ _cv}
 \end_layout
 
 \begin_layout Description
-BetaAssoc 
+
+\family typewriter
+BetaAssoc
+\family default
+ 
 \emph on
 integer
 \emph default
@@ -5537,7 +6126,11 @@ integer
 \end_layout
 
 \begin_layout Description
-horiz_angle 
+
+\family typewriter
+horiz_angle
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -5554,7 +6147,11 @@ reference "fig:anisotropy"
 \end_layout
 
 \begin_layout Description
-horiz_ratio 
+
+\family typewriter
+horiz_ratio
+\family default
+ 
 \emph on
 float 
 \emph default
@@ -5571,7 +6168,10 @@ reference "fig:anisotropy"
 \end_layout
 
 \begin_layout Description
+
+\family typewriter
 vertical_ratio 
+\family default
 \emph on
 float 
 \emph default
@@ -5950,8 +6550,8 @@ We need to establish equality between the following two objective function
  for the efficient version.
 \begin_inset Formula 
 \begin{eqnarray*}
-J_{std} & = & \frac{1}{2}\mathbf{s}^{T}\mathbf{G}\mathbf{s}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\\
-J_{eff} & = & \frac{1}{2}\xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)
+\mathbf{\Phi}_{std} & = & \frac{1}{2}\mathbf{s}^{T}\mathbf{G}\mathbf{s}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\\
+\mathbf{\Phi}_{eff} & = & \frac{1}{2}\xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)
 \end{eqnarray*}
 
 \end_inset
@@ -6291,9 +6891,11 @@ n, the equation for
 \end_inset
 
  can be used directly as 
+\series bold
+
 \begin_inset Formula 
 \[
-J_{eff}=\frac{1}{2}\xi^{T}\left(\mathbf{H}\left(\mathbf{Q}+\mathbf{X}\mathbf{Q}_{\beta\beta}\mathbf{X}^{T}\right)\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)
+\mathbf{\Phi}_{eff}=\frac{1}{2}\xi^{T}\left(\mathbf{H}\left(\mathbf{Q}+\mathbf{X}\mathbf{Q}_{\beta\beta}\mathbf{X}^{T}\right)\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)
 \]
 
 \end_inset
