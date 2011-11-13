@@ -311,6 +311,7 @@ program bp_main
     !********************* it is only the diagonal (vector V) in case of compression of Q ************************************
     !*************************************************************************************************************************
      if (cv_A%post_cov_flag.eq.1) then
+       write(6,*) 'Calulating Posterior Covariance'
        ci95_flag = 1 ! - flag determining whether to write 95% confidence intervals or not
       call form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0_All,cv_PM,d_PM,d_S,VV,V)
       !-- write out the final parameter values and confidence intervals

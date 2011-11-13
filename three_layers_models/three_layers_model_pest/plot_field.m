@@ -12,7 +12,7 @@ title = fgetl(fid);
 PARS = fscanf(fid,'%*s %*s %*d %g %*g %*g');
 
 
-A=1;
+A=0;
 
 if A == 1 
     K1=log10(K1);
@@ -54,3 +54,5 @@ imagesc(PARS2,[Min2-1e10*eps, Max2+1e10*eps]);colorbar
 
 subplot('position',[0.55 0.03 0.4 0.3])
 imagesc(PARS3,[Min3-1e10*eps, Max3+1e10*eps]);colorbar
+
+
