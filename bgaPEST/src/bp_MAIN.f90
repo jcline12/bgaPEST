@@ -250,6 +250,9 @@ program bp_main
                & '. Structural parameters will not be re-calculated, so final structural parameters and posterior covariance (if requested)' &
                & ' are based on the last iteration.')
              call utl_writmess(6,retmsg) 
+             cv_S%struct_par_opt = 1
+               call bpo_write_bpr_final_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
+             cv_S%struct_par_opt = 0
              exit
           else
              if ((cv_A%structural_conv.ge.0.).and.(b_ind.eq.1)) then            !In case of objective function monitoring, here the evaluation of
@@ -278,13 +281,11 @@ program bp_main
              endif
           endif !-- special warning if exceed maximum number of main algorithm iterations (it_max_bga) without convergence
        ! -- write the intermediate files to the BPR file
-         cv_S%struct_par_opt = 1
-         call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
-         cv_S%struct_par_opt = 0
+          call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
        else
          ! need to be sure that final values get written out.
          cv_S%struct_par_opt = 1
-         call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
+         call bpo_write_bpr_final_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
          cv_S%struct_par_opt = 0
          exit !If the structural pars optimization is not required or structural pars have converged (run the last quasi_linear), exit the bga_loop
        endif
