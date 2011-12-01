@@ -239,4 +239,66 @@ Variables for Beta Association:   1
     ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
     Current Structural Parameters for Beta Association:    1
         Variogram type: linear
-            slope = 2.609514E-01
+            slope = 8.813474E-02
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   7.1462E+00
+                     Misfit PHI :   9.5454E+00
+             Regularization PHI :   3.3836E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.3_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.3_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   7.1462E+00
+                     Misfit PHI :   9.5454E+00
+             Regularization PHI :   3.3836E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.3_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.3_2                                                                                
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope = 8.850846E-02
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   7.1373E+00
+                     Misfit PHI :   9.5422E+00
+             Regularization PHI :   3.3748E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.4_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.4_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   7.1373E+00
+                     Misfit PHI :   9.5422E+00
+             Regularization PHI :   3.3748E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.4_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.4_2                                                                                
+ 
+    ***FINAL STRUCTURAL PARAMETERS***
+    Final Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope = 8.850846E-02
+    Epistemic Uncertainty :-
+        Final sigma (epistemic) = 1.000000E-01

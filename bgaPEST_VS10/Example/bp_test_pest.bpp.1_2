@@ -1,5 +1,5 @@
    ParamName      ParamGroup    BetaAssoc        ParamVal
-          p1       pargp_uno            1  0.15947536E-02
+          p1       pargp_uno            1  0.15947535E-02
           p2       pargp_uno            1  0.15938023E-02
           p3       pargp_uno            1  0.15928535E-02
           p4       pargp_uno            1  0.15919066E-02
@@ -24,12 +24,12 @@
          p23       pargp_uno            1  0.15934350E-02
          p24       pargp_uno            1  0.15924887E-02
          p25       pargp_uno            1  0.15915426E-02
-         p26       pargp_uno            1  0.15905949E-02
+         p26       pargp_uno            1  0.15905948E-02
          p27       pargp_uno            1  0.15896459E-02
          p28       pargp_uno            1  0.15887001E-02
          p29       pargp_uno            1  0.15877648E-02
          p30       pargp_uno            1  0.15868501E-02
-         p31       pargp_uno            1  0.15859698E-02
+         p31       pargp_uno            1  0.15859699E-02
          p32       pargp_uno            1  0.15851395E-02
          p33       pargp_uno            1  0.15843723E-02
          p34       pargp_uno            1  0.15836828E-02
@@ -51,7 +51,7 @@
          p50       pargp_uno            1  0.15875492E-02
          p51       pargp_uno            1  0.15866188E-02
          p52       pargp_uno            1  0.15857058E-02
-         p53       pargp_uno            1  0.15848280E-02
+         p53       pargp_uno            1  0.15848279E-02
          p54       pargp_uno            1  0.15839968E-02
          p55       pargp_uno            1  0.15832288E-02
          p56       pargp_uno            1  0.15825473E-02
@@ -95,7 +95,7 @@
          p94       pargp_uno            1  0.15859602E-02
          p95       pargp_uno            1  0.15849865E-02
          p96       pargp_uno            1  0.15839995E-02
-         p97       pargp_uno            1  0.15830238E-02
+         p97       pargp_uno            1  0.15830239E-02
          p98       pargp_uno            1  0.15821003E-02
          p99       pargp_uno            1  0.15812821E-02
         p100       pargp_uno            1  0.15805997E-02
@@ -103,7 +103,7 @@
         p102       pargp_uno            1  0.15798307E-02
         p103       pargp_uno            1  0.15797731E-02
         p104       pargp_uno            1  0.15799159E-02
-        p105       pargp_uno            1  0.15802369E-02
+        p105       pargp_uno            1  0.15802368E-02
         p106       pargp_uno            1  0.15935484E-02
         p107       pargp_uno            1  0.15927234E-02
         p108       pargp_uno            1  0.15919381E-02
@@ -115,7 +115,7 @@
         p114       pargp_uno            1  0.15873772E-02
         p115       pargp_uno            1  0.15864469E-02
         p116       pargp_uno            1  0.15854247E-02
-        p117       pargp_uno            1  0.15843479E-02
+        p117       pargp_uno            1  0.15843478E-02
         p118       pargp_uno            1  0.15832459E-02
         p119       pargp_uno            1  0.15821609E-02
         p120       pargp_uno            1  0.15811782E-02
@@ -151,7 +151,7 @@
         p150       pargp_uno            1  0.15921045E-02
         p151       pargp_uno            1  0.15915680E-02
         p152       pargp_uno            1  0.15910897E-02
-        p153       pargp_uno            1  0.15906279E-02
+        p153       pargp_uno            1  0.15906278E-02
         p154       pargp_uno            1  0.15901375E-02
         p155       pargp_uno            1  0.15895395E-02
         p156       pargp_uno            1  0.15887790E-02
@@ -202,7 +202,7 @@
         p201       pargp_uno            1  0.15865085E-02
         p202       pargp_uno            1  0.15848613E-02
         p203       pargp_uno            1  0.15831767E-02
-        p204       pargp_uno            1  0.15815496E-02
+        p204       pargp_uno            1  0.15815495E-02
         p205       pargp_uno            1  0.15800641E-02
         p206       pargp_uno            1  0.15788727E-02
         p207       pargp_uno            1  0.15780826E-02
@@ -213,8 +213,8 @@
         p212       pargp_uno            1  0.15926715E-02
         p213       pargp_uno            1  0.15922252E-02
         p214       pargp_uno            1  0.15919320E-02
-        p215       pargp_uno            1  0.15918063E-02
-        p216       pargp_uno            1  0.15919185E-02
+        p215       pargp_uno            1  0.15918062E-02
+        p216       pargp_uno            1  0.15919186E-02
         p217       pargp_uno            1  0.15920077E-02
         p218       pargp_uno            1  0.15917564E-02
         p219       pargp_uno            1  0.15910576E-02
@@ -248,7 +248,7 @@
         p247       pargp_uno            1  0.15799056E-02
         p248       pargp_uno            1  0.15786734E-02
         p249       pargp_uno            1  0.15778342E-02
-        p250       pargp_uno            1  0.15773981E-02
+        p250       pargp_uno            1  0.15773982E-02
         p251       pargp_uno            1  0.15773381E-02
         p252       pargp_uno            1  0.15776029E-02
         p253       pargp_uno            1  0.15930740E-02
@@ -259,7 +259,7 @@
         p258       pargp_uno            1  0.15922069E-02
         p259       pargp_uno            1  0.15925318E-02
         p260       pargp_uno            1  0.15923808E-02
-        p261       pargp_uno            1  0.15915686E-02
+        p261       pargp_uno            1  0.15915685E-02
         p262       pargp_uno            1  0.15902638E-02
         p263       pargp_uno            1  0.15886423E-02
         p264       pargp_uno            1  0.15868415E-02
@@ -288,7 +288,7 @@
         p287       pargp_uno            1  0.15826802E-02
         p288       pargp_uno            1  0.15809789E-02
         p289       pargp_uno            1  0.15795591E-02
-        p290       pargp_uno            1  0.15784622E-02
+        p290       pargp_uno            1  0.15784621E-02
         p291       pargp_uno            1  0.15777406E-02
         p292       pargp_uno            1  0.15773987E-02
         p293       pargp_uno            1  0.15774057E-02
@@ -308,12 +308,12 @@
         p307       pargp_uno            1  0.15838387E-02
         p308       pargp_uno            1  0.15821790E-02
         p309       pargp_uno            1  0.15806667E-02
-        p310       pargp_uno            1  0.15793820E-02
+        p310       pargp_uno            1  0.15793821E-02
         p311       pargp_uno            1  0.15783942E-02
         p312       pargp_uno            1  0.15777793E-02
         p313       pargp_uno            1  0.15775236E-02
         p314       pargp_uno            1  0.15775876E-02
-        p315       pargp_uno            1  0.15779230E-02
+        p315       pargp_uno            1  0.15779229E-02
         p316       pargp_uno            1  0.15928402E-02
         p317       pargp_uno            1  0.15921218E-02
         p318       pargp_uno            1  0.15915486E-02
@@ -325,7 +325,7 @@
         p324       pargp_uno            1  0.15888329E-02
         p325       pargp_uno            1  0.15875341E-02
         p326       pargp_uno            1  0.15860580E-02
-        p327       pargp_uno            1  0.15845591E-02
+        p327       pargp_uno            1  0.15845590E-02
         p328       pargp_uno            1  0.15830680E-02
         p329       pargp_uno            1  0.15816379E-02
         p330       pargp_uno            1  0.15803431E-02
@@ -365,7 +365,7 @@
         p364       pargp_uno            1  0.15883498E-02
         p365       pargp_uno            1  0.15874591E-02
         p366       pargp_uno            1  0.15864200E-02
-        p367       pargp_uno            1  0.15852738E-02
+        p367       pargp_uno            1  0.15852737E-02
         p368       pargp_uno            1  0.15841029E-02
         p369       pargp_uno            1  0.15829517E-02
         p370       pargp_uno            1  0.15818536E-02
@@ -375,7 +375,7 @@
         p374       pargp_uno            1  0.15788086E-02
         p375       pargp_uno            1  0.15785937E-02
         p376       pargp_uno            1  0.15786097E-02
-        p377       pargp_uno            1  0.15788300E-02
+        p377       pargp_uno            1  0.15788301E-02
         p378       pargp_uno            1  0.15792246E-02
         p379       pargp_uno            1  0.15929117E-02
         p380       pargp_uno            1  0.15920058E-02
@@ -393,13 +393,13 @@
         p392       pargp_uno            1  0.15808073E-02
         p393       pargp_uno            1  0.15801107E-02
         p394       pargp_uno            1  0.15795868E-02
-        p395       pargp_uno            1  0.15792641E-02
+        p395       pargp_uno            1  0.15792640E-02
         p396       pargp_uno            1  0.15791469E-02
         p397       pargp_uno            1  0.15792227E-02
         p398       pargp_uno            1  0.15794704E-02
         p399       pargp_uno            1  0.15798662E-02
         p400       pargp_uno            1  0.15930616E-02
-        p401       pargp_uno            1  0.15921162E-02
+        p401       pargp_uno            1  0.15921163E-02
         p402       pargp_uno            1  0.15911877E-02
         p403       pargp_uno            1  0.15902703E-02
         p404       pargp_uno            1  0.15893530E-02
@@ -428,13 +428,13 @@
         p427       pargp_uno            1  0.15875052E-02
         p428       pargp_uno            1  0.15865234E-02
         p429       pargp_uno            1  0.15855495E-02
-        p430       pargp_uno            1  0.15846061E-02
+        p430       pargp_uno            1  0.15846060E-02
         p431       pargp_uno            1  0.15837180E-02
         p432       pargp_uno            1  0.15829078E-02
         p433       pargp_uno            1  0.15821950E-02
         p434       pargp_uno            1  0.15815978E-02
-        p435       pargp_uno            1  0.15811331E-02
-        p436       pargp_uno            1  0.15808147E-02
+        p435       pargp_uno            1  0.15811332E-02
+        p436       pargp_uno            1  0.15808148E-02
         p437       pargp_uno            1  0.15806496E-02
         p438       pargp_uno            1  0.15806360E-02
         p439       pargp_uno            1  0.15807650E-02
