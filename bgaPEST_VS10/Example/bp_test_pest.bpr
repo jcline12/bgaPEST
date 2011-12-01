@@ -1,0 +1,242 @@
+ 
+ 
+          bgaPEST RUN RECORD: CASE bp_test_pest                                                                                                                                                                                                                                                    
+ Case Dimensions :-
+                    Number of Parameters:     441
+              Number of Parameter Groups:       1
+                  Number of Observations:      12
+            Number of Observation Groups:       1
+ 
+ Model Command Line :-
+    modflow.bat                                       
+ Jacobian Command Line :-
+    modflow_adj.bat                                   
+ 
+ Model Interface Files:-
+    Template files:
+        S1_mul.tpl                                                                                          
+    for model input files:
+        S1_.mul                                                                                             
+    Instruction files:
+        S1_1_hbs.ins                                                                                        
+    for model ouput files:
+        S1_1.hbs                                                                                            
+    Jacobian Matrix Output File:
+        S1_1.jac                                                                                            
+    Jacobian Matrix Output Format:
+        ascii 
+ 
+ Algorithmic control variables:-
+    Structural Paramter Convergence
+        structural_conv:   4.0000E-03
+    Objective Function Convergence
+        phi_conv:   4.0000E-03
+    Outermost BGA Convergence
+        bga_conv:   1.0000E-02
+    Maximum Number of Structural Paramter Iterations
+        it_max_structural:         10
+    Maximum Number of Objective Function Iterations
+        it_max_phi:         15
+    Maximum Number of Outermost BGA Iterations
+        it_max_bga:         15
+    Linesearch Flag: [0] indicates no linesearh, [1] indicates perform linesarch
+        lns_flag:          1
+    Maximum Number of Linesearch Iterations
+        it_max_lns:          3
+    Logical Flag for storing Q Matrix
+        store_Q:     T
+    Form of theta covariance: [0] none, [1], diag, [2] full matrix
+        theta_cov_form:          1
+    Compression of Q0 matrix: [0] none - compute full Q0, [1], Q0 for each beta
+        Q_ compression_flag:          1
+    Derivatives mode: [0] External PEST Perturbations, [1] specified Jacobian command line
+        deriv_mode:          1
+    External derivatives calculated using file:-
+        modflow_adj.bat                                   
+    External derivatives read from file:-
+        S1_1.jac                                                                                            
+    External derivatives file format:-
+        ascii 
+ 
+    Parameter Anisotropy: [0] do not read parameter_anisotropy block, [1] do read block
+        par_anisotropy:          0
+ 
+       1 Beta Association was defined:
+Variables for Beta Association:   1
+    Parameter number at which this Beta Association starts
+        Beta_start:          1
+    Toeplitz Flag
+        Toep_flag:          1
+    Number of Rows
+        Nrow:         21
+    Number of Columns
+        Ncol:         21
+    Number of Layers
+        Nlay:          1
+    Number of Parameters
+        Npar:        441
+ 
+ 
+ Prior Information on Betas:-
+    Prior information format on prior menas (betas)
+    [0] none, [1] diagonal only, [2] full covariance matrix
+        Qbb_form:          1
+    Starting value of Prior Mean for Beta Association:    1
+         -7.6000E+00
+ 
+ Structural parameter control variables:-
+    Structural Parameters for Beta Association:    1
+        Variogram type: linear
+        Initial structural parameter values:
+            slope = 1.000000E-07
+        Flag determining whether structural parameters are optimized for or fixed:
+            struct_par_opt:    1
+        Power transformation active
+            alpha = 2.000000E+01
+    Epistemic Uncertainty :-
+        sigma (epistemic) = 1.000000E-01
+ 
+ Initial Parameter Definitions:-
+    For initial parameter values see file :- bp_test_pest.bpp.0
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   4.0629E+03
+                     Misfit PHI :   4.0476E+03
+             Regularization PHI :   1.5326E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   7.6825E+03
+                     Misfit PHI :   2.2537E+03
+             Regularization PHI :   5.4287E+03
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_2                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   4.4693E+03
+                     Misfit PHI :   8.8581E+02
+             Regularization PHI :   3.5835E+03
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_3                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_3                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.1109E+03
+                     Misfit PHI :   7.3281E+02
+             Regularization PHI :   1.3781E+03
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_4                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_4                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   8.8192E+02
+                     Misfit PHI :   1.5261E+03
+             Regularization PHI :   1.4910E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_5                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_5                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   8.8192E+02
+                     Misfit PHI :   1.5261E+03
+             Regularization PHI :   1.4910E+02
+ 
+        For current parameter values see file :- bp_test_pest.bpp.1_6                                                                                
+        For current residual values see file :- bp_test_pest.bre.1_6                                                                                
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope = 2.609514E-01
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   3.0430E+01
+                     Misfit PHI :   1.6677E+01
+             Regularization PHI :   2.0844E+01
+ 
+        For current parameter values see file :- bp_test_pest.bpp.2_1                                                                                
+        For current residual values see file :- bp_test_pest.bre.2_1                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   5.6764E+00
+                     Misfit PHI :   3.8208E+00
+             Regularization PHI :   1.8555E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.2_2                                                                                
+        For current residual values see file :- bp_test_pest.bre.2_2                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   7.0842E+00
+                     Misfit PHI :   3.7626E+00
+             Regularization PHI :   3.3216E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.2_3                                                                                
+        For current residual values see file :- bp_test_pest.bre.2_3                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   5.4661E+00
+                     Misfit PHI :   8.7425E+00
+             Regularization PHI :   1.7036E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.2_4                                                                                
+        For current residual values see file :- bp_test_pest.bre.2_4                                                                                
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   5.4661E+00
+                     Misfit PHI :   8.7425E+00
+             Regularization PHI :   1.7036E+00
+ 
+        For current parameter values see file :- bp_test_pest.bpp.2_5                                                                                
+        For current residual values see file :- bp_test_pest.bre.2_5                                                                                
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope = 2.609514E-01

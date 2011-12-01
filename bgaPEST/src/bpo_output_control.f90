@@ -523,46 +523,5 @@ contains
 175 format(4A,1I4)
 176 format(1A, 1A, 'sigma (epistemic) = ',1ES12.6)
 200 format(2A )     ! single indent and str format
-end subroutine bpo_write_bpr_intermed_structpar
-    
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!        subroutine to WRITE FINAL Structural Parameter INFORMATION TO BOTH RECORD (BPR) FILE and TO STANDARD OUT     !!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    subroutine bpo_write_bpr_final_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR)
-        type(d_param), intent(in)           :: d_PAR
-        type (cv_param), intent(in)         :: cv_PAR
-        type (cv_struct), intent(in)        :: cv_S 
-        type (d_struct), intent(in)         :: d_S 
-        integer, intent(in)                 :: bprunit
-        integer                             :: i,j
-        character (len=4)                   :: indent = '    '
-    
-    write(bprunit,*)
-    write(bprunit,300) indent, '***FINAL STRUCTURAL PARAMETERS***'
-    do i = 1,cv_PAR%p
-        !-- indicate the variogram type and final structural parameter values
-        write(bprunit,272) indent, i
-        select case (cv_S%var_type(i))
-         case (0)
-            write(bprunit,273) indent, indent, 'nugget'
-            write(bprunit,274) indent,  indent,indent, 'nugget variance', d_S%theta(i,1)
-         case (1)
-            write(bprunit,273) indent, indent, 'linear'
-            write(bprunit,274) indent,  indent,indent, 'slope', d_S%theta(i,1)
-         case (2)
-            write(bprunit,273) indent, indent, 'exponential'
-            write(bprunit,274) indent, indent, indent, 'variance', d_S%theta(i,1)
-            write(bprunit,274) indent,  indent,indent, 'correlation length', d_S%theta(i,2)
-        end select          
-    enddo ! i = 1,cv_PAR%p
-      write(bprunit,'(3A)')indent,'','Epistemic Uncertainty :-'
-      write(bprunit,276) indent, indent, d_S%sig
-272 format(1A, 'Final Structural Parameters for Beta Association: ', I4)    
-273 format(1A, 1A,'Variogram type: ', 1A)
-274 format(4A, ' = ', 1ES12.6)
-275 format(4A,1I4)
-276 format(1A, 1A, 'Final sigma (epistemic) = ',1ES12.6)
-300 format(2A )     ! single indent and str format
-end subroutine bpo_write_bpr_final_structpar    
-    
+    end subroutine bpo_write_bpr_intermed_structpar
 end module bayes_output_control

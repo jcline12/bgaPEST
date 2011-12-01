@@ -1,0 +1,1246 @@
+                        MODFLOW-ADJOINT Version 0.96 07/14/2007
+            SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+      U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                             VERSION 1.1 05/18/2006
+
+ LIST FILE: S1_1_adj.lst
+                         UNIT    7
+
+ OPENING S1.bas
+ FILE TYPE:BAS6   UNIT    1   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.dis
+ FILE TYPE:DIS   UNIT   29   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.lpf
+ FILE TYPE:LPF   UNIT   11   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.zone
+ FILE TYPE:ZONE   UNIT   13   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.wel
+ FILE TYPE:WEL   UNIT   12   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.oc
+ FILE TYPE:OC   UNIT   22   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.mul
+ FILE TYPE:MULT   UNIT    8   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.pcg
+ FILE TYPE:PCG   UNIT   19   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.chd
+ FILE TYPE:CHD   UNIT   40   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.hob
+ FILE TYPE:HOB   UNIT   18   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.adj
+ FILE TYPE:ADJ   UNIT   35   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1_adj.out
+ FILE TYPE:DATA   UNIT   44   STATUS:UNKNOWN
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_adj.pcg
+ FILE TYPE:DATA   UNIT   75   STATUS:UNKNOWN
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.hbs
+ FILE TYPE:DATA   UNIT   14   STATUS:UNKNOWN
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.sen
+ FILE TYPE:DATA   UNIT   48   STATUS:UNKNOWN
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.cbb
+ FILE TYPE:DATA(BINARY)   UNIT   50   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.cbw
+ FILE TYPE:DATA(BINARY)   UNIT   54   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.hds
+ FILE TYPE:DATA(BINARY)   UNIT   30   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.ddn
+ FILE TYPE:DATA(BINARY)   UNIT   31   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ BAS -- BASIC PACKAGE, VERSION 7, 5/2/2005 INPUT READ FROM UNIT    1
+
+ DISCRETIZATION INPUT DATA READ FROM UNIT   29
+ # MODFLOW2000 Discretization File
+    1 LAYERS        21 ROWS        21 COLUMNS
+    1 STRESS PERIOD(S) IN SIMULATION
+ MODEL TIME UNIT IS SECONDS
+ MODEL LENGTH UNIT IS METERS
+  Confining bed flag for each layer:
+   0
+
+
+
+                               DELR
+ READING ON UNIT   29 WITH FORMAT: (10E12.4)           
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000    
+
+
+
+                               DELC
+ READING ON UNIT   29 WITH FORMAT: (10E12.4)           
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000    
+
+ TOP ELEVATION OF LAYER 1 =   20.0000    
+
+   MODEL LAYER BOTTOM EL. =   0.00000     FOR LAYER   1
+
+
+ STRESS PERIOD     LENGTH       TIME STEPS     MULTIPLIER FOR DELT    SS FLAG
+ ----------------------------------------------------------------------------
+        1         1.000000          1                    1.000         SS
+
+ STEADY-STATE SIMULATION
+
+
+
+ 
+ # MODFLOW2005 Basic Package                                                     
+
+
+
+                     BOUNDARY ARRAY FOR LAYER   1
+ READING ON UNIT    1 WITH FORMAT: (FREE)              
+
+ AQUIFER HEAD WILL BE SET TO  999.00     AT ALL NO-FLOW NODES (IBOUND=0).
+
+
+
+                       INITIAL HEAD FOR LAYER   1
+ READING ON UNIT    1 WITH FORMAT: (FREE)              
+
+ OUTPUT CONTROL IS SPECIFIED ONLY AT TIME STEPS FOR WHICH OUTPUT IS DESIRED
+ HEAD PRINT FORMAT CODE IS   0    DRAWDOWN PRINT FORMAT CODE IS   0
+ HEADS WILL BE SAVED ON UNIT   30    DRAWDOWNS WILL BE SAVED ON UNIT   31
+
+ ZONE OPTION, INPUT READ FROM UNIT   13
+ # MODFLOW2000 Zone File
+     1 ZONE ARRAYS
+
+ MULTIPLIER OPTION, INPUT READ FROM UNIT    8
+ # MODFLOW2005 multiplier Package Parent MD
+   1 MULTIPLIER ARRAYS
+
+
+
+            MULT. ARRAY: M1        
+ READING ON UNIT    8 WITH FORMAT: (FREE)              
+
+            1           2           3           4           5           6           7           8           9          10
+           11          12          13          14          15          16          17          18          19          20
+           21
+ ........................................................................................................................
+   1   1.2652E-02  1.1871E-02  1.0769E-02  9.3468E-03  7.6865E-03  5.9667E-03  4.3922E-03  3.0756E-03  2.0336E-03  1.2495E-03
+       7.0438E-04  3.6508E-04  1.7690E-04  8.2442E-05  3.8431E-05  1.8745E-05  9.9081E-06  5.7326E-06  3.6021E-06  2.4239E-06
+       1.7228E-06
+   2   1.4305E-02  1.3632E-02  1.2522E-02  1.0959E-02  9.0442E-03  7.0297E-03  5.2399E-03  3.7877E-03  2.6233E-03  1.6872E-03
+       9.7720E-04  5.0783E-04  2.4005E-04  1.0586E-04  4.5467E-05  2.0269E-05  9.9682E-06  5.4885E-06  3.3407E-06  2.2054E-06
+       1.5519E-06
+   3   1.5574E-02  1.4936E-02  1.3680E-02  1.1855E-02  9.6515E-03  7.4026E-03  5.6072E-03  4.2780E-03  3.2240E-03  2.2841E-03
+       1.4316E-03  7.8765E-04  3.8224E-04  1.6531E-04  6.5701E-05  2.5973E-05  1.1474E-05  5.8131E-06  3.3305E-06  2.1113E-06
+       1.4512E-06
+   4   1.6156E-02  1.5385E-02  1.3766E-02  1.1513E-02  9.0649E-03  6.7619E-03  5.2774E-03  4.3469E-03  3.6590E-03  2.9878E-03
+       2.1278E-03  1.3169E-03  6.9858E-04  3.1409E-04  1.1953E-04  4.0815E-05  1.5600E-05  6.9926E-06  3.6465E-06  2.1613E-06
+       1.4245E-06
+   5   1.5876E-02  1.4786E-02  1.2655E-02  9.9379E-03  7.2306E-03  5.4434E-03  4.5461E-03  4.1133E-03  3.8299E-03  3.5506E-03
+       3.0435E-03  2.2210E-03  1.3492E-03  6.6777E-04  2.6332E-04  8.1326E-05  2.5224E-05  9.6557E-06  4.4273E-06  2.3845E-06
+       1.4751E-06
+   6   1.4836E-02  1.3382E-02  1.0878E-02  8.0274E-03  5.6905E-03  4.5632E-03  4.0918E-03  4.0712E-03  4.1354E-03  4.1938E-03
+       4.1769E-03  3.5565E-03  2.4503E-03  1.3240E-03  5.4005E-04  1.6843E-04  4.6325E-05  1.4856E-05  5.8514E-06  2.8060E-06
+       1.6001E-06
+   7   1.3405E-02  1.1799E-02  9.3832E-03  6.9567E-03  5.2581E-03  4.5549E-03  4.4809E-03  4.6564E-03  4.9842E-03  5.4320E-03
+       5.7614E-03  5.3086E-03  3.9169E-03  2.2241E-03  9.2811E-04  2.8962E-04  7.8420E-05  2.2800E-05  7.9368E-06  3.4049E-06
+       1.7802E-06
+   8   1.1939E-02  1.0438E-02  8.4188E-03  6.5741E-03  5.4469E-03  5.1869E-03  5.5211E-03  5.8351E-03  6.3797E-03  7.1429E-03
+       7.7178E-03  7.2916E-03  5.5246E-03  3.1719E-03  1.3387E-03  4.2763E-04  1.1706E-04  3.2541E-05  1.0417E-05  4.0808E-06
+       1.9708E-06
+   9   1.0615E-02  9.3669E-03  7.8286E-03  6.5236E-03  5.8551E-03  5.9309E-03  6.4676E-03  7.0732E-03  7.8699E-03  8.8526E-03
+       9.5319E-03  9.0223E-03  6.9019E-03  4.0045E-03  1.7162E-03  5.6327E-04  1.5604E-04  4.2179E-05  1.2724E-05  4.6492E-06
+       2.1055E-06
+  10   9.4613E-03  8.5108E-03  7.4214E-03  6.5612E-03  6.2521E-03  6.5144E-03  7.1173E-03  7.8741E-03  8.8101E-03  9.8482E-03
+       1.0504E-02  9.9640E-03  7.7764E-03  4.6474E-03  2.0428E-03  6.8319E-04  1.8865E-04  4.9186E-05  1.4098E-05  4.8874E-06
+       2.1153E-06
+  11   8.4382E-03  7.7662E-03  7.0560E-03  6.5483E-03  6.4446E-03  6.7119E-03  7.2461E-03  7.9509E-03  8.8197E-03  9.7364E-03
+       1.0304E-02  9.9036E-03  8.0827E-03  5.1523E-03  2.3699E-03  7.8442E-04  2.0664E-04  5.0995E-05  1.3896E-05  4.6407E-06
+       1.9624E-06
+  12   7.4871E-03  7.0345E-03  6.6007E-03  6.3208E-03  6.2936E-03  6.4899E-03  6.8703E-03  7.4023E-03  8.0916E-03  8.8188E-03
+       9.2851E-03  9.0907E-03  7.8900E-03  5.5406E-03  2.7025E-03  8.5779E-04  2.0487E-04  4.6352E-05  1.1994E-05  3.9308E-06
+       1.6679E-06
+  13   6.5680E-03  6.2629E-03  6.0050E-03  5.8639E-03  5.8849E-03  6.0397E-03  6.2620E-03  6.6148E-03  7.1610E-03  7.7603E-03
+       8.1595E-03  8.0781E-03  7.3743E-03  5.7828E-03  2.9956E-03  8.5786E-04  1.7566E-04  3.5814E-05  8.9462E-06  2.9680E-06
+       1.3052E-06
+  14   5.6713E-03  5.4501E-03  5.2858E-03  5.2160E-03  5.2629E-03  5.4148E-03  5.5691E-03  5.8545E-03  6.3426E-03  6.9180E-03
+       7.3566E-03  7.3478E-03  6.7574E-03  5.8288E-03  2.9692E-03  6.9966E-04  1.1933E-04  2.2652E-05  5.7703E-06  2.0348E-06
+       9.6075E-07
+  15   4.8097E-03  4.6263E-03  4.4950E-03  4.4375E-03  4.4652E-03  4.5587E-03  4.7140E-03  5.0093E-03  5.4538E-03  6.0110E-03
+       6.5117E-03  6.6263E-03  6.1583E-03  4.6457E-03  1.9101E-03  3.8833E-04  5.9022E-05  1.1744E-05  3.3497E-06  1.3265E-06
+       6.9130E-07
+  16   4.0056E-03  3.8325E-03  3.6988E-03  3.6161E-03  3.5903E-03  3.6294E-03  3.7409E-03  3.9441E-03  4.2359E-03  4.6005E-03
+       4.7948E-03  4.5404E-03  3.6919E-03  2.2192E-03  7.7345E-04  1.3695E-04  2.2583E-05  5.5912E-06  1.9265E-06  8.8148E-07
+       5.0989E-07
+  17   3.2802E-03  3.1065E-03  2.9585E-03  2.8422E-03  2.7625E-03  2.7290E-03  2.7392E-03  2.7866E-03  2.8475E-03  2.8553E-03
+       2.6529E-03  2.1604E-03  1.4287E-03  6.8017E-04  2.0657E-04  4.2849E-05  9.7840E-06  2.9918E-06  1.2230E-06  6.3580E-07
+       4.0082E-07
+  18   2.6476E-03  2.4730E-03  2.3137E-03  2.1726E-03  2.0518E-03  1.9518E-03  1.8660E-03  1.7793E-03  1.6651E-03  1.4822E-03
+       1.1949E-03  8.2603E-04  4.6042E-04  1.9447E-04  6.1531E-05  1.6637E-05  4.9957E-06  1.8768E-06  8.8709E-07  5.0943E-07
+       3.4127E-07
+  19   2.1126E-03  1.9419E-03  1.7799E-03  1.6278E-03  1.4854E-03  1.3503E-03  1.2163E-03  1.0736E-03  9.1083E-04  7.2074E-04
+       5.1159E-04  3.1277E-04  1.5917E-04  6.6578E-05  2.3793E-05  8.1314E-06  3.0641E-06  1.3677E-06  7.2727E-07  4.4973E-07
+       3.1338E-07
+  20   1.6724E-03  1.5111E-03  1.3557E-03  1.2065E-03  1.0631E-03  9.2385E-04  7.8585E-04  6.4634E-04  5.0461E-04  3.6493E-04
+       2.3784E-04  1.3638E-04  6.8054E-05  2.9959E-05  1.2221E-05  5.0110E-06  2.2394E-06  1.1376E-06  6.5932E-07  4.2886E-07
+       3.0595E-07
+  21   1.3181E-03  1.1708E-03  1.0289E-03  8.9274E-04  7.6235E-04  6.3743E-04  5.1774E-04  4.0388E-04  2.9808E-04  2.0450E-04
+       1.2822E-04  7.2656E-05  3.7284E-05  1.7703E-05  8.1165E-06  3.7988E-06  1.9071E-06  1.0549E-06  6.4543E-07  4.3242E-07
+       3.1232E-07
+
+
+
+             ZONE ARRAY: khz1      
+ READING ON UNIT   13 WITH FORMAT: (FREE)              
+
+ LPF -- LAYER-PROPERTY FLOW PACKAGE, VERSION 7, 5/2/2005
+         INPUT READ FROM UNIT   11
+ # MODFLOW2005 Layer Property Flow (LPF) Package Parent MD
+ CELL-BY-CELL FLOWS WILL BE SAVED ON UNIT   50
+ HEAD AT CELLS THAT CONVERT TO DRY=   999.00    
+     1 Named Parameters     
+
+   LAYER FLAGS:
+ LAYER       LAYTYP        LAYAVG         CHANI        LAYVKA        LAYWET
+ ---------------------------------------------------------------------------
+    1             0             0     1.000E+00             1             0
+
+   INTERPRETATION OF LAYER FLAGS:
+                        INTERBLOCK     HORIZONTAL    DATA IN
+         LAYER TYPE   TRANSMISSIVITY   ANISOTROPY   ARRAY VKA   WETTABILITY
+ LAYER      (LAYTYP)      (LAYAVG)       (CHANI)      (LAYVKA)      (LAYWET)
+ ---------------------------------------------------------------------------
+    1      CONFINED      HARMONIC     1.000E+00    ANISOTROPY  NON-WETTABLE
+
+ WETTING CAPABILITY IS NOT ACTIVE IN ANY LAYER
+
+ PARAMETERS DEFINED IN THE LPF PACKAGE
+
+ PARAMETER NAME:kh000001     TYPE:HK     CLUSTERS:   1
+ Parameter value from package file is:    1.0000    
+                LAYER:   1    MULTIPLIER ARRAY: M1    ZONE ARRAY: khz1
+                ZONE VALUES:    1
+
+    HYD. COND. ALONG ROWS FOR LAYER   1 WILL BE DEFINED BY PARAMETERS
+ (PRINT FLAG=  -1)
+
+    HYD. COND. ALONG ROWS is defined by the following parameters:
+ kh000001  
+
+
+              HYD. COND. ALONG ROWS FOR LAYER   1
+
+  HORIZ. TO VERTICAL ANI. =   1.00000     FOR LAYER   1
+
+ WEL -- WELL PACKAGE, VERSION 7, 5/2/2005 INPUT READ FROM UNIT   12
+ # MODFLOW2000 Well Package
+     0 Named Parameters         0 List entries
+ MAXIMUM OF      1 ACTIVE WELLS AT ONE TIME
+ CELL-BY-CELL FLOWS WILL BE SAVED ON UNIT   54
+
+
+     0 Well parameters
+
+ CHD -- TIME-VARIANT SPECIFIED-HEAD OPTION, VERSION 7, 5/2/2005
+ INPUT READ FROM UNIT   40
+ # MODFLOW2000 Constant-Head Boundary Package (CHD)
+ No named parameters
+ MAXIMUM OF     80 TIME-VARIANT SPECIFIED-HEAD CELLS AT ONE TIME
+
+
+     0 TIME-VARIANT SPECIFIED-HEAD PARAMETERS
+
+ PCG -- CONJUGATE-GRADIENT SOLUTION PACKAGE, VERSION 7, 5/2/2005
+ MAXIMUM OF   1000 CALLS OF SOLUTION ROUTINE
+ MAXIMUM OF     40 INTERNAL ITERATIONS PER CALL TO SOLUTION ROUTINE
+ MATRIX PRECONDITIONING TYPE :    1
+
+
+
+                                    SOLUTION BY THE CONJUGATE-GRADIENT METHOD
+                                   -------------------------------------------
+                    MAXIMUM NUMBER OF CALLS TO PCG ROUTINE =     1000
+                        MAXIMUM ITERATIONS PER CALL TO PCG =       40
+                               MATRIX PRECONDITIONING TYPE =        1
+        RELAXATION FACTOR (ONLY USED WITH PRECOND. TYPE 1) =    0.10000E+01
+ PARAMETER OF POLYNOMIAL PRECOND. = 2 (2) OR IS CALCULATED :        2
+                         HEAD CHANGE CRITERION FOR CLOSURE =    0.10000E-05
+                     RESIDUAL CHANGE CRITERION FOR CLOSURE =    0.10000E-05
+            PCG HEAD AND RESIDUAL CHANGE PRINTOUT INTERVAL =        5
+     PRINTING FROM SOLVER IS LIMITED(1) OR SUPPRESSED (>1) =        0
+                                         DAMPING PARAMETER =    0.10000E+01
+
+ OBS2BAS7 -- HEAD OBSERVATIONS, VERSION 2.0, 2/28/2006
+ INPUT READ FROM UNIT  18
+ # MODFLOW2005 Observation file (HOB) Marco
+
+ NUMBER OF HEADS....................................:   12
+   NUMBER OF MULTILAYER HEADS.......................:    0
+   MAXIMUM NUMBER OF LAYERS FOR MULTILAYER HEADS....:    2
+ HEAD OBSERVATIONS WILL BE SAVED ON UNIT............:   14
+ SIMULATED EQUIVALENT HEAD AT DRY CELLS WILL BE:    999.000    
+
+ OBSERVED HEAD DATA -- TIME OFFSETS ARE MULTIPLIED BY:   1.0000    
+
+                    REFER.
+       OBSERVATION  STRESS    TIME
+  OBS#    NAME      PERIOD   OFFSET    OBSERVATION
+     1 P001T0000        1    1.000       999.0    
+     2 P002T0000        1    1.000       999.0    
+     3 P003T0000        1    1.000       999.0    
+     4 P004T0000        1    1.000       999.0    
+     5 P005T0000        1    1.000       999.0    
+     6 P006T0000        1    1.000       999.0    
+     7 P007T0000        1    1.000       999.0    
+     8 P008T0000        1    1.000       999.0    
+     9 P009T0000        1    1.000       999.0    
+    10 P010T0000        1    1.000       999.0    
+    11 P011T0000        1    1.000       999.0    
+    12 P012T0000        1    1.000       999.0    
+
+                                                     HEAD CHANGE
+                                                      REFERENCE
+        OBSERVATION                   ROW     COL    OBSERVATION
+  OBS#     NAME       LAY  ROW  COL  OFFSET  OFFSET   (IF > 0)
+     1  P001T0000       1    5    5   0.000   0.000        0
+     2  P002T0000       1   10    5   0.000   0.000        0
+     3  P003T0000       1   16    5   0.000   0.000        0
+     4  P004T0000       1    7    7   0.000   0.000        0
+     5  P005T0000       1   14    7   0.000   0.000        0
+     6  P006T0000       1    5   10   0.000   0.000        0
+     7  P007T0000       1   16   10   0.000   0.000        0
+     8  P008T0000       1    7   14   0.000   0.000        0
+     9  P009T0000       1   14   14   0.000   0.000        0
+    10  P010T0000       1    5   16   0.000   0.000        0
+    11  P011T0000       1   10   16   0.000   0.000        0
+    12  P012T0000       1   16   16   0.000   0.000        0
+
+ ADJ -- ADJOINT STATE SENSITIVITY PACKAGE, VERSION -- PRE-RELEASE
+        INPUT READ FROM UNIT   35
+ # Modflow 2005 ADJ File Input Adjoint MD
+ USING OBSERVATION BASED ADJOINT STATE MODE
+SENSITIVITY OUTPUT FILE CONTROL INFORMATION -   44  12   0   0
+ Adjoint state solver information  read from unit 75
+ PCG -- CONJUGATE-GRADIENT SOLUTION PACKAGE, VERSION 7, 5/2/2005
+ MAXIMUM OF   1000 CALLS OF SOLUTION ROUTINE
+ MAXIMUM OF     40 INTERNAL ITERATIONS PER CALL TO SOLUTION ROUTINE
+ MATRIX PRECONDITIONING TYPE :    1
+
+
+
+                                    SOLUTION BY THE CONJUGATE-GRADIENT METHOD
+                                   -------------------------------------------
+                    MAXIMUM NUMBER OF CALLS TO PCG ROUTINE =     1000
+                        MAXIMUM ITERATIONS PER CALL TO PCG =       40
+                               MATRIX PRECONDITIONING TYPE =        1
+        RELAXATION FACTOR (ONLY USED WITH PRECOND. TYPE 1) =    0.10000E+01
+ PARAMETER OF POLYNOMIAL PRECOND. = 2 (2) OR IS CALCULATED :        2
+                         HEAD CHANGE CRITERION FOR CLOSURE =    0.10000E-07
+                     RESIDUAL CHANGE CRITERION FOR CLOSURE =    0.10000E-07
+            PCG HEAD AND RESIDUAL CHANGE PRINTOUT INTERVAL =        5
+     PRINTING FROM SOLVER IS LIMITED(1) OR SUPPRESSED (>1) =        0
+                                         DAMPING PARAMETER =    0.10000E+01
+
+ NUMBER OF PARAMETERS READ FROM ADJ FILE:    1
+ NUMBER OF DISTRIBUTED PARAMETERS  441
+DISTRIBUTED PARAMETER SENSITIVITIES WRITTEN TO UNIT  48 USING OUTPUT FORMAT   1
+RELATIVE SENSITIVITY CUTOFF =   0.000    
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1   1   1   1   1   1   1   1   1   1
+DISTRIBUTED PARAMETERS ARE PARAMETERS:
+   1
+
+ INFORMATION ON PARAMETERS LISTED IN ADJ FILE
+
+    NAME     LN
+ ----------  -----  
+ kh000001      0
+1
+                            STRESS PERIOD NO.    1, LENGTH =   1.000000    
+                            -----------------------------------------------
+
+                              NUMBER OF TIME STEPS =     1
+
+                               MULTIPLIER FOR DELT =     1.000
+
+                            INITIAL TIME STEP SIZE =   1.000000    
+
+ WELL NO.  LAYER   ROW   COL   STRESS RATE         
+ --------------------------------------------------
+      1      1     13      6      -3.000    
+
+      1 WELL 
+
+ CHD NO.   LAYER   ROW   COL    START HEAD        END HEAD         
+ ------------------------------------------------------------------
+      1      1      1      1       35.00           35.00    
+      2      1      1      2       35.00           35.00    
+      3      1      1      3       35.00           35.00    
+      4      1      1      4       35.00           35.00    
+      5      1      1      5       35.00           35.00    
+      6      1      1      6       35.00           35.00    
+      7      1      1      7       35.00           35.00    
+      8      1      1      8       35.00           35.00    
+      9      1      1      9       35.00           35.00    
+     10      1      1     10       35.00           35.00    
+     11      1      1     11       35.00           35.00    
+     12      1      1     12       35.00           35.00    
+     13      1      1     13       35.00           35.00    
+     14      1      1     14       35.00           35.00    
+     15      1      1     15       35.00           35.00    
+     16      1      1     16       35.00           35.00    
+     17      1      1     17       35.00           35.00    
+     18      1      1     18       35.00           35.00    
+     19      1      1     19       35.00           35.00    
+     20      1      1     20       35.00           35.00    
+     21      1      1     21       35.00           35.00    
+     22      1      2      1       35.00           35.00    
+     23      1      2     21       35.00           35.00    
+     24      1      3      1       35.00           35.00    
+     25      1      3     21       35.00           35.00    
+     26      1      4      1       35.00           35.00    
+     27      1      4     21       35.00           35.00    
+     28      1      5      1       35.00           35.00    
+     29      1      5     21       35.00           35.00    
+     30      1      6      1       35.00           35.00    
+     31      1      6     21       35.00           35.00    
+     32      1      7      1       35.00           35.00    
+     33      1      7     21       35.00           35.00    
+     34      1      8      1       35.00           35.00    
+     35      1      8     21       35.00           35.00    
+     36      1      9      1       35.00           35.00    
+     37      1      9     21       35.00           35.00    
+     38      1     10      1       35.00           35.00    
+     39      1     10     21       35.00           35.00    
+     40      1     11      1       35.00           35.00    
+     41      1     11     21       35.00           35.00    
+     42      1     12      1       35.00           35.00    
+     43      1     12     21       35.00           35.00    
+     44      1     13      1       35.00           35.00    
+     45      1     13     21       35.00           35.00    
+     46      1     14      1       35.00           35.00    
+     47      1     14     21       35.00           35.00    
+     48      1     15      1       35.00           35.00    
+     49      1     15     21       35.00           35.00    
+     50      1     16      1       35.00           35.00    
+     51      1     16     21       35.00           35.00    
+     52      1     17      1       35.00           35.00    
+     53      1     17     21       35.00           35.00    
+     54      1     18      1       35.00           35.00    
+     55      1     18     21       35.00           35.00    
+     56      1     19      1       35.00           35.00    
+     57      1     19     21       35.00           35.00    
+     58      1     20      1       35.00           35.00    
+     59      1     20     21       35.00           35.00    
+     60      1     21      1       35.00           35.00    
+     61      1     21      2       35.00           35.00    
+     62      1     21      3       35.00           35.00    
+     63      1     21      4       35.00           35.00    
+     64      1     21      5       35.00           35.00    
+     65      1     21      6       35.00           35.00    
+     66      1     21      7       35.00           35.00    
+     67      1     21      8       35.00           35.00    
+     68      1     21      9       35.00           35.00    
+     69      1     21     10       35.00           35.00    
+     70      1     21     11       35.00           35.00    
+     71      1     21     12       35.00           35.00    
+     72      1     21     13       35.00           35.00    
+     73      1     21     14       35.00           35.00    
+     74      1     21     15       35.00           35.00    
+     75      1     21     16       35.00           35.00    
+     76      1     21     17       35.00           35.00    
+     77      1     21     18       35.00           35.00    
+     78      1     21     19       35.00           35.00    
+     79      1     21     20       35.00           35.00    
+     80      1     21     21       35.00           35.00    
+
+
+     80 TIME-VARIANT SPECIFIED-HEAD CELLS
+ 
+ SOLVING FOR HEAD 
+
+
+     2 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    21 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1  -11.78      0  -5.795      0  -5.092      0  -2.603      0   1.102    
+   (  1, 13,  6)  (  1, 15, 16)  (  1, 10, 18)  (  1,  6, 19)  (  1,  7, 18)
+  0  0.3982      0 -0.2086      0  0.1180      0  0.4265E-01  0 -0.3879E-01
+   (  1,  6, 19)  (  1,  7, 17)  (  1, 10, 19)  (  1,  9, 19)  (  1, 11, 19)
+  0  0.9881E-02  0 -0.5334E-02  0  0.5201E-02  0 -0.1485E-02  0  0.3315E-03
+   (  1,  7, 17)  (  1,  8, 19)  (  1,  8, 19)  (  1,  7, 18)  (  1,  5, 17)
+  0 -0.9110E-04  0  0.2224E-04  0  0.2062E-04  0  0.2841E-05  0 -0.8472E-06
+   (  1,  6, 19)  (  1, 19, 20)  (  1,  6, 19)  (  1,  9, 18)  (  1,  6, 19)
+  1 -0.4538E-06
+   (  1, 20, 20)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   1.214      0  0.3053      0  0.2347      0  0.1152      0  0.3956E-01
+   (  1, 13,  6)  (  1, 13,  6)  (  1, 12,  7)  (  1, 12,  7)  (  1, 12,  7)
+  0  0.1329E-01  0  0.8951E-02  0  0.3737E-02  0  0.1867E-02  0  0.5166E-03
+   (  1, 11,  8)  (  1, 11,  8)  (  1, 11,  8)  (  1, 15,  4)  (  1, 15,  4)
+  0  0.3047E-03  0  0.1109E-03  0  0.3176E-04  0  0.1278E-04  0  0.3695E-05
+   (  1, 10,  9)  (  1, 10,  9)  (  1, 16,  3)  (  1,  9, 10)  (  1,  9, 10)
+  0  0.1045E-05  0  0.3615E-06  0  0.1160E-06  0  0.3870E-07  0  0.2379E-07
+   (  1,  9, 10)  (  1,  8, 11)  (  1,  8, 11)  (  1,  8, 11)  (  1,  8, 11)
+  1  0.1454E-07
+   (  1,  8, 11)
+
+
+
+ OUTPUT CONTROL FOR STRESS PERIOD    1   TIME STEP   1
+    SAVE HEAD FOR ALL LAYERS
+
+ HEAD WILL BE SAVED ON UNIT   30 AT END OF TIME STEP   1, STRESS PERIOD    1
+1
+  VOLUMETRIC BUDGET FOR ENTIRE MODEL AT END OF TIME STEP  1 IN STRESS PERIOD   1
+  ------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUMES      L**3       RATES FOR THIS TIME STEP      L**3/T
+     ------------------                 ------------------------
+
+           IN:                                      IN:
+           ---                                      ---
+             STORAGE =           0.0000               STORAGE =           0.0000
+       CONSTANT HEAD =           3.0000         CONSTANT HEAD =           3.0000
+               WELLS =           0.0000                 WELLS =           0.0000
+
+            TOTAL IN =           3.0000              TOTAL IN =           3.0000
+
+          OUT:                                     OUT:
+          ----                                     ----
+             STORAGE =           0.0000               STORAGE =           0.0000
+       CONSTANT HEAD =           0.0000         CONSTANT HEAD =           0.0000
+               WELLS =           3.0000                 WELLS =           3.0000
+
+           TOTAL OUT =           3.0000             TOTAL OUT =           3.0000
+
+            IN - OUT =           0.0000              IN - OUT =           0.0000
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+
+
+
+          TIME SUMMARY AT END OF TIME STEP   1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH  1.0000     1.66667E-02 2.77778E-04 1.15741E-05 3.16881E-08
+ STRESS PERIOD TIME  1.0000     1.66667E-02 2.77778E-04 1.15741E-05 3.16881E-08
+         TOTAL TIME  1.0000     1.66667E-02 2.77778E-04 1.15741E-05 3.16881E-08
+1
+  START OF ADJOINT STATE CALCULATIONS
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    28 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   3.043      0  0.7957      0 -0.6692      0 -0.5918      0  0.2588    
+   (  1,  5,  5)  (  1,  9, 18)  (  1, 12, 18)  (  1,  8, 19)  (  1, 10, 18)
+  0  0.7691E-01  0  0.2389E-01  0  0.1088E-01  0 -0.1474E-01  0 -0.5258E-02
+   (  1,  7, 19)  (  1,  7, 19)  (  1,  7, 15)  (  1, 10, 19)  (  1,  9, 20)
+  0  0.3677E-02  0 -0.1443E-02  0  0.1050E-02  0 -0.2490E-03  0  0.5399E-04
+   (  1, 10, 19)  (  1,  6, 17)  (  1,  8, 19)  (  1,  9, 19)  (  1,  6, 20)
+  0  0.2458E-04  0 -0.1057E-04  0  0.4546E-05  0  0.6125E-06  0 -0.1102E-05
+   (  1,  9, 19)  (  1,  6, 18)  (  1,  7, 19)  (  1,  7, 19)  (  1,  5, 18)
+  0  0.2080E-06  0  0.7550E-07  0  0.1405E-07  0 -0.3135E-07  0  0.3892E-08
+   (  1,  6, 19)  (  1,  6, 19)  (  1,  9, 19)  (  1,  6, 19)  (  1,  5, 20)
+  1 -0.1781E-07  0 -0.7866E-08  1  0.4723E-08
+   (  1,  5,  6)  (  1, 11, 18)  (  1, 11, 18)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.1900      0 -0.9212E-01  0 -0.4483E-01  0 -0.2225E-01  0 -0.7112E-02
+   (  1,  5,  5)  (  1,  5,  5)  (  1,  6,  4)  (  1,  6,  4)  (  1,  6,  4)
+  0 -0.2859E-02  0  0.1652E-02  0 -0.8382E-03  0 -0.4392E-03  0 -0.1810E-03
+   (  1,  7,  2)  (  1,  6,  3)  (  1,  7,  3)  (  1,  7,  3)  (  1,  5,  3)
+  0 -0.6150E-04  0 -0.2955E-04  0 -0.1293E-04  0 -0.4238E-05  0 -0.1164E-05
+   (  1,  8,  2)  (  1,  8,  2)  (  1,  8,  2)  (  1,  8,  2)  (  1,  8,  2)
+  0 -0.3673E-06  0  0.1236E-06  0  0.5062E-07  0  0.2924E-07  0  0.6445E-08
+   (  1,  8,  2)  (  1,  4,  4)  (  1,  4,  4)  (  1,  4,  4)  (  1,  4,  4)
+  0 -0.1899E-08  0 -0.8355E-09  0  0.5159E-09  0  0.2642E-09  0  0.8134E-10
+   (  1,  4,  3)  (  1,  4,  3)  (  1,  3,  3)  (  1,  3,  3)  (  1,  3,  3)
+  1 -0.1454E-08  0 -0.8673E-09  1 -0.5089E-09
+   (  1,  4,  5)  (  1,  4,  5)  (  1,  4,  5)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  1 P001T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    28 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   3.579      0   1.477      0   1.377      0 -0.6164      0 -0.4331    
+   (  1, 10,  5)  (  1, 13, 17)  (  1,  8, 18)  (  1, 10, 18)  (  1,  7, 19)
+  0  0.9207E-01  0  0.2482E-01  0  0.3815E-01  0 -0.1368E-01  0  0.1352E-01
+   (  1,  7, 17)  (  1,  6, 18)  (  1, 12, 19)  (  1,  6, 17)  (  1,  9, 19)
+  0 -0.7133E-02  0 -0.1512E-02  0 -0.5777E-03  0  0.1592E-03  0  0.1020E-03
+   (  1, 11, 19)  (  1, 10, 20)  (  1,  8, 20)  (  1, 12, 20)  (  1,  7, 19)
+  0 -0.6688E-04  0  0.1579E-04  0 -0.3224E-05  0 -0.9193E-06  0  0.5195E-06
+   (  1,  7, 19)  (  1,  5, 17)  (  1,  6, 19)  (  1,  6, 19)  (  1, 10, 19)
+  0  0.4627E-06  0 -0.4245E-07  0 -0.5314E-07  0 -0.2022E-07  0  0.4366E-08
+   (  1,  6, 19)  (  1, 11, 19)  (  1,  5, 19)  (  1,  7, 20)  (  1,  5, 19)
+  1  0.3279E-07  0  0.9224E-08  1 -0.3535E-08
+   (  1, 11, 18)  (  1, 17, 15)  (  1, 15, 15)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.3150      0 -0.1054      0 -0.5776E-01  0 -0.2971E-01  0 -0.9706E-02
+   (  1, 10,  5)  (  1, 10,  5)  (  1, 11,  4)  (  1,  9,  6)  (  1, 11,  4)
+  0 -0.3236E-02  0  0.1919E-02  0 -0.1030E-02  0 -0.4531E-03  0 -0.2134E-03
+   (  1, 12,  2)  (  1, 11,  3)  (  1,  8,  7)  (  1,  8,  7)  (  1, 12,  3)
+  0 -0.6523E-04  0  0.2122E-04  0 -0.8717E-05  0 -0.3585E-05  0 -0.1345E-05
+   (  1, 12,  3)  (  1, 10,  5)  (  1, 13,  2)  (  1, 13,  2)  (  1, 13,  2)
+  0 -0.4111E-06  0 -0.1152E-06  0 -0.3274E-07  0 -0.1728E-07  0 -0.5853E-08
+   (  1, 13,  2)  (  1, 13,  2)  (  1, 13,  2)  (  1,  5, 10)  (  1,  5, 10)
+  0 -0.1799E-08  0 -0.9606E-09  0 -0.3846E-09  0 -0.1183E-09  0 -0.5981E-10
+   (  1,  4,  4)  (  1,  4,  4)  (  1,  4,  5)  (  1,  4,  5)  (  1,  4, 11)
+  1  0.1619E-08  0 -0.5610E-09  1 -0.3949E-09
+   (  1, 10,  5)  (  1, 10,  4)  (  1, 10,  4)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  2 P002T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    30 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   6.444      0   1.587      0   1.285      0  0.9160      0 -0.4252    
+   (  1, 16,  5)  (  1, 16, 14)  (  1, 13, 18)  (  1,  7, 18)  (  1,  9, 18)
+  0 -0.1771      0  0.4602E-01  0 -0.2155E-01  0  0.8538E-02  0 -0.5709E-02
+   (  1,  6, 19)  (  1,  8, 19)  (  1, 12, 19)  (  1,  8, 16)  (  1,  9, 19)
+  0 -0.4533E-02  0  0.3076E-02  0 -0.1155E-02  0  0.4528E-03  0 -0.1473E-03
+   (  1,  9, 19)  (  1,  8, 18)  (  1,  7, 18)  (  1,  7, 19)  (  1,  7, 19)
+  0  0.4285E-04  0 -0.1275E-04  0 -0.4853E-05  0 -0.1250E-05  0 -0.1380E-05
+   (  1, 11, 19)  (  1, 13, 20)  (  1, 12, 19)  (  1,  8, 19)  (  1,  8, 19)
+  0  0.6149E-06  0 -0.1483E-06  0  0.4756E-07  0 -0.1038E-07  0 -0.1748E-07
+   (  1,  7, 19)  (  1,  5, 17)  (  1, 12, 20)  (  1, 17, 20)  (  1,  8, 19)
+  0  0.4708E-08  1  0.3409E-07  0 -0.1564E-07  0 -0.8644E-08  1  0.7525E-08
+   (  1,  8, 19)  (  1, 16,  5)  (  1, 14, 17)  (  1,  6, 17)  (  1,  9, 18)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.2865      0 -0.9607E-01  0 -0.7570E-01  0 -0.3692E-01  0 -0.1024E-01
+   (  1, 16,  5)  (  1, 15,  6)  (  1, 15,  6)  (  1, 15,  6)  (  1, 17,  4)
+  0 -0.4516E-02  0 -0.2349E-02  0 -0.1322E-02  0 -0.5875E-03  0  0.1869E-03
+   (  1, 14,  7)  (  1, 14,  7)  (  1, 14,  7)  (  1, 14,  7)  (  1, 13,  7)
+  0 -0.9649E-04  0 -0.4123E-04  0 -0.1269E-04  0 -0.4765E-05  0 -0.2062E-05
+   (  1, 13,  8)  (  1, 13,  8)  (  1, 13,  8)  (  1, 12,  9)  (  1, 12,  9)
+  0 -0.4575E-06  0 -0.2180E-06  0 -0.6729E-07  0 -0.2927E-07  0 -0.1227E-07
+   (  1, 10, 10)  (  1, 11, 10)  (  1, 11, 10)  (  1, 11, 10)  (  1, 10, 11)
+  0 -0.5191E-08  0 -0.1182E-08  0 -0.5689E-09  0 -0.3329E-09  0 -0.8117E-10
+   (  1, 10, 11)  (  1, 11, 10)  (  1, 10, 11)  (  1,  9, 12)  (  1,  9, 12)
+  0 -0.2987E-10  1 -0.2681E-08  0 -0.1470E-08  0 -0.6815E-09  1 -0.4750E-09
+   (  1,  9, 12)  (  1, 16,  5)  (  1, 15,  7)  (  1, 15,  7)  (  1, 15,  7)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  3 P003T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    31 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   4.717      0   2.043      0   1.338      0  -1.078      0 -0.3800    
+   (  1,  7,  7)  (  1,  9, 18)  (  1,  6, 19)  (  1,  9, 19)  (  1,  6, 19)
+  0 -0.8644E-01  0  0.6150E-01  0  0.3824E-01  0 -0.2654E-01  0 -0.1371E-01
+   (  1,  7, 16)  (  1,  9, 19)  (  1,  9, 20)  (  1, 11, 19)  (  1, 10, 19)
+  0 -0.5771E-02  0 -0.3688E-02  0  0.1711E-02  0  0.3424E-03  0  0.1206E-03
+   (  1,  8, 20)  (  1,  8, 20)  (  1,  8, 19)  (  1,  8, 20)  (  1,  7, 20)
+  0  0.4289E-04  0 -0.2833E-04  0  0.3416E-05  0  0.4099E-05  0 -0.9816E-06
+   (  1,  7, 18)  (  1,  8, 20)  (  1,  6, 19)  (  1,  7, 19)  (  1,  6, 19)
+  0 -0.3514E-06  0  0.8314E-07  0  0.1348E-06  0 -0.4485E-07  0 -0.5748E-08
+   (  1,  6, 19)  (  1,  5, 18)  (  1,  5, 18)  (  1,  6, 19)  (  1, 20, 20)
+  1 -0.3504E-07  0 -0.3980E-07  0 -0.2348E-07  0  0.1224E-07  0  0.4404E-08
+   (  1,  7,  7)  (  1, 10, 18)  (  1,  8, 19)  (  1,  7, 18)  (  1,  6, 19)
+  1 -0.1122E-08
+   (  1,  7, 19)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.3469      0 -0.1347      0 -0.5765E-01  0 -0.3252E-01  0 -0.1132E-01
+   (  1,  7,  7)  (  1,  7,  7)  (  1,  8,  6)  (  1,  8,  6)  (  1,  8,  6)
+  0 -0.3536E-02  0 -0.2032E-02  0 -0.1285E-02  0 -0.5980E-03  0 -0.2004E-03
+   (  1,  8,  6)  (  1,  9,  5)  (  1,  9,  5)  (  1,  9,  5)  (  1,  9,  5)
+  0  0.5630E-04  0 -0.3015E-04  0 -0.1146E-04  0 -0.3217E-05  0 -0.8075E-06
+   (  1, 10,  5)  (  1, 10,  4)  (  1, 10,  4)  (  1, 10,  4)  (  1, 11,  3)
+  0 -0.4179E-06  0 -0.1405E-06  0 -0.8539E-07  0 -0.2912E-07  0 -0.9129E-08
+   (  1, 11,  3)  (  1, 11,  3)  (  1, 11,  3)  (  1, 11,  3)  (  1, 12,  2)
+  0 -0.3852E-08  0 -0.2533E-08  0 -0.9277E-09  0 -0.2754E-09  0 -0.1142E-09
+   (  1, 12,  2)  (  1, 12,  2)  (  1, 12,  2)  (  1, 12,  2)  (  1, 12,  2)
+  1  0.5124E-08  0  0.1587E-08  0  0.8647E-09  0  0.3791E-09  0  0.1165E-09
+   (  1,  7,  7)  (  1,  7,  7)  (  1,  8,  6)  (  1,  8,  6)  (  1,  6,  8)
+  1  0.8089E-10
+   (  1,  6,  8)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  4 P004T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    31 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   4.266      0   2.395      0   1.991      0   1.085      0 -0.4098    
+   (  1, 14,  7)  (  1, 15, 16)  (  1, 10, 18)  (  1,  6, 19)  (  1,  7, 18)
+  0 -0.1626      0  0.8529E-01  0 -0.2209E-01  0 -0.3247E-01  0  0.1040E-01
+   (  1,  6, 19)  (  1,  8, 18)  (  1, 11, 19)  (  1, 10, 19)  (  1,  9, 18)
+  0 -0.3291E-02  0  0.2052E-02  0 -0.1615E-02  0  0.4789E-03  0 -0.1488E-03
+   (  1,  8, 19)  (  1,  7, 18)  (  1,  7, 18)  (  1,  8, 19)  (  1, 12, 20)
+  0 -0.3170E-04  0  0.1044E-04  0 -0.2657E-05  0 -0.3853E-05  0  0.1378E-05
+   (  1, 11, 20)  (  1,  5, 18)  (  1,  6, 19)  (  1,  6, 19)  (  1,  7, 20)
+  0  0.3344E-06  0 -0.2035E-06  0  0.1513E-07  0  0.4281E-07  0 -0.8722E-08
+   (  1, 11, 20)  (  1,  6, 19)  (  1, 14, 19)  (  1,  7, 19)  (  1,  6, 18)
+  1 -0.7383E-07  0 -0.5411E-07  0 -0.4661E-07  0 -0.2167E-07  0 -0.7894E-08
+   (  1, 14,  7)  (  1, 15, 16)  (  1,  9, 18)  (  1,  6, 19)  (  1,  4, 19)
+  1  0.3069E-08
+   (  1,  5, 19)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.4570      0 -0.1090      0 -0.8767E-01  0 -0.4049E-01  0 -0.1300E-01
+   (  1, 14,  7)  (  1, 13,  8)  (  1, 13,  8)  (  1, 13,  8)  (  1, 13,  8)
+  0 -0.4824E-02  0 -0.3696E-02  0 -0.1642E-02  0 -0.5458E-03  0 -0.2209E-03
+   (  1, 12,  9)  (  1, 12,  9)  (  1, 12,  9)  (  1, 12,  9)  (  1, 11, 10)
+  0 -0.1136E-03  0 -0.3587E-04  0 -0.8613E-05  0 -0.4670E-05  0 -0.1094E-05
+   (  1, 11, 10)  (  1, 11, 10)  (  1, 10, 11)  (  1, 10, 11)  (  1, 10, 11)
+  0  0.3259E-06  0 -0.1497E-06  0 -0.8801E-07  0 -0.2718E-07  0 -0.7565E-08
+   (  1, 10, 12)  (  1,  9, 12)  (  1,  9, 12)  (  1,  9, 12)  (  1,  9, 12)
+  0 -0.2605E-08  0 -0.7303E-09  0 -0.3898E-09  0 -0.1786E-09  0 -0.8806E-10
+   (  1, 10, 11)  (  1,  8, 13)  (  1,  8, 13)  (  1,  9, 12)  (  1,  9, 12)
+  1 -0.2108E-08  0  0.1067E-08  0  0.6704E-09  0  0.2229E-09  0  0.1167E-09
+   (  1, 15,  8)  (  1, 12,  8)  (  1, 12,  8)  (  1, 16,  2)  (  1, 17,  2)
+  1  0.7762E-10
+   (  1, 17,  2)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  5 P005T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    31 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   6.308      0   1.981      0  -1.468      0 -0.9599      0  0.4622    
+   (  1,  5, 10)  (  1,  5, 10)  (  1,  9, 18)  (  1,  7, 19)  (  1,  9, 19)
+  0  0.2705      0  0.6699E-01  0 -0.7922E-01  0  0.2369E-01  0 -0.2330E-01
+   (  1,  8, 19)  (  1,  7, 20)  (  1, 10, 19)  (  1,  6, 16)  (  1,  8, 20)
+  0  0.1038E-01  0 -0.3041E-02  0  0.1907E-02  0 -0.5920E-03  0  0.1616E-03
+   (  1,  9, 19)  (  1,  6, 17)  (  1,  7, 19)  (  1,  8, 19)  (  1,  6, 20)
+  0 -0.5849E-04  0  0.1725E-04  0  0.2248E-05  0  0.2123E-05  0 -0.8770E-06
+   (  1,  7, 20)  (  1,  7, 19)  (  1,  4, 19)  (  1,  4, 20)  (  1,  5, 19)
+  0  0.2986E-06  0  0.4040E-07  0  0.5455E-07  0  0.2448E-07  0 -0.7288E-08
+   (  1, 20, 20)  (  1, 19, 20)  (  1,  5, 19)  (  1,  8, 19)  (  1,  6, 19)
+  1  0.2111E-07  0  0.2373E-07  0  0.1205E-07  0 -0.1267E-07  0  0.3901E-08
+   (  1, 16, 13)  (  1, 11, 16)  (  1,  8, 17)  (  1,  8, 18)  (  1, 12, 18)
+  1  0.2630E-08
+   (  1,  9, 19)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.4013      0 -0.1234      0 -0.7322E-01  0 -0.3746E-01  0 -0.1364E-01
+   (  1,  5, 10)  (  1,  5, 10)  (  1,  6,  9)  (  1,  6,  9)  (  1,  6,  9)
+  0 -0.4003E-02  0 -0.2473E-02  0 -0.1565E-02  0 -0.7571E-03  0 -0.2203E-03
+   (  1,  6,  9)  (  1,  7,  8)  (  1,  7,  8)  (  1,  7,  8)  (  1,  7,  8)
+  0 -0.6875E-04  0 -0.3587E-04  0 -0.1469E-04  0  0.2726E-05  0 -0.1205E-05
+   (  1,  8,  7)  (  1,  8,  7)  (  1,  8,  7)  (  1,  5,  3)  (  1,  9,  6)
+  0 -0.3463E-06  0  0.9726E-07  0  0.5404E-07  0 -0.3024E-07  0 -0.1092E-07
+   (  1,  9,  6)  (  1, 10,  6)  (  1,  9,  5)  (  1, 10,  5)  (  1, 10,  5)
+  0  0.2154E-08  0  0.1671E-08  0 -0.7913E-09  0 -0.2209E-09  0 -0.1189E-09
+   (  1,  8,  3)  (  1, 11, 11)  (  1, 11,  4)  (  1, 11,  4)  (  1, 11,  4)
+  1  0.2385E-08  0  0.9747E-09  0  0.4819E-09  0  0.1960E-09  0  0.5848E-10
+   (  1,  5,  9)  (  1,  5,  9)  (  1,  6,  8)  (  1,  6,  8)  (  1,  7,  7)
+  1  0.3499E-10
+   (  1,  7,  7)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  6 P006T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    34 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   5.414      0   3.724      0   2.779      0   1.738      0 -0.7144    
+   (  1, 16, 10)  (  1, 15, 16)  (  1, 10, 18)  (  1,  6, 19)  (  1,  7, 18)
+  0 -0.2672      0  0.2079      0  0.4825E-01  0 -0.4406E-01  0 -0.1152E-01
+   (  1,  6, 19)  (  1,  9, 19)  (  1,  7, 19)  (  1,  8, 18)  (  1, 12, 20)
+  0 -0.6025E-02  0 -0.2697E-02  0  0.1827E-02  0 -0.2927E-03  0 -0.1374E-03
+   (  1,  8, 20)  (  1,  7, 20)  (  1,  7, 19)  (  1,  4, 18)  (  1,  7, 19)
+  0  0.5755E-04  0 -0.1685E-04  0  0.2637E-05  0  0.2859E-05  0 -0.1175E-05
+   (  1,  5, 18)  (  1,  6, 19)  (  1,  7, 19)  (  1,  7, 19)  (  1,  5, 18)
+  0  0.3641E-06  0  0.9647E-07  0  0.5255E-07  0 -0.3973E-07  0 -0.2452E-07
+   (  1, 20, 20)  (  1, 20, 20)  (  1, 20, 20)  (  1,  5, 19)  (  1,  6, 19)
+  0  0.1166E-07  0 -0.2184E-08  1 -0.9176E-07  0 -0.6564E-07  0 -0.4500E-07
+   (  1,  5, 19)  (  1, 20, 20)  (  1, 17, 10)  (  1, 15, 16)  (  1,  7, 17)
+  0 -0.2867E-07  0  0.1272E-07  0  0.5896E-08  1 -0.2247E-08
+   (  1,  5, 19)  (  1,  7, 18)  (  1,  6, 19)  (  1,  8, 19)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.5389      0 -0.1575      0 -0.1153      0 -0.3499E-01  0 -0.1333E-01
+   (  1, 16, 10)  (  1, 15, 11)  (  1, 15, 11)  (  1, 15, 11)  (  1, 15, 11)
+  0 -0.4871E-02  0 -0.4063E-02  0 -0.2029E-02  0 -0.7449E-03  0 -0.2735E-03
+   (  1, 14, 12)  (  1, 14, 12)  (  1, 14, 12)  (  1, 14, 12)  (  1, 13, 13)
+  0 -0.1286E-03  0 -0.2966E-04  0 -0.1034E-04  0 -0.3055E-05  0 -0.7742E-06
+   (  1, 13, 13)  (  1, 13, 13)  (  1, 12, 14)  (  1, 12, 14)  (  1, 13, 13)
+  0 -0.2530E-06  0 -0.6937E-07  0 -0.5904E-07  0 -0.1721E-07  0  0.5055E-08
+   (  1, 12, 14)  (  1, 12, 14)  (  1, 13, 13)  (  1, 13, 13)  (  1, 12, 13)
+  0 -0.3118E-08  0 -0.1254E-08  0 -0.5894E-09  0  0.3031E-09  0 -0.1308E-09
+   (  1, 12, 14)  (  1, 14, 12)  (  1, 13, 13)  (  1, 12, 11)  (  1, 13, 13)
+  0 -0.3294E-10  0 -0.1446E-10  1 -0.2881E-08  0  0.1387E-08  0 -0.9587E-09
+   (  1, 12, 14)  (  1,  3,  3)  (  1, 15, 11)  (  1, 16, 11)  (  1, 14, 12)
+  0  0.2805E-09  0  0.9139E-10  0 -0.5018E-10  1  0.3209E-10
+   (  1, 14, 13)  (  1, 16,  2)  (  1, 15, 11)  (  1, 14, 13)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  7 P007T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    35 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   9.923      0   4.742      0  -2.480      0  -1.563      0 -0.8888    
+   (  1,  7, 15)  (  1,  6, 19)  (  1, 10, 19)  (  1,  8, 19)  (  1,  7, 20)
+  0  0.4870      0  0.1551      0  0.1536      0 -0.8326E-01  0 -0.2394E-01
+   (  1,  9, 20)  (  1,  8, 20)  (  1,  8, 20)  (  1,  8, 19)  (  1,  9, 20)
+  0  0.1236E-01  0 -0.4678E-02  0  0.1264E-02  0 -0.5115E-03  0  0.1620E-03
+   (  1,  6, 18)  (  1,  8, 20)  (  1,  9, 20)  (  1,  4, 18)  (  1,  8, 20)
+  0 -0.3294E-04  0  0.1362E-04  0  0.5122E-05  0 -0.4468E-05  0 -0.2269E-05
+   (  1, 19, 20)  (  1,  4, 19)  (  1,  4, 19)  (  1, 10, 19)  (  1,  5, 19)
+  0  0.4593E-06  0  0.1615E-06  0  0.1165E-06  0  0.4638E-07  0 -0.4316E-07
+   (  1, 20, 20)  (  1,  6, 20)  (  1,  7, 19)  (  1,  3, 20)  (  1,  7, 20)
+  0  0.1449E-07  0 -0.4158E-08  1  0.3309E-06  0 -0.1549E-06  0 -0.1027E-06
+   (  1,  6, 18)  (  1, 20, 20)  (  1,  8, 18)  (  1, 11, 19)  (  1,  9, 19)
+  0 -0.5746E-07  0  0.3261E-07  0 -0.1116E-07  0  0.4760E-08  1  0.2136E-08
+   (  1,  7, 19)  (  1, 10, 19)  (  1,  6, 17)  (  1,  7, 19)  (  1,  7, 20)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.5676      0 -0.1891      0 -0.1324      0 -0.6764E-01  0 -0.2201E-01
+   (  1,  7, 14)  (  1,  7, 14)  (  1,  8, 13)  (  1,  8, 13)  (  1,  8, 13)
+  0 -0.1021E-01  0 -0.6978E-02  0 -0.2649E-02  0 -0.9003E-03  0 -0.3923E-03
+   (  1,  9, 12)  (  1,  9, 12)  (  1,  9, 12)  (  1,  9, 12)  (  1, 10, 11)
+  0 -0.2097E-03  0 -0.7369E-04  0 -0.1537E-04  0 -0.6095E-05  0 -0.2097E-05
+   (  1, 10, 11)  (  1, 10, 11)  (  1, 11, 10)  (  1, 11, 10)  (  1, 11, 10)
+  0  0.4506E-06  0 -0.2357E-06  0 -0.1364E-06  0 -0.5364E-07  0  0.1303E-07
+   (  1, 12, 10)  (  1, 11, 10)  (  1, 12,  9)  (  1, 12,  9)  (  1, 12, 10)
+  0 -0.5807E-08  0 -0.2911E-08  0 -0.1553E-08  0 -0.4895E-09  0  0.1869E-09
+   (  1, 13,  8)  (  1, 13,  8)  (  1, 13,  8)  (  1, 10, 12)  (  1, 11, 13)
+  0 -0.6148E-10  0 -0.1570E-10  1 -0.1631E-07  0 -0.5879E-08  0 -0.3932E-08
+   (  1, 14,  7)  (  1,  3,  3)  (  1,  7, 14)  (  1,  7, 14)  (  1,  8, 13)
+  0 -0.1995E-08  0 -0.7807E-09  0 -0.2861E-09  0 -0.2036E-09  1 -0.1566E-09
+   (  1,  8, 13)  (  1,  8, 13)  (  1,  9, 12)  (  1,  9, 12)  (  1,  9, 12)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  8 P008T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    31 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   5.520      0   5.735      0   2.885      0   1.134      0 -0.2372    
+   (  1, 14, 14)  (  1, 13, 18)  (  1,  6, 18)  (  1, 11, 18)  (  1, 14, 18)
+  0  0.2623      0  0.1572      0 -0.1437      0  0.3464E-01  0 -0.8062E-02
+   (  1,  8, 19)  (  1,  9, 19)  (  1,  7, 18)  (  1,  6, 18)  (  1, 11, 20)
+  0 -0.6302E-02  0  0.1817E-02  0  0.7525E-03  0  0.3890E-03  0 -0.1597E-03
+   (  1,  6, 19)  (  1, 13, 20)  (  1, 19, 19)  (  1, 19, 19)  (  1, 14, 20)
+  0 -0.5320E-04  0  0.1341E-04  0 -0.5291E-05  0  0.4431E-05  0 -0.1272E-05
+   (  1, 13, 20)  (  1,  5, 19)  (  1, 19, 20)  (  1, 16, 20)  (  1, 18, 20)
+  0  0.3167E-06  0  0.3357E-06  0  0.1245E-06  0 -0.6412E-07  0 -0.7931E-08
+   (  1, 20, 20)  (  1, 20, 20)  (  1, 20, 20)  (  1,  7, 20)  (  1, 17, 20)
+  1  0.4009E-07  0  0.3771E-07  0 -0.1276E-07  0  0.1886E-07  0 -0.8496E-08
+   (  1, 14, 16)  (  1, 11, 18)  (  1, 18, 12)  (  1,  9, 19)  (  1,  8, 19)
+  1 -0.3501E-08
+   (  1, 12, 19)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.5473      0 -0.1522      0 -0.8263E-01  0 -0.2599E-01  0 -0.9944E-02
+   (  1, 14, 14)  (  1, 15, 13)  (  1, 15, 13)  (  1, 15, 13)  (  1, 15, 13)
+  0 -0.6500E-02  0 -0.3186E-02  0 -0.1074E-02  0 -0.4516E-03  0 -0.1637E-03
+   (  1, 16, 12)  (  1, 16, 12)  (  1, 14, 14)  (  1, 15, 13)  (  1, 15, 13)
+  0 -0.5707E-04  0 -0.3411E-04  0 -0.1155E-04  0 -0.3372E-05  0 -0.1104E-05
+   (  1, 14, 14)  (  1, 15, 13)  (  1, 16, 12)  (  1, 14, 14)  (  1, 15, 13)
+  0  0.2430E-06  0 -0.1371E-06  0 -0.4922E-07  0  0.1671E-07  0  0.5131E-08
+   (  1, 12, 13)  (  1, 14, 14)  (  1, 16, 12)  (  1, 15,  9)  (  1, 15, 12)
+  0 -0.4500E-08  0  0.1659E-08  0 -0.4989E-09  0 -0.1243E-09  0  0.7516E-10
+   (  1, 15, 13)  (  1, 12, 13)  (  1, 16, 12)  (  1, 16,  9)  (  1, 16, 11)
+  1 -0.9511E-08  0 -0.2824E-08  0 -0.1133E-08  0 -0.4477E-09  0 -0.1898E-09
+   (  1, 14, 14)  (  1, 14, 14)  (  1, 13, 15)  (  1, 13, 15)  (  1, 15, 13)
+  1 -0.9094E-10
+   (  1, 15, 13)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION  9 P009T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    37 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   178.5      0  -48.30      0  -24.10      0  -11.38      0   8.345    
+   (  1,  5, 16)  (  1,  8, 19)  (  1,  6, 18)  (  1,  6, 19)  (  1,  8, 19)
+  0   3.704      0   1.032      0 -0.5525      0 -0.2233      0 -0.7191E-01
+   (  1,  4, 17)  (  1,  6, 20)  (  1,  4, 18)  (  1,  4, 18)  (  1,  4, 18)
+  0  0.8298E-01  0  0.3624E-01  0 -0.9941E-02  0 -0.4217E-02  0 -0.1111E-02
+   (  1,  3, 18)  (  1,  3, 18)  (  1,  6, 20)  (  1,  3, 19)  (  1,  2, 18)
+  0  0.3607E-03  0  0.1438E-03  0  0.3867E-04  0 -0.1063E-04  0 -0.8954E-05
+   (  1,  2, 19)  (  1,  3, 20)  (  1,  3, 19)  (  1,  2, 20)  (  1,  2, 20)
+  0 -0.3146E-05  0 -0.1191E-05  0 -0.2361E-06  0 -0.1632E-06  0 -0.5861E-07
+   (  1,  2, 20)  (  1,  2, 19)  (  1,  2, 19)  (  1,  2, 19)  (  1,  2, 19)
+  0 -0.4310E-07  0  0.1201E-07  0  0.3235E-08  1  0.3055E-05  0  0.8479E-06
+   (  1,  2, 19)  (  1,  2, 20)  (  1,  2, 20)  (  1,  6, 18)  (  1,  4, 19)
+  0 -0.3854E-06  0 -0.2012E-06  0 -0.1365E-06  0  0.6399E-07  0  0.1431E-07
+   (  1,  6, 18)  (  1,  6, 19)  (  1,  5, 20)  (  1,  7, 19)  (  1,  6, 20)
+  0 -0.6996E-08  1  0.2273E-08
+   (  1,  3, 17)  (  1,  5, 20)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.4104      0 -0.1711      0 -0.1515      0 -0.8373E-01  0 -0.2901E-01
+   (  1,  5, 16)  (  1,  6, 15)  (  1,  6, 15)  (  1,  6, 15)  (  1,  6, 15)
+  0 -0.1293E-01  0 -0.9549E-02  0 -0.4660E-02  0 -0.2296E-02  0 -0.1008E-02
+   (  1,  7, 14)  (  1,  7, 14)  (  1,  7, 14)  (  1,  7, 14)  (  1,  7, 14)
+  0 -0.6036E-03  0 -0.2812E-03  0  0.6745E-04  0 -0.3969E-04  0 -0.9056E-05
+   (  1,  8, 13)  (  1,  8, 13)  (  1,  9, 13)  (  1,  9, 12)  (  1,  9, 12)
+  0 -0.2516E-05  0 -0.1054E-05  0 -0.3587E-06  0 -0.2114E-06  0 -0.6775E-07
+   (  1, 10, 11)  (  1, 10, 11)  (  1, 10, 11)  (  1, 10, 11)  (  1, 11, 10)
+  0 -0.2276E-07  0 -0.6933E-08  0 -0.3355E-08  0 -0.1828E-08  0 -0.9021E-09
+   (  1, 10, 11)  (  1, 11, 10)  (  1, 11, 10)  (  1, 11, 10)  (  1, 11, 10)
+  0 -0.3466E-09  0 -0.8293E-10  0 -0.4299E-10  1 -0.6523E-08  0 -0.4189E-08
+   (  1, 12,  9)  (  1, 11, 10)  (  1, 11, 10)  (  1,  5, 16)  (  1,  7, 15)
+  0 -0.2187E-08  0 -0.1261E-08  0 -0.8120E-09  0 -0.3316E-09  0 -0.1598E-09
+   (  1,  7, 15)  (  1,  9, 13)  (  1,  8, 14)  (  1,  8, 14)  (  1,  8, 14)
+  0 -0.7443E-10  1 -0.5754E-10
+   (  1,  7, 14)  (  1,  7, 14)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION 10 P010T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    35 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   22.50      0   9.749      0   3.876      0   3.093      0  -2.100    
+   (  1, 10, 16)  (  1, 10, 16)  (  1,  9, 19)  (  1,  9, 18)  (  1, 10, 20)
+  0  0.7067      0 -0.1862      0  0.1557      0  0.1595      0  0.4932E-01
+   (  1,  6, 18)  (  1,  9, 20)  (  1, 12, 20)  (  1, 11, 20)  (  1, 10, 20)
+  0  0.2341E-01  0 -0.9758E-02  0 -0.5076E-02  0 -0.1016E-02  0  0.5466E-03
+   (  1,  6, 19)  (  1,  8, 19)  (  1,  5, 19)  (  1, 10, 20)  (  1,  6, 20)
+  0 -0.1353E-03  0 -0.4884E-04  0 -0.1612E-04  0 -0.1311E-04  0  0.3895E-05
+   (  1,  4, 18)  (  1,  5, 20)  (  1,  5, 20)  (  1,  5, 20)  (  1,  4, 20)
+  0  0.1582E-05  0  0.5122E-06  0  0.3661E-06  0 -0.5806E-07  0 -0.4736E-07
+   (  1,  4, 20)  (  1,  4, 20)  (  1,  7, 20)  (  1,  4, 19)  (  1,  3, 20)
+  0 -0.2227E-07  0  0.8555E-08  1 -0.5525E-06  0 -0.1468E-06  0  0.6899E-07
+   (  1,  7, 19)  (  1,  6, 19)  (  1, 10, 17)  (  1,  8, 19)  (  1, 12, 19)
+  0  0.7833E-07  0  0.3782E-07  0 -0.1374E-07  0  0.3260E-08  1 -0.2768E-08
+   (  1, 11, 19)  (  1, 10, 20)  (  1,  6, 18)  (  1,  9, 20)  (  1, 11, 20)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.5387      0 -0.2047      0 -0.1556      0 -0.6737E-01  0 -0.1810E-01
+   (  1, 10, 16)  (  1, 11, 15)  (  1, 11, 15)  (  1, 11, 15)  (  1, 11, 15)
+  0 -0.1496E-01  0 -0.8968E-02  0 -0.4818E-02  0  0.1346E-02  0 -0.6637E-03
+   (  1, 12, 14)  (  1, 12, 14)  (  1, 12, 14)  (  1, 13, 14)  (  1, 13, 13)
+  0 -0.2921E-03  0 -0.1067E-03  0 -0.3192E-04  0 -0.1243E-04  0 -0.2741E-05
+   (  1, 13, 13)  (  1, 13, 13)  (  1, 14, 12)  (  1, 14, 12)  (  1, 14, 12)
+  0 -0.8629E-06  0 -0.3537E-06  0 -0.2349E-06  0 -0.7924E-07  0 -0.2271E-07
+   (  1, 15, 11)  (  1, 15, 11)  (  1, 15, 11)  (  1, 15, 11)  (  1, 15, 11)
+  0 -0.9848E-08  0 -0.5790E-08  0 -0.1696E-08  0 -0.1013E-08  0 -0.2966E-09
+   (  1, 16, 10)  (  1, 14, 12)  (  1, 16, 10)  (  1, 15, 11)  (  1, 15, 11)
+  0 -0.8643E-10  0 -0.3180E-10  1  0.9725E-08  0  0.4167E-08  0  0.2199E-08
+   (  1, 15, 11)  (  1, 16, 10)  (  1, 10, 16)  (  1, 11, 14)  (  1, 11, 15)
+  0  0.1142E-08  0  0.3962E-09  0  0.2095E-09  0  0.1351E-09  1  0.1052E-09
+   (  1, 11, 15)  (  1, 11, 15)  (  1, 12, 14)  (  1, 12, 14)  (  1, 12, 14)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION 11 P011T0000   
+
+
+     3 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    36 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   98.57      0   25.10      0   8.848      0   6.586      0   1.570    
+   (  1, 16, 16)  (  1, 16, 16)  (  1, 15, 18)  (  1, 15, 18)  (  1, 15, 17)
+  0  0.8246      0  0.2657      0 -0.2461      0 -0.1284      0 -0.4706E-01
+   (  1, 15, 17)  (  1, 14, 19)  (  1,  8, 19)  (  1, 16, 20)  (  1, 16, 20)
+  0 -0.3221E-01  0 -0.1195E-01  0 -0.4298E-02  0 -0.1338E-02  0  0.5305E-03
+   (  1, 15, 20)  (  1, 15, 20)  (  1, 14, 20)  (  1, 14, 20)  (  1, 16, 20)
+  0  0.2396E-03  0  0.8466E-04  0  0.2299E-04  0  0.3891E-05  0 -0.5694E-05
+   (  1, 19, 19)  (  1, 15, 20)  (  1, 18, 19)  (  1, 14, 20)  (  1,  7, 20)
+  0  0.1823E-05  0 -0.4497E-06  0  0.2432E-06  0  0.1621E-06  0 -0.5526E-07
+   (  1, 17, 19)  (  1, 19, 19)  (  1, 18, 18)  (  1, 18, 18)  (  1, 18, 20)
+  0 -0.1858E-07  0 -0.1080E-07  0 -0.2969E-08  1 -0.1512E-05  0 -0.1372E-06
+   (  1, 18, 20)  (  1, 18, 20)  (  1, 18, 20)  (  1, 16, 16)  (  1, 16, 16)
+  0 -0.2313E-06  0 -0.6017E-07  0 -0.2962E-07  0 -0.1245E-07  0 -0.5929E-08
+   (  1, 15, 18)  (  1, 15, 18)  (  1, 15, 17)  (  1, 13, 19)  (  1, 14, 19)
+  1  0.1163E-08
+   (  1, 16, 20)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1 -0.2792      0 -0.1192      0 -0.6621E-01  0 -0.2159E-01  0  0.1199E-01
+   (  1, 16, 16)  (  1, 17, 15)  (  1, 17, 15)  (  1, 17, 15)  (  1, 17, 12)
+  0 -0.5530E-02  0  0.3353E-02  0 -0.1027E-02  0  0.4339E-03  0  0.2280E-03
+   (  1, 16, 13)  (  1, 14, 12)  (  1, 18, 14)  (  1, 15, 14)  (  1,  9, 13)
+  0  0.7391E-04  0  0.2702E-04  0 -0.1036E-04  0 -0.4279E-05  0 -0.1465E-05
+   (  1, 16, 13)  (  1, 14, 14)  (  1, 16,  8)  (  1, 16, 11)  (  1, 17,  7)
+  0 -0.4600E-06  0  0.1988E-06  0 -0.6692E-07  0 -0.3958E-07  0 -0.1688E-07
+   (  1, 15,  9)  (  1, 16, 14)  (  1, 15, 11)  (  1, 15, 14)  (  1, 13, 12)
+  0 -0.5504E-08  0 -0.2597E-08  0 -0.9803E-09  0 -0.3849E-09  0 -0.1349E-09
+   (  1, 14, 12)  (  1, 11, 13)  (  1, 12, 13)  (  1,  9, 12)  (  1, 15, 13)
+  0 -0.7885E-10  0 -0.2919E-10  0  0.7990E-11  1 -0.3234E-08  0  0.2296E-08
+   (  1, 10, 11)  (  1, 10, 11)  (  1, 10, 11)  (  1, 15, 14)  (  1, 13, 14)
+  0 -0.9542E-09  0  0.4081E-09  0  0.2188E-09  0 -0.7544E-10  0  0.4628E-10
+   (  1, 12, 13)  (  1, 15, 15)  (  1, 15, 15)  (  1, 14, 12)  (  1, 16, 14)
+  1 -0.3283E-10
+   (  1, 15, 14)
+
+
+        SENSITIVITY CALCULATION FOR GLOBAL OBSERVATION 12 P012T0000   
+
+ HEAD AND DRAWDOWN OBSERVATIONS
+ OBSERVATION      OBSERVED      SIMULATED
+   NAME             VALUE         VALUE      DIFFERENCE
+ -------------------------------------------------------
+ P001T0000       999.000       33.7691       965.231    
+ P002T0000       999.000       29.8454       969.155    
+ P003T0000       999.000       28.6173       970.383    
+ P004T0000       999.000       31.1393       967.861    
+ P005T0000       999.000       24.6022       974.398    
+ P006T0000       999.000       31.2953       967.705    
+ P007T0000       999.000       27.4509       971.549    
+ P008T0000       999.000       29.2086       969.791    
+ P009T0000       999.000       27.8348       971.165    
+ P010T0000       999.000       29.8692       969.131    
+ P011T0000       999.000       28.4184       970.582    
+ P012T0000       999.000       27.8839       971.116    
+
+ SUM OF SQUARED DIFFERENCE:    1.12871E+07
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2011/12/01 13:49:39
+ Elapsed run time:  0.110 Seconds
+

@@ -7,7 +7,7 @@ load K3.txt
 %title = fgetl(fid);
 %PARS = fscanf(fid,'%*s %*s %*d %g');
 
-fid = fopen('three_layers_adjoint.bpp.fin','r');
+fid = fopen('case3.bpp.fin','r');
 title = fgetl(fid);
 PARS = fscanf(fid,'%*s %*s %*d %g %*g %*g');
 
