@@ -174,9 +174,7 @@ program bp_main
                     
              end select
              call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS, cv_A,  d_OBS, d_A, forward_flag_der, miostruc)
-  
-  
-   
+     
             d_PAR%pars_old = d_PAR%pars   !MD At the beginning pars is the vector of the initial values of the parameters 
                                           !as read in the parameter file. Then became the best estimate. 
             
@@ -201,6 +199,9 @@ program bp_main
             if (maxval(d_PM%Partrans).eq.1) then  !If yes, we need to back-transform the parameters in the physical space  
                call par_back_trans(cv_PAR, d_PAR, d_PM)
             endif 
+            
+            !Run the forward model to obtain the current modeled observation vector (consistent with the estimated parameters)  
+            call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS, cv_A,  d_OBS, d_A, 0, miostruc)
             
             !-- set temporary string version of iteration numbers and phi to write out
             curr_phi_conv = abs(curr_phi - d_PAR%phi_T) 
