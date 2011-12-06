@@ -20,7 +20,9 @@ module objective_function
         double precision,    pointer        :: TMP(:,:), TVP(:),TMP1(:,:)
         integer                             :: i
 
-        
+        nullify(TMP)
+        nullify(TVP)
+        nullify(TMP1)
 !*****************************************************************************************************
 ! Calculate the objective functions
 !***************************************************************************************************** 

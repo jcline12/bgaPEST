@@ -33,6 +33,11 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
         double precision,    pointer        :: V(:)
         integer                             :: i, j, k, p, it, start_v, end_v
       
+  nullify(TMV)
+  nullify(TMP)
+  nullify(Qrow)
+  nullify(TMP1)
+  
   if (associated(d_A%Qsy))      deallocate(d_A%Qsy)
   if (associated(d_A%HQHt))     deallocate(d_A%HQHt)
   if (associated(d_A%Qyy))      deallocate(d_A%Qyy)
@@ -304,6 +309,12 @@ integer                              :: start_v, end_v
 !In case of exponential variogram theta_1 must be theta_1,
 !theta_2 must be theta_2 and Lmax must be 1
 
+nullify(Qtmpb)
+nullify(Qtmpg)
+nullify(Qtmpl)
+nullify(Qv)
+nullify(TMP)
+nullify(TMVSY)
 
 allocate (Qtmpb(Q0_All(ip)%npar))
 allocate (Qtmpg(Q0_All(ip)%npar))

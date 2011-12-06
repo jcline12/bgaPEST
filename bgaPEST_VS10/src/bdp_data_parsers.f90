@@ -871,6 +871,11 @@ end subroutine bdp_read_data_model_command_line
          integer                                   :: i,j,k  !local counter
          integer                                   :: ifail, line
          
+        nullify(d_MIO%tpl)
+        nullify(d_MIO%infle)
+        nullify(d_MIO%ins)
+        nullify(d_MIO%outfle) 
+         
         if (bl(15)%numrows .EQ. 0) then
           retmsg = 'No input information provided in model_input_files block'  
           return     

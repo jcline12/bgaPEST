@@ -57,7 +57,7 @@ module bayes_pest_reader
        call bpi_init_param_CVs(BL,cv_PAR)
        call bpi_init_param_DATA(BL,d_PAR)
        call bpi_init_obs_groups(BL,cv_OBS)
-       call bpi_init_obs_DATA(BL)
+       call bpi_init_obs_DATA(BL,d_OBS)
        call bpi_init_modcomlin_DATA(BL,d_MOD)
        call bpi_init_mio_CVs(BL,cv_MIO)
        call bpi_init_anisotropy_DATA(BL,d_ANI)

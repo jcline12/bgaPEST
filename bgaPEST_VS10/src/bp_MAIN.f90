@@ -74,6 +74,10 @@ program bp_main
        double precision             :: structural_conv
        double precision             :: huge_val=huge(huge_val) !Largest machine number
 
+   nullify(Q0_All)
+   nullify(prev_struct)
+   nullify(VV)
+   nullify(V)
 ! -- PRINT OUT THE BANNER INFORMATION
    call bpo_write_banner()
 

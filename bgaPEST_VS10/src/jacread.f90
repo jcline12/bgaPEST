@@ -36,8 +36,9 @@
                                          ! [1] for read.
                                          ! currently, the names are not used for anything
 
-       if (associated(mat%arow)) deallocate(mat%arow)
-       if (associated(mat%acol)) deallocate(mat%acol)
+       nullify(mat%arow)
+       nullify(mat%acol)
+
        
 ! -- Initialisation
        ifail=0
@@ -160,7 +161,8 @@
        close(unit=jacunit,iostat=ierr)
        return
         
-        
+       if (associated(mat%arow)) deallocate(mat%arow)
+       if (associated(mat%acol)) deallocate(mat%acol)
         end subroutine readJAC
         
         

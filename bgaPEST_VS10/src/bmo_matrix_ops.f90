@@ -27,9 +27,13 @@ subroutine bmo_form_Qss_Qsy_HQsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, 
         type(d_param),       intent(inout)  :: d_PAR
         double precision,    intent(in)     :: theta(:,:)
         type(Q0_compr),      intent(in)     :: Q0_All(:)
-        double precision,    pointer        :: Q0_tmp(:), TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
+        double precision,    pointer        :: TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
         integer                             :: i, j, k, p, it, start_v, end_v
         
+nullify(TMP)
+nullify(Qrow)
+nullify(Qss)
+nullify(TMP1)
 if (associated(d_A%Qsy))      deallocate(d_A%Qsy)
 if (associated(d_A%HQHt))     deallocate(d_A%HQHt)
 
@@ -182,15 +186,9 @@ end select !(cv_A%Q_compression_flag)
 !*****************************************************************************************************
 ! End make HQsy 
 !*****************************************************************************************************
-nullify(Qss)
-nullify(Qrow)
-nullify(Q0_tmp)
-nullify(TMP)
-nullify(TMP1)
 
 if (associated(Qss))      deallocate(Qss)
 if (associated(Qrow))     deallocate(Qrow)
-if (associated(Q0_tmp))   deallocate(Q0_tmp)
 if (associated(TMP))      deallocate(TMP)
 if (associated(TMP1))     deallocate(TMP1)
 
@@ -284,6 +282,10 @@ subroutine bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A,
         double precision,    pointer        :: LHS(:,:), RHS (:) , Soln(:), C_S(:)
         integer                             :: i, j, k
 
+nullify(LHS)
+nullify(RHS)
+nullify(Soln)
+nullify(C_S)
 if (associated(d_A%ksi))        deallocate(d_A%ksi)
 if (associated(d_A%beta_hat))   deallocate(d_A%beta_hat)
 
@@ -424,7 +426,12 @@ integer                              :: start_v, end_v
 !theta_2 and Lmax must be the 10 times the maximum distance in Q0_All
 !In case of exponential variogram theta_1 must be theta_1,
 !theta_2 must be theta_2 and Lmax must be 1
-
+nullify(Qtmpb)
+nullify(Qtmpg)
+nullify(Qtmpl)
+nullify(Qv)
+nullify(TMP)
+nullify(TMVSY)
 
 allocate (Qtmpb(Q0_All(ip)%npar))
 allocate (Qtmpg(Q0_All(ip)%npar))

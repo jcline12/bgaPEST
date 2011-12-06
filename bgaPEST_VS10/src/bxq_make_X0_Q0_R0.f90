@@ -85,6 +85,10 @@ module make_kernels
         integer                            :: debug = 0 !triggger for debugging
         character (len=ERRORWIDTH)         :: retmsg
         
+        nullify(d_XQR%X)
+        nullify(d_XQR%Q0)
+        nullify(d_XQR%R0)
+        nullify(cnp)
         ! Allocate memory for  X and initialize to 0
         allocate(d_XQR%X(cv_PAR%npar,cv_PAR%p))
         d_XQR%X = 0.   ! matrix

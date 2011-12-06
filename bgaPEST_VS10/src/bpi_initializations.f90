@@ -82,6 +82,11 @@ contains
          type(d_prior_mean),intent(inout)    :: d_PM
          type(tp_block),   intent(inout)     :: BL(NUM_BLOCK) 
        ! INITIALIZATIONS
+            nullify(d_PM%beta_0)
+            nullify(d_PM%Qbb)
+            nullify(d_PM%InvQbb)
+            nullify(d_PM%InvQbbB0)
+            nullify(d_PM%Partrans)
             BL(3)%label           = 'prior_mean_data'
             BL(3)%numrows         = UNINIT_INT
             BL(3)%numkw           = 0 
@@ -96,6 +101,12 @@ contains
          type(cv_struct),intent(inout)    :: cv_S
          type(tp_block),intent(inout)     :: BL(NUM_BLOCK) 
        ! INITIALIZATIONS   
+            nullify(cv_S%prior_cov_mode)
+            nullify(cv_S%var_type)
+            nullify(cv_S%struct_par_opt)
+            nullify(cv_S%num_theta_type)
+            nullify(cv_S%trans_theta)
+            nullify(cv_S%alpha_trans)
             BL(4)%label         = 'structural_parameter_cv'
             BL(4)%numrows       = UNINIT_INT
             BL(4)%numkw         = 0
@@ -110,6 +121,12 @@ contains
          type(tp_block),   intent(inout)     :: BL(NUM_BLOCK)
          type(d_struct),   intent(inout)     :: d_S 
        ! INITIALIZATIONS
+            nullify(d_S%theta_0)
+            nullify(d_S%struct_par_opt_vec_0)
+            nullify(d_S%struct_par_opt_vec)
+            nullify(d_S%theta_cov)
+            nullify(d_S%invQtheta)
+            nullify(d_S%theta)
             BL(5)%label           = 'structural_parameters_data'
             BL(5)%numrows         = UNINIT_INT
             BL(5)%numkw           = 0 
@@ -138,6 +155,8 @@ contains
          type(cv_param),intent(inout)     :: cv_PAR
          type(tp_block),intent(inout)     :: BL(NUM_BLOCK) 
        ! INITIALIZATIONS
+            nullify(cv_PAR%grp_name)
+            nullify(cv_PAR%grp_type)
             cv_PAR%npargp         = UNINIT_INT ! number of parameter groups
             cv_PAR%ndim           = UNINIT_INT ! number of dimensions (ok for 1, 2, or 3)         
             BL(8)%label           = 'parameter_cv'
@@ -162,6 +181,15 @@ contains
          type(tp_block),   intent(inout)     :: BL(NUM_BLOCK)
          type(d_param),    intent(inout)       :: d_PAR 
        ! INITIALIZATIONS
+            nullify(d_PAR%group)
+            nullify(d_PAR%parnme)
+            nullify(d_PAR%pars)
+            nullify(d_PAR%pars_old)
+            nullify(d_PAR%pars_lns)
+            nullify(d_PAR%lox)
+            nullify(d_PAR%SenMethod)
+            nullify(d_PAR%BetaAssoc)
+            nullify(d_PAR%Group_type)
             bl(11)%label           = 'parameter_data'
             bl(11)%numrows         = UNINIT_INT
             bl(11)%numkw           = 0 
@@ -180,6 +208,7 @@ contains
          type(cv_observ),intent(inout)   :: cv_OBS
          type(tp_block),intent(inout)    :: BL(NUM_BLOCK) 
        ! INITIALIZATIONS
+            nullify(cv_OBS%grp_name)
             cv_OBS%nobsgp         = UNINIT_INT ! number of observation groups
             bl(12)%label           = 'observation_groups'
             bl(12)%numrows         = UNINIT_INT
@@ -189,13 +218,19 @@ contains
        end subroutine bpi_init_obs_groups
        
 !********  subroutine bpi_init_obs_DATA
-       subroutine bpi_init_obs_DATA(BL)
+       subroutine bpi_init_obs_DATA(BL,d_OBS)
        ! SUBROUTINE to initialze algorithmic control variables
          use bayes_pest_control
        ! DECLARATIONS  
          implicit none
+         type(d_observ),   intent(inout)   :: d_OBS
          type(tp_block),   intent(inout)   :: BL(NUM_BLOCK) 
        ! INITIALIZATIONS
+            nullify(d_OBS%group)
+            nullify(d_OBS%obs)
+            nullify(d_OBS%h)
+            nullify(d_OBS%weight)
+            nullify(d_OBS%obsnme)
             bl(13)%label           = 'observation_data'
             bl(13)%numrows         = UNINIT_INT
             bl(13)%numkw           = 0 
@@ -247,6 +282,10 @@ contains
         type(d_anisotropy),intent(inout)    :: d_ANI
         type(tp_block),intent(inout)        :: BL(NUM_BLOCK)    
        ! INITIALIZATIONS
+            nullify(d_ANI%horiz_angle)
+            nullify(d_ANI%horiz_ratio)
+            nullify(d_ANI%vertical_ratio)
+            nullify(d_ANI%BetaAssoc)
             BL(17)%label           = 'parameter_anisotropy'
             BL(17)%numrows         = UNINIT_INT
             BL(17)%numkw           = 0     
@@ -262,6 +301,14 @@ contains
        type(d_algorithmic), intent(inout)   :: d_A
        integer, intent(in)                  :: npar, nobs
        ! INITIALIZATIONS
+       nullify(d_A%H)
+       nullify(d_A%HX)
+       nullify(d_A%HQHt)
+       nullify(d_A%Hsold)
+       nullify(d_A%Qsy)
+       nullify(d_A%Qyy)
+       nullify(d_A%beta_hat)
+       nullify(d_A%ksi)
        allocate(d_A%H(nobs,npar))
        d_A%H    = UNINIT_REAL  ! matrix         
        end subroutine  bpi_init_algorithmic_DATA               

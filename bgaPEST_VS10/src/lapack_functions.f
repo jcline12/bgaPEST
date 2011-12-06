@@ -6,6 +6,9 @@
         integer                            :: IPIV(N)
         double precision                   :: BESTWORK(1)
         double precision, pointer          :: WORK(:)
+        
+        nullify(WORK)
+        
         call DGETRF(N,N,InvA,N,IPIV,INFO)
         call DGETRI(N,InvA,N,IPIV,BESTWORK,-1,INFO)
         LWORK=INT(BESTWORK(1))
@@ -23,6 +26,9 @@
         integer                            :: IPIV(N)
         double precision                   :: BESTWORK(1)
         double precision, pointer          :: WORK(:)
+        
+        nullify(WORK)
+        
        call DSYSV('U',N,1,A,N,IPIV,X,N,BESTWORK,-1,INFO)
        LWORK=INT(BESTWORK(1))
        allocate (WORK(LWORK))

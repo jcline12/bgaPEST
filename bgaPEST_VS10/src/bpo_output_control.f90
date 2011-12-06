@@ -130,7 +130,11 @@ contains
       character(20)                   :: parwstr,pargwstr
       double precision, pointer       :: lcl(:),ucl(:),finalparvalue(:)
       integer                         :: i,j
-
+        
+        nullify(lcl)
+        nullify(ucl)
+        nullify(finalparvalue)
+        
         allocate(finalparvalue(cv_PAR%npar))
         finalparvalue = d_PAR%pars !-- these are the optimal values, still in physical space   
         call utl_int2char(PARNWIDTH,parwstr)
