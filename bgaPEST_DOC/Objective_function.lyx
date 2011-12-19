@@ -1,0 +1,362 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2cm
+\rightmargin 2.5cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\noindent
+We need to establish equality between the following two objective function
+ calculation methods, labelled 
+\begin_inset Formula $\mathbf{\mathbf{\Phi}_{\mathit{std}}}$
+\end_inset
+
+ for the standard version, and 
+\begin_inset Formula $\mathbf{\mathbf{\Phi}_{\mathrm{\mathit{eff}}}}$
+\end_inset
+
+ for the efficient version.
+\begin_inset Formula 
+\begin{equation}
+\mathbf{\Phi}_{std}=\frac{1}{2}\mathbf{s}^{T}\mathbf{G}\mathbf{s}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\label{eq:1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+\mathbf{\Phi}_{eff}=\frac{1}{2}\xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\label{eq:2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Recalling that
+\begin_inset Formula 
+\begin{equation}
+\mathbf{G}=\mathbf{Q}^{-1}-\mathbf{Q}^{-1}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q}^{-1}\label{eq:G}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+and
+\begin_inset Formula 
+\begin{equation}
+\mathbf{s}=\mathbf{X}\beta+\mathbf{Q}\mathbf{H}^{T}\xi\label{eq:s}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+(Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:s"
+
+\end_inset
+
+ is obtained setting the derivative of 
+\begin_inset Formula $\mathbf{\mathbf{\Phi}_{\mathit{std}}}$
+\end_inset
+
+ with respect to 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ equal to zero, with the aim of finding the minimum of the objective function).
+\end_layout
+
+\begin_layout Standard
+\noindent
+We can first prove that
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\mathbf{\Phi_{\mathit{std}}^{*}}=\frac{1}{2}\left(\mathbf{s-X}\beta\right){}^{T}\mathbf{Q}^{-1}\mathbf{\left(\mathbf{s-X}\beta\right)}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right) & =\\
+=\frac{1}{2}\mathbf{s}^{T}\mathbf{G}\mathbf{s}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)\mathbf{=\Phi_{\mathit{std}}}
+\end{split}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+For these two formulations to be equivalent, it is only necessary to hold
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{s-X}\beta\right){}^{T}\mathbf{Q}^{-1}\mathbf{\left(\mathbf{s-X}\beta\right)}=\mathbf{s}^{T}\mathbf{Gs}\label{eq:gg}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Setting the derivative of 
+\begin_inset Formula $\mathbf{\mathbf{\Phi}_{\mathit{std}}^{*}}$
+\end_inset
+
+ with respect to 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ equal to zero (the goal is always to find the minimum of the objective
+ fuction), we obtain
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{s-X\mathbf{\beta}}\right)^{\mathrm{\mathit{T}}}\mathbf{Q}^{-1}\mathbf{X}=0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+and consequently (reminding that Q is symmetric)
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+0=\mathbf{\left[s^{\mathrm{\mathit{T}}}-\left(X\mathbf{\beta}\right)^{\mathrm{\mathit{T}}}\right]Q}^{-1}\mathbf{X}=\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}-\mathbf{\beta}^{\mathrm{\mathit{T}}}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}=\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s}-\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\beta
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+\beta=\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s}\label{eq:beta}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Substituting Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:beta"
+
+\end_inset
+
+ into the right hand side of Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:gg"
+
+\end_inset
+
+, we obtain
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\left(\mathbf{s-X}\beta\right){}^{T}\mathbf{Q}^{-1}\mathbf{\left(\mathbf{s-X}\beta\right)} & =\\
+=\left[\mathbf{s-X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s}\right]{}^{T}\mathbf{Q}^{-1}\left[\mathbf{s-X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s}\right] & =\\
+=\left\{ \mathbf{s^{\mathit{T}}-\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}}\left[\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\right]^{T}\mathbf{X}^{T}\right\} \mathbf{Q}^{-1}\left[\mathbf{s-X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s}\right] & =\\
+=\mathbf{s}^{\mathit{T}}\mathbf{Q}^{-1}\mathbf{s}-\mathbf{s}^{\mathit{T}}\mathbf{Q}^{-1}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s}-\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}\left[\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\right]^{T}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s} & +\\
++\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}\left[\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\right]^{T}\mathbf{X}^{T}\mathbf{Q}^{\mathrm{-1}}\mathbf{X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s} & =\\
+=\mathbf{s}^{T}\mathbf{Gs}-\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s} & +\\
++\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\left(\mathbf{X}^{T}\mathbf{Q}^{\mathrm{-1}}\mathbf{X}\right)\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)^{-1}\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s} & =\\
+=\mathbf{s}^{T}\mathbf{Gs}-\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s}+\mathbf{s}^{\mathrm{\mathit{T}}}\mathbf{Q^{\mathrm{-1}}X}\left(\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}X}\right)\mathbf{X}^{T}\mathbf{Q^{\mathrm{-1}}s} & =\\
+=\mathbf{s}^{T}\mathbf{Gs}
+\end{split}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Now that the equality between 
+\begin_inset Formula $\mathbf{\mathbf{\Phi}_{\mathit{std}}^{*}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\mathbf{\Phi}_{\mathit{std}}}$
+\end_inset
+
+ is established, substituting the assignation in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:s"
+
+\end_inset
+
+ into 
+\begin_inset Formula $\mathbf{\mathbf{\Phi}_{\mathit{std}}^{*}}$
+\end_inset
+
+ we obtain
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\mathbf{\Phi_{\mathit{std}}^{*}}=\frac{1}{2}\left(\mathbf{s-X}\beta\right){}^{T}\mathbf{Q}^{-1}\mathbf{\left(\mathbf{s-X}\beta\right)}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right) & =\\
+=\frac{1}{2}\left(\mathbf{Q}\mathbf{H}^{T}\xi\right){}^{T}\mathbf{Q}^{-1}\mathbf{\left(\mathbf{Q}\mathbf{H}^{T}\xi\right)}+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right) & =\\
+=\frac{1}{2}\xi^{T}\left(\mathbf{H}\mathbf{QQ}^{-1}\mathbf{\mathbf{Q}\mathbf{H}^{T}}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right) & =\\
+=\frac{1}{2}\xi^{T}\left(\mathbf{H}\mathbf{Q}\mathbf{H}^{T}\right)\xi+\frac{1}{2}\left(\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)^{T}\mathbf{R}^{-1}\left(\mathbf{y}-\mathbf{h}\left(\mathbf{s}\right)\right)\right)= & \mathbf{\Phi}_{eff}
+\end{split}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+To conclude, Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1"
+
+\end_inset
+
+ and Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:2"
+
+\end_inset
+
+ are the same.
+\end_layout
+
+\end_body
+\end_document
