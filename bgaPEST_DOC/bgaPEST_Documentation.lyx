@@ -152,43 +152,83 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Environmental modeling serves many purposes for managing natural resources.
- In most cases, models are made to represent physical processes such as
- groundwater flow, contaminant transport, surface water flood routing, and
- others.
- The challenge to simulate the governing equations and concepts such as
- conservation of mass and momentum is only part of the challenge.
- Once a model adequately represents the physical characteristics of the
- problem, it is still a general tool until it is calibrated to observations
- at the specific site to be managed.
- Parameter estimation and calibration are both terms describing the process
- of incorporating the site-specific information into a model making it suitable
- to be applied to management decisions.
+Environmental modeling can facilitate informed management of natural resources.
+ In most cases, models represent physical processes such as groundwater
+ flow, contaminant transport, surface water flood routing, etc.
+ Simulating the physics and chemistry with governing equations and concepts
+ such as conservation of mass and momentum is only part of the challenge.
+ Once a model adequately represents the processes of the problem, it is
+ still a general tool until estimates of the physical characteristics are
+ tuned to observations from the specific area to be managed.
  
 \end_layout
 
 \begin_layout Standard
+Input values that control the behavior of a model at a given site are called
+ ``parameters
+\begin_inset Quotes erd
+\end_inset
+
+ and they represent specific characteristics (for example, hydraulic conductivit
+y, recharge rate, chemical decay rate) of the natural system encountered
+ at a specific area.
+ The values appropriate for parameters in natural systems are often difficult
+ or impossible to measure directly.
+ However, observations of system state (for example, water levels, streamflow
+ magnitudes, chemical concentrations) are often easier to measure and they
+ correspond to output values from the model.
+ The output values corresponding to observation data from the model are
+ dependent on the values of parameters: indeed, if parameter values are
+ changed in a model, the system state also typically changes.
+  ``Parameter estimation
+\begin_inset Quotes erd
+\end_inset
+
+ and ``calibration
+\begin_inset Quotes erd
+\end_inset
+
+ are both terms describing the process of incorporating site-specific informatio
+n into a model as a means to improve its representativeness, thus making
+ it more suitable for use supporting management decisions.
+ In essence, this process uses observation data to infer appropriate values
+ for parameters.
+\end_layout
+
+\begin_layout Standard
 This concept is so important that one may interpret a model as a data-processing
- tool as much as a simulator of physical processes; the data processing
- being a pipeline from field observation to model parameters and ultimately
- to predictions.
- Another interpretation is a Bayesian one in which the model is a vehicle
- for updating an 
+ tool that tests conceptualizations of a system as much as a simulator of
+ physical processes; the data processing being a pipeline from field observation
+ to model parameters and ultimately to predictions.
+ Put in terms of a Bayesian description, this process is one in which the
+ model is a vehicle for updating soft- or expert-knowledge (
 \emph on
 a priori
 \emph default
- understanding of the system to a conditional, 
+ understanding) of the system to an understanding that is filtered by a
+ measure of the ability to simulate the natural world informed, or updated,
+ by site-specific information (
 \emph on
 a posteriori
 \emph default
- understanding.
- This is the approach adopted in this work and will be discussed in more
- detail.
+ understanding).
+ In such an approach, the ability to simulate features of the natural world
+ 
+\begin_inset Quotes eld
+\end_inset
+
+condition
+\begin_inset Quotes erd
+\end_inset
+
+ or narrow the wide range of possible outcomes that result from general
+ soft-knowledge alone.
+ This Bayesian approach is adopted here and will be discussed in more detail.
  First, however, the concept of conditionality must be emphasized.
 \end_layout
 
 \begin_layout Standard
-Bayes' theorem is at the heart of the techniques in this Report:
+Bayes' theorem is at the heart of the techniques in this report:
 \begin_inset Formula 
 \begin{equation}
 p\left(\mathbf{s}|\mathbf{y}\right)\propto L\left(\mathbf{y}|\mathbf{s}\right)p\left(\mathbf{s}\right)\label{eq:bayes1}
@@ -240,46 +280,47 @@ where:
 
 .
  The pdfs in all cases are assumed to follow Gaussian distributions.
- This assumption is important and somewhat restrictive, but it is made for
- reasons of computational simplicity.
- Active research is ongoing on alternatives to this approach, but the Gaussian
- assumption is adopted in this report.
+ This assumption is important and somewhat restrictive, but is made for
+ computational simplicity.
+ Active research is ongoing on alternatives to this approach, but the traditiona
+l Gaussian assumption is adopted in this report.
 \end_layout
 
 \begin_layout Standard
-In the Bayesian context, by expressing the parameters and the likelihood
- function as probability distributions, they formally incorporate an estimate
- of their uncertainty rather than being treated as perfectly known values.
+In the Bayesian context, expressing the parameters and the likelihood function
+ as probability distributions formally incorporates an estimate of their
+ uncertainty rather than treating the parameters as perfectly known values.
  All 
 \emph on
 a posteriori 
 \emph default
 (also called posterior) distributions are conditional upon the specific
  data used in the calibration process.
- Implicitly, they are also conditional on all other modeling and data decisions
- that go into formulating the problem: which model and what model options
- are chosen, numerical considerations such as discretization and solver
- convergence criteria, boundary conditions that may or may not be considered
- static and known, variance values and weights given to individual observations
- and parameters, and others.
- The point is, if any of these things change, it is expected, in the Bayesian
- context, that the parameters estimated will also change.
+ Perhaps less obviously, posterior distributions are also conditional on
+ all other modeling and data assumptions and decisions that go into formulating
+ the problem: which model and what model options are chosen, numerical considera
+tions such as discretization and solver convergence criteria, boundary condition
+s that may or may not be considered static and known, variance values and
+ weights given to individual observations and parameters, and others.
+ As a result, if any of these underlying assumptions and decisions change,
+ it is expected, in the Bayesian context, that the parameters estimated
+ will also change.
  
 \end_layout
 
 \begin_layout Standard
-As discussed in the previous paragraph, the conditionality includes 
+The conditionality includes 
 \emph on
 all 
 \emph default
 decisions made in the process of constructing a model and incorporating
- data.
- Not all of this information is explicit, however.
+ data, however, not all of this information is explicitly addressed by the
+ modeler.
  In fact, the only 
 \emph on
 explicit 
 \emph default
-conditionality is on the data.
+conditionality is on the observation data.
  The information contained in the prior pdf (
 \begin_inset Formula $p\left(\mathbf{s}\right)$
 \end_inset
@@ -292,23 +333,33 @@ reference "eq:bayes1"
 
 \end_inset
 
- is critical as well because this represents the state of knowledge about
- the parameters in the system prior to updating through the calibration
- process.
- In this Report, the assumptions made prior to calibration are limited to
- the assignment of a mean value (unknown) of each distinct parameter type
- and region within the model domain (beta association--described below),
- and a characteristic about continuity or smoothness of the parameter field.
- The degree to which this characteristic is enforced is dictated by the
- observations and the subsequent performance of the model.
- This is very similar (and in some cases, mathematically equivalent) to
- Tikhonov regularization.
- Limiting the information assumed 
+ is critical because it represents the state of knowledge about the parameters
+ in the system prior to updating through the calibration process.
+ In this report, assumptions made prior to calibration are intentionally
+ limited and are restricted to the assignment of a mean value (unknown)
+ of each distinct parameter type and region within the model domain (beta
+ association--described below), and a characteristic about continuity or
+ smoothness of the parameter field.
+ The degree to which this continuity characteristic is enforced is dictated
+ by the observations included and the subsequent performance of the model.
+ This construction is similar (and in some cases, mathematically equivalent)
+ to Tikhonov regularization 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Tikhonov1963a,Tikhonov1963b,AsterEtal2005"
+
+\end_inset
+
+.
+ Sufficient limitation of the information assumed 
 \emph on
 a priori 
 \emph default
-is similar to assuming an ignorance prior (e.g.
- 
+is similar to assuming a low or diffuse level of 
+\emph on
+a priori 
+\emph default
+soft-knowledge (called an ignorance prior in 
 \begin_inset CommandInset citation
 LatexCommand citealt
 after "chapter 12"
@@ -316,12 +367,67 @@ key "jaynesBook"
 
 \end_inset
 
-) such that the driver of the problem is more the observations than prior
- assumptions.
+).
+ In this case, the resulting model is driven more by information obtained
+ from site-specific observations than from prior assumptions based on soft-knowl
+edge.
+ A goal of this approach is to limit the subjective information used in
+ favor of an objective and repeatable result based on observation data.
  Additionally, so-called structural parameters that enforce the characteristic
- are estimated using restricted maximum likelihood.
- All of these aspects of the algorithm, taken together, may be considered
- an Empirical Bayes approach.
+ are estimated.
+ As algorithm that encompasses all of these aspects is considered an Empirical
+ Bayes approach.
+\end_layout
+
+\begin_layout Standard
+The concept of a beta association is an important one that is revisited
+ throughout this report.
+ The term ``beta
+\begin_inset Quotes erd
+\end_inset
+
+ refers to the mathematical symbol used to represent the mean value for
+ a specific parameter type (for example, hydraulic conductivity in a groundwater
+ model) in a specific region of a model.
+ In the methodology described in this report, parameter values are estimated
+ by estimating a mean value (termed 
+\begin_inset Formula $\beta$
+\end_inset
+
+ in the mathematics) and fluctuations about that mean.
+ Each parameter, therefore, must be associated with a mean value.
+\end_layout
+
+\begin_layout Standard
+It would be tempting to use another term such as ``zone
+\begin_inset Quotes erd
+\end_inset
+
+ or ``facies
+\begin_inset Quotes erd
+\end_inset
+
+ to describe this concept, but the term 
+\begin_inset Quotes eld
+\end_inset
+
+beta association
+\begin_inset Quotes erd
+\end_inset
+
+ was selected specifically to highlight the flexibility of the concept.
+ The important idea is that the method described in bgaPEST depends on being
+ able to associate each parameter with a mean value.
+ In the case of distributed parameters (for example, hydraulic conductivity
+ or recharge being distributed throughout a region in a model in which each
+ model cell or node is assigned a unique value), the subdivision of the
+ entire model domain into beta associations accounts for hydrogeologic contacts
+ or facies to be delineated.
+ This delineation prevents correlation across these natural divisions.
+ Similarly, parameters of one type are typically not correlated with parameters
+ of a different type.
+ Beta associations allow the inclusion of multiple parameter types and the
+ delineation of important geologic features in distributed parameter sets.
 \end_layout
 
 \begin_layout Standard
@@ -340,7 +446,8 @@ reference "eq:bayes1"
 , expresses the correspondence of model outcomes with field observations
  collocated in space and time.
  This correspondence is expressed as the sum of the squared differences
- between outcomes and observations, weighted by a covariance matrix.
+ between outcomes and observations, weighted by a covariance matrix, which
+ expresses the relative certainty of each observation.
  This is effectively equivalent to the weighted measurement objective function
  in PEST 
 \begin_inset CommandInset citation
@@ -350,7 +457,8 @@ key "PEST"
 \end_inset
 
 .
- 
+ These elements of Bayes' equation form the fundamental basis for the bgaPEST
+ software described here.
 \end_layout
 
 \begin_layout Section*
@@ -361,12 +469,13 @@ Purpose and Scope
 This Report is intended to serve two main purposes.
  First, a Bayesian approach to parameter estimation--expressed in the context
  of the Bayesian Geostatistical Approach (BGA)--is introduced to provide
- a framework for moving a model from a general simulator of a physical process
- to a specific tool, based on a set of calibration information, that can
- be used for management of a particular site and issue.
+ an accessible and general tool for moving a model from a general simulator
+ of a physical process to a more optimal tool, tuned to a set of calibration
+ information, which, in turn, can be used for management of a particular
+ site and issue.
  Second, a computer code--bgaPEST--is introduced and documented in which
- BGA is deployed in a framework based on the free and open-source PEST suite
- of software 
+ BGA is deployed using the protocols and input/output concepts developed
+ in the free and open-source PEST suite of software 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "PEST"
@@ -374,7 +483,8 @@ key "PEST"
 \end_inset
 
 .
- The input framework is consistent with the JUPITER project 
+ The bgaPEST input framework is consistent with the input block and keyword
+ concepts described by the JUPITER project 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "BantaEtAl2006"
@@ -382,54 +492,123 @@ key "BantaEtAl2006"
 \end_inset
 
 .
- This marks the first implementation of BGA available for general use.
+ To our knowledge, this marks the first implementation of BGA available
+ for general use.
 \end_layout
 
 \begin_layout Standard
-This initial implementation is written in FORTRAN-90 with limited capabilities
- in Python.
+The input/output concepts in PEST enable the use of PEST with nearly any
+ computer model.
+ The only restriction is that input can be provided to the model using a
+ text (ascii) file and that output can be generated from the model also
+ using a text file.
+ This restriction can be relaxed, provided that a translation utility can
+ be deployed that converts data of another format--for example, binary--to
+ or from ascii, as appropriate.
+ The only kind of model that PEST cannot easily control is one in which
+ any changes to model input or the reading of model output must take place
+ in a graphical user interface.
+ This generality of model compatibility is a powerful capability that bgaPEST
+ is able to take advantage of by virtue of efficient open-source modules
+ that make this external control of a model possible using the same protocols
+ as PEST.
+ 
+\end_layout
+
+\begin_layout Standard
+As discussed elsewhere in this report, bgaPEST must control the model for
+ two purposes: to evaluate the likelihood function (assessing the correspondence
+ between model output and collocated observation data, given a candidate
+ set of parameter values) and to calculate the ``Jacobian
+\begin_inset Quotes erd
+\end_inset
+
+ or ``sensitivity
+\begin_inset Quotes erd
+\end_inset
+
+ matrix that is required for solving the calibration equations.
+ To enable PEST (and bgaPEST) to write input for a model, template files
+ are created that provide a mapping of named parameters into their proper
+ place in input files for the model.
+ More than one template file can be used corresponding to multiple model
+ input files.
+ To enable reading of output files, instruction files are created that contain
+ a set of instructions (including locating specific line numbers or searching
+ for specific text) that enable extraction of output values to be compared
+ with observation data.
+ Leveraging the modules that implement the PEST input/output protocols takes
+ advantage of the flexibility and generality of PEST.
+ It also makes it possible to take advantage of some of the utility programs
+ already created to be compatible with the PEST suite of software.
+ Programs created using the JUPITER program employ a very similar set of
+ protocols by virtue of the PEST modules being provided to the JUPITER project.
+ As a result, template and instruction files created to work with a model
+ are largely interchangeable among projects implemented in PEST, bgaPEST,
+ and programs created using JUPITER.
+ 
+\end_layout
+
+\begin_layout Standard
+A full description of the format of template and instruction files is not
+ part of the scope of this work: detailed descriptions are provided in the
+ PEST documentation 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter 3"
+key "PEST"
+
+\end_inset
+
+.
+ All options implemented in template and instruction files in PEST are available
+ in bgaPEST.
+\end_layout
+
+\begin_layout Standard
+This initial implementation is written in FORTRAN-90.
+ The calculation of the Jacobian (sensitivity or derivatives) matrix can
+ either be implemented using a script written by the user, or employing
+ a Python script provided with bgaPEST.
+ The Python script depends on several utilities that are standard with PEST
+ and available for download at http://www.pesthomepage.org.
+ The necessary executable files are also provided with bgaPEST.
  For users on the Windows operating system, installation of Python is optional
  as the Python codes are compiled into executables using py2exe that can
  be called by the main program.
  For users on Macintosh or Linux systems, all the code must be compiled
  for the native platform and Python should already be installed so the Python
  scripts may be called directly without need to compile them separately.
- The use of external derivatives calculation with PEST and Python will be
- replaced by integration of a general parallel run management suite (GENIE)
- in the near future.
+ The use of external derivatives (sensitivity) calculation with PEST and
+ Python will be replaced by integration of a general parallel run management
+ suite (GENIE, Muffels and others, in review) as part of future work.
+ Parallelization is possible using beoPEST (REF), but the entire process,
+ including starting and stopping all parallel computer (slave) programs
+ must be encapsulated in a script that is called by bgaPEST.
+ 
 \end_layout
 
 \begin_layout Standard
-Part of the approach, as discussed in this Report, is based on a distributed
- parameterization scheme meant to be flexible in that in certain regions
- of the model (called beta associations) a unique parameter value is estimated
- for each model node or cell.
+An important concept discussed in this report is based on a distributed
+ parameterization scheme that is meant to be flexible in that certain regions
+ of primary interest and with sufficient data in the model (called beta
+ associations) have unique parameter values estimated for each model node
+ or cell.
  This leads to a large number of parameters which is accompanied by computationa
 l challenges.
- Some of these challenges can be alleviated by restricting beta associations
- in which distributed parameterization schema are implemented to have constant
- spacing in both lateral directions and must have consistent layer thickness.
- These three values need only be constant in their respective dimensions
- but they may differ from dimension to dimension.
- This restriction allows for implementation of a Toeplitz compression making
- it possible to use many more parameters than would otherwise be possible.
- The partitioning into beta associations makes it easy to combine distributed
- parameters in areas of most interest and where data are more available,
- and homogeneous zones in areas surrounding the main focus.
- The use of a Toeplitz compression is optional and, in cases where sufficient
- computational resources allow it, compression may be skipped and the restrictio
-ns on even spacing are not invoked.
+ Alleviating these computational challenges is an active area of ongoing
+ research.
 \end_layout
 
 \begin_layout Standard
-The remainder of this Report provides some details on the mathematical theory
+The remainder of this report provides some details on the mathematical theory
  behind BGA, followed by detailed instructions for using the computer program.
  Conventions and assumptions for using the program are included in the discussio
 n.
 \end_layout
 
 \begin_layout Section*
-Bayesian Geostatistical Approach Background
+Bayesian Geostatistical Approach Overview
 \end_layout
 
 \begin_layout Standard
@@ -441,7 +620,16 @@ key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
 \end_inset
 
  among others.
- In this Section, we provide an overview of the method.
+ In this Section, we provide a conceptual overview of the method.
+ A more detailed description, including more mathematical details, is included
+ in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -584,498 +772,104 @@ d by the spread in the figure.
 \end_layout
 
 \begin_layout Standard
-In the Bayesian geostatistical approach, the posterior pdf is calculated
- as 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\noun off
-\color none
-
-\begin_inset Formula 
-\begin{equation}
-p(\mathbf{s|y})\propto\mathrm{\underbrace{\exp\left(\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right)}_{L\left(\mathbf{y}|\mathbf{s}\right)}\underbrace{\exp\left(\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right)}_{p\left(\mathbf{s}\right)}}\label{eq:BGA}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\series bold
-
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- 
-\series default
-is the vector of parameter values at distributed spatial locations in the
- model, 
-\begin_inset Formula $\mathbf{X\beta^{*}}$
-\end_inset
-
- is the prior mean, 
-\begin_inset Formula $\mathbf{G_{ss}}$
-\end_inset
-
- is the prior covariance of 
-\begin_inset Formula $\left(\mathbf{s}-\mathbf{X\beta^{*}}\right)$
-\end_inset
-
-, 
-\begin_inset Formula $\mathbf{h\left(\mathbf{s}\right)}$
-\end_inset
-
- is the modeled forecasts collocated with observations 
-\begin_inset Formula $\left(\mathbf{y}\right),$
-\end_inset
-
- and 
-\series bold
-
-\begin_inset Formula $\mathbf{R}$
-\end_inset
-
- 
-\series default
-is the epistemic uncertainty covariance, modeled as 
-\begin_inset Formula $\sigma_{R}^{2}\mathbf{I}$
-\end_inset
-
- where 
-\begin_inset Formula $\sigma_{R}^{2}$
-\end_inset
-
- represents epistemic uncertainty, and 
-\begin_inset Formula $\mathbf{I}$
-\end_inset
-
- is an identity matrix.
- In general terms, the likelihood function 
-\begin_inset Formula $\left(L\left(\mathbf{y}|\mathbf{s}\right)\right)$
-\end_inset
-
- characterizes the misfit between model forecasts and observations while
- the prior pdf 
-\begin_inset Formula $\left(p\left(\mathbf{s}\right)\right)$
-\end_inset
-
- defines a characteristic (such as smoothness or continuity) that is assumed
- to apply to the parameter field.
- The prior pdf also serves the role of regularization.
- 
-\end_layout
-
-\begin_layout Standard
-The best estimate of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- maximizes the posterior pdf.
- A computationally efficient method to find the best estimates of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- 
-\begin_inset Formula $\left(\hat{\mathbf{s}}\mbox{ and }\mathbf{\hat{\beta}}\mbox{, respectively}\right)$
-\end_inset
-
- is through
-\begin_inset Formula 
-\begin{equation}
-\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:bestest}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-which is the superposition of the prior mean (first term) and an innovation
- term which considers deviations of the predictions from the observations
- (second term).
- In this context, 
-\begin_inset Formula $\beta$
-\end_inset
-
- in the first term is not the prior mean, but is the best estimate of the
- mean (mapped onto the parameter field through the 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- matrix) while the second term is fluctuations about the estimated mean.
- 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
- in the second term (often referred to as the Jacobian, sensitivity, or
- susceptibility matrix) is the sensitivity of observation values to parameter
- values 
-\begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
-\end_inset
-
-, which can be calculated using either finite difference or adjoint-state
- methods.
- In bgaPEST, finite-difference calculations for 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
- are calculated using PEST whereas adjoint-state calculations depend on
- the specific model being used and must be calculated using an external
- program.
-\end_layout
-
-\begin_layout Standard
-The values for 
-\begin_inset Formula $\mathbf{\hat{\beta}}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{\xi}$
-\end_inset
-
- are found by solving the 
-\begin_inset Formula $(n+p)\times(n+p)$
-\end_inset
-
- linear system of cokriging equations
-\begin_inset Formula 
-\begin{equation}
-\left[\begin{array}{cc}
-\mathbf{Q_{yy}} & \mathbf{HX}\\
-\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
-\end{array}\right]\left[\begin{array}{c}
-\mathbf{\xi}\\
-\mathbf{\hat{\beta}}
-\end{array}\right]=\left[\begin{array}{c}
-\mathbf{y}\\
-\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
-\end{array}\right]\label{eq:cokriging-1}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{Q_{yy}}$
-\end_inset
-
- is the auto-covariance matrix of the observations, defined as 
-\begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
-\end_inset
-
-, 
-\begin_inset Formula $n$
-\end_inset
-
- is the number of observations, and 
-\begin_inset Formula $p$
-\end_inset
-
- is the number of beta associations.
-\end_layout
-
-\begin_layout Standard
-In hydrogeologic applications, the numerical forward model is typically
- nonlinear.
- Further nonlinearity can be induced by using a logarithmic transformation,
- which is a convenient way to enforce non-negativity on parameters and is
- often an appropriate transformation for hydraulic conductivity parameters
- in groundwater models.
-\end_layout
-
-\begin_layout Standard
-Provided that the nonlinearities introduced are not too extreme, a solution
- can be obtained through successive linearizations following the quasi-linear
- extension 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Kitanidis1995"
-
-\end_inset
-
-.
- The forward model, 
-\begin_inset Formula $\mathbf{h(s)}$
-\end_inset
-
- is expanded about the current best estimate of the parameters 
-\begin_inset Formula $\mathbf{\tilde{s}}$
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\mathbf{h}(\mathbf{s})\mathbf{\approx h}(\mathbf{\tilde{s}})\mathbf{+\tilde{H}}(\mathbf{s-\tilde{s}})
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{\tilde{H}}$
-\end_inset
-
-, as a function of 
-\begin_inset Formula $\mathbf{\tilde{s,}}$
-\end_inset
-
- is evaluated at each linearization.
- We assign the subscript 
-\begin_inset Formula $_{k}$
-\end_inset
-
- to indicate iteration number, and correct the measurements for the 
-\begin_inset Formula $k^{th}$
-\end_inset
-
- linearization as 
-\begin_inset Formula 
-\[
-\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}.
-\]
-
-\end_inset
-
-Then the cokriging equations (Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:cokriging-1"
-
-\end_inset
-
-) are updated
-\begin_inset Formula 
-\begin{equation}
-\left[\begin{array}{cc}
-\tilde{\mathbf{Q}}_{\mathbf{yy},k} & \tilde{\mathbf{H}}_{k}\mathbf{X}\\
-\mathbf{X}^{T}\tilde{\mathbf{H}}_{k}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
-\end{array}\right]\left[\begin{array}{c}
-\mathbf{\xi}_{k}\\
-\hat{\mathbf{\beta}}_{k}
-\end{array}\right]=\left[\begin{array}{c}
-\mathbf{y}_{k}^{'}\\
-\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
-\end{array}\right]\label{eq:iterations-1}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\tilde{\mathbf{Q}}_{\mathbf{yy},k}=\tilde{\mathbf{H}}_{k}\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}+\mathbf{R}$
-\end_inset
-
- .
- From this set of equations, the next estimate of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- is
-\begin_inset Formula 
-\[
-\tilde{\mathbf{s}}_{k+1}=\mathbf{X\hat{\beta}}_{k}+\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}\mathbf{\xi}_{k}.
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This can be iterated until there is no difference in the parameter estimates,
- or when there is no further improvement in the objective function.
- The objective function, which we seek to minimize, is 
-\begin_inset Formula $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
-\end_inset
-
- which is equivalent to maximizing Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:BGA"
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\mathcal{L}=\mathbf{-}\ln p\left(\mathbf{s|y}\right)=(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})+\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}
-\]
-
-\end_inset
-
-In many cases, numerical instability makes convergence difficult.
- A line search is implemented in which a linear search is performed between
- the most recent best estimate of the parameters 
-\begin_inset Formula $\left(\mathbf{\hat{s}}\right)$
-\end_inset
-
- and the current linearization of the parameters 
-\begin_inset Formula $\left(\mathbf{\widetilde{\mathbf{s}}}\right)$
-\end_inset
-
-, seeking a parameter value that minimizes an objective function.
- 
-\end_layout
-
-\begin_layout Standard
-The linesearch optimizes a single parameter, 
-\begin_inset Formula $\rho$
-\end_inset
-
-, along a linear dimension between 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\mathbf{\hat{s}}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{\widetilde{\mathbf{s}}}$
-\end_inset
-
- as
-\begin_inset Formula 
-\[
-\mathbf{s}_{opt}=\mathbf{\mathbf{\hat{s}}}\rho+\mathbf{\widetilde{\mathbf{s}}}\left(1-\rho\right)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{s}_{opt}$
-\end_inset
-
- minimizes the objective function, 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\mathcal{L},$
-\end_inset
-
- using a Nelder-Mead simplex 
-\begin_inset CommandInset citation
-LatexCommand citep
-before "see, e.g., "
-key "Press1992"
-
-\end_inset
-
-, which guarantees monotonic decrease in 
-\begin_inset Formula $\mathcal{L}$
-\end_inset
-
- over successive iterations.
- It is recommended to limit the number of linesearch iterations to a relatively
- low number, as the goal of handling weak linearity is balanced against
- the computations required to perform the linesearch.
-\family default
-\series bold
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-
-\begin_inset Formula $ $
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection*
-Empirical Bayes
-\end_layout
-
-\begin_layout Standard
-We adopt an empirical Bayes 
+In bgaPEST, an empirical Bayes 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Robbins1956,casella1985"
 
 \end_inset
 
- approach to inference in this method, meaning that the general characteristics
- of the prior and epistemic covariances introduced above are provided in
- the model setup, but the values of structural parameters that control the
- balance between smoothness and misfit are estimated from the data.
- In equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:BGA"
-
+ perspective is adopted.
+ Empirical Bayes means that the general characteristics of the prior and
+ (optionally) epistemic covariances introduced above are provided in the
+ model setup, but the values of ``structural
+\begin_inset Quotes erd
 \end_inset
 
- the structural parameter for 
-\begin_inset Formula $L\left(\mathbf{y}|\mathbf{s}\right)$
-\end_inset
+ parameters that control the structure of the system--the balance between
+ smoothness and misfit--are estimated from the observation data.
+ In other words, the level of roughness in the solution is dictated by the
+ information content of the observation data rather than specified by the
+ user ahead of time.
+ 
+\end_layout
 
- is the epistemic uncertainty parameter 
-\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
-\end_inset
+\begin_layout Standard
+The prior distribution is the main mechanism by which soft-knowledge about
+ the parameter field is imparted on the parameter estimation process.
+ In the Empirical Bayes perspective, this soft-knowledge is intentionally
+ limited such that significant flexibility is available to the algorithm
+ and a specific practitioner's preconceived notions, which are more subjective,
+ are replaced by the objective power of the site-specific observations.
+ This idea is inspired, also, by the concept of multiple working hypotheses
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Chamberlin1890"
 
- and the structural parameters for 
-\begin_inset Formula $p\left(\mathbf{s}\right)$
-\end_inset
-
- are covariance parameters 
-\begin_inset Formula $\left(\theta\right)$
 \end_inset
 
 .
- Estimating the structural parameters 
-\begin_inset Formula $\left(\sigma_{R}^{2}\mbox{ and \mbox{\theta}}\right)$
+ Chamberlin warned of scientists falling victim to a 
+\begin_inset Quotes eld
 \end_inset
 
- from the data is performed using Restricted Maximum Likelihood.
- This approach is consistent with the principle of maximum entropy such
- that the smoothest solution is chosen, based on the structural parameters
- estimated from the data.
+paternalistic affection
+\begin_inset Quotes erd
+\end_inset
+
+ for his or her initial explanation of a phenomenon such that they are blind
+ to other explanations that may be more appropriate.
+ This is not to discount the value of soft-knowledge--indeed, the general
+ characteristics imparted through specification of the prior information
+ and the interpretation of the results of using BGA rely deeply on expertise--bu
+t it highlights a goal of leaving as much flexibility as possible in the
+ process.
+ 
+\end_layout
+
+\begin_layout Standard
+In bgaPEST, then, the practitioner specifies a type of variogram (nugget,
+ linear, or exponential) that is used to control the variability--smoothness
+ or roughness--of parameters within a beta association, but the 
+\emph on
+degree
+\emph default
+ to which this characteristic is enforced is determined by restricted maximum
+ likelihood (RML).
+ In RML, the value of structural parameters that control the variogram behavior
+ is treated as a probability distribution and the most likely values resulting
+ in either the best possible fit (if the epistemic error term is estimated)
+ or a user-specific level of fit (if the epistemic error term is fixed)
+ are estimated.
+ ``Fit,
+\begin_inset Quotes erd
+\end_inset
+
+ in this context, refers to the correspondence between observation data
+ and model outputs collocated in space and time with the measured observations.
+ Fit and epistemic error are discussed in more detail in the next section.
+ A danger, when providing a model with substantial flexibility, is an ``overly
+ complex
+\begin_inset Quotes erd
+\end_inset
+
+ model that is ``overfit
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "e.g. "
+key "drapersmith66,Hill2006"
+
+\end_inset
+
+.
+ To mitigate this issue, the RML approach is consistent with the principle
+ of maximum entropy such that the smoothest solution is chosen, based on
+ the structural parameters estimated from the data.
  For a discussion of subtle formal differences from minimum relative entropy,
  see 
 \begin_inset CommandInset citation
@@ -1098,36 +892,36 @@ key "NowakCirpka2004"
 \end_inset
 
 .
- The mean is estimated in the solution, but a prior value and covariance
+ Although the mean is estimated in the solution, a prior value and covariance
  can be supplied to constrain the estimate.
- Typically, a relatively high covariance magnitude is used so the information
- about the mean is 
-\begin_inset Quotes eld
-\end_inset
-
-diffuse
+ Typically, a relatively high covariance magnitude is used so the constraint
+ on the estimated mean is weak or ``diffuse.
 \begin_inset Quotes erd
 \end_inset
 
- and principally serves the role of providing numerical stability rather
- than compelling the solution to adhere closely to prior values.
+ Thus the prior mean principally serves the role of providing numerical
+ stability rather than compelling the solution to adhere closely to prior
+ values.
+ Similarly, prior information and covariance can be supplied on the structural
+ parameters to constrain the estimated values to more closely follow an
+ initial conception of the parameter field variability.
 \end_layout
 
 \begin_layout Standard
 The forward model is constructed to provide outputs of values collocated
- in space and time with the measured observations.
- The likelihood function brings the observed data into the calculation by
- quantifying the difference (misfit) between the model forecasts and collocated
- observations.
- In all modeling, we must acknowledge that perfect correspondence between
- forecasts and observations is neither attainable nor desirable.
+ in space and time with measured observations.
+ The likelihood function quantifies the difference (misfit) between the
+ model simulated outputs and associated observations.
+ In all modeling, perfect correspondence between forecasts and observations
+ is neither attainable nor desirable.
  The observations themselves are corrupted by measurement errors and there
  is usually a lack of perfect correspondence between the exact nature of
  the measurements and the simulated counterparts.
  This corruption is due to uncertainty from sources including the paucity
  of observations, imperfections in the conceptual model, and approximations
  made to codify the physics of the phenomena into a numerical model framework.
- All of these sources of uncertainty are described by the term 
+ All of these sources of uncertainty are described by the overarching term
+ 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1144,15 +938,15 @@ key "Rubin2003"
 \end_inset
 
 .
- This epistemic uncertainty characterizes the expected misfit between forecasts
- and observations, and is expressed through a covariance function.
+ This epistemic uncertainty characterizes the expected misfit between simulated
+ and observed equivalents , and is expressed through a covariance function.
  As a result, the likelihood function can be characterized by a Gaussian
  distribution with zero mean and covariance defined by the epistemic uncertainty.
 \end_layout
 
 \begin_layout Standard
 With both the prior pdf and likelihood function expressed as Gaussian distributi
-ons, the posterior pdf (discussed below) is also Gaussian.
+ons, the resulting posterior pdf is also Gaussian.
  The values of the parameters 
 \begin_inset Formula $\mathbf{s}$
 \end_inset
@@ -1160,12 +954,82 @@ ons, the posterior pdf (discussed below) is also Gaussian.
  that result in the maximum value of the posterior pdf are therefore the
  most likely solution on a point-by-point basis.
  The solution as a whole is always a somewhat smoothed version of reality,
- but the small-scale variability can be characterized through conditional
- realizations.
- The balance between the strength of smoothing and the closeness of corresponden
-ce between forecasts and observations is found through calculation of optimal
- values for the structural parameters, including a value to quantify the
- epistemic uncertainty.
+ but the influence of small-scale variability can be approximated through
+ conditional realizations.
+ The balance between the strength of smoothing and the level of fit between
+ simulated and observed equivalents is found through calculation of optimal
+ values for the structural parameters.
+ Optionally, this can include a value to quantify the epistemic uncertainty.
+ The result will favor smoothness, but may achieve a level of fit corresponding
+ to an unrealistically low level of epistemic uncertainty.
+ As a result, it is generally most appropriate to fix the level of epistemic
+ uncertainty but allow the other structural parameters to be estimated.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Structural Parameters
+\end_layout
+
+\begin_layout Plain Layout
+The term ``structural parameters
+\begin_inset Quotes erd
+\end_inset
+
+ may be unfamiliar to users.
+ Like the more general term ``parameters,
+\begin_inset Quotes erd
+\end_inset
+
+ structural parameters are variable values that are estimated in the bgaPEST
+ algorithm.
+ Unlike general parameters, however, structural parameters do not 
+\emph on
+directly 
+\emph default
+control physical aspects of the system in the way that, for example, hydraulic
+ conductivity or stream roughness do in hydrologic models.
+ Instead, structural parameters control the structure of the general parameters.
+ For example, the variogram values (e.g.
+ variance, slope, and correlation length) that control to roughness of distribut
+ed parameter fields are structural parameters, as is the value of variance
+ controlling epistemic uncertainty.
+ Because these parameters must be estimated but are not directly connected
+ to the physics of the problem, they are also in other work referred to
+ as ``nuisance
+\begin_inset Quotes erd
+\end_inset
+
+ parameters or ``hyperparameters.
+\begin_inset Quotes erd
+\end_inset
+
+ We adopt the term ``structural
+\begin_inset Quotes erd
+\end_inset
+
+ to highlight the fact that the impact these parameters has on the solution
+ is control of the shape or structure of the distributed parameter fields.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection*
@@ -1179,8 +1043,9 @@ Beta Associations
 \end_layout
 
 \begin_layout Standard
-In an idealized problem, a single covariance model is flexible enough to
- encompass the entire variability of the hydraulic parameters.
+In an idealized problem, a single covariance model (for example, a single
+ variogram) is flexible enough to encompass the entire variability of the
+ hydraulic parameters.
  However, in many hydrogeologic applications, lithologic contacts and unconformi
 ties can create discontinuities in parameter values that a single covariance
  model cannot characterize.
@@ -1200,7 +1065,7 @@ key "FienenWRR2008"
 
 \end_inset
 
- can greatly improve results.
+ can greatly improve the parameter estimation results.
  This partitioning is implemented by imposing discontinuities in the stochastic
  field that censor correlation among all cells that do not occur in the
  same partition.
@@ -1215,24 +1080,28 @@ stochastic
  refers to the entity being partitioned (namely the correlation structure
  of the parameter field) but we emphasize here that the locations of the
  imposed discontinuities are themselves considered deterministic and certain.
- This partitioning is consistent with zonal boundaries in models made up
- of homogeneous zones.
- Furthermore, multiple types of parameters (for example, hydraulic conductivity
- and recharge) may be estimated.
- Similar censoring of correlation among different types of parameters is
- also necessary in most applications through partitioning.
+ This concept of partitioning is consistent with zonal boundaries in models
+ made up of homogeneous zones but allows more flexibility by allowing properties
+ within the zone to vary.
+ Furthermore, multiple types of parameters (for example, in a flow and transport
+ model, hydraulic conductivity and porosity) are commonly estimated.
+ While at the physical level, these parameters may be related, they must
+ correspond to different mean values, so similar censoring of correlation
+ among different types of parameters is also necessary in most applications
+ through partitioning.
 \end_layout
 
 \begin_layout Standard
-For hydrogeologic applications, we adopted the term 
+For hydrogeologic applications, the term 
 \begin_inset Quotes eld
 \end_inset
 
-facies association
+facies association,
 \begin_inset Quotes erd
 \end_inset
 
- from the facies architecture field to describe these partitions 
+ from the facies architecture field, is a good description for these partitions
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "fienenIsthmusWRR"
@@ -1267,8 +1136,8 @@ key "Collinson1969,Walker1984,Walker1992,SwiftEtAl2003"
 \end_inset
 
 ).
- It is appropriate to use the less restrictive and less transferable term
- 
+ It would be appropriate to use the less restrictive and less transferable
+ term 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1276,19 +1145,19 @@ facies association
 \begin_inset Quotes erd
 \end_inset
 
- in this work because when we subdivide the correlation structure of the
- medium, we often base the stochastic discontinuities (bounding surfaces,
- or contacts) on perceived hydraulic properties.
+ in hydrogeologic applications because when we subdivide the correlation
+ structure of the medium, we often base the stochastic discontinuities (bounding
+ surfaces, or contacts) on perceived hydraulic properties.
  These properties will often coincide with differences in age, provenance,
  or depositional environment, but such coincidence is not required for or
  by their use.
- In all cases, partitioning into facies associations must be based on readily
- observable hydrologic or lithologic attributes.
+ In all cases, partitioning into facies associations are most effective
+ when based on readily observable hydrologic or lithologic attributes.
 \end_layout
 
 \begin_layout Standard
 For bgaPEST to be a more general tool (not limited to hydrogeologic modeling),
- we have revised this term to be 
+ we have broadened this concept by adopting the term 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1346,7 +1215,12 @@ a priori
  covariance structure, whereas in homogeneous zones, a single parameter
  value represents the property for the entire zone.
  Beta associations also delineate regions in the model (whether defined
- by one or more parameter values) that are of different types.
+ by one or more parameter values) that correspond to different mean values
+ 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1407,17 +1281,17 @@ zones
 \begin_inset Quotes erd
 \end_inset
 
- because of a long history of zones referring to regions of piecewise homogeneit
-y.
+ because of a long history of zones referring to regions of piecewise constant
+ homogeneity (one parameter value applied to every node within a region).
  Beta associations are 
 \emph on
 not
 \emph default
- homogeneous, so a distinct term was sought that described the characteristic
- of regions partitioned due to their correlation characteristics.
- To be more general than only hydrogeologic applications, and also to account
- for the fact the distinct parameter types require distinct partitions,
- 
+ homogeneous, so a distinct term was sought that describes the characteristic
+ of regions partitioned due to their characteristics and how these characteristi
+cs correlation to regions around them.
+ To generalize beyond hydrogeologic applications, and to account for the
+ fact the distinct parameter types require distinct partitions, 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1426,15 +1300,21 @@ beta associations
 \end_inset
 
  was the term chosen.
- Each of these partitions has a distinct mean value 
+ Each of these parameter partitions has a distinct mean value 
 \begin_inset Formula $\left(\beta\right)$
 \end_inset
 
- to be estimated, so the associations are made based on different 
+ to be estimated within the region, so the partitioning of the problem results
+ in different 
 \begin_inset Formula $\beta$
 \end_inset
 
- values resulting in the term 
+ values; because the parameter type and/or region must be associated with
+ a mean value 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+, we use the term 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1450,1862 +1330,13 @@ beta associations.
 
 \end_layout
 
-\begin_layout Subsection*
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:anisotropy"
-
-\end_inset
-
-Parameter Field Anisotropy
-\end_layout
-
-\begin_layout Standard
-In distributed parameter fields, such as hydraulic conductivity in groundwater
- models, it is common to encounter anisotropy along an axis that may or
- not be aligned with the coordinate (x, y, z) axes.
- bgaPEST allows the definition of anisotropy in a horizontal plane at any
- angle from the x-axis and also in the vertical direction.
- The general layout of horizontal anisotropy is illustrated in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:anisotropy"
-
-\end_inset
-
-.
- The angle from the x-axis (specified in degrees) is defined by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{horiz
-\backslash
-_angle}
-\end_layout
-
-\end_inset
-
- and the amount of anisotropy is defined by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{horiz
-\backslash
-_ratio}
-\end_layout
-
-\end_inset
-
-.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{p
-\backslash
-_max}
-\end_layout
-
-\end_inset
-
- refers to the direction with maximum parameter values and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{p
-\backslash
-_min}
-\end_layout
-
-\end_inset
-
- refers to the direction of minimum parameter values.
- The ratio is used to adjust the effective distance (and thereby the covariance
- values) along that principal direction.
- The user supplies values for 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{horiz
-\backslash
-_angle}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{horiz
-\backslash
-_ratio}
-\end_layout
-
-\end_inset
-
- for each beta association.
- If some beta associations are not meant to exhibit anisotropy, the user
- may simply set 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{horiz
-\backslash
-_ratio=1.0}
-\end_layout
-
-\end_inset
-
-.
- If none of the beta associations exhibit anisotropy, the entire 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{parameter
-\backslash
-_anisotropy}
-\end_layout
-
-\end_inset
-
- block can be eliminated by setting the algorithmic control variable 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{par
-\backslash
-_anisotropy=0}
-\end_layout
-
-\end_inset
-
- which means the block, if present, is ignored.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename figures/anisotropy.pdf
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:anisotropy"
-
-\end_inset
-
-Schematic diagram of horizontal anisotropy defining conventions for bgaPEST.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Anisotropy is introduced in the calculation of distances that are, then,
- used in the calculation of the prior covariance matrix 
-\begin_inset Formula $\mathbf{Q_{ss}}$
-\end_inset
-
- discussed below.
- For every pair of points, they must first be rotated into the principal
- direction orientation.
- This is accomplished using a rotation matrix:
-\begin_inset Formula 
-\[
-\left[\begin{array}{c}
-x_{rot,i}\\
-y_{rot,i}
-\end{array}\right]=\left[\begin{array}{cc}
-\cos\theta & -\sin\theta\\
-\sin\theta & \cos\theta
-\end{array}\right]\left[\begin{array}{c}
-x_{i}\\
-y_{i}
-\end{array}\right]
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $i$
-\end_inset
-
- indicates the 
-\begin_inset Formula $i^{th}$
-\end_inset
-
- point of the pair 
-\begin_inset Formula $\left(i=1,2\right)$
-\end_inset
-
-, 
-\begin_inset Formula $\theta$
-\end_inset
-
- is the angle (in degrees) specified by 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{horiz
-\backslash
-_angle}
-\end_layout
-
-\end_inset
-
-, 
-\begin_inset Formula $x$
-\end_inset
-
- and 
-\begin_inset Formula $y$
-\end_inset
-
- are the point coordinates in the original coordinate system, and 
-\begin_inset Formula $x_{rot}$
-\end_inset
-
- and 
-\begin_inset Formula $y_{rot}$
-\end_inset
-
- are the location projected into the coordinate system corresponding to
- the orientation of horizontal anisotropy.
- 
-\end_layout
-
-\begin_layout Standard
-Once this projection is made, the horizontal distance is calculated as
-\begin_inset Formula 
-\[
-distance=\sqrt{\left(x_{rot,1}-x_{rot,2}\right)^{2}+\texttt{{horiz\_ratio}\times}\left(y_{rot,1}-y_{rot,2}\right)^{2}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-For three-dimensional parameter fields, a second anisotropy ratio may be
- specified as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{vertical
-\backslash
-_ratio}
-\end_layout
-
-\end_inset
-
-.
- In the vertical direction, no angle is specified, so the rotation step
- is not required and distance is calculated as
-\begin_inset Formula 
-\[
-distance=\sqrt{\begin{array}{c}
-\left(x_{rot,1}-x_{rot,2}\right)^{2}\\
-+\texttt{{horiz\_ratio}\times}\left(y_{rot,1}-y_{rot,2}\right)^{2}\\
-+\texttt{{vertical\_ratio}\times}\left(z_{rot,1}-z_{rot,2}\right)^{2}
-\end{array}}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection*
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Prior-Probability-Density"
-
-\end_inset
-
-Prior Probability Density Function
-\end_layout
-
-\begin_layout Standard
-The prior pdf of 
-\series bold
-s
-\series default
- can be characterized as multi-Gaussian through its mean and covariance.
- The 
-\begin_inset Formula $(m\times1)$
-\end_inset
-
- unknown parameter vector, 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
-, is modeled as a random process with mean
-\begin_inset Formula 
-\begin{equation}
-E[\mathbf{s}]=\mathbf{X}\mathbf{\beta}\label{eq:Es}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $E[\cdot]$
-\end_inset
-
- indicates expected value, 
-\begin_inset Formula $m$
-\end_inset
-
- is the number of parameters, 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- is a 
-\begin_inset Formula $(p\times1)$
-\end_inset
-
- vector of drift coefficients, and 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- is an 
-\begin_inset Formula $(m\times p)$
-\end_inset
-
- matrix of base functions.
- In the absence of prior drift, the 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- are the beta association mean values and 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- is a selection matrix mapping each value in 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- into their appropriate beta association.
- 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- contains all zeros except for 
-\series bold
-
-\begin_inset Formula $\mathbf{X}_{ij}^{th}$
-\end_inset
-
-
-\series default
- element, which maps the 
-\begin_inset Formula $i^{th}$
-\end_inset
-
- parameter to the 
-\begin_inset Formula $j^{th}$
-\end_inset
-
- beta association, that contains the value of one.
- Subdivision into beta associations within distributed parameter domains
- have been critical to success in hydrogeologic settings which include strong
- contrasts in parameter values indicative of geologic contacts [see e.g.
- 
-\begin_inset CommandInset citation
-LatexCommand citealp
-key "fienenEtal2004"
-
-\end_inset
-
- and 
-\begin_inset CommandInset citation
-LatexCommand citealp
-key "FienenWRR2008"
-
-\end_inset
-
-].
- Prior drift is accounted for in 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- through trends expressed in the nonzero terms, although this is not currently
- implemented in bgaPEST.
-\end_layout
-
-\begin_layout Standard
-The prior covariance 
-\begin_inset Formula $(\mathbf{Q_{ss}})$
-\end_inset
-
- of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- for a known 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- is
-\begin_inset Formula 
-\[
-\mathbf{Q_{ss}(}\mathbf{\theta})=E[(\mathbf{s}\mathbf{-}\mathbf{X\beta})(\mathbf{s}\mathbf{-}\mathbf{X\beta})^{T}]
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{Q_{ss}}$
-\end_inset
-
- is a covariance function with structural parameters 
-\begin_inset Formula $\mathbf{\theta}.$
-\end_inset
-
- In bgaPEST, allowable covariance functions include:
-\end_layout
-
-\begin_layout Enumerate
-the nugget
-\begin_inset Formula 
-\[
-\mathbf{R}\left(\mathbf{d}\right)=\sigma^{2}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-and the exponential covariance function 
-\begin_inset Formula 
-\begin{equation}
-\mathbf{R}(\mathbf{d})=\sigma^{2}\mathrm{exp}(\mathbf{-}\frac{\left|\mathbf{d}\right|}{\ell})\label{eq:exp_GCF}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\left|\mathbf{d}\right|$
-\end_inset
-
- is separation distance, 
-\begin_inset Formula $\sigma^{2}$
-\end_inset
-
- is variance, and 
-\begin_inset Formula $\ell$
-\end_inset
-
- is integral scale.
- If the integral scale is set such that 
-\begin_inset Formula $\ell>\mathrm{max}(\left|\mathbf{h}\right|)$
-\end_inset
-
- we can substitute 
-\begin_inset Formula $\sigma^{2}=\theta\ell$
-\end_inset
-
- and restate Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:exp_GCF"
-
-\end_inset
-
- as
-\begin_inset Formula 
-\begin{equation}
-\mathbf{Q_{ss}}(\mathbf{h},\theta)=\theta\ell\mathrm{exp}(-\frac{\mathbf{\left|\mathbf{d}\right|}}{\ell})\label{eq:Qss}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We can also set 
-\begin_inset Formula $\ell=10\times\mathrm{max(\mathbf{\left|d\right|})}$
-\end_inset
-
- so the behavior of the covariance function will be as a linear variogram
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "FienenWRR2008"
-
-\end_inset
-
- which enforces continuity at a scale determined by the single free structural
- parameter 
-\begin_inset Formula $\theta.$
-\end_inset
-
- The motivation for this covariance function choice is to impart minimal
- assumptions about parameter structure onto the solution.
- The appropriate value of 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- is calculated through restricted maximum likelihood.
- For the remainder of this derivation, 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- is assumed known.
- In bgaPEST, as discussed below in the input instructions, either the exponentia
-l or linear variogram models may be used.
-\end_layout
-
-\begin_layout Standard
-Assembling the mean and covariance, the prior pdf is
-\begin_inset Formula 
-\begin{equation}
-p(\mathbf{s}|\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}\label{eq:prior}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In the case of no knowledge about the prior mean, the prior pdf of 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- can be modeled as uniform over all space as 
-\begin_inset Formula $p(\mathbf{\beta)\propto1}$
-\end_inset
-
- and both 
-\series bold
-s
-\series default
- and 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- are estimated together, so that the conditional distribution in Equation
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:prior"
-
-\end_inset
-
- is replaced by a joint distribution
-\begin_inset Formula 
-\[
-p(\mathbf{s},\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}.
-\]
-
-\end_inset
-
- Frequently, at least diffuse knowledge about the prior mean is available
- and can be modeled as multi-Gaussian with mean 
-\begin_inset Formula $\mathbf{\beta^{*}}$
-\end_inset
-
- and covariance 
-\begin_inset Formula $\mathbf{Q_{\beta\beta}}$
-\end_inset
-
-.
- Typically, 
-\begin_inset Formula $\mathbf{Q_{\beta\beta}}$
-\end_inset
-
- is modeled as a diagonal matrix with variance values on the diagonal indicating
- independence among the 
-\begin_inset Formula $\beta^{*}$
-\end_inset
-
-.
- Incorporating the prior information yields a prior pdf for 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-p(\mathbf{s})\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right]}\label{eq:final_prior}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{X\beta^{*}}$
-\end_inset
-
- is the prior mean, and 
-\begin_inset Formula $\mathbf{G_{ss}=Q_{ss}+XQ_{\beta\beta}X^{\mathbf{T}}}$
-\end_inset
-
- is the prior covariance 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "NowakCirpka2004"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The incorporation of prior mean information, even assuming very high variance
- values in 
-\begin_inset Formula $\mathbf{Q_{\beta\beta},}$
-\end_inset
-
- can provide numerical stability without overly biasing the results.
-\end_layout
-
-\begin_layout Subsection*
-Prior Covariance Matrix Storage Issues
-\end_layout
-
-\begin_layout Standard
-In underdetermined problems suitable for bgaPEST, the number of parameters
- can be very large.
- The prior covariance matrix discussed above can, therefore, grow to such
- large dimensions that it cannot be practically stored in computer memory.
- However, two techniques are provided to alleviate some of this storage
- stress: compression and Toeplitz transformation.
-\end_layout
-
-\begin_layout Standard
-Compression takes advantage of the fact that values in the 
-\begin_inset Formula $\mathbf{G_{ss}}$
-\end_inset
-
- matrix relating parameters in different beta associations, by definition,
- have the value of zero.
- As a result, a general 
-\begin_inset Formula $\mathbf{G_{ss}}$
-\end_inset
-
- matrix can be viewed as a partitioned matrix of nonzero blocks 
-\begin_inset Formula $\left(\mathbf{G}_{\mathbf{ss},\beta i}\right)$
-\end_inset
-
- and zero blocks
-\begin_inset Formula 
-\[
-\mathbf{G}_{\mathbf{ss}}=\left[\begin{array}{cccc}
-\mathbf{G}_{\mathbf{ss},\beta1} & \mathbf{0} & \mathbf{0} & \mathbf{0}\\
-\mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta2} & \mathbf{0} & \mathbf{0}\\
-\mathbf{0} & \mathbf{0} & \ddots & \mathbf{0}\\
-\mathbf{0} & \mathbf{0} & \mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta p}
-\end{array}\right].
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-There is no need to store the zero elements provided that accommodations
- are made to avoid multiplications that involve the zeros.
- These accommodations have been made in bgaPEST and compression is, therefore,
- allowed.
-\end_layout
-
-\begin_layout Standard
-In cases where spacial spacing is constant in respective directions, 
-\begin_inset Formula $\mathbf{G}_{\mathbf{ss},\beta i}$
-\end_inset
-
- is a Toeplitz matrix 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "toeplitz"
-
-\end_inset
-
-.
- A square, symmetric 
-\begin_inset Formula $j\times j$
-\end_inset
-
- matrix is Toeplitz in form if it has diagonals that all have the same value
- as in this example
-\begin_inset Formula 
-\[
-\mathbf{T}=\text{\left[\begin{array}{ccccc}
- t_{0}  &  t_{1}  &  \dots\  &  t_{j-2}  &  t_{j-1}\\
-t_{1}  &  t_{0}  &  t_{1}  &  \ddots\  &  t_{j-2}\\
-\vdots\  &  t_{1}  &  t_{0}  &  \ddots\  &  \vdots\\
-t_{j-2}  &  \ddots\  &  \ddots\  &  \ddots\  &  t_{1}\\
-t_{j-1}  &  t_{j-2}  &  \dots\  &  t_{1}  &  t_{0} 
-\end{array}\right]}.
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This matrix has the properties that there are only 
-\begin_inset Formula $j$
-\end_inset
-
- unique values, and these values occur in a regular order such that only
- a vector of length 
-\begin_inset Formula $j$
-\end_inset
-
- needs to be stored from which individual rows can be constructed to perform
- matrix multiplication operations.
- The spacing, as indicated above, must be constant.
- For example, in a spatial model such as properties in a groundwater model,
- 
-\begin_inset Formula $\Delta x,$
-\end_inset
-
- 
-\begin_inset Formula $\Delta y,$
-\end_inset
-
- and 
-\begin_inset Formula $\Delta z$
-\end_inset
-
- must be constant, but these values do not need to be equal to each other.
- While this is restrictive in the sense that it implies a regular grid that
- may not correspond to geometry in the field.
- However, the regular grid required to take advantage of Toeplitz storage
- and operations can be assigned to one beta association with a surrounding,
- irregular grid put in another beta association with fewer parameter values.
-\end_layout
-
-\begin_layout Standard
-In order to use Toeplitz structure in three dimensions, there must be a
- three-level embedding of Toeplitz matrices 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "MarcoDiss"
-
-\end_inset
-
-.
- The first level corresponds to the model layers, the second level corresponds
- to model rows, and the third level corresponds to model columns.
- Inspection of the schematic example in Fig.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:toep"
-
-\end_inset
-
- shows that every distinct value represented in the entire matrix is found
- in the first (leftmost) column.
- Cycling of rows or columns, relative to the single stored vector, can be
- used to reconstruct any row or column of the main matrix to be used in
- multiplication operations.
- In bgaPEST, a combination of Toeplitz and complete blocks can make up the
- 
-\begin_inset Formula $\mathbf{G_{ss}}$
-\end_inset
-
- matrix in Compressed form, as discussed above.
-\end_layout
-
-\begin_layout Standard
-Detailed input instructions for bgaPEST are presented in Appendix 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Input-Instructions"
-
-\end_inset
-
-.
- It is important to note, however, that if Toeplitz compression is invoked,
- parameters must be listed in the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{.bgp}
-\end_layout
-
-\end_inset
-
- input file in order, sorted first by layer, then by column, and finally
- by row.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{center}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename figures/toeplitz_3_level.pdf
-	scale 55
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{center}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:toep"
-
-\end_inset
-
-Schematic graphical visualization of a three-level embedded set of Toeplitz
- blocks in a covariance matrix (modified from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "MarcoDiss"
-
-\end_inset
-
-).
- The smallest squares represent individual matrix entries (values) and the
- colors correspond to distinct values.
- In this synthetic example, it is assumed that there are three rows, three
- columns, and three layers in the underlying model.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection*
-Likelihood Function
-\end_layout
-
-\begin_layout Standard
-The parameters 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- are related to observations 
-\begin_inset Formula $\mathbf{y}$
-\end_inset
-
- through a measurement equation
-\begin_inset Formula 
-\[
-\mathbf{y=h(s)+v}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{y}$
-\end_inset
-
- is an 
-\begin_inset Formula $(n\times1)$
-\end_inset
-
- vector of observations, such as hydraulic heads or solute concentrations,
- 
-\begin_inset Formula $\mathbf{h(s)}$
-\end_inset
-
- is a transfer function or numerical model that calculates predictions which
- are collocated spatially and temporally with the observation values, and
- 
-\begin_inset Formula $\mathbf{v}$
-\end_inset
-
- is an 
-\begin_inset Formula $(n\times1)$
-\end_inset
-
- vector of epistemic uncertainty terms, modeled as a random process with
- zero mean and covariance matrix 
-\begin_inset Formula $\mathbf{R.}$
-\end_inset
-
- Epistemic uncertainty is the result of imperfect or sparse measurements
- and an incomplete or inappropriate conceptual model 
-\begin_inset CommandInset citation
-LatexCommand citep
-after "p. 4"
-key "Rubin2003"
-
-\end_inset
-
-.
- The epistemic uncertainty terms are assumed independent and uncorrelated
- so
-\begin_inset Formula 
-\begin{equation}
-\mathbf{R=\sigma_{R}^{2}W}\label{eq:R}
-\end{equation}
-
-\end_inset
-
- where 
-\begin_inset Formula $\sigma_{R}^{2}$
-\end_inset
-
- is the epistemic uncertainty parameter and 
-\series bold
-
-\begin_inset Formula $\mathbf{W}$
-\end_inset
-
-
-\series default
- is an 
-\begin_inset Formula $(n\times n)$
-\end_inset
-
- diagonal weight matrix in which each element is 
-\begin_inset Formula $\mathbf{W}_{ii}=\frac{1}{\omega_{i}^{2}}$
-\end_inset
-
- where 
-\begin_inset Formula $\omega_{i}$
-\end_inset
-
- is the 
-\begin_inset Formula $i^{th}$
-\end_inset
-
- weight, specified by the user.
- The purpose of the values of 
-\begin_inset Formula $\omega$
-\end_inset
-
- is to allow for different confidence in different individual observations
- or groups of observations.
-\end_layout
-
-\begin_layout Standard
-In reality, the component of epistemic uncertainty due to measurement error
- is likely uncorrelated, but the component due to modeling and conceptual
- uncertainty is likely systematic and correlated 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "GaganisSmith2001"
-
-\end_inset
-
-.
- A significant portion of this uncertainty may be reduced by not lumping
- parameters into homogeneous zones 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "GallagherDoherty2007"
-
-\end_inset
-
-, and the means to characterize the structure of 
-\begin_inset Formula $\mathbf{R}$
-\end_inset
-
- are rarely available.
- If information about 
-\begin_inset Formula $\mathbf{R}$
-\end_inset
-
- is available, however, it could be included and Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:R"
-
-\end_inset
-
- could be replaced by a more complicated matrix.
- This option is currently not available in bgaPEST, however.
- Proceeding with Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:R"
-
-\end_inset
-
- the likelihood function, assumed multi-Gaussian, is
-\begin_inset Formula 
-\begin{equation}
-L(\mathbf{y|s})\propto\mathrm{exp\left[-\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right].}\label{eq:likelihood}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The structural parameter for the likelihood function is 
-\begin_inset Formula $\sigma_{R}^{2}$
-\end_inset
-
- and is calculated along with 
-\begin_inset Formula $\theta$
-\end_inset
-
- using restricted maximum likelihood.
-\end_layout
-
-\begin_layout Subsection*
-Posterior Probability Density Function
-\end_layout
-
-\begin_layout Standard
-Applying Bayes' theorem with the product of Equations 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:final_prior"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:likelihood"
-
-\end_inset
-
- yields the posterior pdf
-\begin_inset Formula 
-\begin{equation}
-p(\mathbf{s|y})\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right]}\label{eq:posterior}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The best estimate of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- maximizes the posterior pdf.
- A computationally efficient method to find the best estimates of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{\beta}$
-\end_inset
-
- 
-\begin_inset Formula $\left(\hat{\mathbf{s}}\mbox{ and }\mathbf{\hat{\beta}}\mbox{, respectively}\right)$
-\end_inset
-
- is through
-\begin_inset Formula 
-\begin{equation}
-\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:shat}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-which is the superposition of the prior mean (first term) and an innovation
- term which considers deviations of the model outputs from the observations
- (second term).
- 
-\begin_inset Formula $\mathbf{H}$
-\end_inset
-
- in the second term (often referred to as the Jacobian, sensitivity, or
- susceptibility matrix) is the sensitivity of observation values to parameter
- values 
-\begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
-\end_inset
-
- is calculated using either finite-difference or adjoint-state methods.
-\end_layout
-
-\begin_layout Standard
-The values for 
-\begin_inset Formula $\mathbf{\hat{\beta}}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{\xi}$
-\end_inset
-
- are found by solving the 
-\begin_inset Formula $(n+p)\times(n+p)$
-\end_inset
-
- linear system of cokriging equations
-\begin_inset Formula 
-\begin{equation}
-\left[\begin{array}{cc}
-\mathbf{Q_{yy}} & \mathbf{HX}\\
-\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
-\end{array}\right]\left[\begin{array}{c}
-\mathbf{\xi}\\
-\mathbf{\hat{\beta}}
-\end{array}\right]=\left[\begin{array}{c}
-\mathbf{y}\\
-\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
-\end{array}\right]\label{eq:cokriging}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{Q_{yy}}$
-\end_inset
-
- is the auto-covariance matrix of the observations, defined as 
-\begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection*
-Quasi-Linear Extension
-\end_layout
-
-\begin_layout Standard
-As discussed by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Kitanidis1995"
-
-\end_inset
-
-, we must adjust calculations of the posterior pdf to account for nonlinearity.
- To do this, we expand the solution in a first-order Taylor expansion, resulting
- in an updated set of cokriging equations from Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:cokriging"
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-\left[\begin{array}{cc}
-\mathbf{Q_{yy}} & \mathbf{HX}\\
-\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
-\end{array}\right]\left[\begin{array}{c}
-\mathbf{\xi}\\
-\mathbf{\hat{\beta}}
-\end{array}\right]=\left[\begin{array}{c}
-\mathbf{y}-\mathbf{h}\left(\mathbf{\tilde{s}}\right)+\mathbf{H}\tilde{\mathbf{s}}\\
-\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
-\end{array}\right]\label{eq:cokriging_nonlinear}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-At each iteration (later referred to as inner iterations), the system in
- Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:cokriging_nonlinear"
-
-\end_inset
-
- is solved, resulting in an updated estimate of 
-\begin_inset Formula $\hat{\mathbf{s}}$
-\end_inset
-
- calculated through Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:shat"
-
-\end_inset
-
-.
- At each iteration, the objective function, based on minimizing the negative
- logarithm of the posterior pdf (Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:posterior"
-
-\end_inset
-
-) is evaluated using the current value of 
-\begin_inset Formula $\mathbf{\hat{s}}$
-\end_inset
-
-: this is equivalent to finding the values of 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- that 
-\emph on
-maximize 
-\emph default
-the posterior probability.
- Switching to a minimization problem and taking the logarithm has computational
- advantages.
- 
-\end_layout
-
-\begin_layout Standard
-The objective function, then, is 
-\begin_inset Formula 
-\begin{equation}
-\mathbf{\Phi}_{T}=\mathbf{\Phi}_{M}+\mathbf{\Phi}_{R}\label{eq:phiT}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{\Phi}_{T}$
-\end_inset
-
- is the total objective function, 
-\begin_inset Formula $\mathbf{\Phi}_{M}$
-\end_inset
-
- is the misfit objective function (also corresponding to the likelihood
- function) and 
-\begin_inset Formula $\mathbf{\Phi}_{R}$
-\end_inset
-
- is the regularization objective function (also corresponding to the prior
- pdf).
- The components of Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:phiT"
-
-\end_inset
-
- are
-\begin_inset Formula 
-\[
-\mathbf{\Phi}_{M}=\frac{1}{2}\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-and
-\begin_inset Formula 
-\[
-\mathbf{\Phi}_{R}=\frac{1}{2}(\mathbf{\hat{s}-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{\hat{s}-X\beta^{*}})
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where both the negative signs and exponentiation are obviated by taking
- the negative logarithm of 
-\begin_inset Formula $p\left(\mathbf{s}|\mathbf{y}\right)$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection*
-Implementation of Partitions into Beta Associations
-\end_layout
-
-\begin_layout Standard
-The concept of beta associations is discussed above and details of their
- implementation are explained here.
- First, the prior covariance matrix 
-\begin_inset Formula $\mathbf{Q_{ss}}$
-\end_inset
-
- is censored by assigning a value of zero to each element which characterizes
- covariance between cells of different regions or parameter types, as defined
- by beta associations.
- It is not required that the covariance model be the same for each beta
- association.
- If different covariance models are used for different zones, this is reflected
- in the appropriate parts of 
-\begin_inset Formula $\mathbf{Q_{ss}}.$
-\end_inset
-
- Furthermore, in some applications, a single structural parameter, 
-\begin_inset Formula $\theta,$
-\end_inset
-
- may be estimated and applied to all of 
-\begin_inset Formula $\mathbf{Q_{ss}.}$
-\end_inset
-
- In other cases, and necessarily if the covariance model differs in various
- beta association, multiple elements of 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- are estimated.
-\end_layout
-
-\begin_layout Standard
-A distinct prior mean parameter 
-\begin_inset Formula $\mathbf{\beta^{*}}$
-\end_inset
-
- is assigned for each beta association, and the matrix 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- (Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Es"
-
-\end_inset
-
-) is determined as explained in above.
- In cases where the mean of each zone is completely unknown, no values for
- 
-\begin_inset Formula $\mathbf{\beta^{*}}$
-\end_inset
-
- are provided, but the 
-\begin_inset Formula $\mathbf{X}$
-\end_inset
-
- matrix is constructed nonetheless and in both cases a value of 
-\begin_inset Formula $\mathbf{\hat{\beta}}$
-\end_inset
-
- is calculated for each beta association.
-\end_layout
-
-\begin_layout Subsection*
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Structural-Parameters"
-
-\end_inset
-
-Structural Parameters and Restricted Maximum Likelihood
-\end_layout
-
-\begin_layout Standard
-A vital element to the method outlined above is proper selection of the
- structural parameters.
- Structural parameters--also called hyperparameters--or nuisance parameters,
- are the parameters that characterize the covariance structure of both the
- epistemic uncertainty related to the observations, and the inherent variability
- of the parameters.
- In this work, structural parameters may include the epistemic uncertainty
- term in Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:R"
-
-\end_inset
-
- 
-\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
-\end_inset
-
- and the prior pdf variogram parameters in Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Qss"
-
-\end_inset
-
- 
-\begin_inset Formula $\left(\theta\right).$
-\end_inset
-
- These parameters are estimated using Restricted Maximum Likelihood consistent
- with the approaches of 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "KitanidisVomvoris1983"
-
-\end_inset
-
-, 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Kitanidis1995"
-
-\end_inset
-
- and 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "LiCirpka2007"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Applying Bayes' theorem to the structural parameters, given the measurements,
- we calculate
-\begin_inset Formula 
-\[
-p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\propto L\left(\mathbf{y}_{k}^{'}|\theta\right)p\left(\mathbf{\theta}\right)
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The likelihood function evaluates how closely the observations and predictions
- match, given the current linearization and the current set of structural
- parameters
-\begin_inset Formula 
-\begin{equation}
-L\left(\mathbf{y}_{k}^{'}|\theta\right)\propto\mathrm{det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]\label{eq:theta_like}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $\mathbf{G_{yy}}$
-\end_inset
-
- is the measurement autocovariance defined as 
-\begin_inset Formula 
-\[
-\mathbf{G_{yy}}=\mathbf{Q_{yy}}+\mathbf{HXQ_{\beta\beta}X}^{T}\mathbf{H}^{T}.
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Prior information about the structural parameters may also be included,
- with prior mean 
-\begin_inset Formula $\mathbf{\theta^{*}}$
-\end_inset
-
- and covariance matrix 
-\begin_inset Formula $\mathbf{Q_{\theta\theta}}$
-\end_inset
-
-.
- 
-\begin_inset Formula 
-\begin{equation}
-p\left(\mathbf{\theta}\right)\propto\mathrm{det}\left(\mathbf{Q_{\theta\theta}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)\right]\label{eq:theta_prior}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The posterior pdf is the product of Equations 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:theta_prior"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:theta_like"
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\propto\mathrm{\mathrm{det}\left(\mathbf{Q_{\theta\theta}}\right)^{-\frac{1}{2}}det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\exp\left[\begin{array}{c}
--\frac{1}{2}\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)\\
--\frac{1}{2}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)
-\end{array}\right].
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To find the most likely values for 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- we minimize 
-\begin_inset Formula $-\ln\left(p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\right)$
-\end_inset
-
- resulting in the objective function
-\begin_inset Formula 
-\[
-\mathbf{\Phi}_{S}=\mathrm{\frac{1}{2}\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+\frac{1}{2}\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where unchanging quantities are absorbed into the constant of proportionality
- including 
-\begin_inset Formula $\det\left(\mathbf{Q}_{\mathbf{\theta\theta}}\right)^{-\frac{1}{2}}$
-\end_inset
-
- .
- The optimal values for 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- are found using the Nelder-Mead simplex algorithm 
-\begin_inset CommandInset citation
-LatexCommand citep
-after "p. 408-410"
-before "e.g. "
-key "Press1992"
-
-\end_inset
-
-.
- Non-negativity in the 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- parameters is enforced using a power transformation 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "BoxCox1964"
-
-\end_inset
-
-.
- As indicated by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "Kitanidis1995"
-
-\end_inset
-
-, nonlinearity requires that structural parameters are estimated iteratively
- with the estimation of hydraulic parameters.
- This is accomplished through a sequence of coupled inversion as follows.
-\end_layout
-
-\begin_layout Enumerate
-Initialize hydraulic parameters as 
-\begin_inset Formula $\left(\mathbf{s_{0}}\right)$
-\end_inset
-
- and structural parameters 
-\begin_inset Formula $\left(\mathbf{\theta_{0}}\right)$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Enumerate
-Solve for a new estimate of hydraulic parameters 
-\begin_inset Formula $\left(\hat{\mathbf{s}}\right)$
-\end_inset
-
- holding 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- constant.
- 
-\end_layout
-
-\begin_layout Enumerate
-Solve for a new estimate of structural parameters 
-\begin_inset Formula $\left(\mathbf{\hat{\theta}}\right)$
-\end_inset
-
- holding 
-\begin_inset Formula $\mathbf{s}$
-\end_inset
-
- constant.
- 
-\end_layout
-
-\begin_layout Enumerate
-Repeat steps 2 and 3 until the change in 
-\begin_inset Formula $\mathbf{\theta}$
-\end_inset
-
- in two consecutive outer iterations of steps 2 and 3 decreases below a
- specified tolerance.
- 
-\end_layout
-
-\begin_layout Subsection*
-Posterior Covariance
-\end_layout
-
-\begin_layout Standard
-The posterior covariance can be calculated based on the inverse of the Hessian
- of the objective function 
-\begin_inset CommandInset citation
-LatexCommand citep
-before "for example, "
-key "NowakCirpka2004"
-
-\end_inset
-
-.
- In closed form, the equation for the full posterior covariance matrix is:
-\begin_inset Formula 
-\[
-\mathbf{V}=\mathbf{\mathbf{G}_{ss}}-\mathbf{G_{sy}G}_{\mathbf{yy}}^{-1}\mathbf{G}_{\mathbf{sy}}^{T}
-\]
-
-\end_inset
-
- where 
-\begin_inset Formula $\mathbf{G_{sy}}=\mathbf{G_{ss}H}^{T}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{G_{yy}}=\mathbf{HG_{ss}H}^{T}+\mathbf{R}$
-\end_inset
-
-.
- In the case where compression of 
-\begin_inset Formula $\mathbf{Q}$
-\end_inset
-
- is not used, the full matrix 
-\begin_inset Formula $\mathbf{V}$
-\end_inset
-
- is calculated and reported.
- Where compression of 
-\begin_inset Formula $\mathbf{Q}$
-\end_inset
-
- is used, however, the diagonal of 
-\begin_inset Formula $\mathbf{V}$
-\end_inset
-
- is returned as a vector of variances on parameters.
- This information is reported in a separate file, but also used to calculated
- posterior 95% confidence intervals.
- The full matrix, when reported, can be used to calculate conditional realizatio
-ns 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Kitanidis1995,Kitanidis1996ana"
-
-\end_inset
-
-.
-\end_layout
-
 \begin_layout Section*
 Running bgaPEST
 \end_layout
 
 \begin_layout Standard
-The bgaPEST program uses a single input file and generates several output
- files.
+The bgaPEST program uses a single input control file, template and instruction
+ files to control the underlying model, and generates several output files.
  These files are discussed in the context of progression of the bgaPEST
  program in the remainder of this section.
  Figure 
@@ -3334,11 +1365,31 @@ texttt{.bgp}
 \end_layout
 
 \begin_layout Standard
-Outer iterations (also called bga iterations) are wrapped around the entire
- parameter estimation process with the exception of calculating posterior
- covariance.
- Inner iterations are performed to account for the restricted maximum likelihood
- estimation of structural parameters.
+To obtain an optimal solution to the parameter estimation problem, it is
+ necessary to perform multiple iterations.
+ An iteration is defined as a single run of the entire estimation process
+ with a particular set of values.
+ Multiple iterations are required due to the nonlinearity of the problem
+ and due to the necessity of estimating structural parameters separately
+ from model parameters.
+ Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+ provides more detail about the methodology used to obtain a solution for
+ a set of optimal parameters and structural parameters in bgaPEST.
+ 
+\end_layout
+
+\begin_layout Standard
+Outer iterations (also called bga iterations) are wrapped around the traditional
+ parameter estimation process with values of the structural parameters held
+ constant.
+ Inner parameter estimation iterations are performed to account for the
+ (restricted maximum likelihood) estimation of structural parameters.
  If structural parameters are not chosen to be estimated, then a single
  outer iteration is performed using the initial values of structural parameters
  and inner iterations are performed until convergence or until the number
@@ -3369,6 +1420,8 @@ _phi}
  requires reiteration of the inner iterations and structural parameter estimatio
 n until both have converged or the maximum number of outer iterations has
  been reached.
+ At the end of both inner and outer iteration convergence, or exceedance
+ of maximum iterations, posterior covariance is calculated, if requested.
 \end_layout
 
 \begin_layout Standard
@@ -3436,36 +1489,30 @@ Abbreviated flowchart showing the progression of the major bgaPEST procedures.
 \end_layout
 
 \begin_layout Subsection*
-Control Variables
+bgaPEST Control Variables
 \end_layout
 
 \begin_layout Standard
-Two types of variables are used in bgaPEST: control variables and data variables.
+Two types of variables are used in bgaPEST: data variables and control variables.
  Data variables are values such as model parameters, observations, file
  names, and other data that are needed by the bgaPEST program.
- Control variables, on the other hand, are in a sense abstracted one level
- from data and are meta-parameters that impact either the reading/writing
- of data or control the progression of the algorithm.
+ Control variables, on the other hand, drive the actions that are performed
+ on these data elements.
+ As such, control variables are abstracted on level from data variables
+ and control either the reading/writing of data or the progression of the
+ algorithm.
  Many control variables are straightforward (for example, 
 \family typewriter
-beta_cov_form
+it_max_phi
 \family default
 \emph on
 , 
 \emph default
-an integer, is the form of the prior mean 
-\begin_inset Formula $\left(\beta\right)$
-\end_inset
-
- covariance matrix 
-\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
-\end_inset
-
-.
- [0] = none, [1] = diagonal, [2] = full matrix.
+an integer, is the total number of iterations allowed in each quasi-linear
+ inner estimation optimization.
  
 \emph on
-default = 0).
+default=10).
 
 \emph default
  Such variables are defined in the context of the input instructions in
@@ -3481,51 +1528,6 @@ reference "sec:Input-Instructions"
  regarding their impact on the performance of the algorithm.
  For these cases, in this section, more detail is provided about certain
  control variables.
-\end_layout
-
-\begin_layout Description
-
-\family typewriter
-it_max_bga
-\family default
- 
-\emph on
-integer 
-\emph default
-Total number of outer iterations allowed for the entire algorithm.
- 
-\emph on
-default=10
-\end_layout
-
-\begin_layout Description
-
-\family typewriter
-it_max_phi 
-\family default
-\emph on
-integer 
-\emph default
-Total number of inner iterations allowed in each quasi-linear estimation
- optimization.
- 
-\emph on
-default=10
-\end_layout
-
-\begin_layout Description
-
-\family typewriter
-it_max_structural
-\family default
- 
-\emph on
-integer 
-\emph default
-Total number of iterations allowed in structural parameter optimization.
- 
-\emph on
-default=10
 \end_layout
 
 \begin_layout Description
@@ -3704,20 +1706,6 @@ reference "eq:phiT"
 \family typewriter
 \emph default
 phi_conv
-\end_layout
-
-\begin_layout Description
-
-\family typewriter
-it_max_linesearch
-\family default
-\emph on
- integer 
-\emph default
-Total number of outer iterations allowed for the line search.
- 
-\emph on
-default=4
 \end_layout
 
 \begin_layout Description
@@ -6653,6 +4641,2318 @@ ICODE=-1
 ICODE=1
 \family default
  with 8 values per line.
+\end_layout
+
+\begin_layout Section
+Details of the Method
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:methodologyDetails"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Bayesian geostatistical approach is described in detail in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
+
+\end_inset
+
+ among others.
+ In the Bayesian geostatistical approach, the posterior pdf is calculated
+ as 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s|y})\propto\mathrm{\underbrace{\exp\left(\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right)}_{L\left(\mathbf{y}|\mathbf{s}\right)}\underbrace{\exp\left(\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right)}_{p\left(\mathbf{s}\right)}}\label{eq:BGA}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\series bold
+
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ 
+\series default
+is the vector of parameter values at distributed spatial locations in the
+ model, 
+\begin_inset Formula $\mathbf{X\beta^{*}}$
+\end_inset
+
+ is the prior mean, 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ is the prior covariance of 
+\begin_inset Formula $\left(\mathbf{s}-\mathbf{X\beta^{*}}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{h\left(\mathbf{s}\right)}$
+\end_inset
+
+ is the modeled forecasts collocated with observations 
+\begin_inset Formula $\left(\mathbf{y}\right),$
+\end_inset
+
+ and 
+\series bold
+
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ 
+\series default
+is the epistemic uncertainty covariance, modeled as 
+\begin_inset Formula $\sigma_{R}^{2}\mathbf{I}$
+\end_inset
+
+ where 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ represents epistemic uncertainty, and 
+\begin_inset Formula $\mathbf{I}$
+\end_inset
+
+ is an identity matrix.
+ In general terms, the likelihood function 
+\begin_inset Formula $\left(L\left(\mathbf{y}|\mathbf{s}\right)\right)$
+\end_inset
+
+ characterizes the misfit between model forecasts and observations while
+ the prior pdf 
+\begin_inset Formula $\left(p\left(\mathbf{s}\right)\right)$
+\end_inset
+
+ defines a characteristic (such as smoothness or continuity) that is assumed
+ to apply to the parameter field.
+ The prior pdf also serves the role of regularization.
+ 
+\end_layout
+
+\begin_layout Standard
+The best estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ maximizes the posterior pdf.
+ A computationally efficient method to find the best estimates of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\hat{\mathbf{s}}\mbox{ and }\mathbf{\hat{\beta}}\mbox{, respectively}\right)$
+\end_inset
+
+ is through
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:bestest}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which is the superposition of the prior mean (first term) and an innovation
+ term which considers deviations of the predictions from the observations
+ (second term).
+ In this context, 
+\begin_inset Formula $\beta$
+\end_inset
+
+ in the first term is not the prior mean, but is the best estimate of the
+ mean (mapped onto the parameter field through the 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ matrix) while the second term is fluctuations about the estimated mean.
+ 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ in the second term (often referred to as the Jacobian, sensitivity, or
+ susceptibility matrix) is the sensitivity of observation values to parameter
+ values 
+\begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
+\end_inset
+
+, which can be calculated using either finite difference or adjoint-state
+ methods.
+ In bgaPEST, finite-difference calculations for 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ are calculated using PEST whereas adjoint-state calculations depend on
+ the specific model being used and must be calculated using an external
+ program.
+\end_layout
+
+\begin_layout Standard
+The values for 
+\begin_inset Formula $\mathbf{\hat{\beta}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\xi}$
+\end_inset
+
+ are found by solving the 
+\begin_inset Formula $(n+p)\times(n+p)$
+\end_inset
+
+ linear system of cokriging equations
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{Q_{yy}}$
+\end_inset
+
+ is the auto-covariance matrix of the observations, defined as 
+\begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
+\end_inset
+
+, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of observations, and 
+\begin_inset Formula $p$
+\end_inset
+
+ is the number of beta associations.
+\end_layout
+
+\begin_layout Standard
+In hydrogeologic applications, the numerical forward model is typically
+ nonlinear.
+ Further nonlinearity can be induced by using a logarithmic transformation,
+ which is a convenient way to enforce non-negativity on parameters and is
+ often an appropriate transformation for hydraulic conductivity parameters
+ in groundwater models.
+\end_layout
+
+\begin_layout Standard
+Provided that the nonlinearities introduced are not too extreme, a solution
+ can be obtained through successive linearizations following the quasi-linear
+ extension 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Kitanidis1995"
+
+\end_inset
+
+.
+ The forward model, 
+\begin_inset Formula $\mathbf{h(s)}$
+\end_inset
+
+ is expanded about the current best estimate of the parameters 
+\begin_inset Formula $\mathbf{\tilde{s}}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{h}(\mathbf{s})\mathbf{\approx h}(\mathbf{\tilde{s}})\mathbf{+\tilde{H}}(\mathbf{s-\tilde{s}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{\tilde{H}}$
+\end_inset
+
+, as a function of 
+\begin_inset Formula $\mathbf{\tilde{s,}}$
+\end_inset
+
+ is evaluated at each linearization.
+ We assign the subscript 
+\begin_inset Formula $_{k}$
+\end_inset
+
+ to indicate iteration number, and correct the measurements for the 
+\begin_inset Formula $k^{th}$
+\end_inset
+
+ linearization as 
+\begin_inset Formula 
+\[
+\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}.
+\]
+
+\end_inset
+
+Then the cokriging equations (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging-1"
+
+\end_inset
+
+) are updated
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\tilde{\mathbf{Q}}_{\mathbf{yy},k} & \tilde{\mathbf{H}}_{k}\mathbf{X}\\
+\mathbf{X}^{T}\tilde{\mathbf{H}}_{k}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}_{k}\\
+\hat{\mathbf{\beta}}_{k}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}_{k}^{'}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:iterations-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\tilde{\mathbf{Q}}_{\mathbf{yy},k}=\tilde{\mathbf{H}}_{k}\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}+\mathbf{R}$
+\end_inset
+
+ .
+ From this set of equations, the next estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\tilde{\mathbf{s}}_{k+1}=\mathbf{X\hat{\beta}}_{k}+\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}\mathbf{\xi}_{k}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This can be iterated until there is no difference in the parameter estimates,
+ or when there is no further improvement in the objective function.
+ The objective function, which we seek to minimize, is 
+\begin_inset Formula $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
+\end_inset
+
+ which is equivalent to maximizing Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:BGA"
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{\Phi}=\mathbf{-}\ln p\left(\mathbf{s|y}\right)=(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})+\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}
+\]
+
+\end_inset
+
+In many cases, numerical instability makes convergence difficult.
+ A line search is implemented in which a linear search is performed between
+ the most recent best estimate of the parameters 
+\begin_inset Formula $\left(\mathbf{\hat{s}}\right)$
+\end_inset
+
+ and the current linearization of the parameters 
+\begin_inset Formula $\left(\mathbf{\widetilde{\mathbf{s}}}\right)$
+\end_inset
+
+, seeking a parameter value that minimizes an objective function.
+ 
+\end_layout
+
+\begin_layout Standard
+The linesearch optimizes a single parameter, 
+\begin_inset Formula $\rho$
+\end_inset
+
+, along a linear dimension between 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{\hat{s}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\widetilde{\mathbf{s}}}$
+\end_inset
+
+ as
+\begin_inset Formula 
+\[
+\mathbf{s}_{opt}=\mathbf{\mathbf{\hat{s}}}\rho+\mathbf{\widetilde{\mathbf{s}}}\left(1-\rho\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{s}_{opt}$
+\end_inset
+
+ minimizes the objective function, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Phi,$
+\end_inset
+
+ using a Nelder-Mead simplex 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "see, e.g., "
+key "Press1992"
+
+\end_inset
+
+, which guarantees monotonic decrease in 
+
+\begin_inset Formula $\mathbf{\Phi}$
+\end_inset
+
+
+ over successive iterations.
+ It is recommended to limit the number of linesearch iterations to a relatively
+ low number, as the goal of handling weak linearity is balanced against
+ the computations required to perform the linesearch.
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $ $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Parameter Field Anisotropy
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:anisotropy"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In distributed parameter fields, such as hydraulic conductivity in groundwater
+ models, it is common to encounter anisotropy along an axis that may or
+ not be aligned with the coordinate (x, y, z) axes.
+ bgaPEST allows the definition of anisotropy in a horizontal plane at any
+ angle from the x-axis and also in the vertical direction.
+ The general layout of horizontal anisotropy is illustrated in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+.
+ The angle from the x-axis (specified in degrees) is defined by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{horiz
+\backslash
+_angle}
+\end_layout
+
+\end_inset
+
+ and the amount of anisotropy is defined by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{horiz
+\backslash
+_ratio}
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{p
+\backslash
+_max}
+\end_layout
+
+\end_inset
+
+ refers to the direction with maximum parameter values and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{p
+\backslash
+_min}
+\end_layout
+
+\end_inset
+
+ refers to the direction of minimum parameter values.
+ The ratio is used to adjust the effective distance (and thereby the covariance
+ values) along that principal direction.
+ The user supplies values for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{horiz
+\backslash
+_angle}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{horiz
+\backslash
+_ratio}
+\end_layout
+
+\end_inset
+
+ for each beta association.
+ If some beta associations are not meant to exhibit anisotropy, the user
+ may simply set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{horiz
+\backslash
+_ratio=1.0}
+\end_layout
+
+\end_inset
+
+.
+ If none of the beta associations exhibit anisotropy, the entire 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parameter
+\backslash
+_anisotropy}
+\end_layout
+
+\end_inset
+
+ block can be eliminated by setting the algorithmic control variable 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{par
+\backslash
+_anisotropy=0}
+\end_layout
+
+\end_inset
+
+ which means the block, if present, is ignored.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/anisotropy.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:anisotropy"
+
+\end_inset
+
+Schematic diagram of horizontal anisotropy defining conventions for bgaPEST.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Anisotropy is introduced in the calculation of distances that are, then,
+ used in the calculation of the prior covariance matrix 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ discussed below.
+ For every pair of points, they must first be rotated into the principal
+ direction orientation.
+ This is accomplished using a rotation matrix:
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+x_{rot,i}\\
+y_{rot,i}
+\end{array}\right]=\left[\begin{array}{cc}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{array}\right]\left[\begin{array}{c}
+x_{i}\\
+y_{i}
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $i$
+\end_inset
+
+ indicates the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ point of the pair 
+\begin_inset Formula $\left(i=1,2\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is the angle (in degrees) specified by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{horiz
+\backslash
+_angle}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+ are the point coordinates in the original coordinate system, and 
+\begin_inset Formula $x_{rot}$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{rot}$
+\end_inset
+
+ are the location projected into the coordinate system corresponding to
+ the orientation of horizontal anisotropy.
+ 
+\end_layout
+
+\begin_layout Standard
+Once this projection is made, the horizontal distance is calculated as
+\begin_inset Formula 
+\[
+distance=\sqrt{\left(x_{rot,1}-x_{rot,2}\right)^{2}+\texttt{{horiz\_ratio}\times}\left(y_{rot,1}-y_{rot,2}\right)^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For three-dimensional parameter fields, a second anisotropy ratio may be
+ specified as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{vertical
+\backslash
+_ratio}
+\end_layout
+
+\end_inset
+
+.
+ In the vertical direction, no angle is specified, so the rotation step
+ is not required and distance is calculated as
+\begin_inset Formula 
+\[
+distance=\sqrt{\begin{array}{c}
+\left(x_{rot,1}-x_{rot,2}\right)^{2}\\
++\texttt{{horiz\_ratio}\times}\left(y_{rot,1}-y_{rot,2}\right)^{2}\\
++\texttt{{vertical\_ratio}\times}\left(z_{rot,1}-z_{rot,2}\right)^{2}
+\end{array}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Prior-Probability-Density"
+
+\end_inset
+
+Prior Probability Density Function
+\end_layout
+
+\begin_layout Standard
+The prior pdf of 
+\series bold
+s
+\series default
+ can be characterized as multi-Gaussian through its mean and covariance.
+ The 
+\begin_inset Formula $(m\times1)$
+\end_inset
+
+ unknown parameter vector, 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+, is modeled as a random process with mean
+\begin_inset Formula 
+\begin{equation}
+E[\mathbf{s}]=\mathbf{X}\mathbf{\beta}\label{eq:Es}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $E[\cdot]$
+\end_inset
+
+ indicates expected value, 
+\begin_inset Formula $m$
+\end_inset
+
+ is the number of parameters, 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ is a 
+\begin_inset Formula $(p\times1)$
+\end_inset
+
+ vector of drift coefficients, and 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ is an 
+\begin_inset Formula $(m\times p)$
+\end_inset
+
+ matrix of base functions.
+ In the absence of prior drift, the 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ are the beta association mean values and 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ is a selection matrix mapping each value in 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ into their appropriate beta association.
+ 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ contains all zeros except for 
+\series bold
+
+\begin_inset Formula $\mathbf{X}_{ij}^{th}$
+\end_inset
+
+
+\series default
+ element, which maps the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ parameter to the 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ beta association, that contains the value of one.
+ Subdivision into beta associations within distributed parameter domains
+ have been critical to success in hydrogeologic settings which include strong
+ contrasts in parameter values indicative of geologic contacts [see e.g.
+ 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "fienenEtal2004"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "FienenWRR2008"
+
+\end_inset
+
+].
+ Prior drift is accounted for in 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ through trends expressed in the nonzero terms, although this is not currently
+ implemented in bgaPEST.
+\end_layout
+
+\begin_layout Standard
+The prior covariance 
+\begin_inset Formula $(\mathbf{Q_{ss}})$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ for a known 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\mathbf{Q_{ss}(}\mathbf{\theta})=E[(\mathbf{s}\mathbf{-}\mathbf{X\beta})(\mathbf{s}\mathbf{-}\mathbf{X\beta})^{T}]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ is a covariance function with structural parameters 
+\begin_inset Formula $\mathbf{\theta}.$
+\end_inset
+
+ In bgaPEST, allowable covariance functions include:
+\end_layout
+
+\begin_layout Enumerate
+the nugget
+\begin_inset Formula 
+\[
+\mathbf{R}\left(\mathbf{d}\right)=\sigma^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+and the exponential covariance function 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{R}(\mathbf{d})=\sigma^{2}\mathrm{exp}(\mathbf{-}\frac{\left|\mathbf{d}\right|}{\ell})\label{eq:exp_GCF}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\left|\mathbf{d}\right|$
+\end_inset
+
+ is separation distance, 
+\begin_inset Formula $\sigma^{2}$
+\end_inset
+
+ is variance, and 
+\begin_inset Formula $\ell$
+\end_inset
+
+ is integral scale.
+ If the integral scale is set such that 
+\begin_inset Formula $\ell>\mathrm{max}(\left|\mathbf{h}\right|)$
+\end_inset
+
+ we can substitute 
+\begin_inset Formula $\sigma^{2}=\theta\ell$
+\end_inset
+
+ and restate Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:exp_GCF"
+
+\end_inset
+
+ as
+\begin_inset Formula 
+\begin{equation}
+\mathbf{Q_{ss}}(\mathbf{h},\theta)=\theta\ell\mathrm{exp}(-\frac{\mathbf{\left|\mathbf{d}\right|}}{\ell})\label{eq:Qss}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can also set 
+\begin_inset Formula $\ell=10\times\mathrm{max(\mathbf{\left|d\right|})}$
+\end_inset
+
+ so the behavior of the covariance function will be as a linear variogram
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "FienenWRR2008"
+
+\end_inset
+
+ which enforces continuity at a scale determined by the single free structural
+ parameter 
+\begin_inset Formula $\theta.$
+\end_inset
+
+ The motivation for this covariance function choice is to impart minimal
+ assumptions about parameter structure onto the solution.
+ The appropriate value of 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ is calculated through restricted maximum likelihood.
+ For the remainder of this derivation, 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ is assumed known.
+ In bgaPEST, as discussed below in the input instructions, either the exponentia
+l or linear variogram models may be used.
+\end_layout
+
+\begin_layout Standard
+Assembling the mean and covariance, the prior pdf is
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s}|\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}\label{eq:prior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the case of no knowledge about the prior mean, the prior pdf of 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ can be modeled as uniform over all space as 
+\begin_inset Formula $p(\mathbf{\beta)\propto1}$
+\end_inset
+
+ and both 
+\series bold
+s
+\series default
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ are estimated together, so that the conditional distribution in Equation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior"
+
+\end_inset
+
+ is replaced by a joint distribution
+\begin_inset Formula 
+\[
+p(\mathbf{s},\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}.
+\]
+
+\end_inset
+
+ Frequently, at least diffuse knowledge about the prior mean is available
+ and can be modeled as multi-Gaussian with mean 
+\begin_inset Formula $\mathbf{\beta^{*}}$
+\end_inset
+
+ and covariance 
+\begin_inset Formula $\mathbf{Q_{\beta\beta}}$
+\end_inset
+
+.
+ Typically, 
+\begin_inset Formula $\mathbf{Q_{\beta\beta}}$
+\end_inset
+
+ is modeled as a diagonal matrix with variance values on the diagonal indicating
+ independence among the 
+\begin_inset Formula $\beta^{*}$
+\end_inset
+
+.
+ Incorporating the prior information yields a prior pdf for 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s})\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right]}\label{eq:final_prior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{X\beta^{*}}$
+\end_inset
+
+ is the prior mean, and 
+\begin_inset Formula $\mathbf{G_{ss}=Q_{ss}+XQ_{\beta\beta}X^{\mathbf{T}}}$
+\end_inset
+
+ is the prior covariance 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "NowakCirpka2004"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The incorporation of prior mean information, even assuming very high variance
+ values in 
+\begin_inset Formula $\mathbf{Q_{\beta\beta},}$
+\end_inset
+
+ can provide numerical stability without overly biasing the results.
+\end_layout
+
+\begin_layout Subsection*
+Prior Covariance Matrix Storage Issues
+\end_layout
+
+\begin_layout Standard
+In underdetermined problems suitable for bgaPEST, the number of parameters
+ can be very large.
+ The prior covariance matrix discussed above can, therefore, grow to such
+ large dimensions that it cannot be practically stored in computer memory.
+ However, two techniques are provided to alleviate some of this storage
+ stress: compression and Toeplitz transformation.
+\end_layout
+
+\begin_layout Standard
+Compression takes advantage of the fact that values in the 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix relating parameters in different beta associations, by definition,
+ have the value of zero.
+ As a result, a general 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix can be viewed as a partitioned matrix of nonzero blocks 
+\begin_inset Formula $\left(\mathbf{G}_{\mathbf{ss},\beta i}\right)$
+\end_inset
+
+ and zero blocks
+\begin_inset Formula 
+\[
+\mathbf{G}_{\mathbf{ss}}=\left[\begin{array}{cccc}
+\mathbf{G}_{\mathbf{ss},\beta1} & \mathbf{0} & \mathbf{0} & \mathbf{0}\\
+\mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta2} & \mathbf{0} & \mathbf{0}\\
+\mathbf{0} & \mathbf{0} & \ddots & \mathbf{0}\\
+\mathbf{0} & \mathbf{0} & \mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta p}
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There is no need to store the zero elements provided that accommodations
+ are made to avoid multiplications that involve the zeros.
+ These accommodations have been made in bgaPEST and compression is, therefore,
+ allowed.
+\end_layout
+
+\begin_layout Standard
+In cases where spacial spacing is constant in respective directions, 
+\begin_inset Formula $\mathbf{G}_{\mathbf{ss},\beta i}$
+\end_inset
+
+ is a Toeplitz matrix 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "toeplitz"
+
+\end_inset
+
+.
+ A square, symmetric 
+\begin_inset Formula $j\times j$
+\end_inset
+
+ matrix is Toeplitz in form if it has diagonals that all have the same value
+ as in this example
+\begin_inset Formula 
+\[
+\mathbf{T}=\text{\left[\begin{array}{ccccc}
+ t_{0}  &  t_{1}  &  \dots\  &  t_{j-2}  &  t_{j-1}\\
+t_{1}  &  t_{0}  &  t_{1}  &  \ddots\  &  t_{j-2}\\
+\vdots\  &  t_{1}  &  t_{0}  &  \ddots\  &  \vdots\\
+t_{j-2}  &  \ddots\  &  \ddots\  &  \ddots\  &  t_{1}\\
+t_{j-1}  &  t_{j-2}  &  \dots\  &  t_{1}  &  t_{0} 
+\end{array}\right]}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This matrix has the properties that there are only 
+\begin_inset Formula $j$
+\end_inset
+
+ unique values, and these values occur in a regular order such that only
+ a vector of length 
+\begin_inset Formula $j$
+\end_inset
+
+ needs to be stored from which individual rows can be constructed to perform
+ matrix multiplication operations.
+ The spacing, as indicated above, must be constant.
+ For example, in a spatial model such as properties in a groundwater model,
+ 
+\begin_inset Formula $\Delta x,$
+\end_inset
+
+ 
+\begin_inset Formula $\Delta y,$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta z$
+\end_inset
+
+ must be constant, but these values do not need to be equal to each other.
+ While this is restrictive in the sense that it implies a regular grid that
+ may not correspond to geometry in the field.
+ However, the regular grid required to take advantage of Toeplitz storage
+ and operations can be assigned to one beta association with a surrounding,
+ irregular grid put in another beta association with fewer parameter values.
+\end_layout
+
+\begin_layout Standard
+In order to use Toeplitz structure in three dimensions, there must be a
+ three-level embedding of Toeplitz matrices 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "MarcoDiss"
+
+\end_inset
+
+.
+ The first level corresponds to the model layers, the second level corresponds
+ to model rows, and the third level corresponds to model columns.
+ Inspection of the schematic example in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:toep"
+
+\end_inset
+
+ shows that every distinct value represented in the entire matrix is found
+ in the first (leftmost) column.
+ Cycling of rows or columns, relative to the single stored vector, can be
+ used to reconstruct any row or column of the main matrix to be used in
+ multiplication operations.
+ In bgaPEST, a combination of Toeplitz and complete blocks can make up the
+ 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix in Compressed form, as discussed above.
+\end_layout
+
+\begin_layout Standard
+Detailed input instructions for bgaPEST are presented in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+.
+ It is important to note, however, that if Toeplitz compression is invoked,
+ parameters must be listed in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{.bgp}
+\end_layout
+
+\end_inset
+
+ input file in order, sorted first by layer, then by column, and finally
+ by row.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/toeplitz_3_level.pdf
+	scale 55
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:toep"
+
+\end_inset
+
+Schematic graphical visualization of a three-level embedded set of Toeplitz
+ blocks in a covariance matrix (modified from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "MarcoDiss"
+
+\end_inset
+
+).
+ The smallest squares represent individual matrix entries (values) and the
+ colors correspond to distinct values.
+ In this synthetic example, it is assumed that there are three rows, three
+ columns, and three layers in the underlying model.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Likelihood Function
+\end_layout
+
+\begin_layout Standard
+The parameters 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ are related to observations 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ through a measurement equation
+\begin_inset Formula 
+\[
+\mathbf{y=h(s)+v}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is an 
+\begin_inset Formula $(n\times1)$
+\end_inset
+
+ vector of observations, such as hydraulic heads or solute concentrations,
+ 
+\begin_inset Formula $\mathbf{h(s)}$
+\end_inset
+
+ is a transfer function or numerical model that calculates predictions which
+ are collocated spatially and temporally with the observation values, and
+ 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ is an 
+\begin_inset Formula $(n\times1)$
+\end_inset
+
+ vector of epistemic uncertainty terms, modeled as a random process with
+ zero mean and covariance matrix 
+\begin_inset Formula $\mathbf{R.}$
+\end_inset
+
+ Epistemic uncertainty is the result of imperfect or sparse measurements
+ and an incomplete or inappropriate conceptual model 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "p. 4"
+key "Rubin2003"
+
+\end_inset
+
+.
+ The epistemic uncertainty terms are assumed independent and uncorrelated
+ so
+\begin_inset Formula 
+\begin{equation}
+\mathbf{R=\sigma_{R}^{2}W}\label{eq:R}
+\end{equation}
+
+\end_inset
+
+ where 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is the epistemic uncertainty parameter and 
+\series bold
+
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+
+\series default
+ is an 
+\begin_inset Formula $(n\times n)$
+\end_inset
+
+ diagonal weight matrix in which each element is 
+\begin_inset Formula $\mathbf{W}_{ii}=\frac{1}{\omega_{i}^{2}}$
+\end_inset
+
+ where 
+\begin_inset Formula $\omega_{i}$
+\end_inset
+
+ is the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ weight, specified by the user.
+ The purpose of the values of 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is to allow for different confidence in different individual observations
+ or groups of observations.
+\end_layout
+
+\begin_layout Standard
+In reality, the component of epistemic uncertainty due to measurement error
+ is likely uncorrelated, but the component due to modeling and conceptual
+ uncertainty is likely systematic and correlated 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "GaganisSmith2001"
+
+\end_inset
+
+.
+ A significant portion of this uncertainty may be reduced by not lumping
+ parameters into homogeneous zones 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "GallagherDoherty2007"
+
+\end_inset
+
+, and the means to characterize the structure of 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ are rarely available.
+ If information about 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ is available, however, it could be included and Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:R"
+
+\end_inset
+
+ could be replaced by a more complicated matrix.
+ This option is currently not available in bgaPEST, however.
+ Proceeding with Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:R"
+
+\end_inset
+
+ the likelihood function, assumed multi-Gaussian, is
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{y|s})\propto\mathrm{exp\left[-\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right].}\label{eq:likelihood}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The structural parameter for the likelihood function is 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ and is calculated along with 
+\begin_inset Formula $\theta$
+\end_inset
+
+ using restricted maximum likelihood.
+\end_layout
+
+\begin_layout Subsection*
+Posterior Probability Density Function
+\end_layout
+
+\begin_layout Standard
+Applying Bayes' theorem with the product of Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:final_prior"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:likelihood"
+
+\end_inset
+
+ yields the posterior pdf
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s|y})\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right]}\label{eq:posterior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The best estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ maximizes the posterior pdf.
+ A computationally efficient method to find the best estimates of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\hat{\mathbf{s}}\mbox{ and }\mathbf{\hat{\beta}}\mbox{, respectively}\right)$
+\end_inset
+
+ is through
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:shat}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which is the superposition of the prior mean (first term) and an innovation
+ term which considers deviations of the model outputs from the observations
+ (second term).
+ 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ in the second term (often referred to as the Jacobian, sensitivity, or
+ susceptibility matrix) is the sensitivity of observation values to parameter
+ values 
+\begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
+\end_inset
+
+ is calculated using either finite-difference or adjoint-state methods.
+\end_layout
+
+\begin_layout Standard
+The values for 
+\begin_inset Formula $\mathbf{\hat{\beta}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\xi}$
+\end_inset
+
+ are found by solving the 
+\begin_inset Formula $(n+p)\times(n+p)$
+\end_inset
+
+ linear system of cokriging equations
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{Q_{yy}}$
+\end_inset
+
+ is the auto-covariance matrix of the observations, defined as 
+\begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Quasi-Linear Extension
+\end_layout
+
+\begin_layout Standard
+As discussed by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+, we must adjust calculations of the posterior pdf to account for nonlinearity.
+ To do this, we expand the solution in a first-order Taylor expansion, resulting
+ in an updated set of cokriging equations from Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging"
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}-\mathbf{h}\left(\mathbf{\tilde{s}}\right)+\mathbf{H}\tilde{\mathbf{s}}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging_nonlinear}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At each iteration (later referred to as inner iterations), the system in
+ Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging_nonlinear"
+
+\end_inset
+
+ is solved, resulting in an updated estimate of 
+\begin_inset Formula $\hat{\mathbf{s}}$
+\end_inset
+
+ calculated through Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:shat"
+
+\end_inset
+
+.
+ At each iteration, the objective function, based on minimizing the negative
+ logarithm of the posterior pdf (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:posterior"
+
+\end_inset
+
+) is evaluated using the current value of 
+\begin_inset Formula $\mathbf{\hat{s}}$
+\end_inset
+
+: this is equivalent to finding the values of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ that 
+\emph on
+maximize 
+\emph default
+the posterior probability.
+ Switching to a minimization problem and taking the logarithm has computational
+ advantages.
+ 
+\end_layout
+
+\begin_layout Standard
+The objective function, then, is 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{\Phi}_{T}=\mathbf{\Phi}_{M}+\mathbf{\Phi}_{R}\label{eq:phiT}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{\Phi}_{T}$
+\end_inset
+
+ is the total objective function, 
+\begin_inset Formula $\mathbf{\Phi}_{M}$
+\end_inset
+
+ is the misfit objective function (also corresponding to the likelihood
+ function) and 
+\begin_inset Formula $\mathbf{\Phi}_{R}$
+\end_inset
+
+ is the regularization objective function (also corresponding to the prior
+ pdf).
+ The components of Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phiT"
+
+\end_inset
+
+ are
+\begin_inset Formula 
+\[
+\mathbf{\Phi}_{M}=\frac{1}{2}\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and
+\begin_inset Formula 
+\[
+\mathbf{\Phi}_{R}=\frac{1}{2}(\mathbf{\hat{s}-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{\hat{s}-X\beta^{*}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where both the negative signs and exponentiation are obviated by taking
+ the negative logarithm of 
+\begin_inset Formula $p\left(\mathbf{s}|\mathbf{y}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Implementation of Partitions into Beta Associations
+\end_layout
+
+\begin_layout Standard
+The concept of beta associations is discussed above and details of their
+ implementation are explained here.
+ First, the prior covariance matrix 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ is censored by assigning a value of zero to each element which characterizes
+ covariance between cells of different regions or parameter types, as defined
+ by beta associations.
+ It is not required that the covariance model be the same for each beta
+ association.
+ If different covariance models are used for different zones, this is reflected
+ in the appropriate parts of 
+\begin_inset Formula $\mathbf{Q_{ss}}.$
+\end_inset
+
+ Furthermore, in some applications, a single structural parameter, 
+\begin_inset Formula $\theta,$
+\end_inset
+
+ may be estimated and applied to all of 
+\begin_inset Formula $\mathbf{Q_{ss}.}$
+\end_inset
+
+ In other cases, and necessarily if the covariance model differs in various
+ beta association, multiple elements of 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ are estimated.
+\end_layout
+
+\begin_layout Standard
+A distinct prior mean parameter 
+\begin_inset Formula $\mathbf{\beta^{*}}$
+\end_inset
+
+ is assigned for each beta association, and the matrix 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Es"
+
+\end_inset
+
+) is determined as explained in above.
+ In cases where the mean of each zone is completely unknown, no values for
+ 
+\begin_inset Formula $\mathbf{\beta^{*}}$
+\end_inset
+
+ are provided, but the 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ matrix is constructed nonetheless and in both cases a value of 
+\begin_inset Formula $\mathbf{\hat{\beta}}$
+\end_inset
+
+ is calculated for each beta association.
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Structural-Parameters"
+
+\end_inset
+
+Structural Parameters and Restricted Maximum Likelihood
+\end_layout
+
+\begin_layout Standard
+A vital element to the method outlined above is proper selection of the
+ structural parameters.
+ Structural parameters--also called hyperparameters--or nuisance parameters,
+ are the parameters that characterize the covariance structure of both the
+ epistemic uncertainty related to the observations, and the inherent variability
+ of the parameters.
+ In this work, structural parameters may include the epistemic uncertainty
+ term in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:R"
+
+\end_inset
+
+ 
+\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
+\end_inset
+
+ and the prior pdf variogram parameters in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Qss"
+
+\end_inset
+
+ 
+\begin_inset Formula $\left(\theta\right).$
+\end_inset
+
+ These parameters are estimated using Restricted Maximum Likelihood consistent
+ with the approaches of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "KitanidisVomvoris1983"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "LiCirpka2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Applying Bayes' theorem to the structural parameters, given the measurements,
+ we calculate
+\begin_inset Formula 
+\[
+p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\propto L\left(\mathbf{y}_{k}^{'}|\theta\right)p\left(\mathbf{\theta}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The likelihood function evaluates how closely the observations and predictions
+ match, given the current linearization and the current set of structural
+ parameters
+\begin_inset Formula 
+\begin{equation}
+L\left(\mathbf{y}_{k}^{'}|\theta\right)\propto\mathrm{det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]\label{eq:theta_like}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\mathbf{G_{yy}}$
+\end_inset
+
+ is the measurement autocovariance defined as 
+\begin_inset Formula 
+\[
+\mathbf{G_{yy}}=\mathbf{Q_{yy}}+\mathbf{HXQ_{\beta\beta}X}^{T}\mathbf{H}^{T}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Prior information about the structural parameters may also be included,
+ with prior mean 
+\begin_inset Formula $\mathbf{\theta^{*}}$
+\end_inset
+
+ and covariance matrix 
+\begin_inset Formula $\mathbf{Q_{\theta\theta}}$
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\begin{equation}
+p\left(\mathbf{\theta}\right)\propto\mathrm{det}\left(\mathbf{Q_{\theta\theta}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)\right]\label{eq:theta_prior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The posterior pdf is the product of Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_prior"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_like"
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\propto\mathrm{\mathrm{det}\left(\mathbf{Q_{\theta\theta}}\right)^{-\frac{1}{2}}det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\exp\left[\begin{array}{c}
+-\frac{1}{2}\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)\\
+-\frac{1}{2}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To find the most likely values for 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ we minimize 
+\begin_inset Formula $-\ln\left(p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\right)$
+\end_inset
+
+ resulting in the objective function
+\begin_inset Formula 
+\[
+\mathbf{\Phi}_{S}=\mathrm{\frac{1}{2}\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+\frac{1}{2}\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where unchanging quantities are absorbed into the constant of proportionality
+ including 
+\begin_inset Formula $\det\left(\mathbf{Q}_{\mathbf{\theta\theta}}\right)^{-\frac{1}{2}}$
+\end_inset
+
+ .
+ The optimal values for 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ are found using the Nelder-Mead simplex algorithm 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "p. 408-410"
+before "e.g. "
+key "Press1992"
+
+\end_inset
+
+.
+ Non-negativity in the 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ parameters is enforced using a power transformation 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BoxCox1964"
+
+\end_inset
+
+.
+ As indicated by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+, nonlinearity requires that structural parameters are estimated iteratively
+ with the estimation of hydraulic parameters.
+ This is accomplished through a sequence of coupled inversion as follows.
+\end_layout
+
+\begin_layout Enumerate
+Initialize hydraulic parameters as 
+\begin_inset Formula $\left(\mathbf{s_{0}}\right)$
+\end_inset
+
+ and structural parameters 
+\begin_inset Formula $\left(\mathbf{\theta_{0}}\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Solve for a new estimate of hydraulic parameters 
+\begin_inset Formula $\left(\hat{\mathbf{s}}\right)$
+\end_inset
+
+ holding 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ constant.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Solve for a new estimate of structural parameters 
+\begin_inset Formula $\left(\mathbf{\hat{\theta}}\right)$
+\end_inset
+
+ holding 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ constant.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Repeat steps 2 and 3 until the change in 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ in two consecutive outer iterations of steps 2 and 3 decreases below a
+ specified tolerance.
+ 
+\end_layout
+
+\begin_layout Subsection*
+Posterior Covariance
+\end_layout
+
+\begin_layout Standard
+The posterior covariance can be calculated based on the inverse of the Hessian
+ of the objective function 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "for example, "
+key "NowakCirpka2004"
+
+\end_inset
+
+.
+ In closed form, the equation for the full posterior covariance matrix is:
+\begin_inset Formula 
+\[
+\mathbf{V}=\mathbf{\mathbf{G}_{ss}}-\mathbf{G_{sy}G}_{\mathbf{yy}}^{-1}\mathbf{G}_{\mathbf{sy}}^{T}
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{G_{sy}}=\mathbf{G_{ss}H}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G_{yy}}=\mathbf{HG_{ss}H}^{T}+\mathbf{R}$
+\end_inset
+
+.
+ In the case where compression of 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is not used, the full matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is calculated and reported.
+ Where compression of 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is used, however, the diagonal of 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is returned as a vector of variances on parameters.
+ This information is reported in a separate file, but also used to calculated
+ posterior 95% confidence intervals.
+ The full matrix, when reported, can be used to calculate conditional realizatio
+ns 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Kitanidis1995,Kitanidis1996ana"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
