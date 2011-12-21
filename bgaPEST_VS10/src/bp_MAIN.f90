@@ -315,6 +315,13 @@ program bp_main
        endif
        
     enddo      !(more external loop) --> b_ind
+    ! write out a final residuals file
+    cobsunit = utl_nextunit()
+    curr_resid_file = trim(casename) // '.bre.fin'
+    call bpc_openfile(cobsunit,trim(curr_resid_file),1) ![1] at end indicates open with write access
+    call bpo_write_residuals(cv_OBS,d_OBS,cobsunit)
+    close(cobsunit) 
+    
     
     !*************************************************************************************************************************
     !******** FROM HERE THE EVALUATION OF THE POSTERIOR COVARIANCE (ONLY IF REQUIRED --> cv_A%post_cov_flag = 1 **************
@@ -356,6 +363,8 @@ program bp_main
         call bpc_openfile(finalparunit,trim(curr_par_file),1) ![1] at end indicates open with write access
         call bpo_write_allpars_95ci(cv_PAR,d_PAR,d_PM,V,finalparunit,ci95_flag)
         close(finalparunit)
+        
+
         if (associated(V)) deallocate(V)
      endif
     !*************************************************************************************************************************
