@@ -8,11 +8,16 @@ program bp_main
 ! ***             a m!ke@usgs joint         ***
 ! ***          Michael N. Fienen, PhD       ***
 ! ***    UNITED STATES GEOLOGICAL SURVEY    ***
-! ***             mnfienen@usgs.gov         ***
-! ***              March 19, 2008           ***
+! ***          mnfienen@usgs.gov            ***
+! ***                 AND                   ***
+! ***           Marco D'Oria, PhD           ***
+! ***    UNIVERSITY OF PARMA, ITALY         ***
+! ***       marco.doria@unipr.it            ***
+! ***           January 3, 2012             ***
 ! ***      Modified by M.D. 1/10/2009       ***
 ! ***  Further Modifications MNF/MD 11/2010 ***
 ! ***  Further Modifications   MD   09/2011 ***
+! ***  Further Modifications MNF/MD 12/2011 ***
 ! *********************************************
    
    use jupiter_input_data_support

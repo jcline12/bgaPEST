@@ -2104,6 +2104,319 @@ file, posterior covariance values are reported in estimation (log-transformed)
 
 \end_layout
 
+\begin_layout Section*
+Suggestions and Guidelines for Initial Use
+\end_layout
+
+\begin_layout Standard
+The Bayesian Geostatistical Approach is a highly parameterized method that
+ is appropriate for some, but not all applications.
+ In this section, we outline a few considerations to aid in the decision
+ about whether to use bgaPEST on a given problem based on the history and
+ characteristics of the method.
+ We also provide a few guidelines to help avoid potential pitfalls in the
+ application of bgaPEST.
+\end_layout
+
+\begin_layout Standard
+This report documents the first release of bgaPEST and, to our knowledge,
+ the first implementation of BGA available in a generalized package.
+ As a result, users of this version will be among the first to apply this
+ software outside of academia where custom programs have been the rule.
+ Nonetheless, the method has a 20 year history.
+ The majority of applications have been to groundwater modeling projects
+ including (but not limited to): pumping test analysis 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "SnodgrassPKK1998"
+
+\end_inset
+
+; hydraulic tomography 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "LiCirpka2007,FienenWRR2008,LiCirpka2008,CardiffPKK2009"
+
+\end_inset
+
+; borehole logging 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "fienenEtal2004"
+
+\end_inset
+
+; contaminant source identification 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "SnodgrassPKK1997,MichalakPKK2002a,MichalakPKK2003"
+
+\end_inset
+
+; and nonparametric tracer test analysis 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "FienenWRR2006"
+
+\end_inset
+
+.
+ The main application to date that does not involve groundwater is in atmospheri
+c modeling (ANNA'S PAPERS).
+ 
+\end_layout
+
+\begin_layout Subsection*
+Characteristics for Suggested Use
+\end_layout
+
+\begin_layout Standard
+The characteristics that unite these applications form a solid guide when
+ deciding if bgaPEST is appropriate for a given application.
+ First, and foremost, there must be a parameter set that varies either in
+ space or time.
+ For example, a time series of chemical concentrations (a breakthrough curve),
+ a hydraulic conductivity field, a recharge field, ATMOSPHERIC EXAMPLE?
+ These parameters should vary continuously over reasonably substantial areas
+ for a variogram to be an adequate descriptor of the shape of the parameter
+ field.
+ Sub-areas delineated by geologic contacts, or in the case of time series,
+ punctuated by known events, can be partitioned into beta associations,
+ as discussed throughout this report.
+ Another consideration is a more practical one--model run time.
+ 
+\end_layout
+
+\begin_layout Standard
+The nature of bgaPEST is that many parameters are to be estimated.
+ Throughout the parameter estimation process, a Jacobian sensitivity matrix
+ must be calculated, requiring one model run per parameter.
+ This computational burden must be considered and, potentially mitigated.
+ In academic settings, many researchers have taken advantage of adjoint
+ state to make the calculation of the Jacobian matrix more efficient in
+ the case where parameters greatly outnumber observations.
+ Adjoint state versions of commercial and government codes are not typically
+ available, however, but bgaPEST is equipped to handle Jacobian matrices
+ calculated outside of bgaPEST so users who are able to write such codes
+ can make use of them.
+ Similarly, parallelization of the Jacobian calculations is a feature that
+ will be added in the future.
+ For now, through clever scripting, it is possible to use beoPEST outside
+ of bgaPEST to parallelize the calculations of the Jacobian matrix.
+ In this initial release of bgaPEST, however, it may be more practical to
+ stick with models with short run times, run Jacobian calculations in series
+ and just recognize that the computational burden may be high.
+ 
+\end_layout
+
+\begin_layout Standard
+A common occurrence in groundwater modeling applications is that parameters
+ far exceed observations in number.
+ This, of course, can change in transient simulations where, if each measurement
+ in time at a single measurement location is considered an observation,
+ the numbers of observations and parameters may equalize.
+ bgaPEST is most appropriate for the latter case--where parameters outnumber
+ observations, typically by a large margin.
+ Several programming and mathematical accommodations are made to enable
+ the number of parameters to grow very large (testing has been performed
+ with 90,000 parameters).
+ However, if the number of observation grows significantly, computer memory
+ will become a limitation in many cases.
+ For transient problems, one should consider the information content of
+ each measurement point in time.
+ Often, the number of observation points can be effectively reduced by consideri
+ng moments rather than discrete points 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "LiNowakCirpka2005"
+
+\end_inset
+
+ or by other time series processing such as methods available in R (REF)
+ or TSPROC (REF).
+\end_layout
+
+\begin_layout Subsection*
+Guidelines
+\end_layout
+
+\begin_layout Standard
+The number of applications of bgaPEST this far is limited.
+ As new software and a relatively novel technique, it will take time for
+ users to ``get a feel
+\begin_inset Quotes erd
+\end_inset
+
+ for the behavior and characteristics of the tool.
+ In this section, we provide a few guidelines that we hope will help users
+ avoid pitfalls.
+ In future releases, building on the experience of a larger user base, more
+ guidelines will become available.
+\end_layout
+
+\begin_layout Subparagraph*
+Run Times
+\end_layout
+
+\begin_layout Standard
+
+\series medium
+For a typical groundwater model, somewhere between 5 and 15 outer iterations
+ will often be required.
+ For each outer iteration, it is likely that about 5 inner iterations are
+ necessary.
+ This means up to 75 calculations of the Jacobian matrix may be required.
+ Without parallelization or adjoint state, users should carefully consider
+ how many parameters can be accommodated as run times grow in length.
+ For planning, assume that the time required for each Jacobian calculation
+ is NPAR 
+\begin_inset Formula $\times$
+\end_inset
+
+ Run Time.
+ 
+\end_layout
+
+\begin_layout Subparagraph*
+Beta Associations
+\end_layout
+
+\begin_layout Standard
+
+\series medium
+Beta associations provide the ability to include knowledge about contacts
+ and other partitions in the parameter fields.
+ Some beta associations can have a separate parameter value in each node,
+ while others can be treated as homogeneous zones.
+ This is accomplished through the design of the template file.
+ In addition to allowing for the inclusion of well-known structures such
+ as lithologic contacts, beta associations also allow for some regions--either
+ because of greater importance to the ultimate management decisions, due
+ to greater density of data, or both--to have a large number of parameters
+ whereas other regions have homogeneous values.
+ By only allowing a large number of parameters in focused areas of interest,
+ the overall number of parameters can be reduced, thus mitigating some of
+ the concerns about run times.
+\end_layout
+
+\begin_layout Subparagraph*
+Line Search
+\end_layout
+
+\begin_layout Standard
+The purpose of the line search is similar to the purpose of the Levenberg-Marqua
+rdt adjustment used in PEST; it is to make a correction to the search direction
+ when the optimization algorithm might otherwise stray from the optimal
+ direction.
+ The linesearch, therefore, serves its greatest purpose in its first iteration
+ or two.
+ After that, the value of the linesearch is limited for mathematical reasons
+ having to do with linearization of the problem (see Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+ for more details).
+ As a result, a value of between 2 and 5 for 
+\family typewriter
+it_max_linesearch
+\family default
+ in the control variables is generally adequate.
+ If the linesearch algorithm does not converge, a warning will be issued
+ and, while it is good to know that this took place, the linesearch has
+ served its purpose and little gain will be achieved by increasing 
+\family typewriter
+it_max_linesearch.
+\end_layout
+
+\begin_layout Subparagraph*
+Level of Fit
+\end_layout
+
+\begin_layout Standard
+``With great power comes great responsibility.
+\begin_inset Quotes erd
+\end_inset
+
+ In applications where parameters outnumber observations, a real danger
+ lurks of overfitting.
+ In other words, parameters can be adjusted to achieve a level of correspondence
+ between simulated and observed equivalents that exceeds a reasonable level.
+ The danger of this is that some of the 
+\emph on
+lack
+\emph default
+ of correspondence is often due to random epistemic error and is not representat
+ive of actual system behavior.
+ However, if the parameters are adjusted to match observations within this
+ margin of error, they are ``fitting the noise.
+\begin_inset Quotes erd
+\end_inset
+
+ The ramifications of this are mainly a diminishment of predictive power
+ of the model and unrealistic roughness of the parameter fields estimated.
+ There are two means of avoiding this problem.
+ One is the maximum entropy property of BGA.
+ The algorithm is designed to find the 
+\emph on
+smoothest
+\emph default
+ solution consistent with the level of fit.
+ If all structural parameters--including 
+\begin_inset Formula $\sigma_{R}$
+\end_inset
+
+--are estimated, the algorithm will try to achieve perfect fit with the
+ smoothest solution that can do so.
+ This may still lead to overfitting, however, so in most cases, it is more
+ appropriate to set the level of fit using 
+\family typewriter
+sig_0
+\family default
+ in the Epistemic Error Term input block described below to a level of fit
+ chosen by the user to be appropriate given known and suspected uncertainties
+ about both the observation quality and the model.
+ Weights on observations can account for different levels of quality in
+ different observations.
+ In most cases, the user should also set 
+\family typewriter
+sig_opt=0
+\family default
+ to force the algorithm to use a consistent value for epistemic uncertainty
+ and thus to manually control the level of fit.
+ If set this way, the algorithm will adjust the other structural parameters
+ to achieve the smoothest possible solution corresponding to the specified
+ level of fit.
+ 
+\end_layout
+
+\begin_layout Subparagraph*
+Structural Parameter Optimization
+\end_layout
+
+\begin_layout Standard
+A good general guideline for all modeling is to start simple and add complexity
+ as appropriate.
+ In bgaPEST, this goal is achieved by starting with small values of variogram
+ parameters (slope for the linear, variance for the nugget or exponential)
+ such that the solution will be very smooth.
+ By optimizing for structural parameters, roughness will be introduced by
+ the algorithm until convergence at the optimal level of roughness.
+ At the early, exploratory stages of a project, it might be desirable to
+ set 
+\family typewriter
+sig_opt=1
+\family default
+ to see what level of fit may be achievable, but the user should be prepared
+ to override this in later stages as allowing too much roughness to be introduce
+d.
+ For the prior distribution variogram parameters, however, optimization
+ should always be employed in keeping with the Empirical Bayes perspective
+ the algorithm was designed with.
+\end_layout
+
 \begin_layout Section
 \start_of_appendix
 \begin_inset CommandInset label
@@ -4644,6 +4957,191 @@ ICODE=1
 \end_layout
 
 \begin_layout Section
+Quick Start Instructions
+\end_layout
+
+\begin_layout Standard
+One advantage of using block input and keywords, as discussed in Appendix
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+, is that default values are provided within bgaPEST so they can be skipped
+ by a user.
+ The values provided as defaults have general applicability and will all
+ be reported in the 
+\family typewriter
+<casename>.bpr 
+\family default
+file.
+ In this section, then, the bare minimum level of input is described to
+ get a project running.
+ 
+\end_layout
+
+\begin_layout Subparagraph*
+Forward Model
+\end_layout
+
+\begin_layout Standard
+The forward model must exist and have the ability--either inherently or
+ through pre- and post-processing--to receive input and provide output using
+ text (ascii) files.
+ For bgaPEST to be able to run the model, template files (
+\family typewriter
+.TPL
+\family default
+) and instruction files (
+\family typewriter
+.INS
+\family default
+) must be provided corresponding with model input and output, respectively.
+ Details of the contruction of these files are in 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter 3"
+key "PEST"
+
+\end_inset
+
+.
+ The template and instruction files are detailed in the 
+\family typewriter
+model_input_files
+\family default
+ and 
+\family typewriter
+model_output_files 
+\family default
+blocks, respectively.
+ The 
+\family typewriter
+model_command_lines
+\family default
+ block must also be included with an entry for either a batch file or shell
+ script in the 
+\family typewriter
+command
+\family default
+ keyword that runs the model.
+\end_layout
+
+\begin_layout Subparagraph*
+Observations
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+observation_groups
+\family default
+ block must be completed.
+ All observations can belong to the same group if desired.
+ Groups are reported in output to assist in interpretation of results.
+ The 
+\family typewriter
+observation_data
+\family default
+ block must also be completed.
+\end_layout
+
+\begin_layout Subparagraph*
+Beta Associations
+\end_layout
+
+\begin_layout Standard
+Beta associations are first defined in the 
+\family typewriter
+prior_mean_data
+\family default
+ block.
+ If no prior information about mean values and their covariance is to be
+ supplied, the only information necessary is a row for each beta association
+ in the 
+\family typewriter
+prior_mean_data
+\family default
+ block and a decision about whether to transform the value with a logarithmic
+ transform or not.
+ Note that beta associations indicate regions and groups that will have
+ the same mean value estimated regardless of whether prior information about
+ the mean is provided or not.
+\end_layout
+
+\begin_layout Subparagraph*
+Structural Parameters
+\end_layout
+
+\begin_layout Standard
+Each beta association must have a variogram specified for it, defined by
+ structural parameters.
+ Therefore, the 
+\family typewriter
+structural_parameters_cv
+\family default
+ and 
+\family typewriter
+structural_parameter_data
+\family default
+ blocks must be completed.
+ Whether or not to optimize for structural parameter values, and whether
+ or not to provide prior information about the values is optional.
+\end_layout
+
+\begin_layout Subparagraph*
+Parameters
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+parameter_groups
+\family default
+ block must be completed and, like with observations, it is acceptable for
+ all parameters to be in a single group, and groups do not need to correspond
+ with beta associations.
+ The 
+\family typewriter
+parameter_cv
+\family default
+ keyword 
+\family typewriter
+ndim
+\family default
+ must be provided, and the 
+\family typewriter
+parameter_data
+\family default
+ block must be completed.
+ 
+\end_layout
+
+\begin_layout Subparagraph*
+Algorithmic Control Variables
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+algorithmic_cv
+\family default
+ block contains variables that all have default values.
+ However, bgaPEST must find the 
+\family typewriter
+algorithmic_cv
+\family default
+ block - even if it is empty.
+ If the 
+\family typewriter
+algorithmic_cv
+\family default
+ block is empty, all default values will be used.
+\end_layout
+
+\begin_layout Section
 Details of the Method
 \begin_inset CommandInset label
 LatexCommand label
@@ -4663,7 +5161,15 @@ key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
 \end_inset
 
  among others.
- In the Bayesian geostatistical approach, the posterior pdf is calculated
+ The mathematics are reviewed here.
+\end_layout
+
+\begin_layout Subsection*
+The Bayesian Geostatistical Approach
+\end_layout
+
+\begin_layout Standard
+In the Bayesian geostatistical approach, the posterior pdf is calculated
  as 
 \family roman
 \series medium
@@ -5002,7 +5508,15 @@ reference "eq:BGA"
 
 \end_inset
 
-In many cases, numerical instability makes convergence difficult.
+
+\end_layout
+
+\begin_layout Subsection*
+Line Search
+\end_layout
+
+\begin_layout Standard
+In some cases, numerical instability makes convergence difficult.
  A line search is implemented in which a linear search is performed between
  the most recent best estimate of the parameters 
 \begin_inset Formula $\left(\mathbf{\hat{s}}\right)$
@@ -5082,31 +5596,22 @@ key "Press1992"
 \end_inset
 
 , which guarantees monotonic decrease in 
-
 \begin_inset Formula $\mathbf{\Phi}$
 \end_inset
-
 
  over successive iterations.
  It is recommended to limit the number of linesearch iterations to a relatively
  low number, as the goal of handling weak linearity is balanced against
- the computations required to perform the linesearch.
-\family default
-\series bold
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-
-\begin_inset Formula $ $
+ the computations required to perform the line search.
+ The greatest advantage is likely achieved in the first few (less than five)
+ iterations.
+ The role of the line search is not to find a minimum value of 
+\begin_inset Formula $\mathbf{\Phi}$
 \end_inset
 
-
+ because the nonlinearity of the overall problem prevents it.
+ Rather, the line search is meant to be a correction of search direction
+ for stability.
 \end_layout
 
 \begin_layout Subsection*
