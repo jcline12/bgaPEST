@@ -28,7 +28,8 @@ for cmod in casenames:
         indat[i][0] = indat[i][0].lower()
 
     for clay in lays:        
-        plt.figure()
+        cfig = plt.figure()
+        ax1 = cfig.add_subplot(111)
         plt.hold=True
         plotcol = []
         plotrow = []
@@ -37,7 +38,7 @@ for cmod in casenames:
             if int(crow[0][3])==clay:
                 plotcol.append(lox_dict[crow[0]][1])
                 plotrow.append(lox_dict[crow[0]][0])
-                plotval.append(np.abs(crow[2]-crow[3]))
+                plotval.append((crow[2]-crow[3])**2)
         plotcol = np.array(plotcol)
         plotrow = np.array(plotrow)
         plotval = np.array(plotval)
@@ -46,13 +47,11 @@ for cmod in casenames:
                     plotrow,
                     cmap = cm.jet,
                     norm=cols.normalize(0),
-                    s=plotval*1000.0,
+                    s=plotval*1e4,
                     c=plotval)
         plt.xlim((1,35))
         plt.ylim((40,1))
         plt.axis('equal')
-        plt.colorbar()
+        cb=plt.colorbar()
         plt.title('Residuals for layer ' +str(clay))
-       # plt.show()
         plt.savefig(cmod + '_residuals_lay_' + str(clay) + '.pdf')
-#plt.show()

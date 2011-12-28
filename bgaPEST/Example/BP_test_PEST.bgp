@@ -41,7 +41,7 @@ BEGIN structural_parameters_cov TABLE
 END structural_parameters_cov
 
 BEGIN epistemic_error_term KEYWORDS
-  sig_0 = 1.000e-001   sig_opt = 0  sig_p_var=0.00001
+  sig_0 = 1.000e-001   sig_opt = 1  sig_p_var=0.00001
 END epistemic_error_term
 
 BEGIN parameter_cv KEYWORDS  

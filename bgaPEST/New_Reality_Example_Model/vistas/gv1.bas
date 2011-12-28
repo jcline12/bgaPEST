@@ -1,7 +1,7 @@
 # MODFLOW2005 Basic Package
 #MODFLOW Data Set Created by Groundwater Vistas
 #   
-
+SHOWPROGRESS
          1         1(25I3)                      -1     IBOUND Layer   1
  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
  -1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1

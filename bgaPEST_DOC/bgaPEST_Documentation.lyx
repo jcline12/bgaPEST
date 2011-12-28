@@ -130,14 +130,6 @@ Acknowledgements
 \end_layout
 
 \begin_layout Standard
-
-\emph on
-New USGS style has acknowledgements posted at the front.
- There will be many sources of support to acknowledge, but I'll start a
- list here.
-\end_layout
-
-\begin_layout Standard
 This work was supported by several important sources including: The National
  Research Council Postdoctoral Research Associateship, The US Geological
  Survey Office of Groundwater, the USGS Water and Environmental Biogeochemical
@@ -213,11 +205,7 @@ a posteriori
 \emph default
  understanding).
  In such an approach, the ability to simulate features of the natural world
- 
-\begin_inset Quotes eld
-\end_inset
-
-condition
+ ``condition
 \begin_inset Quotes erd
 \end_inset
 
@@ -1240,19 +1228,11 @@ status open
 \begin_layout Paragraph*
 Beta Associations and Zones:
 \emph on
- Why aren't 
-\begin_inset Quotes eld
-\end_inset
-
-beta associations
+ Why aren't ``beta associations
 \begin_inset Quotes erd
 \end_inset
 
- just called 
-\begin_inset Quotes eld
-\end_inset
-
-zones
+ just called ``zones
 \begin_inset Quotes erd
 \end_inset
 
@@ -7458,6 +7438,186 @@ key "Kitanidis1995,Kitanidis1996ana"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+Single Layer Example Application
+\end_layout
+
+\begin_layout Standard
+The first example application presented is a single-layer groundwater model.
+ The forward model is a steady-state, MODFLOW-2005 model with 21 rows and
+ 21 columns.
+ The hydraulic conductivity field is heterogeneous, varying from 
+\begin_inset Formula $6.068\times10^{-05}$
+\end_inset
+
+ to 
+\begin_inset Formula $0.048$
+\end_inset
+
+ meters/day.
+ The true hydraulic conductivity field is depicted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:trueK1L"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename EXAMPLES/1_layer_example/TrueK.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+True hydraulic conductivity field for the single layer example application.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:trueK1L"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+The boundary conditions are constant head, highest at the northwest corner
+ and linearly decreasing to the southeast, as depicted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:stheads1L"
+
+\end_inset
+
+.
+ There is a well at row 13, column 6, extracting water at a constant rate
+ of 0.231 liters/minute.
+ No recharge is simulated in this case.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename EXAMPLES/1_layer_example/starting_heads.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:stheads1L"
+
+\end_inset
+
+Boundary condition (constant head) for the single layer example application.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Two options exist to calculate sensitivity (Jacobian) matrices: an experimental
+ adjoint-state version of MODFLOW, or finite difference calculations using
+ the python linkage and PEST, as capable in the released version of bgaPEST.
+ Two scenarios were tested as well: a case in which 
 \end_layout
 
 \begin_layout Standard
