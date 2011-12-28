@@ -202,6 +202,8 @@ program bp_main
             !-- PERFORM LINESEARCH IF REQUESTED
             if (cv_A%lns_flag.eq.1) then  !If yes, we perform the linesearch procedure  
                call lns_proc(d_XQR,d_S,cv_PAR,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,cv_A,p_ind,miostruc,errstruc)
+               !--- now we need to update the objective function components 
+               call  cal_ob_funcs(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS,  d_A, d_PAR, cv_PM)
             endif
             
             !-- BACK-TRANSFORM OR NOT PARAMETERS INTO PHYSICAL SPACE

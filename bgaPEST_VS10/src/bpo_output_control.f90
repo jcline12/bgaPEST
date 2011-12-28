@@ -300,7 +300,7 @@ contains
     write(bprunit,45) indent,indent,'it_max_phi: ',cv_A%it_max_phi       
     write(bprunit,20) indent,'Maximum Number of Outermost BGA Iterations'
     write(bprunit,45) indent,indent,'it_max_bga: ',cv_A%it_max_bga       
-    write(bprunit,20) indent,'Linesearch Flag: [0] indicates no linesearh, [1] indicates perform linesarch'
+    write(bprunit,20) indent,'Linesearch Flag: [0] indicates no linesearch, [1] indicates perform linesarch'
     write(bprunit,45) indent,indent,'lns_flag: ',cv_A%lns_flag       
     write(bprunit,20) indent,'Maximum Number of Linesearch Iterations'
     write(bprunit,45) indent,indent,'it_max_lns: ',cv_A%it_max_lns
