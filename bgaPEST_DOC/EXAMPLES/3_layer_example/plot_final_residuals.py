@@ -21,7 +21,7 @@ obslay = refdat['f1']
 lox_dict = dict(zip(obsnames_lower,zip(obsrows,obscols,obslay)))
 lays = np.unique(obslay)
 
-casenames = ['case1','case2','case3','case4','case5']
+casenames = ['case1','case2','case3','case4','case5','case6']
 for cmod in casenames:
     indat = np.genfromtxt(cmod+'.bre.fin',names=True,dtype=None)
     for i,crow in enumerate(indat):
