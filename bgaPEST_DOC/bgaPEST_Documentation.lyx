@@ -7661,15 +7661,12 @@ begin{center}
 \end_inset
 
  
-
 \begin_inset Graphics
 	filename figures/1_lay_best_pars_sigma_fixed.pdf
 	scale 70
 
 \end_inset
 
-
-\lang english
 
 \begin_inset ERT
 status open
@@ -7738,15 +7735,12 @@ begin{center}
 \end_inset
 
  
-
 \begin_inset Graphics
 	filename figures/1_layer_fixed_sigma_residuals.pdf
 	scale 40
 
 \end_inset
 
-
-\lang english
 
 \begin_inset ERT
 status open
@@ -7881,15 +7875,12 @@ begin{center}
 \end_inset
 
  
-
 \begin_inset Graphics
 	filename figures/1_lay_best_pars_sigma_estimated.pdf
 	scale 70
 
 \end_inset
 
-
-\lang english
 
 \begin_inset ERT
 status open
@@ -7954,15 +7945,12 @@ begin{center}
 \end_inset
 
  
-
 \begin_inset Graphics
 	filename figures/1_layer_estimated_sigma_residuals.pdf
 	scale 40
 
 \end_inset
 
-
-\lang english
 
 \begin_inset ERT
 status open
@@ -8054,6 +8042,10 @@ reference "fig:KL1-sigEstimated"
  A key point here, however, is that the pattern of the residuals is similar
  and, again, reflects the general information content of the stress induced
  on the system.
+\end_layout
+
+\begin_layout Section
+Three Layer Example Application
 \end_layout
 
 \begin_layout Standard
