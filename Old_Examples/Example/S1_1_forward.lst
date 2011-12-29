@@ -1,0 +1,546 @@
+                        MODFLOW-ADJOINT Version 0.96 07/14/2007
+            SENSITIVITY CALCULATIONS USING THE ADJOINT STATE METHOD FOR
+      U.S. GEOLOGICAL SURVEY MODULAR FINITE-DIFFERENCE GROUND-WATER FLOW MODEL
+                             VERSION 1.1 05/18/2006
+
+ LIST FILE: S1_1_forward.lst
+                         UNIT    7
+
+ OPENING S1.bas
+ FILE TYPE:BAS6   UNIT    1   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.dis
+ FILE TYPE:DIS   UNIT   29   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.lpf
+ FILE TYPE:LPF   UNIT   11   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.zone
+ FILE TYPE:ZONE   UNIT   13   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.wel
+ FILE TYPE:WEL   UNIT   12   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.oc
+ FILE TYPE:OC   UNIT   22   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_.mul
+ FILE TYPE:MULT   UNIT    8   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.pcg
+ FILE TYPE:PCG   UNIT   19   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1.chd
+ FILE TYPE:CHD   UNIT   40   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+
+ OPENING S1_1.hob
+ FILE TYPE:HOB   UNIT   18   STATUS:OLD    
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+#ADJ 35 S1_.adj                                                                                                                                                                                                                                                                                             
+#DATA         44 S1_1_adj.out                                                                                                                                                                                                                                                                               
+#DATA         75 S1_adj.pcg                                                                                                                                                                                                                                                                                 
+
+ OPENING S1_1.hbs
+ FILE TYPE:DATA   UNIT   14   STATUS:UNKNOWN
+ FORMAT:FORMATTED              ACCESS:SEQUENTIAL          
+#DATA         48 S1_1.sen                                                                                                                                                                                                                                                                                   
+
+ OPENING S1.cbb
+ FILE TYPE:DATA(BINARY)   UNIT   50   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.cbw
+ FILE TYPE:DATA(BINARY)   UNIT   54   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.hds
+ FILE TYPE:DATA(BINARY)   UNIT   30   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ OPENING S1.ddn
+ FILE TYPE:DATA(BINARY)   UNIT   31   STATUS:UNKNOWN
+ FORMAT:UNFORMATTED            ACCESS:SEQUENTIAL          
+
+ BAS -- BASIC PACKAGE, VERSION 7, 5/2/2005 INPUT READ FROM UNIT    1
+
+ DISCRETIZATION INPUT DATA READ FROM UNIT   29
+ # MODFLOW2000 Discretization File
+    1 LAYERS        21 ROWS        21 COLUMNS
+    1 STRESS PERIOD(S) IN SIMULATION
+ MODEL TIME UNIT IS SECONDS
+ MODEL LENGTH UNIT IS METERS
+  Confining bed flag for each layer:
+   0
+
+
+
+                               DELR
+ READING ON UNIT   29 WITH FORMAT: (10E12.4)           
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000    
+
+
+
+                               DELC
+ READING ON UNIT   29 WITH FORMAT: (10E12.4)           
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000       1.0000    
+   1.0000    
+
+ TOP ELEVATION OF LAYER 1 =   20.0000    
+
+   MODEL LAYER BOTTOM EL. =   0.00000     FOR LAYER   1
+
+
+ STRESS PERIOD     LENGTH       TIME STEPS     MULTIPLIER FOR DELT    SS FLAG
+ ----------------------------------------------------------------------------
+        1         1.000000          1                    1.000         SS
+
+ STEADY-STATE SIMULATION
+
+
+
+ 
+ # MODFLOW2005 Basic Package                                                     
+
+
+
+                     BOUNDARY ARRAY FOR LAYER   1
+ READING ON UNIT    1 WITH FORMAT: (FREE)              
+
+ AQUIFER HEAD WILL BE SET TO  999.00     AT ALL NO-FLOW NODES (IBOUND=0).
+
+
+
+                       INITIAL HEAD FOR LAYER   1
+ READING ON UNIT    1 WITH FORMAT: (FREE)              
+
+ OUTPUT CONTROL IS SPECIFIED ONLY AT TIME STEPS FOR WHICH OUTPUT IS DESIRED
+ HEAD PRINT FORMAT CODE IS   0    DRAWDOWN PRINT FORMAT CODE IS   0
+ HEADS WILL BE SAVED ON UNIT   30    DRAWDOWNS WILL BE SAVED ON UNIT   31
+
+ ZONE OPTION, INPUT READ FROM UNIT   13
+ # MODFLOW2000 Zone File
+     1 ZONE ARRAYS
+
+ MULTIPLIER OPTION, INPUT READ FROM UNIT    8
+ # MODFLOW2005 multiplier Package Parent MD
+   1 MULTIPLIER ARRAYS
+
+
+
+            MULT. ARRAY: M1        
+ READING ON UNIT    8 WITH FORMAT: (FREE)              
+
+            1           2           3           4           5           6           7           8           9          10
+           11          12          13          14          15          16          17          18          19          20
+           21
+ ........................................................................................................................
+   1   7.1330E-03  6.3789E-03  5.5031E-03  4.5549E-03  3.6118E-03  2.7610E-03  2.0615E-03  1.5167E-03  1.0964E-03  7.7137E-04
+       5.2606E-04  3.5095E-04  2.3260E-04  1.5571E-04  1.0720E-04  7.7305E-05  5.8902E-05  4.7008E-05  3.8737E-05  3.2609E-05
+       2.7878E-05
+   2   8.0608E-03  7.2448E-03  6.2322E-03  5.0943E-03  3.9525E-03  2.9477E-03  2.1738E-03  1.6100E-03  1.1863E-03  8.5040E-04
+       5.8577E-04  3.9309E-04  2.6130E-04  1.7400E-04  1.1777E-04  8.3063E-05  6.2296E-05  4.9011E-05  3.9746E-05  3.2931E-05
+       2.7782E-05
+   3   8.9726E-03  8.0679E-03  6.8510E-03  5.4489E-03  4.0626E-03  2.9039E-03  2.1135E-03  1.5999E-03  1.2300E-03  9.2326E-04
+       6.6031E-04  4.6355E-04  3.2349E-04  2.2296E-04  1.5121E-04  1.0343E-04  7.4985E-05  5.6493E-05  4.3754E-05  3.4841E-05
+       2.8567E-05
+   4   9.7659E-03  8.7266E-03  7.2286E-03  5.4992E-03  3.8665E-03  2.6004E-03  1.8882E-03  1.4915E-03  1.2165E-03  9.7548E-04
+       7.4060E-04  5.6888E-04  4.3884E-04  3.2946E-04  2.3264E-04  1.5349E-04  1.0498E-04  7.2656E-05  5.1893E-05  3.8711E-05
+       3.0338E-05
+   5   1.0339E-02  9.1086E-03  7.2723E-03  5.2144E-03  3.3519E-03  2.1698E-03  1.6310E-03  1.3716E-03  1.1762E-03  9.7677E-04
+       8.1891E-04  7.1406E-04  6.2616E-04  5.3010E-04  4.1126E-04  2.7922E-04  1.6625E-04  1.0156E-04  6.5234E-05  4.4771E-05
+       3.3096E-05
+   6   1.0667E-02  9.2348E-03  7.0839E-03  4.7805E-03  2.9573E-03  1.9919E-03  1.5642E-03  1.4016E-03  1.2250E-03  1.0459E-03
+       9.5680E-04  9.1016E-04  8.7168E-04  8.0551E-04  6.6251E-04  4.6256E-04  2.6100E-04  1.4388E-04  8.3596E-05  5.2746E-05
+       3.6606E-05
+   7   1.0835E-02  9.3418E-03  7.1079E-03  4.8170E-03  3.1258E-03  2.2397E-03  1.9415E-03  1.7603E-03  1.5120E-03  1.3107E-03
+       1.2078E-03  1.1600E-03  1.1162E-03  1.0331E-03  8.7002E-04  6.1026E-04  3.5243E-04  1.8892E-04  1.0360E-04  6.1332E-05
+       4.0246E-05
+   8   1.0914E-02  9.5784E-03  7.5201E-03  5.3934E-03  3.8137E-03  2.9814E-03  2.7034E-03  2.3859E-03  2.0451E-03  1.7737E-03
+       1.6014E-03  1.4843E-03  1.3657E-03  1.2066E-03  9.9522E-04  7.0114E-04  4.1585E-04  2.2433E-04  1.2024E-04  6.8456E-05
+       4.3076E-05
+   9   1.0833E-02  9.8176E-03  8.1128E-03  6.2298E-03  4.7175E-03  3.8240E-03  3.5066E-03  3.1994E-03  2.8220E-03  2.4707E-03
+       2.1868E-03  1.9413E-03  1.6885E-03  1.4035E-03  1.0867E-03  7.5200E-04  4.5028E-04  2.4456E-04  1.2972E-04  7.2148E-05
+       4.4162E-05
+  10   1.0418E-02  9.7288E-03  8.4148E-03  6.8126E-03  5.2420E-03  4.4475E-03  4.3462E-03  4.2137E-03  3.8944E-03  3.4809E-03
+       3.0525E-03  2.6192E-03  2.1616E-03  1.6748E-03  1.1922E-03  7.8073E-04  4.6606E-04  2.5028E-04  1.3071E-04  7.1394E-05
+       4.2993E-05
+  11   9.5755E-03  9.0922E-03  8.0716E-03  6.7125E-03  5.4549E-03  5.1226E-03  5.3783E-03  5.5308E-03  5.3463E-03  4.9008E-03
+       4.3094E-03  3.6357E-03  2.9042E-03  2.1403E-03  1.4196E-03  8.5269E-04  4.7560E-04  2.4535E-04  1.2433E-04  6.6552E-05
+       3.9739E-05
+  12   8.4264E-03  8.0865E-03  7.4218E-03  6.5784E-03  5.9186E-03  5.9927E-03  6.6607E-03  7.1080E-03  7.1043E-03  6.6947E-03
+       5.9796E-03  5.0577E-03  4.0155E-03  2.9089E-03  1.8337E-03  1.0052E-03  4.9983E-04  2.3627E-04  1.1331E-04  5.9030E-05
+       3.5128E-05
+  13   7.1793E-03  6.9611E-03  6.6804E-03  6.4558E-03  6.4760E-03  6.9730E-03  7.7974E-03  8.4287E-03  8.6368E-03  8.4312E-03
+       7.7784E-03  6.7118E-03  5.3973E-03  3.9641E-03  2.4340E-03  1.2083E-03  5.2437E-04  2.2130E-04  9.9153E-05  5.0274E-05
+       3.0026E-05
+  14   5.9946E-03  5.8541E-03  5.8440E-03  6.0962E-03  6.7006E-03  7.4128E-03  8.0583E-03  8.6846E-03  9.0792E-03  9.2579E-03
+       8.9898E-03  8.0423E-03  6.5821E-03  4.9562E-03  3.0393E-03  1.3650E-03  5.1200E-04  1.9366E-04  8.2349E-05  4.1370E-05
+       2.5131E-05
+  15   4.9597E-03  4.8412E-03  4.9167E-03  5.3182E-03  6.1289E-03  6.8916E-03  7.3913E-03  7.7794E-03  8.1652E-03  8.5588E-03
+       8.7333E-03  8.1277E-03  6.8641E-03  5.1269E-03  3.0298E-03  1.2855E-03  4.2277E-04  1.5110E-04  6.4330E-05  3.3208E-05
+       2.0894E-05
+  16   4.1054E-03  3.9804E-03  4.0181E-03  4.2979E-03  4.9346E-03  5.5932E-03  5.9844E-03  6.2511E-03  6.4870E-03  6.7495E-03
+       6.7698E-03  6.1628E-03  5.0636E-03  3.6217E-03  2.0813E-03  8.6274E-04  2.7267E-04  1.0462E-04  4.8066E-05  2.6511E-05
+       1.7535E-05
+  17   3.4194E-03  3.2892E-03  3.2752E-03  3.4147E-03  3.7146E-03  4.1053E-03  4.3842E-03  4.5427E-03  4.6160E-03  4.5622E-03
+       4.1553E-03  3.4854E-03  2.6314E-03  1.7178E-03  9.1393E-04  3.8579E-04  1.5690E-04  6.9667E-05  3.5839E-05  2.1532E-05
+       1.5048E-05
+  18   2.8639E-03  2.7297E-03  2.6679E-03  2.6904E-03  2.7902E-03  2.9271E-03  3.0147E-03  3.0072E-03  2.8850E-03  2.6136E-03
+       2.1738E-03  1.6580E-03  1.1460E-03  7.0130E-04  3.7352E-04  1.7956E-04  8.8144E-05  4.6547E-05  2.7302E-05  1.7988E-05
+       1.3273E-05
+  19   2.4049E-03  2.2671E-03  2.1696E-03  2.1143E-03  2.0914E-03  2.0745E-03  2.0221E-03  1.9016E-03  1.6982E-03  1.4154E-03
+       1.0863E-03  7.6859E-04  5.0187E-04  3.0230E-04  1.7008E-04  9.3456E-05  5.3552E-05  3.2799E-05  2.1690E-05  1.5548E-05
+       1.2042E-05
+  20   2.0211E-03  1.8823E-03  1.7640E-03  1.6653E-03  1.5781E-03  1.4867E-03  1.3708E-03  1.2152E-03  1.0188E-03  7.9716E-04
+       5.7913E-04  3.9303E-04  2.5198E-04  1.5490E-04  9.3504E-05  5.7398E-05  3.7005E-05  2.5281E-05  1.8287E-05  1.3975E-05
+       1.1236E-05
+  21   1.7001E-03  1.5640E-03  1.4388E-03  1.3227E-03  1.2106E-03  1.0941E-03  9.6454E-04  8.1771E-04  6.5798E-04  4.9828E-04
+       3.5496E-04  2.3999E-04  1.5635E-04  1.0009E-04  6.4439E-05  4.2727E-05  2.9652E-05  2.1602E-05  1.6463E-05  1.3071E-05
+       1.0766E-05
+
+
+
+             ZONE ARRAY: khz1      
+ READING ON UNIT   13 WITH FORMAT: (FREE)              
+
+ LPF -- LAYER-PROPERTY FLOW PACKAGE, VERSION 7, 5/2/2005
+         INPUT READ FROM UNIT   11
+ # MODFLOW2005 Layer Property Flow (LPF) Package Parent MD
+ CELL-BY-CELL FLOWS WILL BE SAVED ON UNIT   50
+ HEAD AT CELLS THAT CONVERT TO DRY=   999.00    
+     1 Named Parameters     
+
+   LAYER FLAGS:
+ LAYER       LAYTYP        LAYAVG         CHANI        LAYVKA        LAYWET
+ ---------------------------------------------------------------------------
+    1             0             0     1.000E+00             1             0
+
+   INTERPRETATION OF LAYER FLAGS:
+                        INTERBLOCK     HORIZONTAL    DATA IN
+         LAYER TYPE   TRANSMISSIVITY   ANISOTROPY   ARRAY VKA   WETTABILITY
+ LAYER      (LAYTYP)      (LAYAVG)       (CHANI)      (LAYVKA)      (LAYWET)
+ ---------------------------------------------------------------------------
+    1      CONFINED      HARMONIC     1.000E+00    ANISOTROPY  NON-WETTABLE
+
+ WETTING CAPABILITY IS NOT ACTIVE IN ANY LAYER
+
+ PARAMETERS DEFINED IN THE LPF PACKAGE
+
+ PARAMETER NAME:kh000001     TYPE:HK     CLUSTERS:   1
+ Parameter value from package file is:    1.0000    
+                LAYER:   1    MULTIPLIER ARRAY: M1    ZONE ARRAY: khz1
+                ZONE VALUES:    1
+
+    HYD. COND. ALONG ROWS FOR LAYER   1 WILL BE DEFINED BY PARAMETERS
+ (PRINT FLAG=  -1)
+
+    HYD. COND. ALONG ROWS is defined by the following parameters:
+ kh000001  
+
+
+              HYD. COND. ALONG ROWS FOR LAYER   1
+
+  HORIZ. TO VERTICAL ANI. =   1.00000     FOR LAYER   1
+
+ WEL -- WELL PACKAGE, VERSION 7, 5/2/2005 INPUT READ FROM UNIT   12
+ # MODFLOW2000 Well Package
+     0 Named Parameters         0 List entries
+ MAXIMUM OF      1 ACTIVE WELLS AT ONE TIME
+ CELL-BY-CELL FLOWS WILL BE SAVED ON UNIT   54
+
+
+     0 Well parameters
+
+ CHD -- TIME-VARIANT SPECIFIED-HEAD OPTION, VERSION 7, 5/2/2005
+ INPUT READ FROM UNIT   40
+ # MODFLOW2000 Constant-Head Boundary Package (CHD)
+ No named parameters
+ MAXIMUM OF     80 TIME-VARIANT SPECIFIED-HEAD CELLS AT ONE TIME
+
+
+     0 TIME-VARIANT SPECIFIED-HEAD PARAMETERS
+
+ PCG -- CONJUGATE-GRADIENT SOLUTION PACKAGE, VERSION 7, 5/2/2005
+ MAXIMUM OF   1000 CALLS OF SOLUTION ROUTINE
+ MAXIMUM OF     40 INTERNAL ITERATIONS PER CALL TO SOLUTION ROUTINE
+ MATRIX PRECONDITIONING TYPE :    1
+
+
+
+                                    SOLUTION BY THE CONJUGATE-GRADIENT METHOD
+                                   -------------------------------------------
+                    MAXIMUM NUMBER OF CALLS TO PCG ROUTINE =     1000
+                        MAXIMUM ITERATIONS PER CALL TO PCG =       40
+                               MATRIX PRECONDITIONING TYPE =        1
+        RELAXATION FACTOR (ONLY USED WITH PRECOND. TYPE 1) =    0.10000E+01
+ PARAMETER OF POLYNOMIAL PRECOND. = 2 (2) OR IS CALCULATED :        2
+                         HEAD CHANGE CRITERION FOR CLOSURE =    0.10000E-05
+                     RESIDUAL CHANGE CRITERION FOR CLOSURE =    0.10000E-05
+            PCG HEAD AND RESIDUAL CHANGE PRINTOUT INTERVAL =        5
+     PRINTING FROM SOLVER IS LIMITED(1) OR SUPPRESSED (>1) =        0
+                                         DAMPING PARAMETER =    0.10000E+01
+
+ OBS2BAS7 -- HEAD OBSERVATIONS, VERSION 2.0, 2/28/2006
+ INPUT READ FROM UNIT  18
+ # MODFLOW2005 Observation file (HOB) Marco
+
+ NUMBER OF HEADS....................................:   12
+   NUMBER OF MULTILAYER HEADS.......................:    0
+   MAXIMUM NUMBER OF LAYERS FOR MULTILAYER HEADS....:    2
+ HEAD OBSERVATIONS WILL BE SAVED ON UNIT............:   14
+ SIMULATED EQUIVALENT HEAD AT DRY CELLS WILL BE:    999.000    
+
+ OBSERVED HEAD DATA -- TIME OFFSETS ARE MULTIPLIED BY:   1.0000    
+
+                    REFER.
+       OBSERVATION  STRESS    TIME
+  OBS#    NAME      PERIOD   OFFSET    OBSERVATION
+     1 P001T0000        1    1.000       999.0    
+     2 P002T0000        1    1.000       999.0    
+     3 P003T0000        1    1.000       999.0    
+     4 P004T0000        1    1.000       999.0    
+     5 P005T0000        1    1.000       999.0    
+     6 P006T0000        1    1.000       999.0    
+     7 P007T0000        1    1.000       999.0    
+     8 P008T0000        1    1.000       999.0    
+     9 P009T0000        1    1.000       999.0    
+    10 P010T0000        1    1.000       999.0    
+    11 P011T0000        1    1.000       999.0    
+    12 P012T0000        1    1.000       999.0    
+
+                                                     HEAD CHANGE
+                                                      REFERENCE
+        OBSERVATION                   ROW     COL    OBSERVATION
+  OBS#     NAME       LAY  ROW  COL  OFFSET  OFFSET   (IF > 0)
+     1  P001T0000       1    5    5   0.000   0.000        0
+     2  P002T0000       1   10    5   0.000   0.000        0
+     3  P003T0000       1   16    5   0.000   0.000        0
+     4  P004T0000       1    7    7   0.000   0.000        0
+     5  P005T0000       1   14    7   0.000   0.000        0
+     6  P006T0000       1    5   10   0.000   0.000        0
+     7  P007T0000       1   16   10   0.000   0.000        0
+     8  P008T0000       1    7   14   0.000   0.000        0
+     9  P009T0000       1   14   14   0.000   0.000        0
+    10  P010T0000       1    5   16   0.000   0.000        0
+    11  P011T0000       1   10   16   0.000   0.000        0
+    12  P012T0000       1   16   16   0.000   0.000        0
+1
+                            STRESS PERIOD NO.    1, LENGTH =   1.000000    
+                            -----------------------------------------------
+
+                              NUMBER OF TIME STEPS =     1
+
+                               MULTIPLIER FOR DELT =     1.000
+
+                            INITIAL TIME STEP SIZE =   1.000000    
+
+ WELL NO.  LAYER   ROW   COL   STRESS RATE         
+ --------------------------------------------------
+      1      1     13      6      -3.000    
+
+      1 WELL 
+
+ CHD NO.   LAYER   ROW   COL    START HEAD        END HEAD         
+ ------------------------------------------------------------------
+      1      1      1      1       35.00           35.00    
+      2      1      1      2       35.00           35.00    
+      3      1      1      3       35.00           35.00    
+      4      1      1      4       35.00           35.00    
+      5      1      1      5       35.00           35.00    
+      6      1      1      6       35.00           35.00    
+      7      1      1      7       35.00           35.00    
+      8      1      1      8       35.00           35.00    
+      9      1      1      9       35.00           35.00    
+     10      1      1     10       35.00           35.00    
+     11      1      1     11       35.00           35.00    
+     12      1      1     12       35.00           35.00    
+     13      1      1     13       35.00           35.00    
+     14      1      1     14       35.00           35.00    
+     15      1      1     15       35.00           35.00    
+     16      1      1     16       35.00           35.00    
+     17      1      1     17       35.00           35.00    
+     18      1      1     18       35.00           35.00    
+     19      1      1     19       35.00           35.00    
+     20      1      1     20       35.00           35.00    
+     21      1      1     21       35.00           35.00    
+     22      1      2      1       35.00           35.00    
+     23      1      2     21       35.00           35.00    
+     24      1      3      1       35.00           35.00    
+     25      1      3     21       35.00           35.00    
+     26      1      4      1       35.00           35.00    
+     27      1      4     21       35.00           35.00    
+     28      1      5      1       35.00           35.00    
+     29      1      5     21       35.00           35.00    
+     30      1      6      1       35.00           35.00    
+     31      1      6     21       35.00           35.00    
+     32      1      7      1       35.00           35.00    
+     33      1      7     21       35.00           35.00    
+     34      1      8      1       35.00           35.00    
+     35      1      8     21       35.00           35.00    
+     36      1      9      1       35.00           35.00    
+     37      1      9     21       35.00           35.00    
+     38      1     10      1       35.00           35.00    
+     39      1     10     21       35.00           35.00    
+     40      1     11      1       35.00           35.00    
+     41      1     11     21       35.00           35.00    
+     42      1     12      1       35.00           35.00    
+     43      1     12     21       35.00           35.00    
+     44      1     13      1       35.00           35.00    
+     45      1     13     21       35.00           35.00    
+     46      1     14      1       35.00           35.00    
+     47      1     14     21       35.00           35.00    
+     48      1     15      1       35.00           35.00    
+     49      1     15     21       35.00           35.00    
+     50      1     16      1       35.00           35.00    
+     51      1     16     21       35.00           35.00    
+     52      1     17      1       35.00           35.00    
+     53      1     17     21       35.00           35.00    
+     54      1     18      1       35.00           35.00    
+     55      1     18     21       35.00           35.00    
+     56      1     19      1       35.00           35.00    
+     57      1     19     21       35.00           35.00    
+     58      1     20      1       35.00           35.00    
+     59      1     20     21       35.00           35.00    
+     60      1     21      1       35.00           35.00    
+     61      1     21      2       35.00           35.00    
+     62      1     21      3       35.00           35.00    
+     63      1     21      4       35.00           35.00    
+     64      1     21      5       35.00           35.00    
+     65      1     21      6       35.00           35.00    
+     66      1     21      7       35.00           35.00    
+     67      1     21      8       35.00           35.00    
+     68      1     21      9       35.00           35.00    
+     69      1     21     10       35.00           35.00    
+     70      1     21     11       35.00           35.00    
+     71      1     21     12       35.00           35.00    
+     72      1     21     13       35.00           35.00    
+     73      1     21     14       35.00           35.00    
+     74      1     21     15       35.00           35.00    
+     75      1     21     16       35.00           35.00    
+     76      1     21     17       35.00           35.00    
+     77      1     21     18       35.00           35.00    
+     78      1     21     19       35.00           35.00    
+     79      1     21     20       35.00           35.00    
+     80      1     21     21       35.00           35.00    
+
+
+     80 TIME-VARIANT SPECIFIED-HEAD CELLS
+ 
+ SOLVING FOR HEAD 
+
+
+     2 CALLS TO PCG ROUTINE FOR TIME STEP   1 IN STRESS PERIOD    1
+    23 TOTAL ITERATIONS
+
+ MAXIMUM HEAD CHANGE FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE    HEAD CHANGE 
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1  -11.67      0  -6.933      0  -4.920      0   2.139      0   1.346    
+   (  1, 13,  6)  (  1, 14, 17)  (  1, 10, 18)  (  1, 12, 18)  (  1,  8, 18)
+  0 -0.3300      0  0.2917      0  0.1512      0  0.4848E-01  0  0.2305E-01
+   (  1,  8, 16)  (  1, 13, 18)  (  1,  9, 18)  (  1, 14, 17)  (  1,  7, 19)
+  0  0.8168E-02  0 -0.3436E-02  0  0.1541E-02  0 -0.6431E-03  0 -0.2268E-03
+   (  1, 15, 19)  (  1, 17, 19)  (  1, 13, 20)  (  1, 12, 19)  (  1,  8, 19)
+  0  0.4685E-04  0  0.5692E-04  0 -0.2105E-04  0 -0.6068E-05  0  0.1767E-05
+   (  1, 14, 16)  (  1,  7, 18)  (  1,  7, 18)  (  1, 20, 20)  (  1, 13, 18)
+  0 -0.2054E-05  0 -0.7068E-06  1 -0.2139E-06
+   (  1, 20, 20)  (  1, 20, 20)  (  1, 17, 14)
+
+ MAXIMUM RESIDUAL FOR EACH ITERATION (1 INDICATES THE FIRST INNER ITERATION):
+
+    RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL       RESIDUAL    
+   LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL  LAYER,ROW,COL
+ ---------------------------------------------------------------------------
+  1   1.118      0  0.4432      0  0.2019      0  0.1201      0  0.4852E-01
+   (  1, 13,  6)  (  1, 13,  6)  (  1, 12,  7)  (  1, 12,  7)  (  1, 14,  5)
+  0  0.2074E-01  0  0.7468E-02  0  0.4527E-02  0  0.2565E-02  0  0.8620E-03
+   (  1, 14,  5)  (  1, 11,  8)  (  1, 11,  8)  (  1, 15,  4)  (  1, 15,  4)
+  0 -0.1840E-03  0  0.9993E-04  0  0.4546E-04  0  0.1436E-04  0  0.3602E-05
+   (  1, 13,  6)  (  1, 16,  3)  (  1, 16,  3)  (  1, 16,  3)  (  1, 16,  3)
+  0 -0.2325E-05  0  0.8179E-06  0  0.3177E-06  0  0.1139E-06  0  0.7390E-07
+   (  1, 13,  3)  (  1, 17,  2)  (  1, 17,  2)  (  1, 17,  2)  (  1, 17,  2)
+  0  0.2434E-07  0  0.7258E-08  1  0.2223E-07
+   (  1, 17,  2)  (  1, 16, 10)  (  1, 13,  6)
+
+
+
+ OUTPUT CONTROL FOR STRESS PERIOD    1   TIME STEP   1
+    SAVE HEAD FOR ALL LAYERS
+
+ HEAD WILL BE SAVED ON UNIT   30 AT END OF TIME STEP   1, STRESS PERIOD    1
+1
+  VOLUMETRIC BUDGET FOR ENTIRE MODEL AT END OF TIME STEP  1 IN STRESS PERIOD   1
+  ------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUMES      L**3       RATES FOR THIS TIME STEP      L**3/T
+     ------------------                 ------------------------
+
+           IN:                                      IN:
+           ---                                      ---
+             STORAGE =           0.0000               STORAGE =           0.0000
+       CONSTANT HEAD =           3.0000         CONSTANT HEAD =           3.0000
+               WELLS =           0.0000                 WELLS =           0.0000
+
+            TOTAL IN =           3.0000              TOTAL IN =           3.0000
+
+          OUT:                                     OUT:
+          ----                                     ----
+             STORAGE =           0.0000               STORAGE =           0.0000
+       CONSTANT HEAD =           0.0000         CONSTANT HEAD =           0.0000
+               WELLS =           3.0000                 WELLS =           3.0000
+
+           TOTAL OUT =           3.0000             TOTAL OUT =           3.0000
+
+            IN - OUT =           0.0000              IN - OUT =           0.0000
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+
+
+
+          TIME SUMMARY AT END OF TIME STEP   1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH  1.0000     1.66667E-02 2.77778E-04 1.15741E-05 3.16881E-08
+ STRESS PERIOD TIME  1.0000     1.66667E-02 2.77778E-04 1.15741E-05 3.16881E-08
+         TOTAL TIME  1.0000     1.66667E-02 2.77778E-04 1.15741E-05 3.16881E-08
+1
+
+ HEAD AND DRAWDOWN OBSERVATIONS
+ OBSERVATION      OBSERVED      SIMULATED
+   NAME             VALUE         VALUE      DIFFERENCE
+ -------------------------------------------------------
+ P001T0000       999.000       33.8304       965.170    
+ P002T0000       999.000       29.9688       969.031    
+ P003T0000       999.000       28.4934       970.507    
+ P004T0000       999.000       31.0255       967.974    
+ P005T0000       999.000       24.8322       974.168    
+ P006T0000       999.000       31.5626       967.437    
+ P007T0000       999.000       27.2532       971.747    
+ P008T0000       999.000       29.2415       969.759    
+ P009T0000       999.000       27.4332       971.567    
+ P010T0000       999.000       30.3767       968.623    
+ P011T0000       999.000       28.3589       970.641    
+ P012T0000       999.000       27.7816       971.218    
+
+ SUM OF SQUARED DIFFERENCE:    1.12867E+07
+
+ Run end date and time (yyyy/mm/dd hh:mm:ss): 2011/12/28 15:37:41
+ Elapsed run time:  0.031 Seconds
+

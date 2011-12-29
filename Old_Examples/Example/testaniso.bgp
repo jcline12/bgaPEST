@@ -1,0 +1,119 @@
+BEGIN algorithmic_cv KEYWORDS
+ structural_conv=0.004 phi_conv=0.4 bga_conv=0.4
+ it_max_structural=5 it_max_phi=15 it_max_bga=5 
+ linesearch=1         it_max_linesearch=6
+ theta_cov_form=1 Q_compression_flag=1
+ deriv_mode = 1
+ jacobian_format = ascii
+ jacobian_file = S1_1.jac
+ posterior_cov_flag = 1
+ par_anisotropy=1
+END algorithmic_cv 
+
+BEGIN prior_mean_cv KEYWORDS
+ prior_betas=   2       
+ beta_cov_form=1
+END prior_mean_cv 
+
+BEGIN prior_mean_data TABLE
+ nrow=2 ncol=7 columnlabels 
+ BetaAssoc Partrans  beta_0   beta_cov_1   beta_cov_2   beta_cov_3     beta_cov_4 
+ 1           log     -7.6       5e-7      65.          3.1            4.1 
+ 2           log     -7.6       5e-7      65.          3.1            4.1 
+END prior_mean_data    
+
+BEGIN structural_parameter_cv TABLE  
+ nrow=2 ncol=6 columnlabels 
+ BetaAssoc  prior_cov_mode  var_type   struct_par_opt    trans_theta   alpha_trans  
+ 1          2                1          1                1             20
+ 2          2                1          1                1             20
+END structural_parameter_cv   
+
+BEGIN structural_parameters_data TABLE  
+ nrow=2 ncol=3 columnlabels 
+ BetaAssoc  theta_0_1    theta_0_2     
+ 1          1.0e-007        -0.1      
+ 2          1.0e-007        -0.1       
+  
+END structural_parameters_data
+
+BEGIN structural_parameters_cov TABLE  
+ nrow=2 ncol=1 columnlabels 
+ theta_cov_1     
+  11.1           
+  1.1
+END structural_parameters_cov
+
+BEGIN epistemic_error_term KEYWORDS
+  sig_0 = 1.000e-001   sig_opt = 1  sig_p_var=0.001
+END epistemic_error_term
+
+BEGIN parameter_cv KEYWORDS  
+ ndim=3
+END parameter_cv   
+
+BEGIN Q_compression_cv TABLE  
+ nrow=2 ncol=5 columnlabels 
+ BetaAssoc   Toep_flag     Nrow    Ncol   Nlay
+ 1           1             3      3     2
+ 2           1             3      3     2
+END Q_compression_cv
+
+BEGIN parameter_groups TABLE
+  nrow=1 ncol=2 columnlabels
+  groupname     grouptype
+  pargp_uno     1
+END parameter_groups   
+
+
+BEGIN parameter_data TABLE  
+ nrow=12 ncol=8 columnlabels 
+ ParamName StartValue           GroupName   BetaAssoc   SenMethod	x1 	   x2 	     x3 
+P1	2.000000000000000E-04	pargp_uno	1	1	1.0000E+00	5.000E+00	2.00E+00			
+P2	2.000000000000000E-04	pargp_uno	1	1	2.0000E+00	5.000E+00	2.00E+00			
+P3	2.000000000000000E-04	pargp_uno	1	1	3.0000E+00	5.000E+00	2.00E+00			
+P4	2.000000000000000E-04	pargp_uno	1	1	1.0000E+00	4.000E+00	1.00E+00			
+P5	2.000000000000000E-04	pargp_uno	1	1	2.0000E+00	4.000E+00	1.00E+00			
+P6	2.000000000000000E-04	pargp_uno	1	1	3.0000E+00	4.000E+00	1.00E+00			
+P7	2.000000000000000E-04	pargp_uno	2	1	1.0000E+00	5.000E+00	2.00E+00			
+P8	2.000000000000000E-04	pargp_uno	2	1	2.0000E+00	5.000E+00	2.00E+00			
+P9	2.000000000000000E-04	pargp_uno	2	1	3.0000E+00	5.000E+00	2.00E+00			
+P10	2.000000000000000E-04	pargp_uno	2	1	1.0000E+00	4.000E+00	1.00E+00			
+P11	2.000000000000000E-04	pargp_uno	2	1	2.0000E+00	4.000E+00	1.00E+00			
+P12	2.000000000000000E-04	pargp_uno	2	1	3.0000E+00	4.000E+00	1.00E+00			
+END parameter_data
+
+BEGIN observation_groups TABLE
+  nrow=1 ncol=1 columnlabels
+  groupname
+  obsgp_oden
+END observation_groups  
+
+
+BEGIN observation_data FILES
+ obs12.txt
+END observation_data 
+ 
+BEGIN model_command_lines KEYWORDS  
+ Command = modflow.bat
+ DerivCommand = modflow_adj.bat
+END model_command_lines   
+
+BEGIN model_input_files TABLE  
+ nrow=1 ncol=2 columnlabels 
+ TemplateFile                           ModInFile
+ S1_mul.tpl                             S1_.mul  
+END model_input_files 
+
+BEGIN model_output_files  TABLE  
+ nrow=1 ncol=2 columnlabels 
+ InstructionFile       ModOutFile   
+ S1_1_hbs.ins          S1_1.hbs  
+END model_output_files 
+
+BEGIN parameter_anisotropy TABLE
+nrow = 2 ncol = 4 columnlabels
+BetaAssoc horiz_angle horiz_ratio vertical_ratio
+1           15          10         15
+2           0          10         5
+END parameter_anisotropy
