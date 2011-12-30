@@ -3101,7 +3101,7 @@ subroutine mio_wrtsig(ifail,val,word,nw,precis,tval,nopnt)
           endif
           if(pos.eq.1) then
             if(lw.ge.13) then
-              write(word,'(1pe13.7)',err=80) val
+              write(word,'(1pe14.7)',err=80) val
               go to 200
             endif
           else

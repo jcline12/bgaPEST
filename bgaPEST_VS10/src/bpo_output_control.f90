@@ -207,7 +207,7 @@ contains
 !!!        subroutine to WRITE INITIAL VALUES TO THE RECORD (BPR) FILE       !!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     subroutine bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS, &
-                d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR)
+                d_MOD,cv_A,cv_MIO,d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR,d_ANI)
    
     integer, intent(in)                 :: bprunit
     integer                             :: cparunit
@@ -223,6 +223,7 @@ contains
     type(d_minout), intent(in)          :: d_MIO
     type(cv_minout), intent(in)         :: cv_MIO
     type(d_param), intent(in)           :: d_PAR
+    type(d_anisotropy), intent(in)      :: d_ANI
     character (len=4)                   :: indent = '    '
     character (len=FILEWIDTH)           :: casename
     integer i,j ! local counters
@@ -336,7 +337,7 @@ contains
 56  format(1A,I4, ' Beta Association was defined:')
 57  format(1A,I4, ' Beta Associations were defined:')
 
-    if (cv_A%Q_compression_flag .ne. 0) then
+    if (cv_A%Q_compression_flag .ne. 0)  then
         ! write out each beta association's details
         do i = 1,cv_PAR%p
             write(bprunit,60) Q0_all(i)%BetaAss
@@ -422,12 +423,35 @@ contains
     write(bprunit,76) indent, indent, d_S%sig
 72 format(1A, 'Structural Parameters for Beta Association: ', I4)    
 73 format(1A, 1A,'Variogram type: ', 1A)
-74 format(4A, ' = ', 1ES12.6)
+74 format(4A, ' = ', 1ES13.6)
 75 format(4A,1I4)
-76 format(1A, 1A, 'sigma (epistemic) = ',1ES12.6)
+76 format(1A, 1A, 'sigma (epistemic) = ',1ES13.6)
 
-  
-        
+!!! Anisotropy parameters
+
+    if (cv_A%par_anisotropy .ne. 0) then
+        write(bprunit,*)
+        write(bprunit,*) 'Parameter Anisotropy variables:-' 
+        do i = 1,cv_PAR%p
+            !-- indicate the variogram type and initial structural parameter values
+            write(bprunit,72) indent, i
+            do j = 1,cv_PAR%p
+                if (d_ANI%BetaAssoc(j) .eq. i) then
+                ! found the right BetaAssoc, now write out the details
+                write(bprunit,78) indent, indent, d_ANI%horiz_angle(i)
+                write(bprunit,79) indent, indent, d_ANI%horiz_ratio(i)
+                write(bprunit,80) indent, indent, d_ANI%vertical_ratio(i)
+                endif
+                enddo !j
+        enddo !
+    endif    
+77 format(1A, 'Anisotropy Variables for Beta Association: ', I4) 
+78 format(2A, 'horiz_angle = ', 1ES13.6)   
+79 format(2A, 'horiz_ratio = ', 1ES13.6)
+80 format(2A, 'vertical_ratio = ', 1ES13.6)
+
+   
+    
 !!! Parameter definitions
     write(bprunit,*)
     write(bprunit,*) 'Initial Parameter Definitions:-'
@@ -523,9 +547,9 @@ contains
     endif
 172 format(1A, 'Current Structural Parameters for Beta Association: ', I4)    
 173 format(1A, 1A,'Variogram type: ', 1A)
-174 format(4A, ' = ', 1ES12.6)
+174 format(4A, ' = ', 1ES13.6)
 175 format(4A,1I4)
-176 format(1A, 1A, 'sigma (epistemic) = ',1ES12.6)
+176 format(1A, 1A, 'sigma (epistemic) = ',1ES13.6)
 200 format(2A )     ! single indent and str format
 end subroutine bpo_write_bpr_intermed_structpar
     
@@ -563,9 +587,9 @@ end subroutine bpo_write_bpr_intermed_structpar
       write(bprunit,276) indent, indent, d_S%sig
 272 format(1A, 'Final Structural Parameters for Beta Association: ', I4)    
 273 format(1A, 1A,'Variogram type: ', 1A)
-274 format(4A, ' = ', 1ES12.6)
+274 format(4A, ' = ', 1ES13.6)
 275 format(4A,1I4)
-276 format(1A, 1A, 'Final sigma (epistemic) = ',1ES12.6)
+276 format(1A, 1A, 'Final sigma (epistemic) = ',1ES13.6)
 300 format(2A )     ! single indent and str format
 end subroutine bpo_write_bpr_final_structpar    
     

@@ -155,7 +155,7 @@ program bp_main
     
 !-- WRITE THE HEADER INFORMATION TO THE BPR Run Record FILE
     call bpo_write_bpr_header(bprunit,casename,cv_PAR,cv_OBS,d_MOD, cv_A, &
-                cv_MIO, d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR)
+                cv_MIO, d_MIO,Q0_all,cv_PM,d_PM,cv_S,d_S,d_PAR,d_ANI)
 
 !!! --- Initialize outer loop convergence values
           curr_bga_conv = huge_val ! initialize current outer loop convergence
