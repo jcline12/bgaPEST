@@ -7447,7 +7447,7 @@ Single Layer Example Application
 \begin_layout Standard
 The first example application presented is a single-layer groundwater model.
  The forward model is a steady-state, MODFLOW-2005 model with 21 rows and
- 21 columns.
+ 21 columns with constant row and column spacing of 1 m.
  The hydraulic conductivity field is heterogeneous, varying from 
 \begin_inset Formula $6.068\times10^{-05}$
 \end_inset
@@ -7464,7 +7464,20 @@ reference "fig:trueK1L"
 
 \end_inset
 
+.
+ Observations of head at the locations shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:residL1-sigfixed"
 
+\end_inset
+
+ were used for parameter estimation.
+ To generate observations representing what would be field measurements
+ in a non-synthetic case, the model was run forward using the true synthetic
+ hydraulic conductivity values and the resulting head values were perturbed
+ with normally distributed noise with mean of zero and standard deviation
+ of 0.01 m.
 \end_layout
 
 \begin_layout Standard
@@ -8020,7 +8033,11 @@ reference "fig:residL1-sigEstimated"
 \begin_inset Formula $1.007\times10^{-01}$
 \end_inset
 
- and the variogram slope was 
+ and the variogram slope 
+\begin_inset Formula $\left(\theta\right)$
+\end_inset
+
+ was 
 \begin_inset Formula $2.836\times10^{-01}.$
 \end_inset
 
@@ -8046,6 +8063,1133 @@ reference "fig:KL1-sigEstimated"
 
 \begin_layout Section
 Three Layer Example Application
+\end_layout
+
+\begin_layout Standard
+A three layer groundwater model is presented to explore the use of multiple
+ beta associations, anisotropy, and a larger number of parameters.
+ In this case, the model is 40 rows by 35 columns across three layers.
+ The row spacing is 2.0 m while the column spacing is 1.5 m.
+ The layers, from shallowest to deepest, are 1.8 m, 1.4 m, and 1.8 m in thickness,
+ respectively.
+ The disparate row, column, and layer spacing was used to test the Toeplitz
+ compression option.
+ The model has constant head boundaries on all sides (set at the same elevation-
+-60 meters) and a single well at row 18, column 17, extracting at 0.01 liters/min
+ute from each layer.
+ This low flow rate is not meant to represent typical field conditions,
+ but rather highlights what can be learned with even a very small stress
+ on the system.
+\end_layout
+
+\begin_layout Standard
+Similarly 
+\end_layout
+
+\begin_layout Standard
+The true parameter field, shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3Ltruek"
+
+\end_inset
+
+, varies from 0.01 to 0.075 meters/day.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3_layer_TRUE_K_field.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3Ltruek"
+
+\end_inset
+
+True synthetic hydraulic conductivity field for each layer in the three
+ layer example application.
+ Values are shown in natural logarithm space to make the differences more
+ visible.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Five cases are illustrated here, as summarized in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:3lay"
+
+\end_inset
+
+.
+ In all cases, each layer is treated as a separate beta association.
+ In each of these layers, the initial value for the prior structural parameter
+ (the linear variogram slope, 
+\begin_inset Formula $\theta$
+\end_inset
+
+) is 
+\begin_inset Formula $1.0\times10^{-5}$
+\end_inset
+
+.
+ Cases 1 and 2 illustrate how the level of fit (and, therefore, the degree
+ of roughness of the solution) can be influenced by adjusting the epistemic
+ uncertainty term 
+\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
+\end_inset
+
+, so in these cases, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set at a fixed value.
+ In Case 3, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set low 
+\begin_inset Formula $\left(1.0\times10^{-5}\right)$
+\end_inset
+
+ and the restricted maximum likelihood algorithm is given the freedom to
+ estimate it.
+ This is to illustrate the best achievable fit that one might achieve given
+ the specific observation set provided without regard for overfitting.
+ In Cases 5 and 6, estimates are made with specification of anisotropy in
+ the prior covariance.
+ Inspection of the true parameter field in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3Ltruek"
+
+\end_inset
+
+ suggests a possible correlation along the horizontal axis, indicative of
+ a channel feature.
+ In Cases 5 and 6, therefore, an arbitrarily chosen ratio of 100 is applied
+ with a rotation angle of zero.
+ In Case 5, like in Case 3, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is estimated to achieve the best possible fit, while in Case 6, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.0\times10^{-1}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename tables/3_layer_tables_for_structural_parameters.pdf
+	scale 90
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:3lay"
+
+\end_inset
+
+Summary of the five cases investigated.
+ The table shows which structural parameters were estimated and fixed, and
+ also indicates anisotropy when used.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case1"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case1"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 1.
+ In this case, meant to be conservative with respect to overfitting, the
+ squared differences are smaller in magnitude than the specified value of
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(1.0\times10^{-1}\right)$
+\end_inset
+
+ and very little roughness in the solution is required to achieve the level
+ of fit desired.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3KL_case1.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case1"
+
+\end_inset
+
+Case 1: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3L_resid_case1.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case1"
+
+\end_inset
+
+Case 1: Squared differences between modeled and ``true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case2"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case2"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 2.
+ In this case, the specified value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(1.0\times10^{-2}\right)$
+\end_inset
+
+ is lower and , accordingly, the squared head differences are lower, and
+ more structure (roughness) is observed in the parameters, as expected.
+ Note that, in this case, even with very low residuals, the parameter fields
+ estimated are a smoothed representation of the ``truth.
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3KL_case2.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case2"
+
+\end_inset
+
+Case 2: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3L_resid_case2.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case2"
+
+\end_inset
+
+Case 2: Squared differences between modeled and ``true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case3"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case3"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 3.
+ In this case, the value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is estimated by the restricted maximum likelihood value algorithm.
+ The head values match perfectly to machine precision, and the roughness
+ of the field is the greatest of Cases 1 through 3, as expected.
+ The major features of the ``true
+\begin_inset Quotes erd
+\end_inset
+
+ hydraulic conductivity field are reproduced by this solution although they
+ are smoothed, somewhat, as expected.
+ Importantly, while the highest hydraulic conductivity values in layer 2
+ are slightly offset to the west, no artifacts are introduced that would
+ be considered spurious in this solution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3KL_case3.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case3"
+
+\end_inset
+
+Case 3: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3L_resid_case3.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case3"
+
+\end_inset
+
+Case 3: Squared differences between modeled and ``true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case5"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case5"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 5.
+ In this case, the value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set at a very low value 
+\begin_inset Formula $\left(1.0\times10^{-4}\right)$
+\end_inset
+
+ to attempt to achieve excellent fit while introducing anisotropy with the
+ principal direction aligned with the horizontal axis.
+ In layer 1, a somewhat spurious artifact is found in the form of a high
+ hydraulic conductivity zone near the middle of the field.
+ The head targets almost match within machine precision, however, and all
+ other features are reasonable.
+ This highlights the fact that, within a single beta association, if anisotropy
+ is used, 
+\emph on
+all 
+\emph default
+features estimated will roughly correspond to that framework so, in a Bayesian
+ sense, the answer is 
+\emph on
+conditional 
+\emph default
+on the prior assumption that the anisotropy is an appropriate general characteri
+stic shape of the parameter field.
+ Such assumptions must be made cautiously.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3KL_case5.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case5"
+
+\end_inset
+
+Case 5: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3L_resid_case5.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case5"
+
+\end_inset
+
+Case 5: Squared differences between modeled and ``true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case6"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case6"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 6.
+ In this case, the value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set at a the same value as Case 1 
+\begin_inset Formula $\left(1.0\times10^{-1}\right)$
+\end_inset
+
+ to compare a solution with and without anisotropy assumed.
+ Since anisotropy is a reasonable characteristic of the ``true
+\begin_inset Quotes erd
+\end_inset
+
+ field in this case, better fits are achieved (nearly an order of magnitude
+ lower residuals) and the general pattern of the parameter field is better
+ in Case 6 using anisotropy than in Case 1 without anisotropy.
+ This highlights the power that anisotropy can bring to a parameter estimation
+ problem when it is appropriate even when 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set conservatively to avoid overfitting.
+ As discussed above, however, this will, in a sense, force the solution
+ to conform to such a shape, so it's use should be approached with caution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3KL_case6.pdf
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case6"
+
+\end_inset
+
+Case 6: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/3L_resid_case6.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case6"
+
+\end_inset
+
+Case 6: Squared differences between modeled and ``true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
