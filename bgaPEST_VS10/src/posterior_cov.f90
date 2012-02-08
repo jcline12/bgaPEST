@@ -29,15 +29,10 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
         type (d_prior_mean), intent(in)     :: d_PM
         type (d_struct),     intent(in)     :: d_S
         type(Q0_compr),      intent(in)     :: Q0_All(:)
-        double precision,    pointer        :: TMV(:), TMP(:,:), Qrow(:), VV(:,:), TMP1(:,:)
-        double precision,    pointer        :: V(:)
+        double precision,    allocatable    :: TMV(:), TMP(:,:), Qrow(:), TMP1(:,:)
+        double precision,    pointer        :: V(:), VV(:,:)
         integer                             :: i, j, k, p, it, start_v, end_v
       
-  nullify(TMV)
-  nullify(TMP)
-  nullify(Qrow)
-  nullify(TMP1)
-  
   if (associated(d_A%Qsy))      deallocate(d_A%Qsy)
   if (associated(d_A%HQHt))     deallocate(d_A%HQHt)
   if (associated(d_A%Qyy))      deallocate(d_A%Qyy)
@@ -84,7 +79,7 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
            ! now multiply XQbb (TMP) by Xt and add the result (XQbbXt) to Qss, forming Gss
            call dgemm('n', 't', cv_PAR%npar, cv_PAR%npar, cv_PAR%p, 1.D0, TMP, &
               cv_PAR%npar, d_XQR%X, cv_PAR%npar, 1.D0,  VV, cv_PAR%npar)
-           if (associated(TMP)) deallocate(TMP)
+           if (allocated(TMP)) deallocate(TMP)
          endif
         !**************************************************************************************************
         !************** From here VV is Gss if we have prior information on beta *************************
@@ -123,7 +118,11 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
     ! Make Qyy = H*Qss*Ht + sig*R0 or H*Gss*Ht +sig*R0 = Gyy and calculate the inverse
     !*****************************************************************************************************
     allocate(d_A%Qyy(cv_OBS%nobs,cv_OBS%nobs)) ! Allocation
-      d_A%Qyy=d_A%HQHt +(d_S%sig*d_XQR%R0)
+    do i = 1, cv_OBS%nobs
+      do j = 1, cv_OBS%nobs
+        d_A%Qyy(i,j) = d_A%HQHt(i,j) + (d_S%sig*d_XQR%R0(i,j))
+      enddo
+    enddo
     call INVGM(cv_OBS%nobs,d_A%Qyy) !Here d_A%Qyy is the inverse of Gyy
     !*****************************************************************************************************
     ! End make Qyy 
@@ -138,7 +137,7 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
       !now multiply GssHtGyy^-1 (TMP) by (GssHt)t, change the sign and add the result to Gss, forming VV
       call dgemm('n', 't', cv_PAR%npar, cv_PAR%npar, cv_OBS%nobs, -1.D0, TMP, &
             cv_PAR%npar, d_A%Qsy , cv_PAR%npar, 1.D0,  VV, cv_PAR%npar)
-    if (associated(TMP)) deallocate(TMP)
+    if (allocated(TMP)) deallocate(TMP)
     !*****************************************************************************************************
     ! End make VV (The matrix VV is now the posterior covariance matrix) (FULL MATRIX)
     !*****************************************************************************************************
@@ -175,11 +174,11 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
                   (d_S%theta(Q0_All(p)%BetaAss,1)*d_XQR%L),TMP, Q0_All(p)%npar, &
                     & d_A%H(:,start_v:end_v), cv_OBS%nobs, &
                     & 0.D0, TMP1, Q0_All(p)%npar)
-                 if (associated(TMP))      deallocate(TMP)
+                 if (allocated(TMP))      deallocate(TMP)
                  do it =1,Q0_All(p)%npar
                     d_A%Qsy(start_v+it-1,:) = TMP1(it,:)
                  enddo
-                 if (associated(TMP1))      deallocate(TMP1)
+                 if (allocated(TMP1))      deallocate(TMP1)
                case(1) !Means Toeplitz. Q0(p) is just a vector with the distances
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
@@ -202,11 +201,11 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
                    (d_S%theta(Q0_All(p)%BetaAss,1)),TMP, Q0_All(p)%npar, &
                     & d_A%H(:,start_v:end_v), cv_OBS%nobs, &
                     & 0.D0, TMP1, Q0_All(p)%npar)
-                 if (associated(TMP))      deallocate(TMP)
+                 if (allocated(TMP))      deallocate(TMP)
                  do it =1,Q0_All(p)%npar
                     d_A%Qsy(start_v+it-1,:) = TMP1(it,:)
                  enddo
-                 if (associated(TMP1))      deallocate(TMP1)
+                 if (allocated(TMP1))      deallocate(TMP1)
                case(1) !Means Toeplitz. Q0(p) is just a vector with the distances
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
@@ -253,7 +252,11 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
       ! Make Qyy = H*Qss*Ht + sig*R0 or H*Gss*Ht +sig*R0 = Gyy and calculate the inverse
       !*****************************************************************************************************
        allocate(d_A%Qyy(cv_OBS%nobs,cv_OBS%nobs)) ! Allocation
-       d_A%Qyy=d_A%HQHt +(d_S%sig*d_XQR%R0)
+       do i = 1, cv_OBS%nobs
+        do j = 1, cv_OBS%nobs
+          d_A%Qyy(i,j) = d_A%HQHt(i,j) + (d_S%sig*d_XQR%R0(i,j))
+        enddo
+       enddo
        call INVGM(cv_OBS%nobs,d_A%Qyy) !Here d_A%Qyy is the inverse of Gyy
       !*****************************************************************************************************
       ! End make Qyy 
@@ -268,7 +271,7 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
         do i = 1,cv_PAR%npar  !Now calculate the diagonal of V = diag(Gss)-diag(GssHt*Gyy^-1*GssH)
          V(i) = V(i) - sum(TMP(i,:)*d_A%Qsy(i,:))
         enddo 
-       if (associated(TMP)) deallocate(TMP)
+       if (allocated(TMP)) deallocate(TMP)
       !*****************************************************************************************************
       ! End make V posterior covariance (ONLY DIAGONAL TERMS)
       !*****************************************************************************************************
@@ -281,7 +284,7 @@ subroutine form_post_covariance(d_XQR, cv_PAR, cv_OBS, cv_S, cv_A, d_A, d_PAR,Q0
     !*****************************************************************************************************
 end select !(cv_A%Q_compression_flag)
 
-if (associated(Qrow))     deallocate(Qrow)
+if (allocated(Qrow))     deallocate(Qrow)
 
 end subroutine form_post_covariance
 
@@ -297,8 +300,8 @@ type(d_algorithmic),  intent(in)     :: d_A
 double precision,     intent(inout)  :: Qsy(:,:), V(:) 
 double precision,     intent(in)     :: theta_1,theta_2,Lmax
 integer,              intent(in)     :: nobs
-double precision, pointer            :: Qtmpb(:),Qtmpg(:),Qtmpl(:),Qv(:),TMP(:)
-double precision, pointer            :: TMVSY(:)
+double precision, allocatable        :: Qtmpb(:),Qtmpg(:),Qtmpl(:),Qv(:),TMP(:)
+double precision, allocatable        :: TMVSY(:)
 integer                              :: ncol,nbl,nlay
 integer                              :: blkg,blkl
 integer                              :: i,l,k,p,it,jt,ip
@@ -308,13 +311,6 @@ integer                              :: start_v, end_v
 !theta_2 and Lmax must be the 10 times the maximum distance in Q0_All
 !In case of exponential variogram theta_1 must be theta_1,
 !theta_2 must be theta_2 and Lmax must be 1
-
-nullify(Qtmpb)
-nullify(Qtmpg)
-nullify(Qtmpl)
-nullify(Qv)
-nullify(TMP)
-nullify(TMVSY)
 
 allocate (Qtmpb(Q0_All(ip)%npar))
 allocate (Qtmpg(Q0_All(ip)%npar))
@@ -389,12 +385,12 @@ call DGEMV('n',nobs,Q0_All(ip)%npar,1.D0,d_A%H(:,start_v:end_v),nobs,TMP,1,0.D0,
 Qsy(Q0_All(ip)%Beta_start+p-1,:)=TMVSY
 enddo  !End of loop for each column of the entire Q matrix
 
-if (associated(Qtmpb)) deallocate(Qtmpb)
-if (associated(Qtmpg)) deallocate(Qtmpg)
-if (associated(Qtmpl)) deallocate(Qtmpl)
-if (associated(Qv))    deallocate(Qv)
-if (associated(TMP))   deallocate(TMP)
-if (associated(TMVSY)) deallocate(TMVSY)
+if (allocated(Qtmpb)) deallocate(Qtmpb)
+if (allocated(Qtmpg)) deallocate(Qtmpg)
+if (allocated(Qtmpl)) deallocate(Qtmpl)
+if (allocated(Qv))    deallocate(Qv)
+if (allocated(TMP))   deallocate(TMP)
+if (allocated(TMVSY)) deallocate(TMVSY)
 
 end subroutine toep_mult_post
 !*****************************************************************************************************

@@ -17,12 +17,9 @@ module objective_function
         type(cv_observ),     intent(in)     :: cv_OBS
         type(d_observ),      intent(in)     :: d_OBS
         type (cv_prior_mean), intent(in)    :: cv_PM
-        double precision,    pointer        :: TMP(:,:), TVP(:),TMP1(:,:)
+        double precision,   allocatable     :: TMP(:,:), TVP(:),TMP1(:,:)
         integer                             :: i
 
-        nullify(TMP)
-        nullify(TVP)
-        nullify(TMP1)
 !*****************************************************************************************************
 ! Calculate the objective functions
 !***************************************************************************************************** 
@@ -48,14 +45,14 @@ module objective_function
      call dgemm('n','t',cv_OBS%nobs,cv_OBS%nobs,cv_PAR%p, & !--!  after the use
         1.D0,TMP,cv_OBS%nobs,d_A%HX,cv_OBS%nobs, &  !----------! 
         0.D0, TMP1, cv_OBS%nobs) !-----------------------------!
-    if (associated(TMP))      deallocate(TMP)
+    if (allocated(TMP))      deallocate(TMP)
      call DGEMV('n',cv_OBS%nobs,cv_OBS%nobs,1.D0,TMP1,cv_OBS%nobs,  &
        d_A%ksi,1,0.D0,TVP,1)
      call DGEMV('t',cv_OBS%nobs,1,5.0D-1,d_A%ksi,cv_OBS%nobs,  &
        TVP,1,1.D0,d_PAR%phi_R,1)  
-    if (associated(TMP1))    deallocate(TMP1)           
+    if (allocated(TMP1))    deallocate(TMP1)           
    endif
-   if (associated(TVP))      deallocate(TVP)           
+   if (allocated(TVP))      deallocate(TVP)           
 
 !Misfit objective function phi_M = 1/2* (y-h(s))t * R^-1 * (y-h(s))
 !**********************************************************************************

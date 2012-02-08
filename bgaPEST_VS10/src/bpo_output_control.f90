@@ -128,12 +128,9 @@ contains
       integer, intent(in)             :: writunit,ci95_flag
       character(50)                   :: outlinefmt
       character(20)                   :: parwstr,pargwstr
-      double precision, pointer       :: lcl(:),ucl(:),finalparvalue(:)
+      double precision, allocatable   :: lcl(:),ucl(:),finalparvalue(:)
       integer                         :: i,j
         
-        nullify(lcl)
-        nullify(ucl)
-        nullify(finalparvalue)
         
         allocate(finalparvalue(cv_PAR%npar))
         finalparvalue = d_PAR%pars !-- these are the optimal values, still in physical space   
@@ -176,8 +173,8 @@ contains
             write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),finalparvalue(j), &
                      lcl(j),ucl(j)
         enddo
-        if (associated(lcl)) deallocate(lcl)
-        if (associated(ucl)) deallocate(ucl)
+        if (allocated(lcl)) deallocate(lcl)
+        if (allocated(ucl)) deallocate(ucl)
         
     else ! -- write final parameter values without confidence intervals if no posterior covariance was calculated
         write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16)')") trim(parwstr),trim(pargwstr)
@@ -196,7 +193,7 @@ contains
         enddo
         
      endif ! -- ci95_flag
-        if (associated(finalparvalue)) deallocate(finalparvalue)  
+        if (allocated(finalparvalue)) deallocate(finalparvalue)  
          
    end subroutine bpo_write_allpars_95ci
       

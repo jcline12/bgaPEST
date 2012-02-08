@@ -27,13 +27,9 @@ subroutine bmo_form_Qss_Qsy_HQsy(d_XQR, theta, cv_PAR, cv_OBS, cv_S, cv_A, d_A, 
         type(d_param),       intent(inout)  :: d_PAR
         double precision,    intent(in)     :: theta(:,:)
         type(Q0_compr),      intent(in)     :: Q0_All(:)
-        double precision,    pointer        :: TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
+        double precision,    allocatable    :: TMP(:,:), Qrow(:), Qss(:,:), TMP1(:,:)
         integer                             :: i, j, k, p, it, start_v, end_v
         
-nullify(TMP)
-nullify(Qrow)
-nullify(Qss)
-nullify(TMP1)
 if (associated(d_A%Qsy))      deallocate(d_A%Qsy)
 if (associated(d_A%HQHt))     deallocate(d_A%HQHt)
 
@@ -118,11 +114,11 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
                   (theta(Q0_All(p)%BetaAss,1)*d_XQR%L),TMP, Q0_All(p)%npar, &
                   & d_A%H(:,start_v:end_v), cv_OBS%nobs, &
                   & 0.D0, TMP1, Q0_All(p)%npar)
-                 if (associated(TMP))      deallocate(TMP)
+                 if (allocated(TMP))      deallocate(TMP)
                  do it =1,Q0_All(p)%npar
                     d_A%Qsy(start_v+it-1,:) = TMP1(it,:)
                  enddo
-                 if (associated(TMP1))      deallocate(TMP1)
+                 if (allocated(TMP1))      deallocate(TMP1)
                case(1) !Means Toeplitz. Q0(p) is just a vector with the distances
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
@@ -144,11 +140,11 @@ select case (cv_A%Q_compression_flag)  !Select if the Q0 matrix is compressed or
                   (theta(Q0_All(p)%BetaAss,1)),TMP, Q0_All(p)%npar, &
                   & d_A%H(:,start_v:end_v), cv_OBS%nobs, &
                   & 0.D0, TMP1, Q0_All(p)%npar)
-                 if (associated(TMP))      deallocate(TMP)
+                 if (allocated(TMP))      deallocate(TMP)
                  do it =1,Q0_All(p)%npar
                     d_A%Qsy(start_v+it-1,:) = TMP1(it,:)
                  enddo
-                 if (associated(TMP1))      deallocate(TMP1)
+                 if (allocated(TMP1))      deallocate(TMP1)
                case(1) !Means Toeplitz. Q0(p) is just a vector with the distances
                  start_v = Q0_All(p)%Beta_Start
                  end_v = Q0_All(p)%Beta_Start+Q0_All(p)%npar-1
@@ -187,10 +183,10 @@ end select !(cv_A%Q_compression_flag)
 ! End make HQsy 
 !*****************************************************************************************************
 
-if (associated(Qss))      deallocate(Qss)
-if (associated(Qrow))     deallocate(Qrow)
-if (associated(TMP))      deallocate(TMP)
-if (associated(TMP1))     deallocate(TMP1)
+if (allocated(Qss))      deallocate(Qss)
+if (allocated(Qrow))     deallocate(Qrow)
+if (allocated(TMP))      deallocate(TMP)
+if (allocated(TMP1))     deallocate(TMP1)
 
 
 end subroutine bmo_form_Qss_Qsy_HQsy
@@ -206,6 +202,7 @@ subroutine bmo_form_Qyy(d_XQR, sig, cv_OBS, d_A)
         double precision,    intent(in)     :: sig
         type(cv_observ),     intent(in)     :: cv_OBS  
         type(d_algorithmic), intent(inout)  :: d_A
+        integer                             :: i, j
 
 if (associated(d_A%Qyy))     deallocate(d_A%Qyy)
 
@@ -213,7 +210,11 @@ if (associated(d_A%Qyy))     deallocate(d_A%Qyy)
 ! Make Qyy which is H*Qss*Ht + sig*R0 = HQsy + sig*R0
 !*****************************************************************************************************
   allocate(d_A%Qyy(cv_OBS%nobs,cv_OBS%nobs)) ! Allocation
-    d_A%Qyy=d_A%HQHt +(sig*d_XQR%R0)
+    do i = 1, cv_OBS%nobs
+      do j = 1, cv_OBS%nobs
+        d_A%Qyy(i,j) = d_A%HQHt(i,j) + (sig*d_XQR%R0(i,j))
+      enddo
+    enddo
 !*****************************************************************************************************
 ! End make Qyy 
 !*****************************************************************************************************
@@ -279,13 +280,9 @@ subroutine bmo_solve_linear_system(d_XQR, d_S, d_PM, cv_PAR, cv_OBS, d_OBS, d_A,
         type(d_param),       intent(inout)  :: d_PAR
         type(d_observ),      intent(in)     :: d_OBS
         type (cv_prior_mean), intent(in)    :: cv_PM
-        double precision,    pointer        :: LHS(:,:), RHS (:) , Soln(:), C_S(:)
+        double precision,    allocatable    :: LHS(:,:), RHS (:) , Soln(:), C_S(:)
         integer                             :: i, j, k
 
-nullify(LHS)
-nullify(RHS)
-nullify(Soln)
-nullify(C_S)
 if (associated(d_A%ksi))        deallocate(d_A%ksi)
 if (associated(d_A%beta_hat))   deallocate(d_A%beta_hat)
 
@@ -307,9 +304,9 @@ if (associated(d_A%beta_hat))   deallocate(d_A%beta_hat)
 ! Here we fill the upper side of the matrix because symmetric
 !*****************************************************************************************************  
   allocate(LHS(cv_OBS%nobs+cv_PAR%p, cv_OBS%nobs+cv_PAR%p))  !Allocation
-    LHS = 0.                                         !Initialization (IMPORTANT THAT IS = 0.)
-    LHS(1:cv_OBS%nobs,1:cv_OBS%nobs)= d_A%Qyy
-    LHS(1:cv_OBS%nobs,cv_OBS%nobs+1:cv_OBS%nobs+cv_PAR%p)= d_A%HX
+   LHS = 0.                               !Initialization (IMPORTANT THAT IS = 0.)
+   LHS(1:cv_OBS%nobs,1:cv_OBS%nobs)= d_A%Qyy
+   LHS(1:cv_OBS%nobs,cv_OBS%nobs+1:cv_OBS%nobs+cv_PAR%p)= d_A%HX
     if (cv_PM%betas_flag .ne. 0) then
       LHS(cv_OBS%nobs+1:cv_OBS%nobs+cv_PAR%p,cv_OBS%nobs+1:cv_OBS%nobs+cv_PAR%p)= - d_PM%InvQbb
     endif
@@ -372,10 +369,10 @@ if (associated(d_A%beta_hat))   deallocate(d_A%beta_hat)
 ! End Calculate the solution  
 !*****************************************************************************************************
 
-if (associated(RHS))        deallocate(RHS)
-if (associated(LHS))        deallocate(LHS)
-if (associated(Soln))       deallocate(Soln)
-if (associated(C_S))        deallocate(C_S)
+if (allocated(RHS))        deallocate(RHS)
+if (allocated(LHS))        deallocate(LHS)
+if (allocated(Soln))       deallocate(Soln)
+if (allocated(C_S))        deallocate(C_S)
 
 !*****************************************************************************************************
 ! Calculate best estimate s_hat which is d_PAR%pars = X*beta_hat + Qsy * ksi
@@ -415,8 +412,8 @@ type(d_algorithmic),  intent(in)     :: d_A
 double precision,     intent(inout)  :: Qsy(:,:) 
 double precision,     intent(in)     :: theta_1,theta_2,Lmax
 integer,              intent(in)     :: nobs
-double precision, pointer            :: Qtmpb(:),Qtmpg(:),Qtmpl(:),Qv(:),TMP(:)
-double precision, pointer            :: TMVSY(:)
+double precision, allocatable        :: Qtmpb(:),Qtmpg(:),Qtmpl(:),Qv(:),TMP(:)
+double precision, allocatable        :: TMVSY(:)
 integer                              :: ncol,nbl,nlay
 integer                              :: blkg,blkl
 integer                              :: i,l,k,p,it,jt,ip
@@ -426,12 +423,6 @@ integer                              :: start_v, end_v
 !theta_2 and Lmax must be the 10 times the maximum distance in Q0_All
 !In case of exponential variogram theta_1 must be theta_1,
 !theta_2 must be theta_2 and Lmax must be 1
-nullify(Qtmpb)
-nullify(Qtmpg)
-nullify(Qtmpl)
-nullify(Qv)
-nullify(TMP)
-nullify(TMVSY)
 
 allocate (Qtmpb(Q0_All(ip)%npar))
 allocate (Qtmpg(Q0_All(ip)%npar))
@@ -505,12 +496,12 @@ call DGEMV('n',nobs,Q0_All(ip)%npar,1.D0,d_A%H(:,start_v:end_v),nobs,TMP,1,0.D0,
 Qsy(Q0_All(ip)%Beta_start+p-1,:)=TMVSY
 enddo  !End of loop for each column of the entire Q matrix
 
-if (associated(Qtmpb)) deallocate(Qtmpb)
-if (associated(Qtmpg)) deallocate(Qtmpg)
-if (associated(Qtmpl)) deallocate(Qtmpl)
-if (associated(Qv))    deallocate(Qv)
-if (associated(TMP))   deallocate(TMP)
-if (associated(TMVSY)) deallocate(TMVSY)
+if (allocated(Qtmpb)) deallocate(Qtmpb)
+if (allocated(Qtmpg)) deallocate(Qtmpg)
+if (allocated(Qtmpl)) deallocate(Qtmpl)
+if (allocated(Qv))    deallocate(Qv)
+if (allocated(TMP))   deallocate(TMP)
+if (allocated(TMVSY)) deallocate(TMVSY)
 
 
 end subroutine toep_mult

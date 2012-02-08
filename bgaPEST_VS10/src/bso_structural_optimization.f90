@@ -158,22 +158,14 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
    type(cv_prior_mean),  intent(in)     :: cv_PM
    
    integer                              :: errcode,i, curr_struct 
-   double precision, pointer            :: z(:), pivot(:)
+   double precision, allocatable        :: z(:), pivot(:)
    double precision                     :: lndetGyy, ztiGyyz
-   double precision, pointer            :: UinvGyy(:,:) ! used as both U and InvGyy
-   double precision, pointer            :: Gyy(:,:)
-   double precision, pointer            :: HXB(:), TMPV(:)  
-   double precision, pointer            :: HXQbb(:,:)
-   double precision, pointer            :: OMEGA(:,:)
+   double precision, allocatable        :: UinvGyy(:,:) ! used as both U and InvGyy
+   double precision, allocatable        :: Gyy(:,:)
+   double precision, allocatable        :: HXB(:), TMPV(:)  
+   double precision, allocatable        :: HXQbb(:,:)
+   double precision, allocatable        :: OMEGA(:,:)
    
-   nullify(z)
-   nullify(pivot)
-   nullify(UinvGyy)
-   nullify(Gyy)
-   nullify(HXB)
-   nullify(TMPV)
-   nullify(HXQbb)
-   nullify(OMEGA)
    
    allocate (pivot(cv_OBS%nobs))
    allocate (z(cv_OBS%nobs))
@@ -196,7 +188,7 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
               d_PM%beta_0, 1, 0.D0, HXB,1)
       !Form the linearization-corrected residuals and deallocate HXB no more necessary.
       z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
-      if (associated(HXB))  deallocate(HXB)
+      if (allocated(HXB))  deallocate(HXB)
       !Form HXQbb
       allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
       call dgemm('n', 'n', cv_OBS%nobs, cv_PAR%p,  cv_PAR%p, 1.D0, d_A%HX, &
@@ -205,10 +197,10 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
       allocate(OMEGA(cv_OBS%nobs,cv_OBS%nobs))
       call dgemm('n', 't', cv_OBS%nobs, cv_OBS%nobs,  cv_PAR%p, 1.D0, HXQbb, &
               cv_OBS%nobs, d_A%HX,  cv_OBS%nobs, 0.D0, OMEGA, cv_OBS%nobs)
-      if (associated(HXQbb))  deallocate(HXQbb)
+      if (allocated(HXQbb))  deallocate(HXQbb)
       !Form Gyy = Qyy + OMEGA and deallocate OMEGA no more necessary.
       Gyy = OMEGA + d_A%Qyy
-      if (associated(OMEGA))  deallocate(OMEGA)
+      if (allocated(OMEGA))  deallocate(OMEGA)
    else !------> we don't have prior information about beta
      !Form the linearization residuals z  
      z = d_OBS%obs - d_OBS%h + d_A%Hsold
@@ -223,7 +215,7 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
    !-- First perform LU decomposition on Gyy 
    UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
    call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
-   if (associated(pivot))  deallocate(pivot)
+   if (allocated(pivot))  deallocate(pivot)
    do i = 1,cv_OBS%nobs                             
      lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i)))  
    enddo                                            
@@ -243,12 +235,12 @@ subroutine beg_str_object_fun(cv_OBS,d_OBS,d_A,cv_S,d_PM,cv_PAR,cv_PM)
    !Multiply z' * TMPV and 0.5 
    call DGEMV('t',cv_OBS%nobs, 1, 5.0D-1, z, cv_OBS%nobs, &
           TMPV, 1, 0.D0, ztiGyyz,1)
-   if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
+   if (allocated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
    !*******************************************************************************
    
-   if (associated(z))       deallocate(z)
-   if (associated(UinvGyy)) deallocate(UinvGyy)
-   if (associated(Gyy))     deallocate(Gyy)
+   if (allocated(z))       deallocate(z)
+   if (allocated(UinvGyy)) deallocate(UinvGyy)
+   if (allocated(Gyy))     deallocate(Gyy)
    
    !****************************************************************************** 
    !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------
@@ -295,23 +287,13 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    
    integer                              :: errcode, i, j, k
    double precision                     :: str_par_opt_vec (n)!This must be the pars vector to be optimized for. Must be the first argument in SP_min (NelMead requires this) 
-   double precision, pointer            :: z(:), pivot(:)
+   double precision, allocatable        :: z(:), pivot(:)
    double precision                     :: lndetGyy, ztiGyyz, dthQttdth
-   double precision, pointer            :: UinvGyy(:,:) ! used as both U and InvGyy
-   double precision, pointer            :: Gyy(:,:), dtheta(:)
-   double precision, pointer            :: HXB(:), TMPV(:)  
-   double precision, pointer            :: HXQbb(:,:)
-   double precision, pointer            :: OMEGA(:,:)
-   
-   nullify(z)
-   nullify(pivot)
-   nullify(UinvGyy)
-   nullify(Gyy)
-   nullify(dtheta)
-   nullify(HXB)
-   nullify(TMPV)
-   nullify(HXQbb)
-   nullify(OMEGA)
+   double precision, allocatable        :: UinvGyy(:,:) ! used as both U and InvGyy
+   double precision, allocatable        :: Gyy(:,:), dtheta(:)
+   double precision, allocatable        :: HXB(:), TMPV(:)  
+   double precision, allocatable        :: HXQbb(:,:)
+   double precision, allocatable        :: OMEGA(:,:)
    
    allocate (pivot(cv_OBS%nobs))
    allocate (z(cv_OBS%nobs))
@@ -389,7 +371,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
               d_PM%beta_0, 1, 0.D0, HXB,1)
       !Form the linearization-corrected residuals and deallocate HXB no more necessary.
       z = d_OBS%obs - d_OBS%h + d_A%Hsold - HXB
-      if (associated(HXB))  deallocate(HXB)
+      if (allocated(HXB))  deallocate(HXB)
       !Form HXQbb
       allocate(HXQbb(cv_OBS%nobs,cv_PAR%p))
       call dgemm('n', 'n', cv_OBS%nobs, cv_PAR%p,  cv_PAR%p, 1.D0, d_A%HX, &
@@ -398,10 +380,10 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
       allocate(OMEGA(cv_OBS%nobs,cv_OBS%nobs))
       call dgemm('n', 't', cv_OBS%nobs, cv_OBS%nobs,  cv_PAR%p, 1.D0, HXQbb, &
               cv_OBS%nobs, d_A%HX,  cv_OBS%nobs, 0.D0, OMEGA, cv_OBS%nobs)
-      if (associated(HXQbb))  deallocate(HXQbb)
+      if (allocated(HXQbb))  deallocate(HXQbb)
       !Form Gyy = Qyy + OMEGA and deallocate OMEGA no more necessary.
       Gyy = OMEGA + d_A%Qyy
-      if (associated(OMEGA))  deallocate(OMEGA)
+      if (allocated(OMEGA))  deallocate(OMEGA)
    else !------> we don't have prior information about beta
      !Form the linearization residuals z  
      z = d_OBS%obs - d_OBS%h + d_A%Hsold
@@ -416,7 +398,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    !-- First perform LU decomposition on Gyy 
    UinvGyy = Gyy !-nobs x nobs --- note that this is used as U in this context
    call dgetrf(cv_OBS%nobs, cv_OBS%nobs, UinvGyy, cv_OBS%nobs, pivot, errcode)
-   if (associated(pivot))       deallocate(pivot)
+   if (allocated(pivot))       deallocate(pivot)
    do i = 1,cv_OBS%nobs                             
      lndetGyy = lndetGyy + dlog(abs(UinvGyy(i,i)))  
    enddo                                            
@@ -436,7 +418,7 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
    !Multiply z' * TMPV and 0.5 
    call DGEMV('t',cv_OBS%nobs, 1, 5.0D-1, z, cv_OBS%nobs, &
           TMPV, 1, 0.D0, ztiGyyz,1)
-   if (associated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
+   if (allocated(TMPV)) deallocate(TMPV) !Deallocate TMPV no more necessary here
    !*******************************************************************************
    
    !***************************************************************************************************   
@@ -458,14 +440,14 @@ real (kind = 8) function SP_min(str_par_opt_vec,d_XQR,Q0_all,cv_OBS,d_OBS,cv_A,d
      !Multiply dtheta' * TMPV and 0.5
      call DGEMV('t',cv_S%num_theta_opt, 1, 5.0D-1, dtheta, cv_S%num_theta_opt, &
      TMPV, 1, 0.D0, dthQttdth,1)
-     if (associated(TMPV))   deallocate(TMPV) !Deallocate TMPV no more necessary here
-     if (associated(dtheta)) deallocate(dtheta)
+     if (allocated(TMPV))   deallocate(TMPV) !Deallocate TMPV no more necessary here
+     if (allocated(dtheta)) deallocate(dtheta)
    endif   
    !**************************************************************************************************
    
-   if (associated(z))       deallocate(z)
-   if (associated(UinvGyy)) deallocate(UinvGyy)
-   if (associated(Gyy))     deallocate(Gyy)
+   if (allocated(z))       deallocate(z)
+   if (allocated(UinvGyy)) deallocate(UinvGyy)
+   if (allocated(Gyy))     deallocate(Gyy)
    
    !****************************************************************************** 
    !----------------- OBJECTIVE FUNCTION FOR STRUCTURAL PARAMETERS ---------------

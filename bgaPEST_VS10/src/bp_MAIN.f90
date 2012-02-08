@@ -74,13 +74,12 @@ program bp_main
        double precision,dimension(1) :: curr_structural_conv, curr_phi_conv       !Current iteration convergence values for 
        double precision,dimension(1) :: curr_bga_conv, curr_bga_phi,prev_bga_phi  !structural parameters and quasi linear objective function 
        double precision,dimension(1) :: curr_phi !Current value for quasi linear objective function
-       double precision, pointer    :: prev_struct(:) !Previous vector of theta and sigma values to be optimized for or previous objective function
+       double precision, allocatable :: prev_struct(:) !Previous vector of theta and sigma values to be optimized for or previous objective function
        double precision, pointer    :: VV(:,:), V(:) !VV is the posterior covariance matrix, V is only the diagonal of VV 
        double precision             :: structural_conv
        double precision             :: huge_val=huge(huge_val) !Largest machine number
 
    nullify(Q0_All)
-   nullify(prev_struct)
    nullify(VV)
    nullify(V)
 ! -- PRINT OUT THE BANNER INFORMATION
@@ -291,7 +290,7 @@ program bp_main
                call bpo_write_bpr_intermed_structpar(bprunit,cv_S,d_S,cv_PAR,d_PAR) ! write out the final structural parameters
                cv_S%struct_par_opt = 0  !Set to zero cv_S%struct_par_opt and d_S%sig_opt so the structural parameters estimation loop is no more entered.
                d_S%sig_opt = 0          !The optimized struct_par_opt_vec is used to run the quasi-linear loop that is the last one. 
-               if (associated(prev_struct)) deallocate(prev_struct) 
+               if (allocated(prev_struct)) deallocate(prev_struct) 
              endif
           endif !-- special warning if exceed maximum number of main algorithm iterations (it_max_bga) without convergence
        ! -- write the intermediate files to the BPR file

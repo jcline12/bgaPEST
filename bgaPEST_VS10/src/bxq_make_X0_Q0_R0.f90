@@ -76,7 +76,7 @@ module make_kernels
         type(d_prior_mean), intent(inout)  :: d_PM
         type(d_anisotropy), intent(in)     :: d_ANI
         integer, intent(in)                :: nobs
-        integer, pointer                   :: cnp(:)
+        integer, allocatable               :: cnp(:)
         integer                            :: cba ! -- current Beta Association
         integer                            :: c_ani_ind !-- current anisotropy index 
         integer                            :: i,j,k,p,q,z ! local counters
@@ -88,7 +88,6 @@ module make_kernels
         nullify(d_XQR%X)
         nullify(d_XQR%Q0)
         nullify(d_XQR%R0)
-        nullify(cnp)
         ! Allocate memory for  X and initialize to 0
         allocate(d_XQR%X(cv_PAR%npar,cv_PAR%p))
         d_XQR%X = 0.   ! matrix

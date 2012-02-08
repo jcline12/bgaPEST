@@ -5,16 +5,15 @@
         double precision, intent (inout)   :: InvA(N,N) ! A coming in, Inv(A) going out
         integer                            :: IPIV(N)
         double precision                   :: BESTWORK(1)
-        double precision, pointer          :: WORK(:)
+        double precision, allocatable      :: WORK(:)
         
-        nullify(WORK)
-        
+    
         call DGETRF(N,N,InvA,N,IPIV,INFO)
         call DGETRI(N,InvA,N,IPIV,BESTWORK,-1,INFO)
         LWORK=INT(BESTWORK(1))
         allocate (WORK(LWORK))
         call DGETRI(N,InvA,N,IPIV,WORK,LWORK,INFO) 
-        if (associated(WORK)) deallocate(WORK)
+        if (allocated(WORK)) deallocate(WORK)
       end subroutine INVGM
 
       subroutine SLVSSU(N,A,X)  ! Subroutine to solve a symmetric
@@ -25,15 +24,14 @@
         double precision, intent (inout)   :: X(N)
         integer                            :: IPIV(N)
         double precision                   :: BESTWORK(1)
-        double precision, pointer          :: WORK(:)
+        double precision, allocatable      :: WORK(:)
         
-        nullify(WORK)
-        
+
        call DSYSV('U',N,1,A,N,IPIV,X,N,BESTWORK,-1,INFO)
        LWORK=INT(BESTWORK(1))
        allocate (WORK(LWORK))
        call DSYSV('U',N,1,A,N,IPIV,X,N,WORK,LWORK,INFO)
-       if (associated(WORK)) deallocate(WORK)
+       if (allocated(WORK)) deallocate(WORK)
        write(*,*) info
       end subroutine SLVSSU
 
