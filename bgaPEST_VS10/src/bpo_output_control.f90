@@ -418,6 +418,16 @@ contains
     enddo ! i = 1,cv_PAR%p
     write(bprunit,'(3A)')indent,'','Epistemic Uncertainty :-'
     write(bprunit,76) indent, indent, d_S%sig
+    ! -- indicate whether epistemic uncertainty is being optimized for 
+    if (d_S%sig_opt .eq. 1) then
+        write(bprunit,25) indent,indent,'Flag determining whether structural parameters are optimized for or fixed:'
+        write(bprunit,75) indent,indent,indent,'sig_opt: ',d_S%sig_opt
+        if (d_S%trans_sig .eq. 1) then
+            write(bprunit,25) indent, indent, 'Power transformation active'
+            write(bprunit,74)indent, indent, indent, 'alpha', d_S%alpha_trans_sig
+        endif
+    endif
+    
 72 format(1A, 'Structural Parameters for Beta Association: ', I4)    
 73 format(1A, 1A,'Variogram type: ', 1A)
 74 format(4A, ' = ', 1ES13.6)
