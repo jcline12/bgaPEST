@@ -264,7 +264,7 @@ contains
      write(bprunit,25)indent,indent,d_MIO%ins(i)
    enddo
    write(bprunit,20) indent,'for model ouput files:'
-   do i = 1,cv_MIO%ntplfle
+   do i = 1,cv_MIO%ninsfle
      write(bprunit,25)indent,indent,d_MIO%outfle(i)
    enddo
    if (cv_A%deriv_mode .eq. 1) then

@@ -9198,14 +9198,7 @@ Reverse Flood Routing Example Application
 
 \begin_layout Standard
 An example application of reverse flood routing in open channels is presented
- in this section 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "doriareverserouting"
-
-\end_inset
-
-.
+ in this section (D'Oria et al., 2012).
  Reverse flood routing is useful to obtain hydrographs in upstream ungauged
  stations by means of information available at downstream monitored sites.
  The considered channel was prismatic and 20
