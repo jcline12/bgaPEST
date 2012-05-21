@@ -1,0 +1,384 @@
+pcf
+* control data
+norestart estimation
+       181       181         1         0         1
+         1         1    single     point         1         0         0
+5.0  -3.0  0.3  0.03    10
+3.0   3.0 0.001  0
+0.1
+    -2   0.01     3     3  0.01     3
+0  0  0  
+* parameter groups
+layer_uno      relative  0.01 0.0 always_2 2.0 parabolic
+* parameter data
+p001           none relative 2.20050840e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p002           none relative 2.22012480e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p003           none relative 2.28276800e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p004           none relative 2.38968440e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p005           none relative 2.54162320e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p006           none relative 2.73907320e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p007           none relative 2.98239770e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p008           none relative 3.27187130e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p009           none relative 3.60762580e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p010           none relative 3.98963000e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p011           none relative 4.41760320e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p012           none relative 4.89092390e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p013           none relative 5.40854630e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p014           none relative 5.96890740e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p015           none relative 6.56977180e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p016           none relative 7.20809240e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p017           none relative 7.87987110e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p018           none relative 8.58003340e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p019           none relative 9.30235630e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p020           none relative 1.00393570e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p021           none relative 1.07822640e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p022           none relative 1.15210620e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p023           none relative 1.22447160e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p024           none relative 1.29415130e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p025           none relative 1.35996340e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p026           none relative 1.42077440e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p027           none relative 1.47556990e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p028           none relative 1.52350880e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p029           none relative 1.56398110e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p030           none relative 1.59663200e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p031           none relative 1.62135150e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p032           none relative 1.63821950e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p033           none relative 1.64746050e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p034           none relative 1.64942160e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p035           none relative 1.64459270e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p036           none relative 1.63364530e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p037           none relative 1.61745880e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p038           none relative 1.59706820e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p039           none relative 1.57358290e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p040           none relative 1.54806570e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p041           none relative 1.52129780e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p042           none relative 1.49351860e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p043           none relative 1.46431580e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p044           none relative 1.43286540e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p045           none relative 1.39855070e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p046           none relative 1.36162330e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p047           none relative 1.32332070e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p048           none relative 1.28517460e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p049           none relative 1.24818310e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p050           none relative 1.21266220e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p051           none relative 1.17863200e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p052           none relative 1.14616110e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p053           none relative 1.11544900e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p054           none relative 1.08653180e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p055           none relative 1.05910650e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p056           none relative 1.03256970e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p057           none relative 1.00595920e+02 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p058           none relative 9.78130510e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p059           none relative 9.48060540e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p060           none relative 9.15206450e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p061           none relative 8.79859740e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p062           none relative 8.43267620e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p063           none relative 8.07425270e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p064           none relative 7.74542430e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p065           none relative 7.46371230e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p066           none relative 7.23576800e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p067           none relative 7.05586850e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p068           none relative 6.90942730e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p069           none relative 6.77824410e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p070           none relative 6.64440650e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p071           none relative 6.49283270e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p072           none relative 6.31346020e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p073           none relative 6.10310880e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p074           none relative 5.86585790e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p075           none relative 5.61205480e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p076           none relative 5.35667650e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p077           none relative 5.11684240e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p078           none relative 4.90799800e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p079           none relative 4.73994050e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p080           none relative 4.61444340e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p081           none relative 4.52565890e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p082           none relative 4.46268100e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p083           none relative 4.41257380e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p084           none relative 4.36309880e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p085           none relative 4.30466090e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p086           none relative 4.23130590e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p087           none relative 4.14086830e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p088           none relative 4.03443900e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p089           none relative 3.91543640e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p090           none relative 3.78861540e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p091           none relative 3.65930530e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p092           none relative 3.53287420e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p093           none relative 3.41434420e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p094           none relative 3.30797870e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p095           none relative 3.21679350e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p096           none relative 3.14224110e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p097           none relative 3.08413110e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p098           none relative 3.04077390e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p099           none relative 3.00923730e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p100           none relative 2.98566590e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p101           none relative 2.96565000e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p102           none relative 2.94473950e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p103           none relative 2.91900880e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p104           none relative 2.88560800e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p105           none relative 2.84317440e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p106           none relative 2.79205190e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p107           none relative 2.73428060e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p108           none relative 2.67332190e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p109           none relative 2.61352850e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p110           none relative 2.55939430e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p111           none relative 2.51481020e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p112           none relative 2.48245130e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p113           none relative 2.46337520e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p114           none relative 2.45689000e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p115           none relative 2.46075510e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p116           none relative 2.47164060e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p117           none relative 2.48574730e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p118           none relative 2.49961980e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p119           none relative 2.51071330e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p120           none relative 2.51755140e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p121           none relative 2.51985530e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p122           none relative 2.51844450e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p123           none relative 2.51491800e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p124           none relative 2.51119110e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p125           none relative 2.50896440e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p126           none relative 2.50928300e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p127           none relative 2.51233820e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p128           none relative 2.51750620e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p129           none relative 2.52353100e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p130           none relative 2.52879510e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p131           none relative 2.53165670e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p132           none relative 2.53079470e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p133           none relative 2.52550390e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p134           none relative 2.51590680e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p135           none relative 2.50304270e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p136           none relative 2.48872660e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p137           none relative 2.47499050e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p138           none relative 2.46369900e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p139           none relative 2.45621940e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p140           none relative 2.45328020e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p141           none relative 2.45490660e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p142           none relative 2.46041680e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p143           none relative 2.46874170e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p144           none relative 2.47877800e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p145           none relative 2.48955730e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p146           none relative 2.50038330e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p147           none relative 2.51090060e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p148           none relative 2.52105740e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p149           none relative 2.53099390e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p150           none relative 2.54089820e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p151           none relative 2.55087810e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p152           none relative 2.56088340e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p153           none relative 2.57069760e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p154           none relative 2.57999140e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p155           none relative 2.58841580e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p156           none relative 2.59569910e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p157           none relative 2.60171520e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p158           none relative 2.60650190e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p159           none relative 2.61023280e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p160           none relative 2.61315700e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p161           none relative 2.61553380e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p162           none relative 2.61758310e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p163           none relative 2.61946170e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p164           none relative 2.62126450e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p165           none relative 2.62303930e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p166           none relative 2.62480550e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p167           none relative 2.62656920e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p168           none relative 2.62833170e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p169           none relative 2.63009320e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p170           none relative 2.63185380e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p171           none relative 2.63361340e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p172           none relative 2.63537200e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p173           none relative 2.63712960e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p174           none relative 2.63888630e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p175           none relative 2.64064200e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p176           none relative 2.64239670e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p177           none relative 2.64415040e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p178           none relative 2.64590320e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p179           none relative 2.64765500e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p180           none relative 2.64940580e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+p181           none relative 2.65115570e+01 -1.0E-10 1.0E+10 layer_uno 1.000 0.00 1
+* observation groups
+obs_lay_uno
+* observation data
+obs1_01              2.503562470000e+01 1.000000000000e+00 obs_lay_uno
+obs1_02              2.515296690000e+01 1.000000000000e+00 obs_lay_uno
+obs1_03              2.482281010000e+01 1.000000000000e+00 obs_lay_uno
+obs1_04              2.485645340000e+01 1.000000000000e+00 obs_lay_uno
+obs1_05              2.522326920000e+01 1.000000000000e+00 obs_lay_uno
+obs1_06              2.489967790000e+01 1.000000000000e+00 obs_lay_uno
+obs1_07              2.520583520000e+01 1.000000000000e+00 obs_lay_uno
+obs1_08              2.494085690000e+01 1.000000000000e+00 obs_lay_uno
+obs1_09              2.485828440000e+01 1.000000000000e+00 obs_lay_uno
+obs1_10              2.512466600000e+01 1.000000000000e+00 obs_lay_uno
+obs1_11              2.486428180000e+01 1.000000000000e+00 obs_lay_uno
+obs1_12              2.479582590000e+01 1.000000000000e+00 obs_lay_uno
+obs1_13              2.496197670000e+01 1.000000000000e+00 obs_lay_uno
+obs1_14              2.505711120000e+01 1.000000000000e+00 obs_lay_uno
+obs1_15              2.482757030000e+01 1.000000000000e+00 obs_lay_uno
+obs1_16              2.502324730000e+01 1.000000000000e+00 obs_lay_uno
+obs1_17              2.513233360000e+01 1.000000000000e+00 obs_lay_uno
+obs1_18              2.515624670000e+01 1.000000000000e+00 obs_lay_uno
+obs1_19              2.476504540000e+01 1.000000000000e+00 obs_lay_uno
+obs1_20              2.509393640000e+01 1.000000000000e+00 obs_lay_uno
+obs1_21              2.491536190000e+01 1.000000000000e+00 obs_lay_uno
+obs1_22              2.484475090000e+01 1.000000000000e+00 obs_lay_uno
+obs1_23              2.510022100000e+01 1.000000000000e+00 obs_lay_uno
+obs1_24              2.515078120000e+01 1.000000000000e+00 obs_lay_uno
+obs1_25              2.504200130000e+01 1.000000000000e+00 obs_lay_uno
+obs1_26              2.494370750000e+01 1.000000000000e+00 obs_lay_uno
+obs1_27              2.523173990000e+01 1.000000000000e+00 obs_lay_uno
+obs1_28              2.484885270000e+01 1.000000000000e+00 obs_lay_uno
+obs1_29              2.485306950000e+01 1.000000000000e+00 obs_lay_uno
+obs1_30              2.485389140000e+01 1.000000000000e+00 obs_lay_uno
+obs1_31              2.515775080000e+01 1.000000000000e+00 obs_lay_uno
+obs1_32              2.525769390000e+01 1.000000000000e+00 obs_lay_uno
+obs1_33              2.528520290000e+01 1.000000000000e+00 obs_lay_uno
+obs1_34              2.555611750000e+01 1.000000000000e+00 obs_lay_uno
+obs1_35              2.610802500000e+01 1.000000000000e+00 obs_lay_uno
+obs1_36              2.697336580000e+01 1.000000000000e+00 obs_lay_uno
+obs1_37              2.820454750000e+01 1.000000000000e+00 obs_lay_uno
+obs1_38              2.994496240000e+01 1.000000000000e+00 obs_lay_uno
+obs1_39              3.286311430000e+01 1.000000000000e+00 obs_lay_uno
+obs1_40              3.604992740000e+01 1.000000000000e+00 obs_lay_uno
+obs1_41              4.058132160000e+01 1.000000000000e+00 obs_lay_uno
+obs1_42              4.609922620000e+01 1.000000000000e+00 obs_lay_uno
+obs1_43              5.271565050000e+01 1.000000000000e+00 obs_lay_uno
+obs1_44              6.105867680000e+01 1.000000000000e+00 obs_lay_uno
+obs1_45              6.808779900000e+01 1.000000000000e+00 obs_lay_uno
+obs1_46              7.687101620000e+01 1.000000000000e+00 obs_lay_uno
+obs1_47              8.467141570000e+01 1.000000000000e+00 obs_lay_uno
+obs1_48              9.329438410000e+01 1.000000000000e+00 obs_lay_uno
+obs1_49              1.000979920000e+02 1.000000000000e+00 obs_lay_uno
+obs1_50              1.074772540000e+02 1.000000000000e+00 obs_lay_uno
+obs1_51              1.136563320000e+02 1.000000000000e+00 obs_lay_uno
+obs1_52              1.200927550000e+02 1.000000000000e+00 obs_lay_uno
+obs1_53              1.260340210000e+02 1.000000000000e+00 obs_lay_uno
+obs1_54              1.304489210000e+02 1.000000000000e+00 obs_lay_uno
+obs1_55              1.325559430000e+02 1.000000000000e+00 obs_lay_uno
+obs1_56              1.356067900000e+02 1.000000000000e+00 obs_lay_uno
+obs1_57              1.396188390000e+02 1.000000000000e+00 obs_lay_uno
+obs1_58              1.417653900000e+02 1.000000000000e+00 obs_lay_uno
+obs1_59              1.433631530000e+02 1.000000000000e+00 obs_lay_uno
+obs1_60              1.452421160000e+02 1.000000000000e+00 obs_lay_uno
+obs1_61              1.436259790000e+02 1.000000000000e+00 obs_lay_uno
+obs1_62              1.453149080000e+02 1.000000000000e+00 obs_lay_uno
+obs1_63              1.455767430000e+02 1.000000000000e+00 obs_lay_uno
+obs1_64              1.438868780000e+02 1.000000000000e+00 obs_lay_uno
+obs1_65              1.442632020000e+02 1.000000000000e+00 obs_lay_uno
+obs1_66              1.430434860000e+02 1.000000000000e+00 obs_lay_uno
+obs1_67              1.412408630000e+02 1.000000000000e+00 obs_lay_uno
+obs1_68              1.408446150000e+02 1.000000000000e+00 obs_lay_uno
+obs1_69              1.380649820000e+02 1.000000000000e+00 obs_lay_uno
+obs1_70              1.379717500000e+02 1.000000000000e+00 obs_lay_uno
+obs1_71              1.336400270000e+02 1.000000000000e+00 obs_lay_uno
+obs1_72              1.339474100000e+02 1.000000000000e+00 obs_lay_uno
+obs1_73              1.304773290000e+02 1.000000000000e+00 obs_lay_uno
+obs1_74              1.280012010000e+02 1.000000000000e+00 obs_lay_uno
+obs1_75              1.253056370000e+02 1.000000000000e+00 obs_lay_uno
+obs1_76              1.241813880000e+02 1.000000000000e+00 obs_lay_uno
+obs1_77              1.225959410000e+02 1.000000000000e+00 obs_lay_uno
+obs1_78              1.195784140000e+02 1.000000000000e+00 obs_lay_uno
+obs1_79              1.179403710000e+02 1.000000000000e+00 obs_lay_uno
+obs1_80              1.134047090000e+02 1.000000000000e+00 obs_lay_uno
+obs1_81              1.122948570000e+02 1.000000000000e+00 obs_lay_uno
+obs1_82              1.106187850000e+02 1.000000000000e+00 obs_lay_uno
+obs1_83              1.070882630000e+02 1.000000000000e+00 obs_lay_uno
+obs1_84              1.042208410000e+02 1.000000000000e+00 obs_lay_uno
+obs1_85              1.025303240000e+02 1.000000000000e+00 obs_lay_uno
+obs1_86              9.972422380000e+01 1.000000000000e+00 obs_lay_uno
+obs1_87              9.799959080000e+01 1.000000000000e+00 obs_lay_uno
+obs1_88              9.635159390000e+01 1.000000000000e+00 obs_lay_uno
+obs1_89              9.229175440000e+01 1.000000000000e+00 obs_lay_uno
+obs1_90              9.024687010000e+01 1.000000000000e+00 obs_lay_uno
+obs1_91              8.829785700000e+01 1.000000000000e+00 obs_lay_uno
+obs1_92              8.703845590000e+01 1.000000000000e+00 obs_lay_uno
+obs1_93              8.480920300000e+01 1.000000000000e+00 obs_lay_uno
+obs1_94              8.301626850000e+01 1.000000000000e+00 obs_lay_uno
+obs1_95              8.030977060000e+01 1.000000000000e+00 obs_lay_uno
+obs1_96              7.901279730000e+01 1.000000000000e+00 obs_lay_uno
+obs1_97              7.700191520000e+01 1.000000000000e+00 obs_lay_uno
+obs1_98              7.454253970000e+01 1.000000000000e+00 obs_lay_uno
+obs1_99              7.279813340000e+01 1.000000000000e+00 obs_lay_uno
+obs1_100             7.185002410000e+01 1.000000000000e+00 obs_lay_uno
+obs1_101             6.907185490000e+01 1.000000000000e+00 obs_lay_uno
+obs1_102             6.731258120000e+01 1.000000000000e+00 obs_lay_uno
+obs1_103             6.590308420000e+01 1.000000000000e+00 obs_lay_uno
+obs1_104             6.407679780000e+01 1.000000000000e+00 obs_lay_uno
+obs1_105             6.283964400000e+01 1.000000000000e+00 obs_lay_uno
+obs1_106             6.200879560000e+01 1.000000000000e+00 obs_lay_uno
+obs1_107             5.952346630000e+01 1.000000000000e+00 obs_lay_uno
+obs1_108             5.840793120000e+01 1.000000000000e+00 obs_lay_uno
+obs1_109             5.688003510000e+01 1.000000000000e+00 obs_lay_uno
+obs1_110             5.568844290000e+01 1.000000000000e+00 obs_lay_uno
+obs1_111             5.459396690000e+01 1.000000000000e+00 obs_lay_uno
+obs1_112             5.289937630000e+01 1.000000000000e+00 obs_lay_uno
+obs1_113             5.254807840000e+01 1.000000000000e+00 obs_lay_uno
+obs1_114             5.108144240000e+01 1.000000000000e+00 obs_lay_uno
+obs1_115             4.938937050000e+01 1.000000000000e+00 obs_lay_uno
+obs1_116             4.834324540000e+01 1.000000000000e+00 obs_lay_uno
+obs1_117             4.787565510000e+01 1.000000000000e+00 obs_lay_uno
+obs1_118             4.698713640000e+01 1.000000000000e+00 obs_lay_uno
+obs1_119             4.531940260000e+01 1.000000000000e+00 obs_lay_uno
+obs1_120             4.444883450000e+01 1.000000000000e+00 obs_lay_uno
+obs1_121             4.375818670000e+01 1.000000000000e+00 obs_lay_uno
+obs1_122             4.289655360000e+01 1.000000000000e+00 obs_lay_uno
+obs1_123             4.188073920000e+01 1.000000000000e+00 obs_lay_uno
+obs1_124             4.077637620000e+01 1.000000000000e+00 obs_lay_uno
+obs1_125             4.037357220000e+01 1.000000000000e+00 obs_lay_uno
+obs1_126             3.939464300000e+01 1.000000000000e+00 obs_lay_uno
+obs1_127             3.833811410000e+01 1.000000000000e+00 obs_lay_uno
+obs1_128             3.767245730000e+01 1.000000000000e+00 obs_lay_uno
+obs1_129             3.707263380000e+01 1.000000000000e+00 obs_lay_uno
+obs1_130             3.656346610000e+01 1.000000000000e+00 obs_lay_uno
+obs1_131             3.546438370000e+01 1.000000000000e+00 obs_lay_uno
+obs1_132             3.510816100000e+01 1.000000000000e+00 obs_lay_uno
+obs1_133             3.450609060000e+01 1.000000000000e+00 obs_lay_uno
+obs1_134             3.386376290000e+01 1.000000000000e+00 obs_lay_uno
+obs1_135             3.335291640000e+01 1.000000000000e+00 obs_lay_uno
+obs1_136             3.256091930000e+01 1.000000000000e+00 obs_lay_uno
+obs1_137             3.240485190000e+01 1.000000000000e+00 obs_lay_uno
+obs1_138             3.170428700000e+01 1.000000000000e+00 obs_lay_uno
+obs1_139             3.136795660000e+01 1.000000000000e+00 obs_lay_uno
+obs1_140             3.099120560000e+01 1.000000000000e+00 obs_lay_uno
+obs1_141             3.046193800000e+01 1.000000000000e+00 obs_lay_uno
+obs1_142             2.959901790000e+01 1.000000000000e+00 obs_lay_uno
+obs1_143             2.918775560000e+01 1.000000000000e+00 obs_lay_uno
+obs1_144             2.889533190000e+01 1.000000000000e+00 obs_lay_uno
+obs1_145             2.848983780000e+01 1.000000000000e+00 obs_lay_uno
+obs1_146             2.860441360000e+01 1.000000000000e+00 obs_lay_uno
+obs1_147             2.779454220000e+01 1.000000000000e+00 obs_lay_uno
+obs1_148             2.773187310000e+01 1.000000000000e+00 obs_lay_uno
+obs1_149             2.721046480000e+01 1.000000000000e+00 obs_lay_uno
+obs1_150             2.723599570000e+01 1.000000000000e+00 obs_lay_uno
+obs1_151             2.715431890000e+01 1.000000000000e+00 obs_lay_uno
+obs1_152             2.658596000000e+01 1.000000000000e+00 obs_lay_uno
+obs1_153             2.652926600000e+01 1.000000000000e+00 obs_lay_uno
+obs1_154             2.616134780000e+01 1.000000000000e+00 obs_lay_uno
+obs1_155             2.631666590000e+01 1.000000000000e+00 obs_lay_uno
+obs1_156             2.584230950000e+01 1.000000000000e+00 obs_lay_uno
+obs1_157             2.597051000000e+01 1.000000000000e+00 obs_lay_uno
+obs1_158             2.576645060000e+01 1.000000000000e+00 obs_lay_uno
+obs1_159             2.546642390000e+01 1.000000000000e+00 obs_lay_uno
+obs1_160             2.532051060000e+01 1.000000000000e+00 obs_lay_uno
+obs1_161             2.541371640000e+01 1.000000000000e+00 obs_lay_uno
+obs1_162             2.551090510000e+01 1.000000000000e+00 obs_lay_uno
+obs1_163             2.551034380000e+01 1.000000000000e+00 obs_lay_uno
+obs1_164             2.543829140000e+01 1.000000000000e+00 obs_lay_uno
+obs1_165             2.542154060000e+01 1.000000000000e+00 obs_lay_uno
+obs1_166             2.545253470000e+01 1.000000000000e+00 obs_lay_uno
+obs1_167             2.529624850000e+01 1.000000000000e+00 obs_lay_uno
+obs1_168             2.495228800000e+01 1.000000000000e+00 obs_lay_uno
+obs1_169             2.516355050000e+01 1.000000000000e+00 obs_lay_uno
+obs1_170             2.506178430000e+01 1.000000000000e+00 obs_lay_uno
+obs1_171             2.486305510000e+01 1.000000000000e+00 obs_lay_uno
+obs1_172             2.524649300000e+01 1.000000000000e+00 obs_lay_uno
+obs1_173             2.493787580000e+01 1.000000000000e+00 obs_lay_uno
+obs1_174             2.526229540000e+01 1.000000000000e+00 obs_lay_uno
+obs1_175             2.519594260000e+01 1.000000000000e+00 obs_lay_uno
+obs1_176             2.495762940000e+01 1.000000000000e+00 obs_lay_uno
+obs1_177             2.483441970000e+01 1.000000000000e+00 obs_lay_uno
+obs1_178             2.509907030000e+01 1.000000000000e+00 obs_lay_uno
+obs1_179             2.493406610000e+01 1.000000000000e+00 obs_lay_uno
+obs1_180             2.491630120000e+01 1.000000000000e+00 obs_lay_uno
+obs1_181             2.517014640000e+01 1.000000000000e+00 obs_lay_uno
+* model command line
+Inv.bat > nul
+* model input/output
+Write_inp.tpl Onda_Input.txt
+read_outp.ins MPCS200QHistory.txt
+* prior information

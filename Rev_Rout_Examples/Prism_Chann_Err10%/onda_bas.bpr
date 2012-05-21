@@ -1,0 +1,441 @@
+ 
+ 
+          bgaPEST RUN RECORD: CASE onda_bas                                                                                                                                                                                                                                                        
+ Case Dimensions :-
+                    Number of Parameters:     181
+              Number of Parameter Groups:       1
+                  Number of Observations:     181
+            Number of Observation Groups:       1
+ 
+ Model Command Line :-
+    Inv.bat                                           
+ Jacobian Command Line :-
+    Not Used
+ 
+ Model Interface Files:-
+    Template files:
+        Write_inp.tpl                                                                                       
+    for model input files:
+        Onda_Input.txt                                                                                      
+    Instruction files:
+        read_outp.ins                                                                                       
+    for model ouput files:
+        MPCS200QHistory.txt                                                                                 
+ 
+ Algorithmic control variables:-
+    Structural Paramter Convergence
+        structural_conv:   5.0000E-03
+    Objective Function Convergence
+        phi_conv:   5.0000E-03
+    Outermost BGA Convergence
+        bga_conv:   5.0000E-03
+    Maximum Number of Structural Paramter Iterations
+        it_max_structural:         40
+    Maximum Number of Objective Function Iterations
+        it_max_phi:          6
+    Maximum Number of Outermost BGA Iterations
+        it_max_bga:         10
+    Linesearch Flag: [0] indicates no linesearch, [1] indicates perform linesarch
+        lns_flag:          0
+    Maximum Number of Linesearch Iterations
+        it_max_lns:          5
+    Logical Flag for storing Q Matrix
+        store_Q:     T
+    Form of theta covariance: [0] none, [1], diag, [2] full matrix
+        theta_cov_form:          1
+    Compression of Q0 matrix: [0] none - compute full Q0, [1], Q0 for each beta
+        Q_ compression_flag:          0
+    Derivatives mode: [0] External PEST Perturbations, [1] specified Jacobian command line
+        deriv_mode:          0
+ 
+    Parameter Anisotropy: [0] do not read parameter_anisotropy block, [1] do read block
+        par_anisotropy:          0
+ 
+       1 Beta Association was defined:
+     No Compression Requested.
+ 
+ 
+ Prior Information on Betas:-
+    Prior information format on prior menas (betas)
+    [0] none, [1] diagonal only, [2] full covariance matrix
+        Qbb_form:          1
+    Starting value of Prior Mean for Beta Association:    1
+          5.8000E+01
+ 
+ Structural parameter control variables:-
+    Structural Parameters for Beta Association:    1
+        Variogram type: linear
+        Initial structural parameter values:
+            slope =  1.000000E-07
+        Flag determining whether structural parameters are optimized for or fixed:
+            struct_par_opt:    1
+        Power transformation active
+            alpha =  1.000000E+01
+    Epistemic Uncertainty :-
+        sigma (epistemic) =  1.000000E-04
+ 
+ Initial Parameter Definitions:-
+    For initial parameter values see file :- onda_bas.bpp.0
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   1.3599E+09
+                     Misfit PHI :   1.3467E+09
+             Regularization PHI :   1.3105E+07
+ 
+        For current parameter values see file :- onda_bas.bpp.1_1                                                                                    
+        For current residual values see file :- onda_bas.bre.1_1                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   7.9992E+07
+                     Misfit PHI :   7.1193E+07
+             Regularization PHI :   8.7993E+06
+ 
+        For current parameter values see file :- onda_bas.bpp.1_2                                                                                    
+        For current residual values see file :- onda_bas.bre.1_2                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.5857E+07
+                     Misfit PHI :   1.6649E+07
+             Regularization PHI :   9.2082E+06
+ 
+        For current parameter values see file :- onda_bas.bpp.1_3                                                                                    
+        For current residual values see file :- onda_bas.bre.1_3                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.5233E+07
+                     Misfit PHI :   1.6027E+07
+             Regularization PHI :   9.2068E+06
+ 
+        For current parameter values see file :- onda_bas.bpp.1_4                                                                                    
+        For current residual values see file :- onda_bas.bre.1_4                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   2.5235E+07
+                     Misfit PHI :   1.6028E+07
+             Regularization PHI :   9.2068E+06
+ 
+        For current parameter values see file :- onda_bas.bpp.1_5                                                                                    
+        For current residual values see file :- onda_bas.bre.1_5                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          1
+    Inner Iteration Number:          6
+ 
+                      Total PHI :   2.5235E+07
+                     Misfit PHI :   1.6028E+07
+             Regularization PHI :   9.2068E+06
+ 
+        For current parameter values see file :- onda_bas.bpp.1_6                                                                                    
+        For current residual values see file :- onda_bas.bre.1_6                                                                                    
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope =  1.021606E-02
+    Epistemic Uncertainty :-
+        sigma (epistemic) =  8.819010E+00
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   2.7279E+02
+                     Misfit PHI :   1.8174E+02
+             Regularization PHI :   9.1052E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.2_1                                                                                    
+        For current residual values see file :- onda_bas.bre.2_1                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.7183E+02
+                     Misfit PHI :   1.8074E+02
+             Regularization PHI :   9.1089E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.2_2                                                                                    
+        For current residual values see file :- onda_bas.bre.2_2                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.7180E+02
+                     Misfit PHI :   1.8070E+02
+             Regularization PHI :   9.1097E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.2_3                                                                                    
+        For current residual values see file :- onda_bas.bre.2_3                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.7179E+02
+                     Misfit PHI :   1.8069E+02
+             Regularization PHI :   9.1098E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.2_4                                                                                    
+        For current residual values see file :- onda_bas.bre.2_4                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          2
+    Inner Iteration Number:          5
+ 
+                      Total PHI :   2.7179E+02
+                     Misfit PHI :   1.8069E+02
+             Regularization PHI :   9.1098E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.2_5                                                                                    
+        For current residual values see file :- onda_bas.bre.2_5                                                                                    
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope =  9.396125E-03
+    Epistemic Uncertainty :-
+        sigma (epistemic) =  9.219071E+00
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   2.7102E+02
+                     Misfit PHI :   1.7285E+02
+             Regularization PHI :   9.8165E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.3_1                                                                                    
+        For current residual values see file :- onda_bas.bre.3_1                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.7179E+02
+                     Misfit PHI :   1.7367E+02
+             Regularization PHI :   9.8119E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.3_2                                                                                    
+        For current residual values see file :- onda_bas.bre.3_2                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.7184E+02
+                     Misfit PHI :   1.7372E+02
+             Regularization PHI :   9.8120E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.3_3                                                                                    
+        For current residual values see file :- onda_bas.bre.3_3                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          3
+    Inner Iteration Number:          4
+ 
+                      Total PHI :   2.7184E+02
+                     Misfit PHI :   1.7372E+02
+             Regularization PHI :   9.8120E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.3_4                                                                                    
+        For current residual values see file :- onda_bas.bre.3_4                                                                                    
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope =  9.460389E-03
+    Epistemic Uncertainty :-
+        sigma (epistemic) =  9.248890E+00
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   2.7064E+02
+                     Misfit PHI :   1.7316E+02
+             Regularization PHI :   9.7478E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.4_1                                                                                    
+        For current residual values see file :- onda_bas.bre.4_1                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.7061E+02
+                     Misfit PHI :   1.7314E+02
+             Regularization PHI :   9.7477E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.4_2                                                                                    
+        For current residual values see file :- onda_bas.bre.4_2                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          4
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.7061E+02
+                     Misfit PHI :   1.7314E+02
+             Regularization PHI :   9.7478E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.4_3                                                                                    
+        For current residual values see file :- onda_bas.bre.4_3                                                                                    
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope =  9.511438E-03
+    Epistemic Uncertainty :-
+        sigma (epistemic) =  9.278805E+00
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   2.6955E+02
+                     Misfit PHI :   1.7258E+02
+             Regularization PHI :   9.6969E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.5_1                                                                                    
+        For current residual values see file :- onda_bas.bre.5_1                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.6953E+02
+                     Misfit PHI :   1.7256E+02
+             Regularization PHI :   9.6969E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.5_2                                                                                    
+        For current residual values see file :- onda_bas.bre.5_2                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          5
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.6953E+02
+                     Misfit PHI :   1.7256E+02
+             Regularization PHI :   9.6969E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.5_3                                                                                    
+        For current residual values see file :- onda_bas.bre.5_3                                                                                    
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope =  9.559333E-03
+    Epistemic Uncertainty :-
+        sigma (epistemic) =  9.305479E+00
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   2.6857E+02
+                     Misfit PHI :   1.7207E+02
+             Regularization PHI :   9.6498E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.6_1                                                                                    
+        For current residual values see file :- onda_bas.bre.6_1                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.6855E+02
+                     Misfit PHI :   1.7205E+02
+             Regularization PHI :   9.6497E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.6_2                                                                                    
+        For current residual values see file :- onda_bas.bre.6_2                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          6
+    Inner Iteration Number:          3
+ 
+                      Total PHI :   2.6855E+02
+                     Misfit PHI :   1.7205E+02
+             Regularization PHI :   9.6498E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.6_3                                                                                    
+        For current residual values see file :- onda_bas.bre.6_3                                                                                    
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+    Current Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope =  9.559333E-03
+    Epistemic Uncertainty :-
+        sigma (epistemic) =  9.305479E+00
+ 
+    ***STRUCTURAL PARAMETERS FOR WHICH OPTIMIZATION WAS REQUESTED***
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          1
+ 
+                      Total PHI :   2.6855E+02
+                     Misfit PHI :   1.7205E+02
+             Regularization PHI :   9.6498E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.7_1                                                                                    
+        For current residual values see file :- onda_bas.bre.7_1                                                                                    
+ 
+ 
+ ***********************************
+    Outer Iteration Number:          7
+    Inner Iteration Number:          2
+ 
+                      Total PHI :   2.6855E+02
+                     Misfit PHI :   1.7205E+02
+             Regularization PHI :   9.6498E+01
+ 
+        For current parameter values see file :- onda_bas.bpp.7_2                                                                                    
+        For current residual values see file :- onda_bas.bre.7_2                                                                                    
+ 
+    ***FINAL STRUCTURAL PARAMETERS***
+    Final Structural Parameters for Beta Association:    1
+        Variogram type: linear
+            slope =  9.559333E-03
+    Epistemic Uncertainty :-
+        Final sigma (epistemic) =  9.305479E+00
