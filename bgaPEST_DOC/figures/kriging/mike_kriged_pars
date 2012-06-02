@@ -1,0 +1,22 @@
+<parameters>  <algorithm name="kriging" /> 
+  <Grid_Name  value="krig"  /> 
+  <Property_Name  value="mike_kriged" /> 
+  <Kriging_Type  type="Ordinary Kriging (OK)" >
+  <parameters />
+</Kriging_Type>
+  <do_block_kriging  value="0"  /> 
+  <npoints_x  value="5" /> 
+  <npoints_y  value="5" /> 
+  <npoints_z  value="5" /> 
+  <Hard_Data  grid="mikeImage"   property="Z"  /> 
+  <Search_Ellipsoid  value="500 500 500
+360 0 0" />
+  <Min_Conditioning_Data  value="0" /> 
+  <Max_Conditioning_Data  value="50" /> 
+  <Variogram  nugget="0" structures_count="1"  >
+  <structure_1  contribution="380"  type="Exponential"   >
+    <ranges max="180"  medium="180"  min="180"   />
+    <angles x="0"  y="0"  z="0"   />
+  </structure_1>
+</Variogram>
+</parameters> 

@@ -61,11 +61,12 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
-\tracking_changes false
+\tracking_changes true
 \output_changes false
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
+\author -74556787 "Michael Fienen" 
 \end_header
 
 \begin_body
@@ -133,14 +134,56 @@ Acknowledgements
 This work was supported by several important sources including: The National
  Research Council Postdoctoral Research Associateship, The US Geological
  Survey Office of Groundwater, the USGS Water and Environmental Biogeochemical
- Budgets (WEBB) Program, The USGS Exchange Visitor Program and the USGS
- Wisconsin Water Science Center for supporting a six-month exchange in which
- Marco D'Oria was hosted in Wisconsin, The University of Parma, Italy, Departmen
-t of Civil and Environmental Engineering and Architecture.
+ Budgets (WEBB) Program
+\change_inserted -74556787 1338648301
+.
+\change_deleted -74556787 1338648301
+,
+\change_unchanged
+ The USGS Exchange Visitor Program and the USGS Wisconsin Water Science
+ Center 
+\change_deleted -74556787 1338648308
+for supporting
+\change_inserted -74556787 1338648309
+supported
+\change_unchanged
+ a six-month exchange in which Marco D'Oria was hosted in Wisconsin
+\change_inserted -74556787 1338648330
+.
+ Dr.
+ D'Oria also received support from
+\change_deleted -74556787 1338648317
+,
+\change_unchanged
+ 
+\change_inserted -74556787 1338648332
+t
+\change_deleted -74556787 1338648332
+T
+\change_unchanged
+he University of Parma, Italy, Department of Civil and Environmental Engineering
+ and Architecture.
+
+\change_inserted -74556787 1338648408
+ Valuable colleague reviews were provided by Dr.
+ Michael Cardiff, Boise State University, and Stephen Westenbroek, USGS
+ Wisconsin Water Science Center.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Section*
 Introduction
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338662634
+This report documents an implementation of the Bayesian Geostatistical Approach
+ (BGA) to solving the inverse problem.
+ In this section, we outline the conceptual framework of the method.
+ In the remainder of the report we discuss details about theory and implementati
+on, as appropriate, including instructions for use.
 \end_layout
 
 \begin_layout Standard
@@ -163,7 +206,13 @@ Input values that control the behavior of a model at a given site are called
 
  and they represent specific characteristics (for example, hydraulic conductivit
 y, recharge rate, chemical decay rate) of the natural system encountered
- at a specific area.
+ at a 
+\change_deleted -74556787 1338648435
+specific
+\change_inserted -74556787 1338648436
+certain
+\change_unchanged
+ area.
  The values appropriate for parameters in natural systems are often difficult
  or impossible to measure directly.
  However, observations of system state (for example, water levels, streamflow
@@ -447,6 +496,148 @@ key "PEST"
 .
  These elements of Bayes' equation form the fundamental basis for the bgaPEST
  software described here.
+\change_inserted -74556787 1338649799
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338662743
+The 
+\emph on
+Geostatistical 
+\emph default
+aspects of the method are expressed in the prior pdf 
+\begin_inset Formula $\left(p\left(\mathbf{s}\right)\right)$
+\end_inset
+
+ of the parameter values.
+ Geostatistics is a form a interpolation that uses a spatial function called
+ a variogram to fill in information between data points.
+ In this section, we discuss geostatistics in a conceptual way and the mathemati
+cs relevant to BGA are discussed in laster sections.
+ More details about the history and use of geostatistics in general, including
+ software for using the technique are found in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Isaaks1989,DeutschJourneal1992,Kitanidis1997,sgems"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338662804
+The variogram is an empirical function that characterizes the difference
+ between a property as a function of separation distance.
+ To determine a variogram appropriate for a problem, the first step is to
+ plot a variogram function (a function of difference in property value)
+ against separation distance (
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338661533
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338661624
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338661624
+
+
+\backslash
+begin{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/exponential_variogram.pdf
+	scale 60
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338661578
+
+
+\backslash
+end{center}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338661533
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338662879
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:varill"
+
+\end_inset
+
+Exponential variogram fit to empirical variogram for the image processing
+ example.
+ The empirical variogram binned values are depicted by red 'x' marks while
+ the continuous black line shows the analytical variogram fit to the empirical
+ values.
+ The fit was performed manually using the sGEMS software package (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sgems"
+
+\end_inset
+
+).
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\change_unchanged
+
 \end_layout
 
 \begin_layout Section*
