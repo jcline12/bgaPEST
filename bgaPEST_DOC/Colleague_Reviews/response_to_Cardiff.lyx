@@ -1,0 +1,181 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\renewcommand\[{\begin{equation}}
+\renewcommand\]{\end{equation}}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Response to Dr.
+ Michael Cardiff Colleague Review of 
+\emph on
+Approaches in Highly Parameterized Inversion – bgaPEST: A Bayesian Geostatistica
+l Approach Implementation with Pest – Documentation and Instructions
+\end_layout
+
+\begin_layout Standard
+Dear Mike:
+\end_layout
+
+\begin_layout Standard
+Thanks very much for your thorough and informed review of our manuscript
+ 
+\emph on
+Approaches in Highly Parameterized Inversion – bgaPEST: A Bayesian Geostatistica
+l Approach Implementation with Pest – Documentation and Instructions
+\end_layout
+
+\begin_layout Standard
+Overall Review In this work, Fienen et al.
+ describe and provide instructions for use of a new computer code allowing
+ the use of the Bayesian Geostatistical Algorithm (as originally formulated
+ by Kitanidis and refined by Cirpka, Nowak, et al.) for performing highly-paramet
+erized inverse modeling (imaging).
+ Bayesian tools have many benefits relative to traditional parameter estimation
+ strategies, but have seen relatively limited adoption by practicing hydrogeolog
+ists.
+ As such, this work represents an important contribution that can help to
+ move some traditionally “research-focused” tools into the realm of practical
+ application In reviewing this work, I focused primarily on reviewing the
+ theory and readability of the documentation.
+ With regards to this part of the work, I feel that only minor edits are
+ necessary.
+ I have suggested some edits below, which I believe will help to both improve
+ the readability and rigor.
+ In addition, I have a few thoughts / suggestions on the capabilities of
+ the code that may improve its utility, which are discussed below.
+ I wish the authors the best of luck with editing this manuscript which
+ – along with the accompanying code – will help to bring some important
+ research-grade tools into practical application.
+\end_layout
+
+\begin_layout Standard
+Minor Concerns
+\end_layout
+
+\begin_layout Standard
+I have included numerous small comments within the PDF manuscript.
+ Below I highlight a few general “theme areas” that represent broader-scale
+ comments about the manuscript or ideas for program extensions.
+\end_layout
+
+\begin_layout Standard
+1) Introduction – The introduction is nice as is, but it may help to present
+ a simple example here in order to engage the reader early on.
+ It is also much easier to discuss geostatistical concepts and inverse modeling
+ in the context of a presented example with pictures.
+\end_layout
+
+\begin_layout Standard
+2) Choices on the bgaPEST control variable structural_conv (p.
+ 14-15): Some of this seems somewhat arbitrary, and may not give good convergenc
+e with the given default values.
+ The key problem is formula 4.
+ A relatively small default value is given (0.001), but since the metric
+ considered is not unitless, it may perform well in some cases and poorly
+ in others.
+ I have included a suggestion on how to change the computation of this metric
+ in the PDF comments.
+\end_layout
+
+\begin_layout Standard
+3) Parameter Anisotropy – It would be extremely useful (and not too difficult
+ to code, maybe) if users were given the ability to decide whether or not
+ parameter anisotropy variables are allowed to be optimized in addition
+ to variances.
+ Also, would it not be possible to include a second rotation so that non-horizon
+tal layering could be considered (e.g., a y-z rotation angle?)
+\end_layout
+
+\begin_layout Standard
+4) Two notable techniques that help to make bga algorithms practical for
+ large-scale (e.g., 100K + parameters) inversion on non-parallel computers
+ are circulant embedding / fast fourier transform techniques for computing
+ Toeplitz matrix-vector products (see, e.g., the work of Nowak), and adjoint-state
+ Jacobian calculations.
+ It sounds to me from reading the documentation that the former is not implement
+ed.
+ The authors may consider discussing these techniques, though, and/or discussing
+ in what future software they may be implemented.
+ As for the adjoint-state Jacobian calculations (p.
+ 19), it may be a good idea to just direct readers to a few relevant publication
+s on the subject, in case they are faced with large-scale problems and/or
+ have an intellectual curiosity in the area.
+\end_layout
+
+\begin_layout Standard
+5) In the original theory of Kitanidis, no prior information was assumed
+ about betas.
+ Is it possible / planned for a future version to implement this formulation
+ (i.e., where Q_beta,beta is replaced with 0 and similar edits to the formulas
+ are made elsewhere)? It is not a major concern, since many users will probably
+ want to specify some degree of prior information about assumed mean-values
+ within facies, for example.
+ 
+\end_layout
+
+\end_body
+\end_document
