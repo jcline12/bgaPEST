@@ -1,0 +1,857 @@
+
+                      PEST RUN RECORD: CASE scratch
+
+
+PEST run mode:-
+
+   Parameter estimation mode
+
+
+Case dimensions:-
+
+   Number of parameters                           :   181
+   Number of adjustable parameters                :   181
+   Number of parameter groups                     :     1
+   Number of observations                         :   181
+   Number of prior estimates                      :     0
+
+
+Model command line(s):-
+
+   Inv.bat > nul
+
+
+Jacobian command line:-
+
+   na
+
+
+Model interface files:-
+
+   Templates:
+      Write_inp.tpl
+   for model input files:
+      Onda_Input.txt
+
+   (Parameter values written using single precision protocol.)
+   (Decimal point always included.)
+
+   Instruction files:
+      read_outp.ins
+   for reading model output files:
+      MPCS200QHistory.txt
+
+
+PEST-to-model message file:-
+
+   na
+
+
+Derivatives calculation:-
+
+Param        Increment   Increment   Increment   Forward or   Multiplier  Method
+group        type                    low bound   central      (central)   (central)
+layer_uno    relative    1.0000E-02   none       always_2        na         na
+
+
+Parameter definitions:-
+
+Name         Trans-            Change       Initial        Lower          Upper
+             formation         limit        value          bound          bound
+p001         none              relative    22.8253      -1.000000E-10   1.000000E+10
+p002         none              relative    23.0527      -1.000000E-10   1.000000E+10
+p003         none              relative    23.7616      -1.000000E-10   1.000000E+10
+p004         none              relative    24.9545      -1.000000E-10   1.000000E+10
+p005         none              relative    26.6308      -1.000000E-10   1.000000E+10
+p006         none              relative    28.7872      -1.000000E-10   1.000000E+10
+p007         none              relative    31.4174      -1.000000E-10   1.000000E+10
+p008         none              relative    34.5126      -1.000000E-10   1.000000E+10
+p009         none              relative    38.0612      -1.000000E-10   1.000000E+10
+p010         none              relative    42.0488      -1.000000E-10   1.000000E+10
+p011         none              relative    46.4578      -1.000000E-10   1.000000E+10
+p012         none              relative    51.2679      -1.000000E-10   1.000000E+10
+p013         none              relative    56.4551      -1.000000E-10   1.000000E+10
+p014         none              relative    61.9916      -1.000000E-10   1.000000E+10
+p015         none              relative    67.8458      -1.000000E-10   1.000000E+10
+p016         none              relative    73.9813      -1.000000E-10   1.000000E+10
+p017         none              relative    80.3571      -1.000000E-10   1.000000E+10
+p018         none              relative    86.9267      -1.000000E-10   1.000000E+10
+p019         none              relative    93.6384      -1.000000E-10   1.000000E+10
+p020         none              relative    100.435      -1.000000E-10   1.000000E+10
+p021         none              relative    107.252      -1.000000E-10   1.000000E+10
+p022         none              relative    114.021      -1.000000E-10   1.000000E+10
+p023         none              relative    120.669      -1.000000E-10   1.000000E+10
+p024         none              relative    127.119      -1.000000E-10   1.000000E+10
+p025         none              relative    133.288      -1.000000E-10   1.000000E+10
+p026         none              relative    139.098      -1.000000E-10   1.000000E+10
+p027         none              relative    144.468      -1.000000E-10   1.000000E+10
+p028         none              relative    149.324      -1.000000E-10   1.000000E+10
+p029         none              relative    153.600      -1.000000E-10   1.000000E+10
+p030         none              relative    157.238      -1.000000E-10   1.000000E+10
+p031         none              relative    160.197      -1.000000E-10   1.000000E+10
+p032         none              relative    162.450      -1.000000E-10   1.000000E+10
+p033         none              relative    163.989      -1.000000E-10   1.000000E+10
+p034         none              relative    164.821      -1.000000E-10   1.000000E+10
+p035         none              relative    164.969      -1.000000E-10   1.000000E+10
+p036         none              relative    164.473      -1.000000E-10   1.000000E+10
+p037         none              relative    163.384      -1.000000E-10   1.000000E+10
+p038         none              relative    161.763      -1.000000E-10   1.000000E+10
+p039         none              relative    159.676      -1.000000E-10   1.000000E+10
+p040         none              relative    157.186      -1.000000E-10   1.000000E+10
+p041         none              relative    154.353      -1.000000E-10   1.000000E+10
+p042         none              relative    151.224      -1.000000E-10   1.000000E+10
+p043         none              relative    147.838      -1.000000E-10   1.000000E+10
+p044         none              relative    144.237      -1.000000E-10   1.000000E+10
+p045         none              relative    140.469      -1.000000E-10   1.000000E+10
+p046         none              relative    136.592      -1.000000E-10   1.000000E+10
+p047         none              relative    132.671      -1.000000E-10   1.000000E+10
+p048         none              relative    128.779      -1.000000E-10   1.000000E+10
+p049         none              relative    124.984      -1.000000E-10   1.000000E+10
+p050         none              relative    121.344      -1.000000E-10   1.000000E+10
+p051         none              relative    117.898      -1.000000E-10   1.000000E+10
+p052         none              relative    114.662      -1.000000E-10   1.000000E+10
+p053         none              relative    111.622      -1.000000E-10   1.000000E+10
+p054         none              relative    108.740      -1.000000E-10   1.000000E+10
+p055         none              relative    105.968      -1.000000E-10   1.000000E+10
+p056         none              relative    103.258      -1.000000E-10   1.000000E+10
+p057         none              relative    100.577      -1.000000E-10   1.000000E+10
+p058         none              relative    97.9059      -1.000000E-10   1.000000E+10
+p059         none              relative    95.2393      -1.000000E-10   1.000000E+10
+p060         none              relative    92.5737      -1.000000E-10   1.000000E+10
+p061         none              relative    89.9024      -1.000000E-10   1.000000E+10
+p062         none              relative    87.2128      -1.000000E-10   1.000000E+10
+p063         none              relative    84.4901      -1.000000E-10   1.000000E+10
+p064         none              relative    81.7254      -1.000000E-10   1.000000E+10
+p065         none              relative    78.9228      -1.000000E-10   1.000000E+10
+p066         none              relative    76.1001      -1.000000E-10   1.000000E+10
+p067         none              relative    73.2842      -1.000000E-10   1.000000E+10
+p068         none              relative    70.5073      -1.000000E-10   1.000000E+10
+p069         none              relative    67.8041      -1.000000E-10   1.000000E+10
+p070         none              relative    65.2094      -1.000000E-10   1.000000E+10
+p071         none              relative    62.7548      -1.000000E-10   1.000000E+10
+p072         none              relative    60.4637      -1.000000E-10   1.000000E+10
+p073         none              relative    58.3492      -1.000000E-10   1.000000E+10
+p074         none              relative    56.4140      -1.000000E-10   1.000000E+10
+p075         none              relative    54.6513      -1.000000E-10   1.000000E+10
+p076         none              relative    53.0467      -1.000000E-10   1.000000E+10
+p077         none              relative    51.5800      -1.000000E-10   1.000000E+10
+p078         none              relative    50.2272      -1.000000E-10   1.000000E+10
+p079         none              relative    48.9643      -1.000000E-10   1.000000E+10
+p080         none              relative    47.7698      -1.000000E-10   1.000000E+10
+p081         none              relative    46.6268      -1.000000E-10   1.000000E+10
+p082         none              relative    45.5229      -1.000000E-10   1.000000E+10
+p083         none              relative    44.4491      -1.000000E-10   1.000000E+10
+p084         none              relative    43.3990      -1.000000E-10   1.000000E+10
+p085         none              relative    42.3687      -1.000000E-10   1.000000E+10
+p086         none              relative    41.3564      -1.000000E-10   1.000000E+10
+p087         none              relative    40.3623      -1.000000E-10   1.000000E+10
+p088         none              relative    39.3882      -1.000000E-10   1.000000E+10
+p089         none              relative    38.4374      -1.000000E-10   1.000000E+10
+p090         none              relative    37.5133      -1.000000E-10   1.000000E+10
+p091         none              relative    36.6197      -1.000000E-10   1.000000E+10
+p092         none              relative    35.7604      -1.000000E-10   1.000000E+10
+p093         none              relative    34.9392      -1.000000E-10   1.000000E+10
+p094         none              relative    34.1606      -1.000000E-10   1.000000E+10
+p095         none              relative    33.4294      -1.000000E-10   1.000000E+10
+p096         none              relative    32.7505      -1.000000E-10   1.000000E+10
+p097         none              relative    32.1280      -1.000000E-10   1.000000E+10
+p098         none              relative    31.5646      -1.000000E-10   1.000000E+10
+p099         none              relative    31.0603      -1.000000E-10   1.000000E+10
+p100         none              relative    30.6121      -1.000000E-10   1.000000E+10
+p101         none              relative    30.2138      -1.000000E-10   1.000000E+10
+p102         none              relative    29.8563      -1.000000E-10   1.000000E+10
+p103         none              relative    29.5285      -1.000000E-10   1.000000E+10
+p104         none              relative    29.2182      -1.000000E-10   1.000000E+10
+p105         none              relative    28.9135      -1.000000E-10   1.000000E+10
+p106         none              relative    28.6039      -1.000000E-10   1.000000E+10
+p107         none              relative    28.2810      -1.000000E-10   1.000000E+10
+p108         none              relative    27.9394      -1.000000E-10   1.000000E+10
+p109         none              relative    27.5771      -1.000000E-10   1.000000E+10
+p110         none              relative    27.1953      -1.000000E-10   1.000000E+10
+p111         none              relative    26.7987      -1.000000E-10   1.000000E+10
+p112         none              relative    26.3941      -1.000000E-10   1.000000E+10
+p113         none              relative    25.9902      -1.000000E-10   1.000000E+10
+p114         none              relative    25.5970      -1.000000E-10   1.000000E+10
+p115         none              relative    25.2245      -1.000000E-10   1.000000E+10
+p116         none              relative    24.8823      -1.000000E-10   1.000000E+10
+p117         none              relative    24.5793      -1.000000E-10   1.000000E+10
+p118         none              relative    24.3230      -1.000000E-10   1.000000E+10
+p119         none              relative    24.1193      -1.000000E-10   1.000000E+10
+p120         none              relative    23.9723      -1.000000E-10   1.000000E+10
+p121         none              relative    23.8842      -1.000000E-10   1.000000E+10
+p122         none              relative    23.8553      -1.000000E-10   1.000000E+10
+p123         none              relative    23.8835      -1.000000E-10   1.000000E+10
+p124         none              relative    23.9644      -1.000000E-10   1.000000E+10
+p125         none              relative    24.0913      -1.000000E-10   1.000000E+10
+p126         none              relative    24.2564      -1.000000E-10   1.000000E+10
+p127         none              relative    24.4500      -1.000000E-10   1.000000E+10
+p128         none              relative    24.6614      -1.000000E-10   1.000000E+10
+p129         none              relative    24.8789      -1.000000E-10   1.000000E+10
+p130         none              relative    25.0903      -1.000000E-10   1.000000E+10
+p131         none              relative    25.2838      -1.000000E-10   1.000000E+10
+p132         none              relative    25.4486      -1.000000E-10   1.000000E+10
+p133         none              relative    25.5754      -1.000000E-10   1.000000E+10
+p134         none              relative    25.6576      -1.000000E-10   1.000000E+10
+p135         none              relative    25.6910      -1.000000E-10   1.000000E+10
+p136         none              relative    25.6745      -1.000000E-10   1.000000E+10
+p137         none              relative    25.6098      -1.000000E-10   1.000000E+10
+p138         none              relative    25.5019      -1.000000E-10   1.000000E+10
+p139         none              relative    25.3586      -1.000000E-10   1.000000E+10
+p140         none              relative    25.1901      -1.000000E-10   1.000000E+10
+p141         none              relative    25.0083      -1.000000E-10   1.000000E+10
+p142         none              relative    24.8245      -1.000000E-10   1.000000E+10
+p143         none              relative    24.6484      -1.000000E-10   1.000000E+10
+p144         none              relative    24.4878      -1.000000E-10   1.000000E+10
+p145         none              relative    24.3479      -1.000000E-10   1.000000E+10
+p146         none              relative    24.2312      -1.000000E-10   1.000000E+10
+p147         none              relative    24.1383      -1.000000E-10   1.000000E+10
+p148         none              relative    24.0678      -1.000000E-10   1.000000E+10
+p149         none              relative    24.0174      -1.000000E-10   1.000000E+10
+p150         none              relative    23.9841      -1.000000E-10   1.000000E+10
+p151         none              relative    23.9647      -1.000000E-10   1.000000E+10
+p152         none              relative    23.9562      -1.000000E-10   1.000000E+10
+p153         none              relative    23.9562      -1.000000E-10   1.000000E+10
+p154         none              relative    23.9624      -1.000000E-10   1.000000E+10
+p155         none              relative    23.9731      -1.000000E-10   1.000000E+10
+p156         none              relative    23.9870      -1.000000E-10   1.000000E+10
+p157         none              relative    24.0029      -1.000000E-10   1.000000E+10
+p158         none              relative    24.0202      -1.000000E-10   1.000000E+10
+p159         none              relative    24.0382      -1.000000E-10   1.000000E+10
+p160         none              relative    24.0567      -1.000000E-10   1.000000E+10
+p161         none              relative    24.0754      -1.000000E-10   1.000000E+10
+p162         none              relative    24.0941      -1.000000E-10   1.000000E+10
+p163         none              relative    24.1130      -1.000000E-10   1.000000E+10
+p164         none              relative    24.1318      -1.000000E-10   1.000000E+10
+p165         none              relative    24.1506      -1.000000E-10   1.000000E+10
+p166         none              relative    24.1694      -1.000000E-10   1.000000E+10
+p167         none              relative    24.1882      -1.000000E-10   1.000000E+10
+p168         none              relative    24.2069      -1.000000E-10   1.000000E+10
+p169         none              relative    24.2257      -1.000000E-10   1.000000E+10
+p170         none              relative    24.2445      -1.000000E-10   1.000000E+10
+p171         none              relative    24.2632      -1.000000E-10   1.000000E+10
+p172         none              relative    24.2820      -1.000000E-10   1.000000E+10
+p173         none              relative    24.3007      -1.000000E-10   1.000000E+10
+p174         none              relative    24.3194      -1.000000E-10   1.000000E+10
+p175         none              relative    24.3381      -1.000000E-10   1.000000E+10
+p176         none              relative    24.3568      -1.000000E-10   1.000000E+10
+p177         none              relative    24.3755      -1.000000E-10   1.000000E+10
+p178         none              relative    24.3942      -1.000000E-10   1.000000E+10
+p179         none              relative    24.4128      -1.000000E-10   1.000000E+10
+p180         none              relative    24.4315      -1.000000E-10   1.000000E+10
+p181         none              relative    24.4501      -1.000000E-10   1.000000E+10
+
+Name         Group          Scale         Offset        Model command number
+p001         layer_uno     1.00000        0.00000            1
+p002         layer_uno     1.00000        0.00000            1
+p003         layer_uno     1.00000        0.00000            1
+p004         layer_uno     1.00000        0.00000            1
+p005         layer_uno     1.00000        0.00000            1
+p006         layer_uno     1.00000        0.00000            1
+p007         layer_uno     1.00000        0.00000            1
+p008         layer_uno     1.00000        0.00000            1
+p009         layer_uno     1.00000        0.00000            1
+p010         layer_uno     1.00000        0.00000            1
+p011         layer_uno     1.00000        0.00000            1
+p012         layer_uno     1.00000        0.00000            1
+p013         layer_uno     1.00000        0.00000            1
+p014         layer_uno     1.00000        0.00000            1
+p015         layer_uno     1.00000        0.00000            1
+p016         layer_uno     1.00000        0.00000            1
+p017         layer_uno     1.00000        0.00000            1
+p018         layer_uno     1.00000        0.00000            1
+p019         layer_uno     1.00000        0.00000            1
+p020         layer_uno     1.00000        0.00000            1
+p021         layer_uno     1.00000        0.00000            1
+p022         layer_uno     1.00000        0.00000            1
+p023         layer_uno     1.00000        0.00000            1
+p024         layer_uno     1.00000        0.00000            1
+p025         layer_uno     1.00000        0.00000            1
+p026         layer_uno     1.00000        0.00000            1
+p027         layer_uno     1.00000        0.00000            1
+p028         layer_uno     1.00000        0.00000            1
+p029         layer_uno     1.00000        0.00000            1
+p030         layer_uno     1.00000        0.00000            1
+p031         layer_uno     1.00000        0.00000            1
+p032         layer_uno     1.00000        0.00000            1
+p033         layer_uno     1.00000        0.00000            1
+p034         layer_uno     1.00000        0.00000            1
+p035         layer_uno     1.00000        0.00000            1
+p036         layer_uno     1.00000        0.00000            1
+p037         layer_uno     1.00000        0.00000            1
+p038         layer_uno     1.00000        0.00000            1
+p039         layer_uno     1.00000        0.00000            1
+p040         layer_uno     1.00000        0.00000            1
+p041         layer_uno     1.00000        0.00000            1
+p042         layer_uno     1.00000        0.00000            1
+p043         layer_uno     1.00000        0.00000            1
+p044         layer_uno     1.00000        0.00000            1
+p045         layer_uno     1.00000        0.00000            1
+p046         layer_uno     1.00000        0.00000            1
+p047         layer_uno     1.00000        0.00000            1
+p048         layer_uno     1.00000        0.00000            1
+p049         layer_uno     1.00000        0.00000            1
+p050         layer_uno     1.00000        0.00000            1
+p051         layer_uno     1.00000        0.00000            1
+p052         layer_uno     1.00000        0.00000            1
+p053         layer_uno     1.00000        0.00000            1
+p054         layer_uno     1.00000        0.00000            1
+p055         layer_uno     1.00000        0.00000            1
+p056         layer_uno     1.00000        0.00000            1
+p057         layer_uno     1.00000        0.00000            1
+p058         layer_uno     1.00000        0.00000            1
+p059         layer_uno     1.00000        0.00000            1
+p060         layer_uno     1.00000        0.00000            1
+p061         layer_uno     1.00000        0.00000            1
+p062         layer_uno     1.00000        0.00000            1
+p063         layer_uno     1.00000        0.00000            1
+p064         layer_uno     1.00000        0.00000            1
+p065         layer_uno     1.00000        0.00000            1
+p066         layer_uno     1.00000        0.00000            1
+p067         layer_uno     1.00000        0.00000            1
+p068         layer_uno     1.00000        0.00000            1
+p069         layer_uno     1.00000        0.00000            1
+p070         layer_uno     1.00000        0.00000            1
+p071         layer_uno     1.00000        0.00000            1
+p072         layer_uno     1.00000        0.00000            1
+p073         layer_uno     1.00000        0.00000            1
+p074         layer_uno     1.00000        0.00000            1
+p075         layer_uno     1.00000        0.00000            1
+p076         layer_uno     1.00000        0.00000            1
+p077         layer_uno     1.00000        0.00000            1
+p078         layer_uno     1.00000        0.00000            1
+p079         layer_uno     1.00000        0.00000            1
+p080         layer_uno     1.00000        0.00000            1
+p081         layer_uno     1.00000        0.00000            1
+p082         layer_uno     1.00000        0.00000            1
+p083         layer_uno     1.00000        0.00000            1
+p084         layer_uno     1.00000        0.00000            1
+p085         layer_uno     1.00000        0.00000            1
+p086         layer_uno     1.00000        0.00000            1
+p087         layer_uno     1.00000        0.00000            1
+p088         layer_uno     1.00000        0.00000            1
+p089         layer_uno     1.00000        0.00000            1
+p090         layer_uno     1.00000        0.00000            1
+p091         layer_uno     1.00000        0.00000            1
+p092         layer_uno     1.00000        0.00000            1
+p093         layer_uno     1.00000        0.00000            1
+p094         layer_uno     1.00000        0.00000            1
+p095         layer_uno     1.00000        0.00000            1
+p096         layer_uno     1.00000        0.00000            1
+p097         layer_uno     1.00000        0.00000            1
+p098         layer_uno     1.00000        0.00000            1
+p099         layer_uno     1.00000        0.00000            1
+p100         layer_uno     1.00000        0.00000            1
+p101         layer_uno     1.00000        0.00000            1
+p102         layer_uno     1.00000        0.00000            1
+p103         layer_uno     1.00000        0.00000            1
+p104         layer_uno     1.00000        0.00000            1
+p105         layer_uno     1.00000        0.00000            1
+p106         layer_uno     1.00000        0.00000            1
+p107         layer_uno     1.00000        0.00000            1
+p108         layer_uno     1.00000        0.00000            1
+p109         layer_uno     1.00000        0.00000            1
+p110         layer_uno     1.00000        0.00000            1
+p111         layer_uno     1.00000        0.00000            1
+p112         layer_uno     1.00000        0.00000            1
+p113         layer_uno     1.00000        0.00000            1
+p114         layer_uno     1.00000        0.00000            1
+p115         layer_uno     1.00000        0.00000            1
+p116         layer_uno     1.00000        0.00000            1
+p117         layer_uno     1.00000        0.00000            1
+p118         layer_uno     1.00000        0.00000            1
+p119         layer_uno     1.00000        0.00000            1
+p120         layer_uno     1.00000        0.00000            1
+p121         layer_uno     1.00000        0.00000            1
+p122         layer_uno     1.00000        0.00000            1
+p123         layer_uno     1.00000        0.00000            1
+p124         layer_uno     1.00000        0.00000            1
+p125         layer_uno     1.00000        0.00000            1
+p126         layer_uno     1.00000        0.00000            1
+p127         layer_uno     1.00000        0.00000            1
+p128         layer_uno     1.00000        0.00000            1
+p129         layer_uno     1.00000        0.00000            1
+p130         layer_uno     1.00000        0.00000            1
+p131         layer_uno     1.00000        0.00000            1
+p132         layer_uno     1.00000        0.00000            1
+p133         layer_uno     1.00000        0.00000            1
+p134         layer_uno     1.00000        0.00000            1
+p135         layer_uno     1.00000        0.00000            1
+p136         layer_uno     1.00000        0.00000            1
+p137         layer_uno     1.00000        0.00000            1
+p138         layer_uno     1.00000        0.00000            1
+p139         layer_uno     1.00000        0.00000            1
+p140         layer_uno     1.00000        0.00000            1
+p141         layer_uno     1.00000        0.00000            1
+p142         layer_uno     1.00000        0.00000            1
+p143         layer_uno     1.00000        0.00000            1
+p144         layer_uno     1.00000        0.00000            1
+p145         layer_uno     1.00000        0.00000            1
+p146         layer_uno     1.00000        0.00000            1
+p147         layer_uno     1.00000        0.00000            1
+p148         layer_uno     1.00000        0.00000            1
+p149         layer_uno     1.00000        0.00000            1
+p150         layer_uno     1.00000        0.00000            1
+p151         layer_uno     1.00000        0.00000            1
+p152         layer_uno     1.00000        0.00000            1
+p153         layer_uno     1.00000        0.00000            1
+p154         layer_uno     1.00000        0.00000            1
+p155         layer_uno     1.00000        0.00000            1
+p156         layer_uno     1.00000        0.00000            1
+p157         layer_uno     1.00000        0.00000            1
+p158         layer_uno     1.00000        0.00000            1
+p159         layer_uno     1.00000        0.00000            1
+p160         layer_uno     1.00000        0.00000            1
+p161         layer_uno     1.00000        0.00000            1
+p162         layer_uno     1.00000        0.00000            1
+p163         layer_uno     1.00000        0.00000            1
+p164         layer_uno     1.00000        0.00000            1
+p165         layer_uno     1.00000        0.00000            1
+p166         layer_uno     1.00000        0.00000            1
+p167         layer_uno     1.00000        0.00000            1
+p168         layer_uno     1.00000        0.00000            1
+p169         layer_uno     1.00000        0.00000            1
+p170         layer_uno     1.00000        0.00000            1
+p171         layer_uno     1.00000        0.00000            1
+p172         layer_uno     1.00000        0.00000            1
+p173         layer_uno     1.00000        0.00000            1
+p174         layer_uno     1.00000        0.00000            1
+p175         layer_uno     1.00000        0.00000            1
+p176         layer_uno     1.00000        0.00000            1
+p177         layer_uno     1.00000        0.00000            1
+p178         layer_uno     1.00000        0.00000            1
+p179         layer_uno     1.00000        0.00000            1
+p180         layer_uno     1.00000        0.00000            1
+p181         layer_uno     1.00000        0.00000            1
+
+
+Prior information:-
+
+   No prior information supplied
+
+
+Observations:-
+
+Observation name        Observation       Weight       Group
+ obs1_01                 22.8858          1.000       obs_lay_uno 
+ obs1_02                 27.2256          1.000       obs_lay_uno 
+ obs1_03                 26.8181          1.000       obs_lay_uno 
+ obs1_04                 23.3682          1.000       obs_lay_uno 
+ obs1_05                 25.2769          1.000       obs_lay_uno 
+ obs1_06                 22.5054          1.000       obs_lay_uno 
+ obs1_07                 26.9880          1.000       obs_lay_uno 
+ obs1_08                 23.3638          1.000       obs_lay_uno 
+ obs1_09                 23.7445          1.000       obs_lay_uno 
+ obs1_10                 27.3643          1.000       obs_lay_uno 
+ obs1_11                 24.3196          1.000       obs_lay_uno 
+ obs1_12                 24.2389          1.000       obs_lay_uno 
+ obs1_13                 25.8602          1.000       obs_lay_uno 
+ obs1_14                 26.1978          1.000       obs_lay_uno 
+ obs1_15                 25.6238          1.000       obs_lay_uno 
+ obs1_16                 25.5027          1.000       obs_lay_uno 
+ obs1_17                 25.2383          1.000       obs_lay_uno 
+ obs1_18                 24.8643          1.000       obs_lay_uno 
+ obs1_19                 23.6982          1.000       obs_lay_uno 
+ obs1_20                 23.4764          1.000       obs_lay_uno 
+ obs1_21                 26.6645          1.000       obs_lay_uno 
+ obs1_22                 26.0074          1.000       obs_lay_uno 
+ obs1_23                 24.7412          1.000       obs_lay_uno 
+ obs1_24                 27.0860          1.000       obs_lay_uno 
+ obs1_25                 24.5508          1.000       obs_lay_uno 
+ obs1_26                 22.7367          1.000       obs_lay_uno 
+ obs1_27                 26.7420          1.000       obs_lay_uno 
+ obs1_28                 27.0932          1.000       obs_lay_uno 
+ obs1_29                 25.7096          1.000       obs_lay_uno 
+ obs1_30                 23.0616          1.000       obs_lay_uno 
+ obs1_31                 22.6491          1.000       obs_lay_uno 
+ obs1_32                 27.7051          1.000       obs_lay_uno 
+ obs1_33                 23.9500          1.000       obs_lay_uno 
+ obs1_34                 25.0777          1.000       obs_lay_uno 
+ obs1_35                 23.6624          1.000       obs_lay_uno 
+ obs1_36                 29.5805          1.000       obs_lay_uno 
+ obs1_37                 26.8319          1.000       obs_lay_uno 
+ obs1_38                 31.7604          1.000       obs_lay_uno 
+ obs1_39                 30.9821          1.000       obs_lay_uno 
+ obs1_40                 39.5716          1.000       obs_lay_uno 
+ obs1_41                 43.7888          1.000       obs_lay_uno 
+ obs1_42                 45.0292          1.000       obs_lay_uno 
+ obs1_43                 49.3868          1.000       obs_lay_uno 
+ obs1_44                 56.5317          1.000       obs_lay_uno 
+ obs1_45                 67.9755          1.000       obs_lay_uno 
+ obs1_46                 84.2756          1.000       obs_lay_uno 
+ obs1_47                 80.6846          1.000       obs_lay_uno 
+ obs1_48                 89.6766          1.000       obs_lay_uno 
+ obs1_49                 91.8659          1.000       obs_lay_uno 
+ obs1_50                 115.711          1.000       obs_lay_uno 
+ obs1_51                 124.997          1.000       obs_lay_uno 
+ obs1_52                 116.660          1.000       obs_lay_uno 
+ obs1_53                 132.385          1.000       obs_lay_uno 
+ obs1_54                 136.313          1.000       obs_lay_uno 
+ obs1_55                 120.108          1.000       obs_lay_uno 
+ obs1_56                 145.960          1.000       obs_lay_uno 
+ obs1_57                 132.568          1.000       obs_lay_uno 
+ obs1_58                 143.399          1.000       obs_lay_uno 
+ obs1_59                 150.819          1.000       obs_lay_uno 
+ obs1_60                 132.889          1.000       obs_lay_uno 
+ obs1_61                 142.527          1.000       obs_lay_uno 
+ obs1_62                 158.518          1.000       obs_lay_uno 
+ obs1_63                 147.269          1.000       obs_lay_uno 
+ obs1_64                 153.936          1.000       obs_lay_uno 
+ obs1_65                 151.945          1.000       obs_lay_uno 
+ obs1_66                 146.045          1.000       obs_lay_uno 
+ obs1_67                 134.614          1.000       obs_lay_uno 
+ obs1_68                 134.718          1.000       obs_lay_uno 
+ obs1_69                 135.470          1.000       obs_lay_uno 
+ obs1_70                 128.629          1.000       obs_lay_uno 
+ obs1_71                 125.605          1.000       obs_lay_uno 
+ obs1_72                 144.491          1.000       obs_lay_uno 
+ obs1_73                 141.856          1.000       obs_lay_uno 
+ obs1_74                 140.105          1.000       obs_lay_uno 
+ obs1_75                 116.714          1.000       obs_lay_uno 
+ obs1_76                 112.831          1.000       obs_lay_uno 
+ obs1_77                 121.582          1.000       obs_lay_uno 
+ obs1_78                 119.976          1.000       obs_lay_uno 
+ obs1_79                 125.450          1.000       obs_lay_uno 
+ obs1_80                 114.825          1.000       obs_lay_uno 
+ obs1_81                 102.154          1.000       obs_lay_uno 
+ obs1_82                 113.839          1.000       obs_lay_uno 
+ obs1_83                 103.018          1.000       obs_lay_uno 
+ obs1_84                 108.129          1.000       obs_lay_uno 
+ obs1_85                 111.362          1.000       obs_lay_uno 
+ obs1_86                 105.847          1.000       obs_lay_uno 
+ obs1_87                 92.3440          1.000       obs_lay_uno 
+ obs1_88                 95.0668          1.000       obs_lay_uno 
+ obs1_89                 93.5357          1.000       obs_lay_uno 
+ obs1_90                 97.0937          1.000       obs_lay_uno 
+ obs1_91                 93.9784          1.000       obs_lay_uno 
+ obs1_92                 91.4507          1.000       obs_lay_uno 
+ obs1_93                 84.4685          1.000       obs_lay_uno 
+ obs1_94                 79.5219          1.000       obs_lay_uno 
+ obs1_95                 75.0160          1.000       obs_lay_uno 
+ obs1_96                 76.3381          1.000       obs_lay_uno 
+ obs1_97                 83.3483          1.000       obs_lay_uno 
+ obs1_98                 68.8270          1.000       obs_lay_uno 
+ obs1_99                 76.6542          1.000       obs_lay_uno 
+ obs1_100                70.0949          1.000       obs_lay_uno 
+ obs1_101                68.0933          1.000       obs_lay_uno 
+ obs1_102                71.7227          1.000       obs_lay_uno 
+ obs1_103                63.3993          1.000       obs_lay_uno 
+ obs1_104                63.9179          1.000       obs_lay_uno 
+ obs1_105                58.3901          1.000       obs_lay_uno 
+ obs1_106                63.3192          1.000       obs_lay_uno 
+ obs1_107                59.4166          1.000       obs_lay_uno 
+ obs1_108                60.7286          1.000       obs_lay_uno 
+ obs1_109                60.4818          1.000       obs_lay_uno 
+ obs1_110                52.8183          1.000       obs_lay_uno 
+ obs1_111                55.8504          1.000       obs_lay_uno 
+ obs1_112                56.0651          1.000       obs_lay_uno 
+ obs1_113                49.6767          1.000       obs_lay_uno 
+ obs1_114                46.8911          1.000       obs_lay_uno 
+ obs1_115                50.0840          1.000       obs_lay_uno 
+ obs1_116                47.0210          1.000       obs_lay_uno 
+ obs1_117                52.1450          1.000       obs_lay_uno 
+ obs1_118                45.1774          1.000       obs_lay_uno 
+ obs1_119                46.0119          1.000       obs_lay_uno 
+ obs1_120                42.1218          1.000       obs_lay_uno 
+ obs1_121                47.3301          1.000       obs_lay_uno 
+ obs1_122                43.3432          1.000       obs_lay_uno 
+ obs1_123                40.9431          1.000       obs_lay_uno 
+ obs1_124                45.0498          1.000       obs_lay_uno 
+ obs1_125                38.4029          1.000       obs_lay_uno 
+ obs1_126                40.0600          1.000       obs_lay_uno 
+ obs1_127                36.5342          1.000       obs_lay_uno 
+ obs1_128                37.1234          1.000       obs_lay_uno 
+ obs1_129                38.2127          1.000       obs_lay_uno 
+ obs1_130                38.3965          1.000       obs_lay_uno 
+ obs1_131                34.3263          1.000       obs_lay_uno 
+ obs1_132                31.7910          1.000       obs_lay_uno 
+ obs1_133                35.6905          1.000       obs_lay_uno 
+ obs1_134                35.7360          1.000       obs_lay_uno 
+ obs1_135                31.9096          1.000       obs_lay_uno 
+ obs1_136                31.6005          1.000       obs_lay_uno 
+ obs1_137                32.9076          1.000       obs_lay_uno 
+ obs1_138                34.0908          1.000       obs_lay_uno 
+ obs1_139                32.5070          1.000       obs_lay_uno 
+ obs1_140                32.6705          1.000       obs_lay_uno 
+ obs1_141                32.3194          1.000       obs_lay_uno 
+ obs1_142                29.2076          1.000       obs_lay_uno 
+ obs1_143                28.6274          1.000       obs_lay_uno 
+ obs1_144                31.4195          1.000       obs_lay_uno 
+ obs1_145                30.5551          1.000       obs_lay_uno 
+ obs1_146                26.2538          1.000       obs_lay_uno 
+ obs1_147                29.6755          1.000       obs_lay_uno 
+ obs1_148                27.9472          1.000       obs_lay_uno 
+ obs1_149                26.8846          1.000       obs_lay_uno 
+ obs1_150                28.9933          1.000       obs_lay_uno 
+ obs1_151                28.9439          1.000       obs_lay_uno 
+ obs1_152                26.9101          1.000       obs_lay_uno 
+ obs1_153                26.2607          1.000       obs_lay_uno 
+ obs1_154                28.3060          1.000       obs_lay_uno 
+ obs1_155                26.3333          1.000       obs_lay_uno 
+ obs1_156                24.9144          1.000       obs_lay_uno 
+ obs1_157                23.7797          1.000       obs_lay_uno 
+ obs1_158                24.9937          1.000       obs_lay_uno 
+ obs1_159                27.1974          1.000       obs_lay_uno 
+ obs1_160                24.8795          1.000       obs_lay_uno 
+ obs1_161                23.9617          1.000       obs_lay_uno 
+ obs1_162                23.3487          1.000       obs_lay_uno 
+ obs1_163                23.3251          1.000       obs_lay_uno 
+ obs1_164                25.5185          1.000       obs_lay_uno 
+ obs1_165                24.0909          1.000       obs_lay_uno 
+ obs1_166                24.7508          1.000       obs_lay_uno 
+ obs1_167                26.7723          1.000       obs_lay_uno 
+ obs1_168                27.2923          1.000       obs_lay_uno 
+ obs1_169                26.7131          1.000       obs_lay_uno 
+ obs1_170                27.2341          1.000       obs_lay_uno 
+ obs1_171                24.9848          1.000       obs_lay_uno 
+ obs1_172                24.7129          1.000       obs_lay_uno 
+ obs1_173                23.5056          1.000       obs_lay_uno 
+ obs1_174                24.6555          1.000       obs_lay_uno 
+ obs1_175                26.6547          1.000       obs_lay_uno 
+ obs1_176                23.4450          1.000       obs_lay_uno 
+ obs1_177                25.1948          1.000       obs_lay_uno 
+ obs1_178                24.2287          1.000       obs_lay_uno 
+ obs1_179                25.0148          1.000       obs_lay_uno 
+ obs1_180                25.7930          1.000       obs_lay_uno 
+ obs1_181                23.5487          1.000       obs_lay_uno 
+
+
+Control settings:-
+
+   Initial lambda                                               :  5.0000    
+   Lambda adjustment factor                                     : iteration-dependent
+   Value of variable governing adjustment                       : -3.0000    
+   Sufficient new/old phi ratio per optimisation iteration      : 0.30000    
+   Limiting relative phi reduction between lambdas              : 3.00000E-02
+   Maximum trial lambdas per iteration                          :  10
+   Forgive model run failure during lamda testing               : no
+
+   Perform Broyden's update of Jacobian matrix                  : no
+
+   Maximum  factor  parameter change (factor-limited changes)   : na
+   Maximum relative parameter change (relative-limited changes) :  3.0000
+   Fraction of initial parameter values used in computing
+   change limit for near-zero parameters                        : 1.00000E-03
+   Allow bending of parameter upgrade vector                    : no
+   Allow parameters to stick to their bounds                    : no
+
+   Relative phi reduction below which to begin use of
+   central derivatives                                          : na                  
+   Iteration at which to first consider derivatives switch      : na
+
+   Relative phi reduction indicating convergence                : 0.10000E-01
+   Number of phi values required within this range              :   3
+   Maximum number of consecutive failures to lower phi          :   3
+   Minimal relative parameter change indicating convergence     : 0.10000E-01
+   Number of consecutive iterations with minimal param change   :   3
+   Maximum number of optimisation iterations                    :  -2 (only compute Jacobian)
+
+   Attempt automatic user intervention                          : no
+
+   Attempt reuse of parameter sensitivities                     : no
+
+
+File saving options: -
+
+   Save best JCO file                                           : yes
+   Save multiple JCO files                                      : no
+   Save multiple REI files                                      : no
+   Save multiple PAR files                                      : no
+
+
+                            OPTIMISATION RECORD
+
+
+INITIAL CONDITIONS: 
+   Sum of squared weighted residuals (ie phi) =   3202.1    
+
+      Current parameter values
+      p001             22.8253    
+      p002             23.0527    
+      p003             23.7616    
+      p004             24.9545    
+      p005             26.6308    
+      p006             28.7872    
+      p007             31.4174    
+      p008             34.5126    
+      p009             38.0612    
+      p010             42.0488    
+      p011             46.4578    
+      p012             51.2679    
+      p013             56.4551    
+      p014             61.9916    
+      p015             67.8458    
+      p016             73.9813    
+      p017             80.3571    
+      p018             86.9267    
+      p019             93.6384    
+      p020             100.435    
+      p021             107.252    
+      p022             114.021    
+      p023             120.669    
+      p024             127.119    
+      p025             133.288    
+      p026             139.098    
+      p027             144.468    
+      p028             149.324    
+      p029             153.600    
+      p030             157.238    
+      p031             160.197    
+      p032             162.450    
+      p033             163.989    
+      p034             164.821    
+      p035             164.969    
+      p036             164.473    
+      p037             163.384    
+      p038             161.763    
+      p039             159.676    
+      p040             157.186    
+      p041             154.353    
+      p042             151.224    
+      p043             147.838    
+      p044             144.237    
+      p045             140.469    
+      p046             136.592    
+      p047             132.671    
+      p048             128.779    
+      p049             124.984    
+      p050             121.344    
+      p051             117.898    
+      p052             114.662    
+      p053             111.622    
+      p054             108.740    
+      p055             105.968    
+      p056             103.258    
+      p057             100.577    
+      p058             97.9059    
+      p059             95.2393    
+      p060             92.5737    
+      p061             89.9024    
+      p062             87.2128    
+      p063             84.4901    
+      p064             81.7254    
+      p065             78.9228    
+      p066             76.1001    
+      p067             73.2842    
+      p068             70.5073    
+      p069             67.8041    
+      p070             65.2094    
+      p071             62.7548    
+      p072             60.4637    
+      p073             58.3492    
+      p074             56.4140    
+      p075             54.6513    
+      p076             53.0467    
+      p077             51.5800    
+      p078             50.2272    
+      p079             48.9643    
+      p080             47.7698    
+      p081             46.6268    
+      p082             45.5229    
+      p083             44.4491    
+      p084             43.3990    
+      p085             42.3687    
+      p086             41.3564    
+      p087             40.3623    
+      p088             39.3882    
+      p089             38.4374    
+      p090             37.5133    
+      p091             36.6197    
+      p092             35.7604    
+      p093             34.9392    
+      p094             34.1606    
+      p095             33.4294    
+      p096             32.7505    
+      p097             32.1280    
+      p098             31.5646    
+      p099             31.0603    
+      p100             30.6121    
+      p101             30.2138    
+      p102             29.8563    
+      p103             29.5285    
+      p104             29.2182    
+      p105             28.9135    
+      p106             28.6039    
+      p107             28.2810    
+      p108             27.9394    
+      p109             27.5771    
+      p110             27.1953    
+      p111             26.7987    
+      p112             26.3941    
+      p113             25.9902    
+      p114             25.5970    
+      p115             25.2245    
+      p116             24.8823    
+      p117             24.5793    
+      p118             24.3230    
+      p119             24.1193    
+      p120             23.9723    
+      p121             23.8842    
+      p122             23.8553    
+      p123             23.8835    
+      p124             23.9644    
+      p125             24.0913    
+      p126             24.2564    
+      p127             24.4500    
+      p128             24.6614    
+      p129             24.8789    
+      p130             25.0903    
+      p131             25.2838    
+      p132             25.4486    
+      p133             25.5754    
+      p134             25.6576    
+      p135             25.6910    
+      p136             25.6745    
+      p137             25.6098    
+      p138             25.5019    
+      p139             25.3586    
+      p140             25.1901    
+      p141             25.0083    
+      p142             24.8245    
+      p143             24.6484    
+      p144             24.4878    
+      p145             24.3479    
+      p146             24.2312    
+      p147             24.1383    
+      p148             24.0678    
+      p149             24.0174    
+      p150             23.9841    
+      p151             23.9647    
+      p152             23.9562    
+      p153             23.9562    
+      p154             23.9624    
+      p155             23.9731    
+      p156             23.9870    
+      p157             24.0029    
+      p158             24.0202    
+      p159             24.0382    
+      p160             24.0567    
+      p161             24.0754    
+      p162             24.0941    
+      p163             24.1130    
+      p164             24.1318    
+      p165             24.1506    
+      p166             24.1694    
+      p167             24.1882    
+      p168             24.2069    
+      p169             24.2257    
+      p170             24.2445    
+      p171             24.2632    
+      p172             24.2820    
+      p173             24.3007    
+      p174             24.3194    
+      p175             24.3381    
+      p176             24.3568    
+      p177             24.3755    
+      p178             24.3942    
+      p179             24.4128    
+      p180             24.4315    
+      p181             24.4501    
+
+
+OPTIMISATION ITERATION NO.        : 1
+   Model calls so far             : 1
+   Starting phi for this iteration:   3202.1    
+
+   Optimisation complete: NOPTMAX supplied as -2 indicating that only the
+                          Jacobian for the initial parameter set is required.
+   Total model calls:    182
