@@ -2125,6 +2125,12 @@ name "fig:flowchart"
 \end_inset
 
 Abbreviated flowchart showing the progression of the major bgaPEST procedures.
+
+\change_inserted -74556787 1338741782
+ Text in blue italics is interpretive, summarizing the more programmatic
+ language represented in black plain type.
+\change_unchanged
+
 \end_layout
 
 \end_inset
@@ -2241,7 +2247,7 @@ If negative, convergence is based on the norm of the difference between
  consecutive structural parameter values.
 \begin_inset Formula 
 \[
-\mathrm{conv=}\sqrt{\left(\mathbf{\theta}_{i}-\mathbf{\theta}_{i-1}\right)^{T}\left(\mathbf{\theta}_{i}-\mathbf{\theta}_{i-1}\right)}
+\mathrm{conv=}\sqrt{\left(\frac{\mathbf{\theta}_{i-1}-\theta_{i}}{\theta_{i-1}}\right)^{T}\left(\frac{\mathbf{\theta}_{i-1}-\theta_{i}}{\theta_{i-1}}\right)}
 \]
 
 \end_inset
@@ -2984,7 +2990,22 @@ key "R"
 
 
 \change_unchanged
-) or TSPROC (REF).
+) or TSPROC 
+\change_deleted -74556787 1338741735
+(REF
+\change_inserted -74556787 1338741733
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "TSPROC"
+
+\end_inset
+
+
+\change_deleted -74556787 1338741738
+)
+\change_unchanged
+.
 \end_layout
 
 \begin_layout Subsection*

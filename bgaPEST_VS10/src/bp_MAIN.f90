@@ -105,8 +105,10 @@ program bp_main
           CASENAME = CTLFILE
           CTLFILE(I+1:)='.bgp'
         ELSE
-          CASENAME = CTLFILE(1:I-4)
+          CASENAME = trim(CTLFILE)
         endif
+      ELSE
+          CASENAME = trim(CTLFILE) // '.bgp'
       endif
    
 !--  INITIALIZE MIO STRUCTURE SO IT CAN BE PASSED    
