@@ -281,7 +281,9 @@ program bp_main
                structural_conv = cv_A%structural_conv                   !The structural convergenge value remain the one assigned into .bgp file
                prev_struct = cv_S%str_obj_fun                           !Assign the current value of the objective function to the previous
              else
-               curr_structural_conv = sqrt(sum((prev_struct - d_S%struct_par_opt_vec)**2)) !Calculate norm of difference between actual and previous vectors
+               !curr_structural_conv = sqrt(sum((prev_struct - d_S%struct_par_opt_vec)**2)) !Calculate norm of difference between actual and previous vectors
+               curr_structural_conv = sqrt(sum(((prev_struct - d_S%struct_par_opt_vec)/prev_struct)**2))!calculate the normalized root square difference 
+               																							!between last iteration and current one
                structural_conv = -cv_A%structural_conv             !The structural convergenge value changes sign respect to the one assigned into .bgp file  
                prev_struct = d_S%struct_par_opt_vec                !Assign the current vector of structural parameters to the previous vector
              endif  

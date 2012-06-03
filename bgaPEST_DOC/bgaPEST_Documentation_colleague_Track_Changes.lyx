@@ -2094,7 +2094,7 @@ begin{center}
 
 
 \begin_inset Graphics
-	filename figures/flowchart_short.pdf
+	filename figures/flowchart_short2.pdf
 
 \end_inset
 
@@ -8853,8 +8853,15 @@ Two options exist to calculate sensitivity (Jacobian) matrices: an experimental
 \begin_inset Formula $\sigma_{R}^{2}$
 \end_inset
 
- is fixed at a value approximately the same as the artificial noise used
- to corrupt the synthetic ``true
+ is fixed at a value approximately 
+\change_deleted -74556787 1338734507
+the same
+\change_inserted -74556787 1338734514
+two orders of magnitude higher than
+\change_deleted -74556787 1338734515
+ as 
+\change_unchanged
+the artificial noise used to corrupt the synthetic ``true
 \begin_inset Quotes erd
 \end_inset
 
