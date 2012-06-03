@@ -2947,6 +2947,26 @@ to make the calculation of the Jacobian matrix more efficient in the case
  stick with models with short run times, run Jacobian calculations in series
  and just recognize that the computational burden may be high.
  
+\change_inserted -74556787 1338744862
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338745181
+Adjoint-state Jacobian calculation is an attractive method to mitigate high
+ computational expense of this method.
+ However, production codes for adjoint state calculations are rare.
+ For more information on the technique, see 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "TownleyWilson1985,Sykes1985,SamperNeuman1986,RamaRao1995,neupauerWilson1999"
+
+\end_inset
+
+ and references therein.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard
@@ -3537,9 +3557,9 @@ The specific input blocks used in bgaPEST are discussed, in order of appearance
 \family default
  file.
  
-\change_inserted -74556787 1338686562
-The orderof the blocks is important to maintain in the order discussed in
- this report.
+\change_inserted -74556787 1338748875
+The order of the blocks is important to maintain in the order discussed
+ in this report.
  
 \change_unchanged
 For each block, data types are identified either as 
@@ -4497,7 +4517,11 @@ prior_cov_mode
 \family default
  
 \emph on
-integer 
+integer
+\change_inserted -74556787 1338747370
+, default = 1
+\change_unchanged
+ 
 \emph default
 Flag to indicate whether prior covariance of parameters 
 \begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
@@ -4963,7 +4987,13 @@ default = 50
 \end_layout
 
 \begin_layout Subsubsection*
-Parameter Control Values 
+Parameter Control 
+\change_deleted -74556787 1338747874
+Values
+\change_inserted -74556787 1338747875
+Variables
+\change_unchanged
+ 
 \begin_inset ERT
 status open
 
@@ -6237,6 +6267,823 @@ algorithmic_cv
 algorithmic_cv
 \family default
  block is empty, all default values will be used.
+\change_inserted -74556787 1338751098
+
+\end_layout
+
+\begin_layout Subparagraph*
+
+\change_inserted -74556787 1338751102
+Example Input File
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751215
+
+\family typewriter
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338751217
+
+\family typewriter
+
+\backslash
+newline{}
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+BEGIN algorithmic_cv KEYWORDS 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751152
+
+\family typewriter
+structural_conv=0.004 phi_conv=0.004 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751155
+
+\family typewriter
+bga_conv=1.0e-2 it_max_structural=10 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751156
+
+\family typewriter
+it_max_phi=15 it_max_bga=15 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751158
+
+\family typewriter
+linesearch=1 it_max_linesearch=3 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751159
+
+\family typewriter
+theta_cov_form=1 Q_compression_flag=1 deriv_mode = 1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751162
+
+\family typewriter
+jacobian_format = ascii jacobian_file = S1_1.jac 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751165
+
+\family typewriter
+posterior_cov_flag = 1 par_anisotropy=0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END algorithmic_cv 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751240
+
+\family typewriter
+BEGIN prior_mean_cv KEYWORDS 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751243
+
+\family typewriter
+prior_betas= 1 beta_cov_form=1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END prior_mean_cv 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751249
+
+\family typewriter
+BEGIN prior_mean_data TABLE 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751264
+
+\family typewriter
+nrow=1 ncol=7 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751269
+
+\family typewriter
+BetaAssoc Partrans beta_0 beta_cov_1 beta_cov_2 beta_cov_3 beta_cov_4 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751274
+
+\family typewriter
+1 log -7.6 5e-7 65.
+ 3.1 4.1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END prior_mean_data 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751288
+
+\family typewriter
+BEGIN structural_parameter_cv TABLE 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751294
+
+\family typewriter
+nrow=1 ncol=6 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751296
+
+\family typewriter
+BetaAssoc prior_cov_mode var_type struct_par_opt trans_theta alpha_trans
+ 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751291
+
+\family typewriter
+1 2 1 1 1 20 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END structural_parameter_cv 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751310
+
+\family typewriter
+BEGIN structural_parameters_data TABLE
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751313
+
+\family typewriter
+nrow=1 ncol=3 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751319
+
+\family typewriter
+BetaAssoc theta_0_1 theta_0_2 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751321
+
+\family typewriter
+1 1.0e-007 -0.1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END structural_parameters_data
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751328
+
+\family typewriter
+BEGIN structural_parameters_cov TABLE 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751330
+
+\family typewriter
+nrow=1 ncol=1 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751336
+
+\family typewriter
+theta_cov_1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+11.1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END structural_parameters_cov
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751345
+
+\family typewriter
+BEGIN epistemic_error_term KEYWORDS 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751349
+
+\family typewriter
+sig_0 = 1.000e-000 sig_opt = 0 sig_p_var=0.00001 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END epistemic_error_term
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751355
+
+\family typewriter
+BEGIN parameter_cv KEYWORDS 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751374
+
+\family typewriter
+ndim=3 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END parameter_cv 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751358
+
+\family typewriter
+BEGIN Q_compression_cv TABLE
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751359
+
+\family typewriter
+nrow=1 ncol=5 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751362
+
+\family typewriter
+BetaAssoc Toep_flag Nrow Ncol Nlay 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751364
+
+\family typewriter
+1 1 21 21 1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751382
+
+\family typewriter
+BEGIN parameter_groups TABLE 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751383
+
+\family typewriter
+nrow=1 ncol=2 columnlabels
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751388
+
+\family typewriter
+groupname grouptype 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751390
+
+\family typewriter
+pargp_uno 1 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END parameter_groups 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751399
+
+\family typewriter
+BEGIN parameter_data FILES 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751402
+
+\family typewriter
+PARAMETERS.txt 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END parameter_data 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751410
+
+\family typewriter
+BEGIN observation_groups TABLE 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751413
+
+\family typewriter
+nrow=1 ncol=1 columnlabels
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751415
+
+\family typewriter
+groupname obsgp_oden 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END observation_groups 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751423
+
+\family typewriter
+BEGIN observation_data FILES 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751425
+
+\family typewriter
+obs12.txt 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751429
+
+\family typewriter
+END observation_data 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751431
+
+\family typewriter
+BEGIN model_command_lines KEYWORDS 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751435
+
+\family typewriter
+Command = modflow.bat 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751437
+
+\family typewriter
+DerivCommand = modflow_adj.bat 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END model_command_lines 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751444
+
+\family typewriter
+BEGIN model_input_files TABLE 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751447
+
+\family typewriter
+nrow=1 ncol=2 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751450
+
+\family typewriter
+TemplateFile ModInFile 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751454
+
+\family typewriter
+S1_mul.tpl S1_.mul 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END model_input_files 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751465
+
+\family typewriter
+BEGIN model_output_files TABLE
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751466
+
+\family typewriter
+nrow=1 ncol=2 columnlabels
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751469
+
+\family typewriter
+InstructionFile ModOutFile
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751470
+
+\family typewriter
+S1_1_hbs.ins S1_1.hbs 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751103
+
+\family typewriter
+END model_output_files 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751477
+
+\family typewriter
+BEGIN parameter_anisotropy TABLE
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751479
+
+\family typewriter
+nrow = 1 ncol = 4 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751484
+
+\family typewriter
+BetaAssoc horiz_angle horiz_ratio vertical_ratio 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751486
+
+\family typewriter
+1 45 10 10 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751597
+
+\family typewriter
+END parameter_anisotropy
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+\change_inserted -74556787 1338748950
+Summary Input Tables
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Summary_INput_Tables"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338750817
+The Tables in this appendix summarize the input blocks and variables names,
+ types, and default values.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338750908
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750874
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750434
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Variables_for_documentation1.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750434
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750875
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750875
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:variables1-1"
+
+\end_inset
+
+Summary of input blocks with variables identified.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338750972
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750985
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750985
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Variables_for_documentation2.pdf
+	scale 50
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750985
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750985
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1338750985
+Summary of input blocks with variables identified (continued).
+\end_layout
+
+\end_inset
+
+
+\change_deleted -74556787 1338750992
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -7692,6 +8539,36 @@ reference "fig:toep"
 \end_inset
 
  matrix in Compressed form, as discussed above.
+\change_inserted -74556787 1338744542
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338744690
+For even larger problems (more parameters) specialized Fourier tranform-based
+ functions may be useful to speed up the computations made with compressed
+ matrices 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Nowak2003,NowakCirpka2004"
+
+\end_inset
+
+.
+ The restriction of regular grid spacing can also be relaxed using a Karhunen-Lo
+eve transform 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "LiCirpka2006"
+
+\end_inset
+
+.
+ Both of these advances may be considered as future improvements to bgaPEST
+ but are not currently implemented.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard
