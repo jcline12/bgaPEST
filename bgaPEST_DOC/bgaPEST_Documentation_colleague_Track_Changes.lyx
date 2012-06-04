@@ -6110,7 +6110,7 @@ file.
  
 \end_layout
 
-\begin_layout Subparagraph*
+\begin_layout Paragraph*
 Forward Model
 \end_layout
 
@@ -6157,7 +6157,7 @@ command
  keyword that runs the model.
 \end_layout
 
-\begin_layout Subparagraph*
+\begin_layout Paragraph*
 Observations
 \end_layout
 
@@ -6176,7 +6176,7 @@ observation_data
  block must also be completed.
 \end_layout
 
-\begin_layout Subparagraph*
+\begin_layout Paragraph*
 Beta Associations
 \end_layout
 
@@ -6199,7 +6199,7 @@ prior_mean_data
  the mean is provided or not.
 \end_layout
 
-\begin_layout Subparagraph*
+\begin_layout Paragraph*
 Structural Parameters
 \end_layout
 
@@ -6219,7 +6219,7 @@ structural_parameter_data
  or not to provide prior information about the values is optional.
 \end_layout
 
-\begin_layout Subparagraph*
+\begin_layout Paragraph*
 Parameters
 \end_layout
 
@@ -6247,7 +6247,7 @@ parameter_data
  
 \end_layout
 
-\begin_layout Subparagraph*
+\begin_layout Paragraph*
 Algorithmic Control Variables
 \end_layout
 
@@ -6271,15 +6271,23 @@ algorithmic_cv
 
 \end_layout
 
-\begin_layout Subparagraph*
+\begin_layout Paragraph*
 
-\change_inserted -74556787 1338751102
-Example Input File
+\change_inserted -74556787 1338818549
+Example .bgp Input File
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1338818675
+The following text shows a bgaPEST input file.
+ Two dependent files for parameters and observations are shown in abbreviated
+ form to indicate their format.
 \end_layout
 
 \begin_layout Verse
 
-\change_inserted -74556787 1338751215
+\change_inserted -74556787 1338818729
 
 \family typewriter
 \begin_inset ERT
@@ -6287,18 +6295,31 @@ status open
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1338751217
+\change_inserted -74556787 1338818681
 
-\family typewriter
 
 \backslash
 newline{}
-\change_unchanged
-
 \end_layout
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subparagraph*
+
+\change_inserted -74556787 1338818733
+
+\family typewriter
+Example1.bgp
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338751215
+
+\family typewriter
 BEGIN algorithmic_cv KEYWORDS 
 \end_layout
 
@@ -6906,10 +6927,226 @@ BetaAssoc horiz_angle horiz_ratio vertical_ratio
 
 \begin_layout Verse
 
-\change_inserted -74556787 1338751597
+\change_inserted -74556787 1338818757
 
 \family typewriter
 END parameter_anisotropy
+\end_layout
+
+\begin_layout Subparagraph*
+
+\change_inserted -74556787 1338818778
+
+\family typewriter
+PARAMETERS.txt
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818878
+
+\family typewriter
+BEGIN parameter_data 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818881
+
+\family typewriter
+TABLE nrow=441 ncol=8 columnlabels 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818884
+
+\family typewriter
+ParamName StartValue GroupName BetaAssoc SenMethod x1 x2 x3 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818887
+
+\family typewriter
+P1 2.000000000000000E-04 pargp_uno 1 1 1.0000E+00 1.000E+00 0.00E+00 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818889
+
+\family typewriter
+P2 2.000000000000000E-04 pargp_uno 1 1 2.0000E+00 1.000E+00 0.00E+00 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818890
+
+\family typewriter
+P3 2.000000000000000E-04 pargp_uno 1 1 3.0000E+00 1.000E+00 0.00E+00
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818893
+
+\family typewriter
+...
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818905
+
+\family typewriter
+P440 2.000000000000000E-04 pargp_uno 1 1 2.0000E+01 2.100E+01 0.00E+00 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818908
+
+\family typewriter
+P441 2.000000000000000E-04 pargp_uno 1 1 2.1000E+01 2.100E+01 0.00E+00 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818911
+
+\family typewriter
+END parameter_data
+\end_layout
+
+\begin_layout Subparagraph*
+
+\change_inserted -74556787 1338818925
+
+\family typewriter
+obs12.txt
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818937
+
+\family typewriter
+BEGIN observation_data TABLE 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818941
+
+\family typewriter
+nrow=12 ncol=4 columnlabels ObsName ObsValue GroupName Weight 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818957
+
+\family typewriter
+P001T0000 33.8154 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818945
+
+\family typewriter
+P002T0000 29.9383 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818959
+
+\family typewriter
+P003T0000 28.4674 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818947
+
+\family typewriter
+P004T0000 30.9286 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818960
+
+\family typewriter
+P005T0000 24.7332 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818948
+
+\family typewriter
+P006T0000 31.5769 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818961
+
+\family typewriter
+P007T0000 27.3057 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818950
+
+\family typewriter
+P008T0000 29.3834 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818962
+
+\family typewriter
+P009T0000 27.8658 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818951
+
+\family typewriter
+P010T0000 30.4177 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818967
+
+\family typewriter
+P011T0000 28.5865 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818952
+
+\family typewriter
+P012T0000 27.4403 obsgp_oden 1.0 
+\end_layout
+
+\begin_layout Verse
+
+\change_inserted -74556787 1338818934
+
+\family typewriter
+END observation_data 
 \begin_inset Newpage pagebreak
 \end_inset
 
