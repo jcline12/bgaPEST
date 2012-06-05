@@ -106,10 +106,11 @@ program bp_main
           CTLFILE(I+1:)='.bgp'
         ELSE
           CASENAME = trim(CTLFILE)
-        endif
+        ENDIF
       ELSE
-          CASENAME = trim(CTLFILE) // '.bgp'
-      endif
+          CASENAME = trim(CTLFILE)
+          CTLFILE  = trim(CTLFILE) // '.bgp'
+      ENDIF
    
 !--  INITIALIZE MIO STRUCTURE SO IT CAN BE PASSED    
     if(mio_initialise(errstruc,miostruc).ne.0) then  !MD mio_initialise is an integer
