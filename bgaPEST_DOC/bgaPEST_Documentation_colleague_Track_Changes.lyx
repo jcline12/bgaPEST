@@ -67,6 +67,7 @@
 \html_css_as_file 0
 \html_be_strict false
 \author -74556787 "Michael Fienen" 
+\author 428100000 "rjhunt" 
 \end_header
 
 \begin_body
@@ -74,8 +75,23 @@
 \begin_layout Title
 
 \emph on
-Approaches in Highly Parameterized Inversion--bgaPEST: A Bayesian Geostatistical
- Approach Implementation with PEST--Documentation and Instructions
+Approaches in Highly Parameterized Inversion
+\change_inserted 428100000 1338848642
+: 
+\change_deleted 428100000 1338848645
+--
+\change_unchanged
+bgaPEST
+\change_deleted 428100000 1338848648
+:
+\change_inserted 428100000 1338848648
+,
+\change_unchanged
+ A Bayesian Geostatistical Approach Implementation with PEST
+\change_deleted 428100000 1338848657
+--Documentation and Instructions
+\change_unchanged
+
 \end_layout
 
 \begin_layout Author
@@ -127,44 +143,78 @@ Watermark Numerical Computing, Brisbane, Australia
 \end_layout
 
 \begin_layout Section*
+
+\change_inserted 428100000 1338848669
+Abstract [MNF ADD and mirror short SUMMARY?]
+\end_layout
+
+\begin_layout Section*
+
+\change_inserted 428100000 1338840981
+\begin_inset Note Note
+status open
+
+\begin_layout Section*
+
+\change_inserted 428100000 1338846380
+Acknowledgements [MOVED TO AFTER PURPOSE AND SCOPE]
+\end_layout
+
+\begin_layout Plain Layout
+
+\change_inserted 428100000 1338841160
+This work was supported by several important sources including: The National
+ Research Council Postdoctoral Research Associateship, The US Geological
+ Survey Groundwater Resources Program, the USGS Water Energy and Biogeochemical
+ Budgets (WEBB) Program.
+ The USGS Exchange Visitor Program and the USGS Wisconsin Water Science
+ Center supported a six-month exchange in which Dr.
+ Marco D'Oria was hosted in Wisconsin.
+ Dr.
+ D'Oria also received support from the University of Parma, Italy, Department
+ of Civil and Environmental Engineering and Architecture.
+ Valuable colleague reviews were provided by Dr.
+ Michael Cardiff, Boise State University, and Stephen Westenbroek, USGS
+ Wisconsin Water Science Center.
+ 
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+
+\change_deleted 428100000 1338840981
 Acknowledgements
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338840981
 This work was supported by several important sources including: The National
  Research Council Postdoctoral Research Associateship, The US Geological
  Survey Office of Groundwater, the USGS Water and Environmental Biogeochemical
- Budgets (WEBB) Program
-\change_inserted -74556787 1338648301
-.
+ Budgets (WEBB) Program.
 \change_deleted -74556787 1338648301
 ,
-\change_unchanged
+\change_deleted 428100000 1338840981
  The USGS Exchange Visitor Program and the USGS Wisconsin Water Science
  Center 
 \change_deleted -74556787 1338648308
 for supporting
-\change_inserted -74556787 1338648309
-supported
-\change_unchanged
- a six-month exchange in which Marco D'Oria was hosted in Wisconsin
-\change_inserted -74556787 1338648330
-.
+\change_deleted 428100000 1338840981
+supported a six-month exchange in which Marco D'Oria was hosted in Wisconsin.
  Dr.
  D'Oria also received support from
 \change_deleted -74556787 1338648317
 ,
-\change_unchanged
- 
-\change_inserted -74556787 1338648332
-t
+\change_deleted 428100000 1338840981
+ t
 \change_deleted -74556787 1338648332
 T
-\change_unchanged
+\change_deleted 428100000 1338840981
 he University of Parma, Italy, Department of Civil and Environmental Engineering
  and Architecture.
-
-\change_inserted -74556787 1338648408
  Valuable colleague reviews were provided by Dr.
  Michael Cardiff, Boise State University, and Stephen Westenbroek, USGS
  Wisconsin Water Science Center.
@@ -179,19 +229,103 @@ Introduction
 \begin_layout Standard
 
 \change_inserted -74556787 1338662634
-This report documents an implementation of the Bayesian Geostatistical Approach
- (BGA) to solving the inverse problem.
- In this section, we outline the conceptual framework of the method.
- In the remainder of the report we discuss details about theory and implementati
-on, as appropriate, including instructions for use.
+This report documents 
+\change_deleted 428100000 1338843130
+an implementation
+\change_inserted 428100000 1338843143
+the theory and computer code
+\change_inserted -74556787 1338662634
+ of 
+\change_deleted 428100000 1338843150
+the
+\change_inserted 428100000 1338843188
+a
+\change_inserted -74556787 1338662634
+ Bayesian Geostatistical Approach (
+\change_deleted 428100000 1338841185
+BGA
+\change_inserted 428100000 1338844998
+ADD FOOTNOTE WHY BGA=bga
+\change_inserted -74556787 1338662634
+) to solving the inverse problem.
+ 
+\change_inserted 428100000 1338844422
+
+\begin_inset Quotes eld
+\end_inset
+
+Bayesian
+\begin_inset Quotes erd
+\end_inset
+
+ refers to theory used to solve the inverse; 
+\begin_inset Quotes eld
+\end_inset
+
+Geostatistical
+\begin_inset Quotes erd
+\end_inset
+
+ refers to the need to use a spatial function to provide information where
+ it is explicitly missing.
+ This bga approach has been coded using the protocol and approach of PEST
+ (Doherty, 2010a, 2010b), the most widely used computer code of its type.
+ Though the bga and PEST have been primarily applied to the environmental
+ modeling field, a general of view of the inverse problem is discussed here,
+ one that covers most classes of problems where measurements of a system
+ are used to infer system properties that create the measured value.
+ Thus, this bgaPEST formulation is meant to be applicable to any class of
+ inverse problem that adheres to the concepts described herein.
+ 
+\change_inserted -74556787 1338662634
+In this section, we outline the conceptual framework of the method
+\change_inserted 428100000 1338844307
+; 
+\change_deleted 428100000 1338843513
+.
+ In the remainder of the report we discuss details about 
+\change_inserted -74556787 1338662634
+theory
+\change_inserted 428100000 1338844307
+,
+\change_deleted 428100000 1338843567
+ and
+\change_inserted -74556787 1338662634
+ implementation
+\change_inserted 428100000 1338844307
+,
+\change_deleted 428100000 1338843438
+, as appropriate,
+\change_inserted -74556787 1338662634
+ 
+\change_deleted 428100000 1338843578
+including
+\change_inserted 428100000 1338844307
+and
+\change_inserted -74556787 1338662634
+ instructions for use
+\change_inserted 428100000 1338844307
+ of the bgaPEST computer code version 1.0 follow this conceptual discussion
+\change_inserted -74556787 1338662634
+.
 \end_layout
 
 \begin_layout Standard
 Environmental modeling can facilitate informed management of natural resources.
  In most cases, models represent physical processes such as groundwater
  flow, contaminant transport, surface water flood routing, etc.
- Simulating the physics and chemistry with governing equations and concepts
- such as conservation of mass and momentum is only part of the challenge.
+ Simulating the 
+\change_inserted 428100000 1338841538
+overarching 
+\change_unchanged
+physics and chemistry with governing equations and concepts such as conservation
+ of mass and momentum is only part of 
+\change_deleted 428100000 1338841805
+the challenge
+\change_inserted 428100000 1338841807
+what is required
+\change_unchanged
+.
  Once a model adequately represents the processes of the problem, it is
  still 
 \change_deleted -74556787 1338669790
@@ -205,32 +339,132 @@ only an abstract
 \end_layout
 
 \begin_layout Standard
-Input values that control the behavior of a model at a given site are called
- ``parameters
+Input values that 
+\change_inserted 428100000 1338846506
+are used by processes 
+\change_unchanged
+control the behavior of a model at a given site
+\change_inserted 428100000 1338841891
+; these input values
+\change_unchanged
+ are 
+\change_inserted 428100000 1338841896
+here 
+\change_unchanged
+called ``parameters
 \begin_inset Quotes erd
 \end_inset
 
- and they represent specific characteristics (for example, hydraulic conductivit
-y, recharge rate, chemical decay rate) of the natural system encountered
- at a 
+
+\change_inserted 428100000 1338841906
+.
+ 
+\change_deleted 428100000 1338841906
+ and t
+\change_inserted 428100000 1338841912
+T
+\change_unchanged
+hey represent specific characteristics (for example, hydraulic conductivity,
+ recharge rate, chemical decay rate) of the natural system encountered at
+ a
+\change_inserted 428100000 1338841958
+n
+\change_unchanged
+ 
 \change_deleted -74556787 1338648435
 specific
-\change_inserted -74556787 1338648436
+\change_deleted 428100000 1338841946
 certain
 \change_unchanged
- area.
- The values appropriate for parameters in natural systems are often difficult
- or impossible to measure directly.
- However, observations of system state (for example, water levels, streamflow
- magnitudes, chemical concentrations) are often easier to measure and they
- correspond to output values from the model.
- The output values corresponding to observation data from the model are
- dependent on the values of parameters: indeed, if parameter values are
- changed in a model, the
+ area
+\change_inserted 428100000 1338841963
+ of interest
+\change_unchanged
+.
+ 
+\change_deleted 428100000 1338841983
+The
+\change_inserted 428100000 1338841986
+Representative
+\change_unchanged
+ values appropriate for parameters in natural systems are often difficult
+\change_inserted 428100000 1338842069
+ 
+\change_deleted 428100000 1338842063
+ or impossible 
+\change_unchanged
+to measure directly
+\change_inserted 428100000 1338841991
+, however
+\change_unchanged
+.
+ 
+\change_deleted 428100000 1338841996
+However, o
+\change_inserted 428100000 1338841996
+O
+\change_unchanged
+bservations of system state (for example, water levels, streamflow magnitudes,
+ chemical concentrations) are often easier to measure
+\change_inserted 428100000 1338842022
+,
+\change_unchanged
+ and 
+\change_inserted 428100000 1338842034
+the model is chosen so that 
+\change_unchanged
+the
+\change_inserted 428100000 1338842048
+ observations
+\change_deleted 428100000 1338842048
+y
+\change_unchanged
+ 
+\change_inserted 428100000 1338842574
+of the system 
+\change_unchanged
+correspond to output values from the model.
+ The output
+\change_deleted 428100000 1338842099
+ values corresponding to 
+\change_inserted 428100000 1338842100
+s of 
+\change_unchanged
+observation data
+\change_deleted 428100000 1338842118
+ from the model 
+\change_inserted 428100000 1338842118
+ 
+\change_unchanged
+are dependent 
+\change_inserted 428100000 1338842139
+to varying degrees 
+\change_unchanged
+on the values of parameters
+\change_inserted 428100000 1338842160
+.
+ Therefore, 
+\change_deleted 428100000 1338842163
+: indeed,
+\change_unchanged
+ 
+\change_deleted 428100000 1338842193
+if parameter values are changed in a model,
+\change_inserted 428100000 1338842194
+changes in
+\change_unchanged
+ the
 \change_inserted -74556787 1338669880
  simulated
 \change_unchanged
- system state also typically changes.
+ system state 
+\change_inserted 428100000 1338842257
+that align with observations allow inference of parameter values not available
+ by direct measurement
+\change_deleted 428100000 1338842238
+also typically changes
+\change_unchanged
+.
   ``Parameter estimation
 \begin_inset Quotes erd
 \end_inset
@@ -239,22 +473,70 @@ certain
 \begin_inset Quotes erd
 \end_inset
 
- are both terms describing the process of incorporating site-specific informatio
-n into a model as a means to improve its representativeness
+ are both terms describing the process of incorporating site-specific 
+\change_inserted 428100000 1338842304
+observations to inform parameters and salient processes
+\change_deleted 428100000 1338842310
+information into
+\change_inserted 428100000 1338842313
+ of
+\change_unchanged
+ a model 
+\change_deleted 428100000 1338842323
+as a means
+\change_inserted 428100000 1338842325
+in order
+\change_unchanged
+ to improve its representativeness
 \change_inserted -74556787 1338669901
  and predictive ability
-\change_unchanged
+\change_inserted 428100000 1338842730
+.
+\change_deleted 428100000 1338842723
 , thus making it more suitable for use supporting management decisions.
  In essence, this process uses observation data to infer appropriate values
  for parameters.
 \end_layout
 
 \begin_layout Standard
-This concept is so important that one may interpret a model as a data-processing
- tool that tests conceptualizations of a system as much as a simulator of
- physical processes; the data processing being a pipeline from field observation
- to model parameters and ultimately to predictions.
- Put in terms of a Bayesian description, this process is one in which the
+
+\change_deleted 428100000 1338842451
+This concept is so important that one may interpret a
+\change_inserted 428100000 1338842452
+A
+\change_unchanged
+ model
+\change_inserted 428100000 1338842463
+, therefore, can often be thought of
+\change_unchanged
+ as a data-processing tool that 
+\change_inserted 428100000 1338842474
+quantitatively 
+\change_unchanged
+tests conceptualizations of a system as much as a simulator of physical
+ processes
+\change_deleted 428100000 1338842615
+;
+\change_inserted 428100000 1338842615
+,
+\change_unchanged
+ the data processing being a pipeline from field observation to model parameters
+ and ultimately to 
+\change_inserted 428100000 1338842631
+more representative 
+\change_unchanged
+predictions
+\change_inserted 428100000 1338842698
+ for supporting management decisions
+\change_unchanged
+.
+ 
+\change_inserted 428100000 1338842695
+
+\end_layout
+
+\begin_layout Standard
+Put in terms of a Bayesian description, this process is one in which the
  model is a vehicle for updating soft- or expert-knowledge (
 \change_inserted -74556787 1338669913
 called 
@@ -267,9 +549,27 @@ a priori
 \change_inserted -74556787 1338669938
  in the Bayesian context
 \change_unchanged
-) of the system to an understanding that is filtered by a measure of the
+) of the system
+\change_inserted 428100000 1338842876
+.
+ This initial vehicle is 
+\change_deleted 428100000 1338842889
+ to an understanding that is 
+\change_unchanged
+filtered by a measure of 
+\change_deleted 428100000 1338842898
+the
+\change_inserted 428100000 1338842899
+its
+\change_unchanged
  ability to simulate the natural world informed, or updated, by site-specific
- information (
+ 
+\change_deleted 428100000 1338842922
+information
+\change_inserted 428100000 1338842924
+observations
+\change_unchanged
+ (
 \change_inserted -74556787 1338669920
 called 
 \change_unchanged
@@ -281,8 +581,10 @@ a posteriori
  In 
 \change_deleted -74556787 1338674556
 such an
-\change_inserted -74556787 1338674556
+\change_deleted 428100000 1338842953
 this
+\change_inserted 428100000 1338842955
+the Bayesian
 \change_unchanged
  approach, the ability to simulate features of the natural world ``condition
 \change_inserted -74556787 1338674659
@@ -296,24 +598,195 @@ s
 \change_inserted -74556787 1338674674
 s
 \change_unchanged
- the wide range of possible outcomes that result from general soft-knowledge
- alone.
+ the wide range of possible outcomes that result from general 
+\change_inserted 428100000 1338846489
+expert and 
+\change_unchanged
+soft-knowledge alone.
  
 \change_inserted -74556787 1338670006
 A key benefit of the Bayesian approach is that it provides a theoretically
- rigorous way to continually incorporate new information and update 
+ rigorous way to continually incorporate new information and
+\change_inserted 428100000 1338842995
+, in turn,
+\change_inserted -74556787 1338670006
+ update 
 \emph on
 a posteriori
 \emph default
  understanding.
  
-\change_unchanged
+\change_deleted 428100000 1338844108
 This Bayesian approach is adopted here and will be discussed in more detail.
- First, however, the concept of conditionality must be emphasized.
+ 
+\change_inserted 428100000 1338844146
+
+\end_layout
+
+\begin_layout Section*
+
+\change_inserted 428100000 1338844150
+Purpose and Scope
 \end_layout
 
 \begin_layout Standard
-Bayes' theorem is at the heart of the techniques in this report:
+
+\change_inserted 428100000 1338846312
+This Report is intended to serve two purposes.
+ First, a Bayesian approach to parameter estimation--expressed in the context
+ of the Bayesian Geostatistical Approach (BGA)--is described to provide
+ an accessible and general tool for moving a model from a general simulator
+ of a physical process to a more optimal tool, tuned to a set of calibration
+ information, which, in turn, can be used for improved prediction and decision-m
+aking.
+ Second, a computer code--bgaPEST version 1.0 --is introduced and documented
+ in which BGA is deployed using the protocols and input/output concepts
+ developed in the free and open-source PEST suite of software 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PEST"
+
+\end_inset
+
+.
+ This report provides details on the mathematical theory behind BGA, followed
+ by detailed instructions for using the computer program.
+ Conventions and assumptions for using the program are also included in
+ the discussion.
+ To our knowledge, this marks the first implementation of a general BGA
+ code available for general use.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338848693
+The bgaPEST input framework is consistent with the input block and keyword
+ concepts described by the JUPITER project 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "BantaEtAl2006"
+
+\end_inset
+
+.
+ Although the relation of design concepts is beyond the scope of this report,
+ the input block and keywords needed to run bgaPEST are described fully
+ in Appendix 1.
+ A full description of the format of the general approach of template and
+ instruction files are also not included here: detailed descriptions are
+ provided in the PEST documentation 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter 3"
+key "PEST"
+
+\end_inset
+
+.
+ All options implemented in template and instruction files in PEST are available
+ in bgaPEST.
+ A distributed parameterization scheme is discussed in this report that
+ is facilitates the introduction of roduce flexibility to the model.
+ This paramterization schemes described here can be applied to any region
+ of interest and with sufficient data in the model, and at the extreme can
+ allow a modeler to estimate a unique parameter values for each model node
+ or cell.
+ This leads to a large number of parameters which is accompanied by computationa
+l challenges; alleviating these computational challenges is an active area
+ of ongoing research and thus are not covered in detail here.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338849021
+This report includes an overview of theory and use of the bgaPEST code in
+ the main text.
+ Detailed input instructions for bgaPEST version 1.0 are included in Appendix
+ A, quick-start instructions are in Appendix B.
+ A detailed mathematical derivation of the BGA methods is included in Appendix
+ C, and example problems are included in Appendix D, E, and F.
+ 
+\end_layout
+
+\begin_layout Section*
+
+\change_inserted 428100000 1338846344
+Acknowledgements 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338846451
+This work was supported by several important sources including: The National
+ Research Council Postdoctoral Research Associateship, The US Geological
+ Survey Groundwater Resources Program, the USGS Water Energy and Biogeochemical
+ Budgets (WEBB) Program.
+ The USGS Exchange Visitor Program and the USGS Wisconsin Water Science
+ Center supported a six-month exchange in which Dr.
+ Marco D'Oria was hosted in Wisconsin.
+ Dr.
+ D'Oria also received support from the University of Parma, Italy, Department
+ of Civil and Environmental Engineering and Architecture.
+ Valuable colleague reviews were provided by Dr.
+ Michael Cardiff, Boise State University, and Stephen Westenbroek, USGS
+ Wisconsin Water Science Center.
+ 
+\end_layout
+
+\begin_layout Section*
+
+\change_inserted 428100000 1338846733
+Background for a Bayesian Geostatistical Approach
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338847871
+The presentation of the BGA is first presented using primarily description
+ by words, then described later using a mathematical approach, which is
+ provided in detail in Appendix D.
+ Those most interested in simply applying bgaPEST to their specific problem
+ will likely spend most time with the former presentation.
+ In either presentation, 
+\change_deleted 428100000 1338846657
+First,
+\change_unchanged
+ 
+\change_deleted 428100000 1338843060
+however, 
+\change_unchanged
+the concept of conditionality 
+\change_deleted 428100000 1338846665
+must be emphasized
+\change_inserted 428100000 1338846848
+is fundamental.
+ This concepts is expressed here as
+\change_unchanged
+.
+
+\change_inserted 428100000 1338843066
+ 
+\change_deleted 428100000 1338843064
+
+\end_layout
+
+\begin_layout Standard
+Bayes' theorem
+\change_inserted 428100000 1338846858
+,which forms the foundation 
+\change_deleted 428100000 1338843115
+ is at the heart 
+\change_unchanged
+of the techniques 
+\change_inserted 428100000 1338843683
+described 
+\change_unchanged
+in 
+\change_inserted 428100000 1338843688
+the rest of 
+\change_unchanged
+this report:
 \begin_inset Formula 
 \begin{equation}
 p\left(\mathbf{s}|\mathbf{y}\right)\propto L\left(\mathbf{y}|\mathbf{s}\right)p\left(\mathbf{s}\right)\label{eq:bayes1}
@@ -545,13 +1018,41 @@ n
 \begin_layout Standard
 The concept of a beta association is an important one that is revisited
  throughout this report.
- The term ``beta
+ 
+\change_deleted 428100000 1338847046
+The
+\change_inserted 428100000 1338848137
+Fienen and others (2009) describe the need to to represent the generalized
+ mean value for a specific parameter type (for example, hydraulic conductivity
+ in a groundwater model) in a specific region of a model.
+ This concept is incorpoated her by the use of the
+\change_unchanged
+ term ``beta
 \begin_inset Quotes erd
 \end_inset
 
- refers to the mathematical symbol used to represent the mean value for
- a specific parameter type (for example, hydraulic conductivity in a groundwater
- model) in a specific region of a model.
+
+\change_inserted 428100000 1338848071
+,
+\change_unchanged
+ 
+\change_deleted 428100000 1338847092
+refers to
+\change_inserted 428100000 1338848071
+derived from
+\change_unchanged
+ the mathematical symbol used
+\change_inserted 428100000 1338848147
+.
+
+\change_unchanged
+ 
+\change_deleted 428100000 1338848099
+to represent the mean value for a specific parameter type (for example,
+ hydraulic conductivity in a groundwater model) in a specific region of
+ a model
+\change_unchanged
+.
  In the methodology described in this report, parameter values are estimated
  by estimating a mean value (termed 
 \begin_inset Formula $\beta$
@@ -603,11 +1104,27 @@ The term `` parameters
  (for example, hydraulic conductivity or recharge).
  In applications appropriate for bgaPEST, there must be multiple parameter
  values of a given type that are spatially or temporally distributed.
- When we describe a ``parameter
+ When 
+\change_deleted 428100000 1338846954
+we describe 
+\change_inserted -74556787 1338674207
+a ``parameter
 \begin_inset Quotes erd
 \end_inset
 
- we mean a single value of system state that is to be estimated.
+ 
+\change_inserted 428100000 1338847172
+is listed, the meaning is restricted to 
+\change_deleted 428100000 1338846968
+we mean 
+\change_inserted -74556787 1338674207
+a single value of system 
+\change_deleted 428100000 1338847002
+state
+\change_inserted 428100000 1338847018
+model input
+\change_inserted -74556787 1338674207
+ that is to be estimated.
 \end_layout
 
 \end_inset
@@ -692,8 +1209,18 @@ key "PEST"
  
 \change_inserted -74556787 1338674496
 The advantages to the Bayesian approach stem from the conceptual framework,
- the ability to use a fully distributed parameterization, and the empirical
- nature of the balance between prior information and likelihood.
+ the ability to use a 
+\change_deleted 428100000 1338847719
+fully distributed
+\change_inserted 428100000 1338847728
+a probability density function to represent
+\change_inserted -74556787 1338674496
+ parameterization
+\change_inserted 428100000 1338847220
+ rather than single values 
+\change_inserted -74556787 1338674496
+, and the empirical nature of the balance between prior information and
+ likelihood.
  
 \change_unchanged
 These elements of Bayes' equation form the fundamental basis for the bgaPEST
@@ -719,7 +1246,11 @@ aspects of the method are expressed in the prior pdf
  The most common technique of geostatistics is called Kriging.
  In this section, we discuss geostatistics in a conceptual way using a photograp
 hic image as an example.
- The mathematics relevant to BGA are discussed in laster sections.
+ The mathematics relevant to BGA are discussed in la
+\change_deleted 428100000 1338844210
+s
+\change_inserted -74556787 1338663689
+ter sections.
  More details about the history and use of geostatistics in general, including
  software for using the technique are found in 
 \begin_inset CommandInset citation
@@ -1053,10 +1584,14 @@ reference "fig:varill"
 \end_layout
 
 \begin_layout Section*
+
+\change_deleted 428100000 1338844132
 Purpose and Scope
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338844132
 This Report is intended to serve two main purposes.
  First, a Bayesian approach to parameter estimation--expressed in the context
  of the Bayesian Geostatistical Approach (BGA)--is introduced to provide
@@ -1065,10 +1600,8 @@ This Report is intended to serve two main purposes.
  information, which, in turn, can be used for 
 \change_deleted -74556787 1338681729
 management of a particular site and issue
-\change_inserted -74556787 1338681737
-improved prediction and decision-making
-\change_unchanged
-.
+\change_deleted 428100000 1338844132
+improved prediction and decision-making.
  Second, a computer code--bgaPEST--is introduced and documented in which
  BGA is deployed using the protocols and input/output concepts developed
  in the free and open-source PEST suite of software 
@@ -1093,26 +1626,24 @@ key "BantaEtAl2006"
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338844132
 The input/output concepts in PEST enable the use of PEST with nearly any
  computer model.
  The only restriction is that input can be provided to the model using a
  text (
 \change_deleted -74556787 1338681770
 ascii
-\change_inserted -74556787 1338681770
-ASCII
-\change_unchanged
-) file and that output can be generated from the model also using a text
- file.
+\change_deleted 428100000 1338844132
+ASCII) file and that output can be generated from the model also using a
+ text file.
  This restriction can be relaxed, provided that a translation utility can
  be deployed that converts data of another format--for example, binary--to
  or from 
 \change_deleted -74556787 1338681796
 ascii
-\change_inserted -74556787 1338681797
-ASCII
-\change_unchanged
-, as appropriate.
+\change_deleted 428100000 1338844132
+ASCII, as appropriate.
  The only kind of model that PEST cannot easily control is one in which
  any changes to model input or the reading of model output must take place
  in a graphical user interface.
@@ -1124,6 +1655,8 @@ ASCII
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338844132
 As discussed elsewhere in this report, bgaPEST must control the model for
  two purposes: to evaluate the likelihood function (assessing the correspondence
  between model output and collocated observation data, given a candidate
@@ -1144,11 +1677,7 @@ As discussed elsewhere in this report, bgaPEST must control the model for
  To enable reading of output files, instruction files are created that contain
  a set of instructions (including locating specific line numbers or searching
  for specific text) that enable extraction of output values to be compared
- with 
-\change_inserted -74556787 1338682924
-site 
-\change_unchanged
-observation data.
+ with site observation data.
  Leveraging the modules that implement the PEST input/output protocols takes
  advantage of the flexibility and generality of PEST.
  It also makes it possible to take advantage of some of the utility programs
@@ -1162,6 +1691,8 @@ observation data.
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338844132
 A full description of the format of template and instruction files is not
  part of the scope of this work: detailed descriptions are provided in the
  PEST documentation 
@@ -1178,6 +1709,8 @@ key "PEST"
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338844132
 This initial implementation is written in FORTRAN-90.
  The calculation of the Jacobian (sensitivity or derivatives) matrix can
  either be implemented using a script written by the user, or employing
@@ -1196,7 +1729,7 @@ This initial implementation is written in FORTRAN-90.
  suite (GENIE, 
 \change_deleted -74556787 1338682196
 Muffels and others, in review
-\change_inserted -74556787 1338682207
+\change_deleted 428100000 1338844132
 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -1204,13 +1737,11 @@ key "GENIE"
 
 \end_inset
 
-
-\change_unchanged
 ) as part of future work.
  Parallelization is possible using beoPEST 
 \change_deleted -74556787 1338682492
 (REF
-\change_inserted -74556787 1338682481
+\change_deleted 428100000 1338844132
 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -1221,13 +1752,15 @@ key "beoPEST"
 
 \change_deleted -74556787 1338682491
 )
-\change_unchanged
+\change_deleted 428100000 1338844132
 , but the entire process, including starting and stopping all parallel computer
  (slave) programs must be encapsulated in a script that is called by bgaPEST.
  
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338844132
 An important concept discussed in this report is based on a distributed
  parameterization scheme that is meant to be flexible in that certain regions
  of primary interest and with sufficient data in the model (called beta
@@ -1240,10 +1773,14 @@ l challenges.
 \end_layout
 
 \begin_layout Standard
+
+\change_deleted 428100000 1338844132
 The remainder of this report provides some details on the mathematical theory
  behind BGA, followed by detailed instructions for using the computer program.
  Conventions and assumptions for using the program are included in the discussio
 n.
+\change_unchanged
+
 \end_layout
 
 \begin_layout Section*
@@ -1640,14 +2177,32 @@ The term ``structural parameters
 \begin_inset Quotes erd
 \end_inset
 
- may be unfamiliar to users.
- Like the more general term ``parameters,
+ 
+\change_deleted 428100000 1338847945
+may be unfamiliar to users
+\change_inserted 428100000 1338847955
+used here has a specific meaning
+\change_unchanged
+.
+ 
+\change_deleted 428100000 1338847965
+Like
+\change_inserted 428100000 1338847968
+Similar to
+\change_unchanged
+ the more general term ``parameters,
 \begin_inset Quotes erd
 \end_inset
 
  structural parameters are variable values that are estimated in the bgaPEST
  algorithm.
- Unlike general parameters, however, structural parameters do not 
+ Unlike 
+\change_deleted 428100000 1338847986
+general
+\change_inserted 428100000 1338847987
+typical
+\change_unchanged
+ parameters, however, structural parameters do not 
 \emph on
 directly 
 \emph default
@@ -1969,6 +2524,156 @@ beta associations.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section*
+
+\change_inserted 428100000 1338845463
+bgaPEST Overview
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338845744
+The use of BGA concepts described previo
+\change_inserted -74556787 1338896233
+u
+\change_inserted 428100000 1338845744
+sly have been restricted to primarily academic and/or custom applications
+ due to non-general nature of the BGA coding.
+ The BGA formulation used in bgaPEST is meant to make the approach generally
+ available to a wider class of modeling problems.
+ This generality is obtained by the following design considerations.
+ The input/output design of bgaPEST follows that of the widely used PEST
+ sof
+\change_inserted -74556787 1338896244
+t
+\change_inserted 428100000 1338845744
+ware 
+\change_deleted -74556787 1338896271
+(Doherty, 2010a, 2010b
+\change_inserted -74556787 1338896266
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "PEST,PESTAdd"
+
+\end_inset
+
+
+\change_deleted -74556787 1338896268
+)
+\change_inserted 428100000 1338845744
+.
+ This approach has two primary restrictions.
+ First, input provided to the model, and output derived from a model, uses
+ an ASCII text file format.
+ This restriction can be relaxed, however, provided that a translation utility
+ can be deployed that converts data of another format--for example, binary--to
+ or from ASCII, as appropriate.
+ Second, the model must run in 
+\begin_inset Quotes eld
+\end_inset
+
+batch
+\begin_inset Quotes erd
+\end_inset
+
+ mode where many model runs can be called by PEST without user intervention.
+ Therefore, the only kind of model that PEST cannot easily accommodate is
+ one in which any changes to model input or the reading of model output
+ must take place in a graphical user interface.
+ This generality of model compatibility is a powerful capability that bgaPEST
+ is able to take advantage of by virtue of efficient open-source modules
+ that make this external control of a model possible using the same protocols
+ as PEST.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338845533
+As discussed below, bgaPEST must control the model for two purposes: to
+ evaluate the likelihood function (assessing the correspondence between
+ model output and collocated observation data, given a candidate set of
+ parameter values) and to calculate the ``Jacobian
+\begin_inset Quotes erd
+\end_inset
+
+ or ``sensitivity
+\begin_inset Quotes erd
+\end_inset
+
+ matrix that is required for solving the calibration equations.
+ To enable PEST (and bgaPEST) to write input for a model, template files
+ are created that provide a mapping of named parameters into their proper
+ place in input files for the model.
+ More than one template file can be used corresponding to multiple model
+ input files.
+ To enable reading of output files, instruction files are created that contain
+ a set of instructions (including locating specific line numbers or searching
+ for specific text) that enable extraction of output values to be compared
+ with site observation data.
+ Leveraging the modules that implement the PEST input/output protocols takes
+ advantage of the flexibility and generality of PEST.
+ It also makes it possible to take advantage of some of the utility programs
+ already created to be compatible with the PEST suite of software.
+ Programs created using the JUPITER program employ a very similar set of
+ protocols by virtue of the PEST modules being provided to the JUPITER project.
+ As a result, template and instruction files created to work with a model
+ are largely interchangeable among projects implemented in PEST, bgaPEST,
+ and programs created using JUPITER.
+ A full description of the format of template and instruction files is not
+ part of the scope of this work: detailed descriptions are provided in the
+ PEST documentation 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter 3"
+key "PEST"
+
+\end_inset
+
+.
+ All options implemented in template and instruction files in PEST are available
+ in bgaPEST.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338845469
+This initial implementation is written in FORTRAN-90.
+ The calculation of the Jacobian (sensitivity or derivatives) matrix can
+ either be implemented using a script written by the user, or employing
+ a Python script provided with bgaPEST.
+ The Python script depends on several utilities that are standard with PEST
+ and available for download at http://www.pesthomepage.org.
+ The necessary executable files are also provided with bgaPEST.
+ For users on the Windows operating system, installation of Python is optional
+ as the Python codes are compiled into executables using py2exe that can
+ be called by the main program.
+ For users on Macintosh or Linux systems, all the code must be compiled
+ for the native platform and Python should already be installed so the Python
+ scripts may be called directly without need to compile them separately.
+ The use of external derivatives (sensitivity) calculation with PEST and
+ Python will be replaced by integration of a general parallel run management
+ suite (GENIE, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "GENIE"
+
+\end_inset
+
+) as part of future work.
+ Parallelization is possible using beoPEST 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "beoPEST"
+
+\end_inset
+
+, but the entire process, including starting and stopping all parallel computer
+ (slave) programs must be encapsulated in a script that is called by bgaPEST.
+ 
 \end_layout
 
 \begin_layout Section*
@@ -3254,6 +3959,27 @@ d.
  For the prior distribution variogram parameters, however, optimization
  should always be employed in keeping with the Empirical Bayes perspective
  the algorithm was designed with.
+\change_inserted 428100000 1338848288
+
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338849691
+Section on LIMITATIONS TO VERSION 1.0
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338849698
+[short] SUMMARY if you wish?
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted 428100000 1338848375
+REFERENCES USED IN REPORT GO HERE; REFERENCES SPECIFIC TO THE APPENDICES
+ GO AT THE END OF THAT APPENDIX
 \end_layout
 
 \begin_layout Section
@@ -3264,7 +3990,30 @@ name "sec:Input-Instructions"
 
 \end_inset
 
+
+\change_deleted 428100000 1338848319
 Input Instructions
+\change_inserted 428100000 1338848396
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\start_of_appendix
+
+\change_inserted 428100000 1338848319
+Input Instructions
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+add the word Appendix before appendix letter - the PDF is confusing in that
+ it does not report that the reader has moved to an appendix level description
+ 
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard
@@ -7155,6 +7904,8 @@ END observation_data
 
 \begin_layout Section
 
+\change_inserted 428100000 1338849334
+MOVE TO APPENDIX A 
 \change_inserted -74556787 1338748950
 Summary Input Tables
 \begin_inset CommandInset label
