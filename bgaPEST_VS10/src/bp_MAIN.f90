@@ -105,7 +105,8 @@ program bp_main
           CASENAME = CTLFILE
           CTLFILE(I+1:)='.bgp'
         ELSE
-          CASENAME = trim(CTLFILE)
+          CTLFILE = trim(CTLFILE)
+          CASENAME = CTLFILE(1:I-4)
         ENDIF
       ELSE
           CASENAME = trim(CTLFILE)
