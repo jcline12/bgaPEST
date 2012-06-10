@@ -142,17 +142,40 @@ Watermark Numerical Computing, Brisbane, Australia
 
 \end_layout
 
-\begin_layout Section*
+\begin_layout Abstract
 
-\change_inserted 428100000 1338848669
+\change_deleted -74556787 1339249464
 Abstract [MNF ADD and mirror short SUMMARY?]
+\change_inserted -74556787 1339250429
+bgaPEST is a highly parameterized inversion software package implementing
+ the Bayesian Geostatistical Approach in a framework compatible with PEST.
+ Highly parameterized inversion refers to cases in which parameters are
+ distributed in space or time and are correlated with one another.
+ The Bayesian aspect of bgaPEST is manifest in a basis on Bayesian probability
+ theory in which prior information about parameters is formally revised
+ based on the calibration dataset used for the inversion.
+ Conceptually, this formalizes the conditionality of estimated parameters
+ on the specific data and model available.
+ The Geostatistical component of the method refers to the way in which prior
+ information about the parameters is used.
+ A geostatistical autocorrelation function is used to enforce structure
+ on the parameters to avoid overfitting and unrealistic results.
+ BGA is designed to provide the smoothest solution that is consistent with
+ the data.
+ Optionally, users can specify a level of fit or estimate a balance between
+ fit and model complexity informed by the data.
+ Examples are provided in groundwater and surface water applications but
+ the possible uses expand to any distributed parameter applications.
+ 
+\change_deleted -74556787 1339249738
+
 \end_layout
 
 \begin_layout Section*
 
-\change_inserted 428100000 1338840981
+\change_deleted -74556787 1339249739
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Section*
 
@@ -242,38 +265,122 @@ the
 a
 \change_inserted -74556787 1338662634
  Bayesian Geostatistical Approach (
-\change_deleted 428100000 1338841185
+\change_unchanged
 BGA
-\change_inserted 428100000 1338844998
-ADD FOOTNOTE WHY BGA=bga
-\change_inserted -74556787 1338662634
-) to solving the inverse problem.
- 
-\change_inserted 428100000 1338844422
+\change_inserted -74556787 1339249946
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\change_inserted -74556787 1339249922
+While the Bayesian Geostatistical Approach is references with the all capital
+ acronym ``BGA,
+\begin_inset Quotes erd
+\end_inset
+
+ in the software title, lover case is used (``bgaPEST
+\begin_inset Quotes erd
+\end_inset
+
+) to differentiate the two titles rather than running them all together.
+\change_unchanged
+
+\end_layout
+
+\end_inset
+
+).
+ ``
+\change_deleted -74556787 1339249946
 
 \begin_inset Quotes eld
 \end_inset
 
+
+\change_inserted 428100000 1338844422
 Bayesian
 \begin_inset Quotes erd
 \end_inset
 
- refers to theory used to solve the inverse; 
+ refers to theory used to solve the inverse
+\change_inserted -74556787 1339249938
+ problem
+\change_inserted 428100000 1338844422
+; 
+\change_inserted -74556787 1339249943
+``
+\change_deleted -74556787 1339249942
+
 \begin_inset Quotes eld
 \end_inset
 
+
+\change_inserted 428100000 1338844422
 Geostatistical
 \begin_inset Quotes erd
 \end_inset
 
- refers to the need to use a spatial function to provide information where
- it is explicitly missing.
- This bga approach has been coded using the protocol and approach of PEST
- (Doherty, 2010a, 2010b), the most widely used computer code of its type.
- Though the bga and PEST have been primarily applied to the environmental
- modeling field, a general of view of the inverse problem is discussed here,
- one that covers most classes of problems where measurements of a system
- are used to infer system properties that create the measured value.
+ refers to the 
+\change_deleted -74556787 1339249959
+need to
+\change_inserted 428100000 1338844422
+ use 
+\change_inserted -74556787 1339249962
+of 
+\change_inserted 428100000 1338844422
+a
+\change_inserted -74556787 1339249973
+n autocorrelated
+\change_inserted 428100000 1338844422
+ spatial
+\change_inserted -74556787 1339249981
+ or temporal
+\change_inserted 428100000 1338844422
+ function to provide 
+\change_inserted -74556787 1339250445
+prior 
+\change_inserted 428100000 1338844422
+information 
+\change_inserted -74556787 1339250453
+about the parameters
+\change_inserted 428100000 1338844422
+.
+ This 
+\change_inserted -74556787 1339250000
+BGA
+\change_inserted 428100000 1338844422
+ approach has been coded using the protocol and approach of PEST 
+\change_deleted -74556787 1339250052
+(
+\change_inserted -74556787 1339250047
+
+\begin_inset CommandInset citation
+LatexCommand citep
+key "PEST,PESTAdd"
+
+\end_inset
+
+
+\change_deleted -74556787 1339250049
+)
+\change_inserted 428100000 1338844422
+, the most widely used computer code of its type.
+ Though the 
+\change_deleted -74556787 1339250059
+bga
+\change_inserted -74556787 1339250059
+BGA
+\change_inserted 428100000 1338844422
+ and PEST have been primarily applied to the environmental modeling field,
+ a general
+\change_deleted -74556787 1339250070
+ of
+\change_inserted 428100000 1338844422
+ view of the inverse problem is discussed here, one that covers most classes
+ of problems where measurements of a system are used to infer system properties
+ that create the measured value.
  Thus, this bgaPEST formulation is meant to be applicable to any class of
  inverse problem that adheres to the concepts described herein.
  
@@ -619,6 +726,30 @@ a posteriori
 \change_deleted 428100000 1338844108
 This Bayesian approach is adopted here and will be discussed in more detail.
  
+\change_inserted -74556787 1339253040
+
+\end_layout
+
+\begin_layout Section*
+
+\change_inserted -74556787 1339253051
+Obtaining the Software
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1339253243
+The software for bgaPEST Version 1.0 is available for download at <USGS LINK
+ HERE>.
+ This location includes a copy of this document and both executables and
+ source code.
+ As development of the code continues, a repository at <GITHUB LINK HERE>
+ provides a link to the bleeding edge development branches and provides
+ a collaborative open-source space where users may submit revisions for
+ consideration by the authors.
+ As further development takes place, new code releases will be posted at
+ <USGS LINK>.
+ 
 \change_inserted 428100000 1338844146
 
 \end_layout
@@ -639,9 +770,19 @@ This Report is intended to serve two purposes.
  of a physical process to a more optimal tool, tuned to a set of calibration
  information, which, in turn, can be used for improved prediction and decision-m
 aking.
- Second, a computer code--bgaPEST version 1.0 --is introduced and documented
- in which BGA is deployed using the protocols and input/output concepts
- developed in the free and open-source PEST suite of software 
+ Second, a computer code--bgaPEST version 1.0
+\change_deleted -74556787 1339251218
+ 
+\change_inserted 428100000 1338846312
+--is introduced and documented in which BGA is deployed using the protocols
+ and input
+\change_inserted -74556787 1339251212
+/
+\change_deleted -74556787 1339251211
+/
+\change_inserted 428100000 1338846312
+output concepts developed in the free and open-source PEST suite of software
+ 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "PEST"
@@ -687,11 +828,18 @@ key "PEST"
  All options implemented in template and instruction files in PEST are available
  in bgaPEST.
  A distributed parameterization scheme is discussed in this report that
- is facilitates the introduction of roduce flexibility to the model.
- This paramterization schemes described here can be applied to any region
- of interest and with sufficient data in the model, and at the extreme can
- allow a modeler to estimate a unique parameter values for each model node
- or cell.
+ is facilitates the introduction of 
+\change_deleted -74556787 1339250546
+roduce
+\change_inserted 428100000 1338848693
+ flexibility to the model.
+ This param
+\change_inserted -74556787 1339250550
+e
+\change_inserted 428100000 1338848693
+terization schemes described here can be applied to any region of interest
+ and with sufficient data in the model, and at the extreme can allow a modeler
+ to estimate a unique parameter values for each model node or cell.
  This leads to a large number of parameters which is accompanied by computationa
 l challenges; alleviating these computational challenges is an active area
  of ongoing research and thus are not covered in detail here.
@@ -1019,13 +1167,42 @@ n
 The concept of a beta association is an important one that is revisited
  throughout this report.
  
-\change_deleted 428100000 1338847046
-The
+\change_inserted -74556787 1339250600
+
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fienenIsthmusWRR"
+
+\end_inset
+
+
 \change_inserted 428100000 1338848137
-Fienen and others (2009) describe the need to to represent the generalized
- mean value for a specific parameter type (for example, hydraulic conductivity
- in a groundwater model) in a specific region of a model.
- This concept is incorpoated her by the use of the
+ describe the need to to represent the generalized mean value for a specific
+ parameter type (for example, hydraulic conductivity in a groundwater model)
+ in a specific region of a model
+\change_inserted -74556787 1339250662
+ a ``facies association.
+\begin_inset Quotes erd
+\end_inset
+
+ To be more general,
+\change_deleted -74556787 1339250663
+.
+ T
+\change_inserted -74556787 1339250664
+ t
+\change_inserted 428100000 1338848137
+his concept is 
+\change_deleted -74556787 1339250619
+incorpoated
+\change_inserted -74556787 1339250619
+incorporated
+\change_inserted 428100000 1338848137
+ her
+\change_inserted -74556787 1339250625
+e
+\change_inserted 428100000 1338848137
+ by the use of the
 \change_unchanged
  term ``beta
 \begin_inset Quotes erd
@@ -1142,9 +1319,15 @@ It would be tempting to use another term such as ``zone
 \end_inset
 
  to describe this concept, but the term 
+\change_inserted -74556787 1339250688
+``
+\change_deleted -74556787 1339250687
+
 \begin_inset Quotes eld
 \end_inset
 
+
+\change_unchanged
 beta association
 \begin_inset Quotes erd
 \end_inset
@@ -1319,7 +1502,7 @@ end{center}
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1338673758
+\change_inserted -74556787 1339249362
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:mike_photo"
@@ -1336,7 +1519,7 @@ Photographic images illustrating the geostatistical interpolation process.
  sampling a subset of the pixels in the original image (30 in the vertical
  direction and 20 in the horizontal) and then using the geostatistical technique
  of Kriging to interpolate values for the other pixels.
- The interpolation was performed using the sGEMS software package (
+ The interpolation was performed using the sGeMS software package (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "sgems"
@@ -1409,7 +1592,7 @@ reference "fig:mike_photo"
 
 \begin_layout Standard
 
-\change_inserted -74556787 1338673414
+\change_inserted -74556787 1339251118
 The main role of the variogram in geostatistics and, indeed, in BGA, is
  to act as a constraint, controlling the shape of the interpolated values
  filling in between the known data values.
@@ -1514,7 +1697,7 @@ end{center}
 
 \begin_layout Plain Layout
 
-\change_inserted -74556787 1338662879
+\change_inserted -74556787 1339249383
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:varill"
@@ -1526,7 +1709,7 @@ Exponential variogram fit to empirical variogram for the image processing
  The empirical variogram binned values are depicted by red 'x' marks while
  the continuous black line shows the analytical variogram fit to the empirical
  values.
- The fit was performed manually using the sGEMS software package (
+ The fit was performed manually using the sGeMS software package (
 \begin_inset CommandInset citation
 LatexCommand citet
 key "sgems"
@@ -1552,12 +1735,12 @@ key "sgems"
 
 \begin_layout Standard
 
-\change_inserted -74556787 1338666403
+\change_inserted -74556787 1339249389
 Returning to the geostatistical aspect of BGA, a variogram model is used
  as the prior information in the Bayesian construction.
  As discussed above, a goal of BGA is to specify little information in the
  prior and to allow the information contained in the calibration data set
- to inform the results as mush as possible.
+ to inform the results as much as possible.
  This is accomplished by specifying only the family of variogram model used
  rather than specifying its specific shape.
  Using the example in Figure 
@@ -2535,24 +2718,24 @@ bgaPEST Overview
 \begin_layout Standard
 
 \change_inserted 428100000 1338845744
-The use of BGA concepts described previo
-\change_inserted -74556787 1338896233
-u
+The use of BGA concepts described 
+\change_deleted -74556787 1339250733
+previosly
+\change_inserted -74556787 1339250733
+previously
 \change_inserted 428100000 1338845744
-sly have been restricted to primarily academic and/or custom applications
- due to non-general nature of the BGA coding.
+ have been restricted to primarily academic and/or custom applications due
+ to non-general nature of the BGA coding.
  The BGA formulation used in bgaPEST is meant to make the approach generally
  available to a wider class of modeling problems.
  This generality is obtained by the following design considerations.
  The input/output design of bgaPEST follows that of the widely used PEST
  sof
-\change_inserted -74556787 1338896244
+\change_inserted -74556787 1339250736
 t
 \change_inserted 428100000 1338845744
 ware 
-\change_deleted -74556787 1338896271
-(Doherty, 2010a, 2010b
-\change_inserted -74556787 1338896266
+\change_inserted -74556787 1339250761
 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -2561,8 +2744,6 @@ key "PEST,PESTAdd"
 \end_inset
 
 
-\change_deleted -74556787 1338896268
-)
 \change_inserted 428100000 1338845744
 .
  This approach has two primary restrictions.
@@ -2572,9 +2753,15 @@ key "PEST,PESTAdd"
  can be deployed that converts data of another format--for example, binary--to
  or from ASCII, as appropriate.
  Second, the model must run in 
+\change_inserted -74556787 1339250771
+``
+\change_deleted -74556787 1339250769
+
 \begin_inset Quotes eld
 \end_inset
 
+
+\change_inserted 428100000 1338845744
 batch
 \begin_inset Quotes erd
 \end_inset
@@ -3963,23 +4150,93 @@ d.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Section*
 
-\change_inserted 428100000 1338849691
-Section on LIMITATIONS TO VERSION 1.0
+\change_inserted -74556787 1339251980
+Limitations to Version 1.0
 \end_layout
 
 \begin_layout Standard
 
-\change_inserted 428100000 1338849698
-[short] SUMMARY if you wish?
+\change_inserted -74556787 1339252467
+bgaPEST marks the first widely available implementation of BGA for use by
+ practitioners.
+ Limitations, of course, accompany this first implementation.
+ Version 1.0 does not have an explicit parallelization facility.
+ This can be overcome by using external programs for derivatives and calling
+ a parallel Jacobian calculation package such a BeoPEST 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "beoPEST"
+
+\end_inset
+
+ or GENIE 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "GENIE"
+
+\end_inset
+
+ whenever a Jacobian matrix is required.
+ The impact of this is on the run times required to obtain a solution.
 \end_layout
 
 \begin_layout Standard
 
+\change_inserted -74556787 1339252364
+A practical upper limit on the number of parameters estimated is on the
+ order of 100,000.
+ To estimate a larger number of parameters, machines with a large amount
+ of random access memory (RAM) must be used.
+ At some greater limit, methods such as periodic embedding or other decompositio
+ns must be incorporated to mitigate the expense of storing and calculating
+ the prior covariance matrix.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1339252553
+The source code is written in Fortran-90 and should be compilable on any
+ platform with a Fortran compiler.
+ Special care was taken to avoid obscure and nonstandard language features.
+ Nonetheless, it is possible that some platform- or compiler-specific problems
+ may be encountered.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1339353851
+It is possible to use bgaPEST with a small number of parameters, but the
+ assumption from the start is that parameters in at least part of the spatio-tem
+poral domain represent a field of correlated instances (e.g.
+ model nodes, discrete times) that often outnumber the number of data observatio
+ns.
+ A combination of homogeneous parameters in zones with a refined area of
+ interest that is distributed is a common application and, as implemented
+ through beta associations, this mix of distributed and zoned parameters
+ is supported and encouraged.
+ Typically, sufficient data to support a distributed parameter set is limited
+ to part of a model domain in space or time.
+\end_layout
+
+\begin_layout Standard
+
+\change_inserted -74556787 1339353825
+In considering uncertainty, version 1.0 presents posterior covariance values.
+ For some applications, conditional realizations may be desired to capture
+ candidate roughness of solutions within the ensemble distribution of solutions.
+ Details for conditional realizations are provided by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+.
 \change_inserted 428100000 1338848375
-REFERENCES USED IN REPORT GO HERE; REFERENCES SPECIFIC TO THE APPENDICES
- GO AT THE END OF THAT APPENDIX
+
 \end_layout
 
 \begin_layout Section
