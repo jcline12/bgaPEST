@@ -434,10 +434,10 @@ in later sections. More details about the history and use of geostatistics
 in general, including software for using the technique are found in
 \citet{Isaaks1989,DeutschJourneal1992,Kitanidis1997,sgems}.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.6]{figures/Kriging_image}\end{center}
 
-\caption{\label{fig:mike_photo}Photographic images illustrating the geostatistical
+\caption{\label{fig:mikephoto}Photographic images illustrating the geostatistical
 interpolation process. The image on the left is a JPG format image
 with $320\times240$ pixels. The image on the right is also a JPG
 image, but it was created by first sampling a subset of the pixels
@@ -445,10 +445,10 @@ in the original image (30 in the vertical direction and 20 in the
 horizontal) and then using the geostatistical technique of Kriging
 to interpolate values for the other pixels. The interpolation was
 performed using the sGeMS software package (\citet{sgems}.}
-\end{figure}
+\end{figure*}
 
 
-The photograph in the left panel of Figure \ref{fig:mike_photo} is
+The photograph in the left panel of Figure \ref{fig:mikephoto} is
 a JPG taken on a digital camera. As a grayscale image, the information
 of the image can be stored in a matrix with the number of rows and
 columns, 320 rows and 240 columns in this case, indicating the number
@@ -460,7 +460,7 @@ To illustrate the Kriging process, the photograph was first subsampled
 on an evenly spaced grid of 30 rows and 20 columns with the brightness
 value retained at each location. This results in a greatly reduced
 set of information containing $30\times20=600$ pixels. In the photograph
-in the right panel of Figure \ref{fig:mike_photo}, the faint impression
+in the right panel of Figure \ref{fig:mikephoto}, the faint impression
 of the subsampling grid is visible in some areas as the subsampled
 values are depicted at those locations. Using the geostatistical technique
 of Kriging with an appropriate variogram, it is possible to ``fill
@@ -493,7 +493,7 @@ of valid variogram model types. In the photograph example an exponential
 variogram is used. Later in this report, more mathematical details
 about variograms and variogram choice are presented.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.6]{figures/exponential_variogram}\end{center}
 
 \caption{\label{fig:varill}Exponential variogram fit to empirical variogram
@@ -501,7 +501,7 @@ for the image processing example. The empirical variogram binned values
 are depicted by red 'x' marks while the continuous black line shows
 the analytical variogram fit to the empirical values. The fit was
 performed manually using the sGeMS software package (\citet{sgems}).}
-\end{figure}
+\end{figure*}
 
 
 Returning to the geostatistical aspect of BGA, a variogram model is
@@ -538,13 +538,13 @@ density function (pdf) of $\mathbf{s}$ given $\mathbf{y}$, $L(\mathbf{y|s})$
 is the likelihood function, and $p(\mathbf{s})$ is the prior pdf
 of $\mathbf{s}$. Details of these pdfs are explained below. 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{centering}
 \includegraphics[scale=0.55]{figures/normals}
 \par\end{centering}
 
 \caption{\label{fig:normals}Graphical illustration of Bayes' theorem.}
-\end{figure}
+\end{figure*}
 
 
 Figure \ref{fig:normals} depicts one-dimensional distributions graphically
@@ -880,14 +880,14 @@ iterations has been reached. At the end of both inner and outer iteration
 convergence, or exceedance of maximum iterations, posterior covariance
 is calculated, if requested.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/flowchart_short2}\end{center}
 
 \caption{\label{fig:flowchart}Abbreviated flowchart showing the progression
 of the major bgaPEST procedures. Text in blue italics is interpretive,
 summarizing the more programmatic language represented in black plain
 type.}
-\end{figure}
+\end{figure*}
 
 
 
@@ -1809,11 +1809,13 @@ matrix follow, quoting from \citet{PESTAdd}.
 Figure \ref{fig:matrix} depicts an example matrix file holding a
 matrix with three rows and four columns.
 
-\begin{figure}[H]
-\begin{center}\label{fig:matrix}\includegraphics[scale=0.25]{figures/standard_PEST_matrix}\end{center}
-
-\caption{Example of a standard \texttt{PEST} matrix file, adapted from \citet{PESTAdd}.}
-\end{figure}
+\begin{figure*}[!t]
+\begin{centering}
+\includegraphics[scale=0.25]{figures/standard_PEST_matrix}
+\caption{Example of a standard \texttt{PEST} matrix file, adapted from \citet{PESTAdd}}
+\label{fig:matrix}
+\end{centering}
+\end{figure*}
 
 
 The first line of a matrix file contains 3 integers. The first two
@@ -2036,20 +2038,20 @@ P011T0000 28.5865 obsgp\_oden 1.0 \\
 P012T0000 27.4403 obsgp\_oden 1.0 } \\
 \texttt{END observation\_data \pagebreak{}}
 
-The following tables summarize the input blocks and variables
+Tables \ref{tab:variables1-1} and \ref{tab:variables1-2} summarize the input blocks and variables
 names, types, and default values.
 
-\begin{table}[H]
+\begin{table}[!t]
 \begin{center}\includegraphics[scale=0.5]{Variables_for_documentation1}\end{center}
 
 \caption{\label{tab:variables1-1}Summary of input blocks with variables identified.}
 \end{table}
 
 
-\begin{table}[H]
+\begin{table}[!t]
 \begin{center}\includegraphics[scale=0.5]{Variables_for_documentation2}\end{center}
 
-\caption{Summary of input blocks with variables identified (continued).}
+\caption{\label{tab:variables1-2}Summary of input blocks with variables identified (continued)}
 \end{table}
 
 
@@ -2092,7 +2094,7 @@ is through
 \hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:bestest}
 \end{equation}
 
-
+\parindent 0 in
 which is the superposition of the prior mean (first term) and an innovation
 term which considers deviations of the predictions from the observations
 (second term). In this context, $\beta$ in the first term is not
@@ -2107,6 +2109,7 @@ methods. In bgaPEST, finite-difference calculations for $\mathbf{H}$
 are calculated using PEST whereas adjoint-state calculations depend
 on the specific model being used and must be calculated using an external
 program.
+\parindent 0.25 in
 
 The values for $\mathbf{\hat{\beta}}$ and $\mathbf{\xi}$ are found
 by solving the $(n+p)\times(n+p)$ linear system of cokriging equations
@@ -2123,12 +2126,12 @@ by solving the $(n+p)\times(n+p)$ linear system of cokriging equations
 \end{array}\right]\label{eq:cokriging-1}
 \end{equation}
 
-
+\parindent 0 in
 where $\mathbf{Q_{yy}}$ is the $n\times n$ auto-covariance matrix
 of the observations, defined as $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$,
 $n$ is the number of observations, and $p$ is the number of beta
 associations.
-
+\parindent 0.25 in
 In hydrogeologic applications, the numerical forward model is typically
 nonlinear. Further nonlinearity can be induced by using a logarithmic
 transformation, which is a convenient way to enforce non-negativity
@@ -2144,7 +2147,7 @@ parameters $\mathbf{\tilde{s}}$
 \mathbf{h}(\mathbf{s})\mathbf{\approx h}(\mathbf{\tilde{s}})\mathbf{+\tilde{H}}(\mathbf{s-\tilde{s}})
 \]
 
-
+\parindent 0 in
 where $\mathbf{\tilde{H}}$, as a function of $\mathbf{\tilde{s,}}$
 is evaluated at each linearization. We assign the subscript $_{k}$
 to indicate iteration number, and correct the measurements for the
@@ -2152,6 +2155,7 @@ $k^{th}$ linearization as
 \[
 \mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}.
 \]
+\parindent 0.25 in
 Then the cokriging equations (Equation \ref{eq:cokriging-1}) are
 updated
 \begin{equation}
@@ -2167,14 +2171,14 @@ updated
 \end{array}\right]\label{eq:iterations-1}
 \end{equation}
 
-
+\parindent 0 in
 where $\tilde{\mathbf{Q}}_{\mathbf{yy},k}=\tilde{\mathbf{H}}_{k}\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}+\mathbf{R}$
 . From this set of equations, the next estimate of $\mathbf{s}$ is
 \[
 \tilde{\mathbf{s}}_{k+1}=\mathbf{X\hat{\beta}}_{k}+\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}\mathbf{\xi}_{k}.
 \]
 
-
+\parindent 0.25 in
 This can be iterated until there is minimal difference in the parameter
 estimates, or when there is minimal further improvement in the objective
 function. The objective function, which we seek to minimize, is $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
@@ -2200,7 +2204,7 @@ as
 \mathbf{s}_{opt}=\mathbf{\mathbf{\hat{s}}}\rho+\mathbf{\widetilde{\mathbf{s}}}\left(1-\rho\right)
 \]
 
-
+\parindent 0 in
 where $\mathbf{s}_{opt}$ minimizes the objective function, $\Phi,$
 using a Nelder-Mead simplex \citep[see, e.g., ][]{Press1992}, which
 guarantees monotonic decrease in $\Phi$ over successive
@@ -2212,7 +2216,7 @@ search. The greatest advantage is likely achieved in the first few
 find a minimum value of $\Phi$ because the nonlinearity
 of the overall problem prevents it. Rather, the line search is meant
 to be a correction of search direction for stability.
-
+\parindent 0.25 in
 
 \subsection{Parameter Field Anisotropy\label{sub:anisotropy}}
 
@@ -2236,12 +2240,12 @@ block can be eliminated by setting the algorithmic control variable
 \texttt{par\_anisotropy=0} which means the block, if present, is
 ignored.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/anisotropy}\end{center}
 
 \caption{\label{fig:anisotropy}Schematic diagram of horizontal anisotropy
 defining conventions for bgaPEST. }
-\end{figure}
+\end{figure*}
 
 
 Anisotropy is introduced in the calculation of distances that are,
@@ -2262,14 +2266,14 @@ y_{i}
 \end{array}\right]
 \]
 
-
+\parindent 0 in
 where $i$ indicates the $i^{th}$ point of the pair $\left(i=1,2\right)$,
 $\theta$ is the angle (in degrees) specified by \texttt{horiz\_angle},
 $x$ and $y$ are the point coordinates in the original coordinate
 system, and $x_{rot}$ and $y_{rot}$ are the location projected into
 the coordinate system corresponding to the orientation of horizontal
 anisotropy. 
-
+\parindent 0.25 in
 Once this projection is made, the horizontal distance is calculated
 as
 \[
@@ -2300,7 +2304,7 @@ vector, $\mathbf{s}$, is modeled as a random process with mean
 E[\mathbf{s}]=\mathbf{X}\mathbf{\beta}\label{eq:Es}
 \end{equation}
 
-
+\parindent 0 in
 where $E[\cdot]$ indicates expected value, $m$ is the number of
 parameters, $\mathbf{\beta}$ is a $(p\times1)$ vector of drift coefficients,
 and $\mathbf{X}$ is an $(m\times p)$ matrix of base functions. In
@@ -2316,16 +2320,17 @@ in parameter values indicative of geologic contacts {[}see e.g. \citealp{fienenE
 and \citealp{FienenWRR2008}{]}. Prior drift is accounted for in $\mathbf{X}$
 through trends expressed in the nonzero terms, although this is not
 currently implemented in bgaPEST.
-
+\parindent 0.25 in
 The prior covariance $(\mathbf{Q_{ss}})$ of $\mathbf{s}$ for a known
 $\mathbf{\beta}$ is
 \[
 \mathbf{Q_{ss}(}\mathbf{\theta})=E[(\mathbf{s}\mathbf{-}\mathbf{X\beta})(\mathbf{s}\mathbf{-}\mathbf{X\beta})^{T}]
 \]
 
-
+\parindent 0 in
 where $\mathbf{Q_{ss}}$ is a covariance function with structural
 parameters $\mathbf{\theta}.$ In bgaPEST, allowable covariance functions
+\parindent 0.25 in
 include:
 \begin{enumerate}
 \item the nugget
@@ -2345,7 +2350,7 @@ is set such that $\ell$>$\mathrm{max}(\left|\mathbf{d}\right|)$ we
 can substitute $\sigma^{2}=\theta\ell$ and restate Equation \ref{eq:exp_GCF}
 as
 \begin{equation}
-\mathbf{Q_{ss}}(\mathbf{h},\theta)=\theta\ell\mathrm{exp}(-\frac{\mathbf{\left|\mathbf{d}\right|}}{\ell})\label{eq:Qss}
+\mathbf{Q_{ss}}(\mathbf{h},\theta)=\theta\ell\mathrm{exp}(-\frac{\mathbf{\left|\mathbf{d}\right|}}{\ell})\label{eq:Qss}.
 \end{equation}
 
 
@@ -2362,7 +2367,7 @@ the exponential or linear variogram models may be used.
 
 Assembling the mean and covariance, the prior pdf is
 \begin{equation}
-p(\mathbf{s}|\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}\label{eq:prior}
+p(\mathbf{s}|\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}\label{eq:prior}.
 \end{equation}
 
 
@@ -2384,10 +2389,10 @@ prior information yields a prior pdf for $\mathbf{s}$
 p(\mathbf{s})\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right]}\label{eq:final_prior}
 \end{equation}
 
-
+\parindent 0 in
 where $\mathbf{X\beta^{*}}$ is the prior mean, and $\mathbf{G_{ss}=Q_{ss}+XQ_{\beta\beta}X^{\mathbf{T}}}$
 is the prior covariance \citep{NowakCirpka2004}.
-
+\parindent 0.25 in
 The incorporation of prior mean information, even assuming very high
 variance values in $\mathbf{Q_{\beta\beta},}$ can provide numerical
 stability without overly biasing the results. In the original formulations
@@ -2480,7 +2485,7 @@ if Toeplitz compression is invoked, parameters must be listed in the
 \texttt{.bgp} input file in order, sorted first by layer, then by
 column, and finally by row. 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.55]{figures/toeplitz_3_level}\end{center}
 
 \caption{\label{fig:toep}Schematic graphical visualization of a three-level
@@ -2489,7 +2494,7 @@ embedded set of Toeplitz blocks in a covariance matrix (modified from
 entries (values) and the colors correspond to distinct values. In
 this synthetic example, it is assumed that there are three rows, three
 columns, and three layers in the underlying model.}
-\end{figure}
+\end{figure*}
 
 
 
@@ -2501,7 +2506,7 @@ through a measurement equation
 \mathbf{y=h(s)+v}
 \]
 
-
+\parindent 0 in
 where $\mathbf{y}$ is an $(n\times1)$ vector of observations, such
 as hydraulic heads or solute concentrations, $\mathbf{h(s)}$ is a
 transfer function or numerical model that calculates predictions which
@@ -2521,7 +2526,7 @@ in which each element is $\mathbf{W}_{ii}=\frac{1}{\omega_{i}^{2}}$
 where $\omega_{i}$ is the $i^{th}$ weight, specified by the user.
 The purpose of the values of $\omega$ is to allow for different confidence
 in different individual observations or groups of observations.
-
+\parindent 0.25 in
 In reality, the component of epistemic uncertainty due to measurement
 error is likely uncorrelated, but the component due to modeling and
 conceptual uncertainty is likely systematic and correlated \citep{GaganisSmith2001}.
@@ -2559,14 +2564,14 @@ is through
 \hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:shat}
 \end{equation}
 
-
+\parindent 0 in
 which is the superposition of the prior mean (first term) and an innovation
 term which considers deviations of the model outputs from the observations
 (second term). $\mathbf{H}$ in the second term (often referred to
 as the Jacobian, sensitivity, or susceptibility matrix) is the sensitivity
 of observation values to parameter values $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
 is calculated using either finite-difference or adjoint-state methods.
-
+\parindent 0.25 in
 The values for $\mathbf{\hat{\beta}}$ and $\mathbf{\xi}$ are found
 by solving the $(n+p)\times(n+p)$ linear system of cokriging equations
 \begin{equation}
@@ -2582,10 +2587,10 @@ by solving the $(n+p)\times(n+p)$ linear system of cokriging equations
 \end{array}\right]\label{eq:cokriging}
 \end{equation}
 
-
+\parindent 0 in
 where $\mathbf{Q_{yy}}$ is the auto-covariance matrix of the observations,
 defined as $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$.
-
+\parindent 0.25 in
 
 \subsection{Quasi-Linear Extension}
 
@@ -2622,7 +2627,7 @@ The objective function, then, is
 \Phi_{T}=\Phi_{M}+\Phi_{R}\label{eq:phiT}
 \end{equation}
 
-
+\parindent 0 in
 where $\Phi_{T}$ is the total objective function, $\Phi_{M}$
 is the misfit objective function (also corresponding to the likelihood
 function) and $\Phi_{R}$ is the regularization objective
@@ -2642,7 +2647,7 @@ and
 where both the negative signs and exponentiation are obviated by taking
 the negative logarithm of $p\left(\mathbf{s}|\mathbf{y}\right)$.
 
-
+\parindent 0.25 in
 \subsection{Implementation of Partitions into Beta Associations}
 
 The concept of beta associations is discussed above and details of
@@ -2696,13 +2701,13 @@ set of structural parameters
 L\left(\mathbf{y}_{k}^{'}|\theta\right)\propto\mathrm{det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]\label{eq:theta_like}
 \end{equation}
 
-
+\parindent 0 in
 where $\mathbf{G_{yy}}$ is the measurement autocovariance defined
 as 
 \[
 \mathbf{G_{yy}}=\mathbf{Q_{yy}}+\mathbf{HXQ_{\beta\beta}X}^{T}\mathbf{H}^{T}.
 \]
-
+\parindent 0.25 in
 
 Note that $\mathbf{Q_{yy}}$ is intrinsically dependent upon the values
 of $\theta.$
@@ -2787,25 +2792,25 @@ the true synthetic hydraulic conductivity values and the resulting
 head values were perturbed with normally distributed noise with mean
 of zero and standard deviation of 0.01 m.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.4]{figures/TrueK}\end{center}
 
 \caption{True hydraulic conductivity field for the single layer example application.\label{fig:trueK1L}}
 
 
-\end{figure}
+\end{figure*}
 The boundary conditions are constant head, highest at the northwest
 corner and linearly decreasing to the southeast, as depicted in Figure
 \ref{fig:stheads1L}. There is a well at row 13, column 6, extracting
 water at a constant rate of 0.231 liters/minute. No recharge is simulated
 in this case.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.5]{figures/starting_heads}\end{center}
 
 \caption{\label{fig:stheads1L}Boundary condition (constant head) for the single
 layer example application.}
-\end{figure}
+\end{figure*}
 
 
 Two options exist to calculate sensitivity (Jacobian) matrices: an
@@ -2821,22 +2826,22 @@ to be unrealistically high, but also encompasses both measurement
 and modeling error and was used to demonstrate a case where overfitting
 would be avoided at all costs.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center} \includegraphics[scale=0.7]{figures/1_lay_best_pars_sigma_fixed}\end{center}
 
 \caption{\label{fig:KL1-sigfixed}Parameters (hydraulic conductivity field)
 estimated for the 1 layer example application using bgaPEST with $\sigma_{R}^{2}$
 fixed at $1.0m$.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center} \includegraphics[scale=0.4]{figures/1_layer_fixed_sigma_residuals}\end{center}
 
 \caption{\label{fig:residL1-sigfixed}Squared residuals, plotted at their locations
 in the model, for the 1 layer example application using bgaPEST with
 $\sigma_{R}^{2}$ fixed at $1.0m$.}
-\end{figure}
+\end{figure*}
 
 
 Figures \ref{fig:KL1-sigfixed} and \ref{fig:residL1-sigfixed} show
@@ -2861,22 +2866,22 @@ information content--an anomalous region of high hydraulic conductivity
 emanates from the area of the well due to the focus of stress (and
 therefore information) near the pumping well.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center} \includegraphics[scale=0.7]{figures/1_lay_best_pars_sigma_estimated}\end{center}
 
 \caption{\label{fig:KL1-sigEstimated}Parameters (hydraulic conductivity field)
 estimated for the 1 layer example application using bgaPEST with $\sigma_{R}^{2}$
 estimated by the bgaPEST algorithm.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center} \includegraphics[scale=0.4]{figures/1_layer_estimated_sigma_residuals}\end{center}
 
 \caption{\label{fig:residL1-sigEstimated}Squared residuals, plotted at their
 locations in the model, for the 1 layer example application using
 bgaPEST with $\sigma_{R}^{2}$ estimated.}
-\end{figure}
+\end{figure*}
 
 
 Figures \ref{fig:KL1-sigEstimated} and \ref{fig:residL1-sigEstimated}
@@ -2911,7 +2916,7 @@ a very small stress on the system.
 The true parameter field, shown in Figure \ref{3Ltruek}, varies from
 0.01 to 0.075 meters/day. 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/3_layer_TRUE_K_field}\end{center}
 
 \caption{\label{3Ltruek}True synthetic hydraulic conductivity field for each
@@ -2919,7 +2924,7 @@ layer in the three layer example application. Values are shown in
 natural logarithm space to make the differences more visible.}
 
 
-\end{figure}
+\end{figure*}
 
 
 Five cases are illustrated here, as summarized in Table \ref{tab:3lay}.
@@ -2943,7 +2948,7 @@ applied with a rotation angle of zero. In Case 5, like in Case 3,
 $\sigma_{R}^{2}$ is estimated to achieve the best possible fit, while
 in Case 6, $\sigma_{R}^{2}$ is held constant at $1.0\times10^{-1}.$
 
-\begin{table}[H]
+\begin{table}[!t]
 \begin{center}\includegraphics[scale=0.9]{tables/3_layer_tables_for_structural_parameters}\end{center}
 
 \caption{\label{tab:3lay}Summary of the five cases investigated. The table
@@ -2964,23 +2969,23 @@ solution is required to achieve the level of fit desired.
 
 \clearpage
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/3KL_case1}\end{center}
 
 \caption{\label{fig:3LK_case1}Case 1: Hydraulic conductivity fields estimated
 using bgaPEST compared to the true, synthetic hydraulic conductivity
 field.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case1}\end{center}
 
 \caption{\label{fig:3Lresid_case1}Case 1: Squared differences between modeled
 and ``true'' head values. Symbol size qualitatively indicates magnitude
 while color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view.}
-\end{figure}
+\end{figure*}
 
 
 Figures \ref{fig:3LK_case2} and \ref{fig:3Lresid_case2} show the
@@ -2992,23 +2997,23 @@ and more structure (roughness) is observed in the parameters, as expected.
 Note that, in this case, even with very low residuals, the parameter
 fields estimated are a smoothed representation of the ``truth.'' 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/3KL_case2}\end{center}
 
 \caption{\label{fig:3LK_case2}Case 2: Hydraulic conductivity fields estimated
 using bgaPEST compared to the true, synthetic hydraulic conductivity
 field.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case2}\end{center}
 
 \caption{\label{fig:3Lresid_case2}Case 2: Squared differences between modeled
 and ``true'' head values. Symbol size qualitatively indicates magnitude
 while color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view.}
-\end{figure}
+\end{figure*}
 
 
 Figures \ref{fig:3LK_case3} and \ref{fig:3Lresid_case3} show the
@@ -3024,23 +3029,23 @@ hydraulic conductivity values in layer 2 are slightly offset to the
 west, no artifacts are introduced that would be considered spurious
 in this solution.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/3KL_case3}\end{center}
 
 \caption{\label{fig:3LK_case3}Case 3: Hydraulic conductivity fields estimated
 using bgaPEST compared to the true, synthetic hydraulic conductivity
 field.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case3}\end{center}
 
 \caption{\label{fig:3Lresid_case3}Case 3: Squared differences between modeled
 and ``true'' head values. Symbol size qualitatively indicates magnitude
 while color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view.4}
-\end{figure}
+\end{figure*}
 
 
 Figures \ref{fig:3LK_case5} and \ref{fig:3Lresid_case5} show the
@@ -3059,23 +3064,23 @@ correspond to that framework so, in a Bayesian sense, the answer is
 an appropriate general characteristic shape of the parameter field.
 Such assumptions must be made cautiously.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/3KL_case5}\end{center}
 
 \caption{\label{fig:3LK_case5}Case 5: Hydraulic conductivity fields estimated
 using bgaPEST compared to the true, synthetic hydraulic conductivity
 field.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case5}\end{center}
 
 \caption{\label{fig:3Lresid_case5}Case 5: Squared differences between modeled
 and ``true'' head values. Symbol size qualitatively indicates magnitude
 while color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view.}
-\end{figure}
+\end{figure*}
 
 
 Figures \ref{fig:3LK_case6} and \ref{fig:3Lresid_case6} show the
@@ -3094,23 +3099,23 @@ As discussed above, however, this will, in a sense, force the solution
 to conform to such a shape, so it's use should be approached with
 caution.
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics{figures/3KL_case6}\end{center}
 
 \caption{\label{fig:3LK_case6}Case 6: Hydraulic conductivity fields estimated
 using bgaPEST compared to the true, synthetic hydraulic conductivity
 field.}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case6}\end{center}
 
 \caption{\label{fig:3Lresid_case6}Case 6: Squared differences between modeled
 and ``true'' head values. Symbol size qualitatively indicates magnitude
 while color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view.}
-\end{figure}
+\end{figure*}
 
 
 
@@ -3160,7 +3165,7 @@ peak discharge and time are properly reproduced. The estimated epistemic
 error variance increases in the second case taking account of the
 higher erroneous observations (Table \ref{tab:Reverse-routing}).
 
-\begin{figure}[H]
+\begin{figure*}[!t]
 \noindent \begin{centering}
 \includegraphics[scale=0.9]{figures/Reverse_Routing}
 \par\end{centering}
@@ -3168,10 +3173,10 @@ higher erroneous observations (Table \ref{tab:Reverse-routing}).
 \caption{\label{fig:Reverse-routing}Reverse routing: inflow and outflow hydrographs
 for the prismatic channel. (a) the observations were corrupted with
 a 1\% random error; (b) a 10\% random error was used.  }
-\end{figure}
+\end{figure*}
 
 
-\begin{table}[H]
+\begin{table}[!t]
 \noindent \begin{centering}
 \begin{tabular}{ccc}
 \hline 
