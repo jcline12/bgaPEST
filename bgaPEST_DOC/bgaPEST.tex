@@ -10,13 +10,11 @@
 \usepackage{mathptmx}
 \makeindex
 \usepackage{setspace}
-\usepackage{bibunits}   % SPLIT THE BIBLIOGRAPHIES THIS WAY
-%\doublespacing
-
+\usepackage{bibunits}
+\defaultbibliographystyle{usgs}
 \usepackage{calc}
 \renewcommand{\conversionpage}{}
 %\setboolean{tabletoc}{false}
-
 \usepackage[blacklinks]{usgshyperref}
 
 %\usepackage[]{hyperref}
@@ -124,8 +122,10 @@ Middleton, Wisconsin 53562 \\
 University of Parma, Parma, Italy}
 \footnotetext[2]{Watermark Numerical Computing, Brisbane, Australia and Australian National Centre for Groundwater Research and Training, Adelaide, Australia}
 
-
+\begin{multicols}{2}
+\begin{bibunit}
 \SECTION{Abstract}
+
 \raggedcolumns
 \raggedright
 \tolerance=5000
@@ -149,8 +149,9 @@ by the data. Examples are provided in groundwater and surface water
 applications but the possible uses expand to any distributed parameter
 applications. 
 
-\begin{multicols}{2}
+
 \SECTION{Introduction}
+
 This report documents the theory and computer code of a Bayesian Geostatistical
 Approach (BGA%
 \footnote[3]{While the Bayesian Geostatistical Approach is references with the
@@ -255,7 +256,7 @@ The bgaPEST input framework is consistent with the input block and
 keyword concepts described by the JUPITER project \citet{BantaEtAl2006}.
 Although the relation of design concepts is beyond the scope of this
 report, the input block and keywords needed to run bgaPEST are described
-fully in Appendix 1. A full description of the format of the general
+fully in Appendix \ref{sec:Input-Instructions}. A full description of the format of the general
 approach of template and instruction files are also not included here:
 detailed descriptions are provided in the PEST documentation \citep[chapter 3]{PEST}.
 All options implemented in template and instruction files in PEST
@@ -293,7 +294,7 @@ Center.
 
 The presentation of the BGA is first presented using primarily description
 by words, then described later using a mathematical approach, which
-is provided in detail in Appendix D. Those most interested in simply
+is provided in detail in Appendix \ref{sec:methodologyDetails}. Those most interested in simply
 applying bgaPEST to their specific problem will likely spend most
 time with the former presentation. In either presentation,  the concept
 of conditionality is fundamental. This concepts is expressed here
@@ -1155,7 +1156,7 @@ limitation in many cases. For transient problems, one should consider
 the information content of each measurement point in time. Often,
 the number of observation points can be effectively reduced by considering
 moments rather than discrete points \citep{LiNowakCirpka2005} or
-by other time series processing such as methods available in R (\citep{R})
+by other time series processing such as methods available in R \citep{R}
 or TSPROC \citep{TSPROC}.
 
 
@@ -1312,12 +1313,16 @@ to capture candidate roughness of solutions within the ensemble distribution
 of solutions. Details for conditional realizations are provided by
 \citet{Kitanidis1995}.
 
-\SECTION{References}
-\bibliographystyle{agufull08}
-\bibliography{GW}
+\SECTION{References Cited}
+%\bibliographystyle{usgs}
+%\bibliography{GW}
 
+
+\putbib[GW]
+\end{bibunit}
 \end{multicols}
 \begin{appendix}
+\begin{bibunit}
 \APPENDIX{\label{sec:Input-Instructions}Input Instructions}
 
 In this appendix, the general strategy for input instructions is described.
@@ -1850,7 +1855,10 @@ one per line, after the header line. If compression is not used, the
 entire posterior covariance matrix is printed using \texttt{ICODE=1}
 with 8 values per line.
 
-
+\subsection{References Cited}
+\putbib[GW]
+\end{bibunit}
+\begin{bibunit}
 \APPENDIX{\label{sec:quickstart}Quick Start Instructions}
 
 One advantage of using block input and keywords, as discussed in Appendix
@@ -2055,8 +2063,10 @@ names, types, and default values.
 \caption{\label{tab:variables1-2}Summary of input blocks with variables identified (continued)}
 \end{table}
 
-
-
+\subsection{References Cited}
+\putbib[GW]
+\end{bibunit}
+\begin{bibunit}
 \APPENDIX{Details of the Method\label{sec:methodologyDetails}}
 
 The Bayesian geostatistical approach is described in detail in \citet{KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004}
@@ -2776,8 +2786,10 @@ returned as a vector of variances on parameters. This information
 is reported in a separate file, but also used to calculated posterior
 95\% confidence intervals. The full matrix, when reported, can be
 used to calculate conditional realizations \citep{Kitanidis1995,Kitanidis1996ana}.
-
-
+\subsection{References Cited}
+\putbib[GW]
+\end{bibunit}
+\begin{bibunit}
 \APPENDIX{\label{sec:example1}Single Layer Example Application}
 
 The first example application presented is a single-layer groundwater
@@ -2897,8 +2909,10 @@ shows a bit more structure (roughness). Correspondingly, the residuals
 are generally lower. A key point here, however, is that the pattern
 of the residuals is similar and, again, reflects the general information
 content of the stress induced on the system.
-
-
+\subsection{References Cited}
+\putbib[GW]
+\end{bibunit}
+%\begin{bibunit}
 \APPENDIX{\label{sec:example2}Three Layer Example Application}
 
 A three layer groundwater model is presented to explore the use of
@@ -3118,8 +3132,10 @@ while color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view. $\sigma_{R}^{2}$ is held constant at $1.00\times10^{-01}$. Parameter anisotropy also invoked as described in Table \ref{tab:3lay}}
 \end{figure*}
 
-
-
+%\subsection{References Cited}
+%\putbib[GW]
+%\end{bibunit}
+\begin{bibunit}
 \APPENDIX{\label{sec:example3}Reverse Flood Routing Example Application}
 
 An example application of reverse flood routing in open channels is
@@ -3193,6 +3209,9 @@ $\sigma_{R}^{2}$ {[}m\textsuperscript{6}s\textsuperscript{-2}{]} & $1.7\times10^
 \caption{\label{tab:Reverse-routing}Reverse routing: estimated structural
 parameters  }
 \end{table}
+\subsection{References Cited}
+\putbib[GW]
+\end{bibunit}
 \end{appendix}
 \end{document}
 
