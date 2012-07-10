@@ -1,0 +1,3183 @@
+#LyX file created by tex2lyx 2.0.3
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\setcitestyle{semicolon}
+\renewcommand{\[}{\begin{equation}}
+\renewcommand{\]}{\end{equation}}
+
+
+
+\usepackage{babel}
+
+\end_preamble
+\use_default_options false
+\language english
+\language_package default
+\inputencoding latin9
+\fontencoding T1
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref 0
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+
+\emph on
+Approaches in Highly Parameterized Inversion--bgaPEST: A Bayesian Geostatistical Approach Implementation with PEST--Documentation and Instructions
+\emph default
+
+\end_layout
+
+\begin_layout Author
+
+Michael N. Fienen
+\begin_inset Foot
+status collapsed
+
+
+\begin_layout Standard
+
+US Geological Survey, Wisconsin Water Science Center, Middleton, Wisconsin USA
+\end_layout
+
+\end_inset
+
+, Marco D'Oria
+\begin_inset Foot
+status collapsed
+
+
+\begin_layout Standard
+
+Department of Civil and Environmental Engineering and Architecture, University of Parma, Parma, Italy
+\end_layout
+
+\end_inset
+
+, John E. Doherty
+\begin_inset Foot
+status collapsed
+
+
+\begin_layout Standard
+
+Watermark Numerical Computing, Brisbane, Australia
+\end_layout
+
+\end_inset
+
+, and Randall J. Hunt
+\begin_inset script superscript
+
+\begin_layout Standard
+
+*
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Abstract
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+raggedcolumns
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+raggedright
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+tolerance
+\end_layout
+
+\end_inset
+
+=5000 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in bgaPEST is a highly parameterized inversion software package implementing the Bayesian Geostatistical Approach in a framework compatible with PEST. Highly parameterized inversion refers to cases in which parameters are distributed in space or time and are correlated with one another. The Bayesian aspect of bgaPEST is manifest in a basis on Bayesian probability theory in which prior information about parameters is formally revised based on the calibration dataset used for the inversion. Conceptually, this formalizes the conditionality of estimated parameters on the specific data and model available. The Geostatistical component of the method refers to the way in which prior information about the parameters is used. A geostatistical autocorrelation function is used to enforce structure on the parameters to avoid overfitting and unrealistic results. BGA is designed to provide the smoothest solution that is consistent with the data. Optionally, users can specify a level of fit or estimate a balance between fit and model complexity informed by the data. Examples are provided in groundwater and surface water applications but the possible uses expand to any distributed parameter applications.
+\end_layout
+
+\begin_layout Section
+
+Introduction
+\end_layout
+
+\begin_layout Standard
+
+This report documents the theory and computer code of a Bayesian Geostatistical Approach (BGA
+\begin_inset Foot
+status collapsed
+
+
+\begin_layout Standard
+
+[
+\end_layout
+
+\end_inset
+
+3]
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+While the Bayesian Geostatistical Approach is references with the all capital acronym 
+\begin_inset Quotes eld
+\end_inset
+
+BGA,
+\begin_inset Quotes erd
+\end_inset
+
+ in the software title, lover case is used (
+\begin_inset Quotes eld
+\end_inset
+
+bgaPEST
+\begin_inset Quotes erd
+\end_inset
+
+) to differentiate the two titles rather than running them all together.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+). 
+\begin_inset Quotes eld
+\end_inset
+
+Bayesian
+\begin_inset Quotes erd
+\end_inset
+
+ refers to theory used to solve the inverse problem; 
+\begin_inset Quotes eld
+\end_inset
+
+Geostatistical
+\begin_inset Quotes erd
+\end_inset
+
+ refers to the use of an autocorrelated spatial or temporal function to provide prior information about the parameters. This BGA approach has been coded using the protocol and approach of PEST 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "PEST,PESTAdd"
+
+\end_inset
+
+, the most widely used computer code of its type. Though the BGA and PEST have been primarily applied to the environmental modeling field, a general view of the inverse problem is discussed here, one that covers most classes of problems where measurements of a system are used to infer system properties that create the measured value. Thus, this bgaPEST formulation is meant to be applicable to any class of inverse problem that adheres to the concepts described herein. In this section, we outline the conceptual framework of the method; theory, implementation, and instructions for use of the bgaPEST computer code version 1.0 follow this conceptual discussion.
+\end_layout
+
+\begin_layout Standard
+
+Environmental modeling can facilitate informed management of natural resources. In most cases, models represent physical processes such as groundwater flow, contaminant transport, surface water flood routing, etc. Simulating the overarching physics and chemistry with governing equations and concepts such as conservation of mass and momentum is only part of what is required. Once a model adequately represents the processes of the problem, it is still only an abstract tool until estimates of the physical characteristics are tuned to observations from the specific area to be managed.
+\end_layout
+
+\begin_layout Standard
+
+Input values that are used by processes control the behavior of a model at a given site; these input values are here called 
+\begin_inset Quotes eld
+\end_inset
+
+parameters
+\begin_inset Quotes erd
+\end_inset
+
+. They represent specific characteristics (for example, hydraulic conductivity, recharge rate, chemical decay rate) of the natural system encountered at an area of interest. Representative values appropriate for parameters in natural systems are often difficult to measure directly, however. Observations of system state (for example, water levels, streamflow magnitudes, chemical concentrations) are often easier to measure, and the model is chosen so that the observations of the system correspond to output values from the model. The outputs of observation data are dependent to varying degrees on the values of parameters. Therefore, changes in the simulated system state that align with observations allow inference of parameter values not available by direct measurement. 
+\begin_inset Quotes eld
+\end_inset
+
+Parameter estimation
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+calibration
+\begin_inset Quotes erd
+\end_inset
+
+ are both terms describing the process of incorporating site-specific observations to inform parameters and salient processes of a model in order to improve its representativeness and predictive ability.
+\end_layout
+
+\begin_layout Standard
+
+A model, therefore, can often be thought of as a data-processing tool that quantitatively tests conceptualizations of a system as much as a simulator of physical processes, the data processing being a pipeline from field observation to model parameters and ultimately to more representative predictions for supporting management decisions.
+\end_layout
+
+\begin_layout Standard
+
+Put in terms of a Bayesian description, this process is one in which the model is a vehicle for updating soft- or expert-knowledge (called 
+\emph on
+a priori
+\emph default
+ understanding in the Bayesian context) of the system. This initial vehicle is filtered by a measure of its ability to simulate the natural world informed, or updated, by site-specific observations (called 
+\emph on
+a posteriori
+\emph default
+ understanding). In the Bayesian approach, the ability to simulate features of the natural world 
+\begin_inset Quotes eld
+\end_inset
+
+conditions
+\begin_inset Quotes erd
+\end_inset
+
+ or narrows the wide range of possible outcomes that result from general expert and soft-knowledge alone. A key benefit of the Bayesian approach is that it provides a theoretically rigorous way to continually incorporate new information and, in turn, update 
+\emph on
+a posteriori
+\emph default
+ understanding.
+\end_layout
+
+\begin_layout Section
+
+Obtaining the Software
+\end_layout
+
+\begin_layout Standard
+
+The software for bgaPEST Version 1.0 is available for download at 
+\begin_inset Formula $<$
+\end_inset
+
+USGS LINK HERE
+\begin_inset Formula $>$
+\end_inset
+
+. This location includes a copy of this document and both executables and source code. As development of the code continues, a repository at 
+\begin_inset Formula $<$
+\end_inset
+
+GITHUB LINK HERE
+\begin_inset Formula $>$
+\end_inset
+
+ provides a link to the bleeding edge development branches and provides a collaborative open-source space where users may submit revisions for consideration by the authors. As further development takes place, new code releases will be posted at 
+\begin_inset Formula $<$
+\end_inset
+
+USGS LINK
+\begin_inset Formula $>$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+
+Purpose and Scope
+\end_layout
+
+\begin_layout Standard
+
+This Report is intended to serve two purposes. First, a Bayesian approach to parameter estimation--expressed in the context of the Bayesian Geostatistical Approach (BGA)--is described to provide an accessible and general tool for moving a model from a general simulator of a physical process to a more optimal tool, tuned to a set of calibration information, which, in turn, can be used for improved prediction and decision-making. Second, a computer code--bgaPEST version 1.0--is introduced and documented in which BGA is deployed using the protocols and input/output concepts developed in the free and open-source PEST suite of software 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "PEST"
+
+\end_inset
+
+. This report provides details on the mathematical theory behind BGA, followed by detailed instructions for using the computer program. Conventions and assumptions for using the program are also included in the discussion. To our knowledge, this marks the first implementation of a general BGA code available for general use.
+\end_layout
+
+\begin_layout Standard
+
+The bgaPEST input framework is consistent with the input block and keyword concepts described by the JUPITER project 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "BantaEtAl2006"
+
+\end_inset
+
+. Although the relation of design concepts is beyond the scope of this report, the input block and keywords needed to run bgaPEST are described fully in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+. A full description of the format of the general approach of template and instruction files are also not included here: detailed descriptions are provided in the PEST documentation 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter 3"
+before ""
+key "PEST"
+
+\end_inset
+
+. All options implemented in template and instruction files in PEST are available in bgaPEST. A distributed parameterization scheme is discussed in this report that is facilitates the introduction of flexibility to the model. This parameterization schemes described here can be applied to any region of interest and with sufficient data in the model, and at the extreme can allow a modeler to estimate a unique parameter values for each model node or cell. This leads to a large number of parameters which is accompanied by computational challenges; alleviating these computational challenges is an active area of ongoing research and thus are not covered in detail here.
+\end_layout
+
+\begin_layout Standard
+
+This report includes an overview of theory and use of the bgaPEST code in the main text. Detailed input instructions for bgaPEST version 1.0 are included in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+, quick-start instructions are in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:quickstart"
+
+\end_inset
+
+. A detailed mathematical derivation of the BGA methods is included in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+, and example problems are included in Appendixes 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:example1"
+
+\end_inset
+
+ through 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:example3"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+
+Acknowledgements 
+\end_layout
+
+\begin_layout Standard
+
+This work was supported by several important sources including: The National Research Council Postdoctoral Research Associateship, The US Geological Survey Groundwater Resources Program, the USGS Water Energy and Biogeochemical Budgets (WEBB) Program. The USGS Exchange Visitor Program and the USGS Wisconsin Water Science Center supported a six-month exchange in which Dr. Marco D'Oria was hosted in Wisconsin. Dr. D'Oria also received support from the University of Parma, Italy, Department of Civil and Environmental Engineering and Architecture (Università degli Studi di Parma). Valuable colleague reviews were provided by Dr. Michael Cardiff, Boise State University, and Stephen Westenbroek, USGS Wisconsin Water Science Center. 
+\end_layout
+
+\begin_layout Section
+
+Background for a Bayesian Geostatistical Approach
+\end_layout
+
+\begin_layout Standard
+
+The presentation of the BGA is first presented using primarily description by words, then described later using a mathematical approach, which is provided in detail in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+. Those most interested in simply applying bgaPEST to their specific problem will likely spend most time with the former presentation. In either presentation, the concept of conditionality is fundamental. This concepts is expressed here as.
+\end_layout
+
+\begin_layout Standard
+
+Bayes' theorem,which forms the foundation of the techniques described in the rest of this report: 
+\begin_inset Formula \begin{equation}
+p\left(\mathbf{s}|\mathbf{y}\right)\propto L\left(\mathbf{y}|\mathbf{s}\right)p\left(\mathbf{s}\right)\label{eq:bayes1}
+\end{equation}
+\end_inset
+
+where: 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ is an 
+\begin_inset Formula $m\times1$
+\end_inset
+
+ vector of 
+\begin_inset Formula $m$
+\end_inset
+
+ parameter values, 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is 
+\begin_inset Formula $n\times1$
+\end_inset
+
+ vector of 
+\begin_inset Formula $n$
+\end_inset
+
+ observations, 
+\begin_inset Formula $p\left(\cdot\right)$
+\end_inset
+
+ indicates a probability density function (pdf), 
+\begin_inset Formula $L\left(\cdot\right)$
+\end_inset
+
+ indicates a likelihood function, and 
+\begin_inset Formula $|$
+\end_inset
+
+ indicates conditionality. In words, Bayes' theorem states that the posterior probability of parameters conditional on the observations 
+\begin_inset Formula $p\left(\mathbf{s}|\mathbf{y}\right)$
+\end_inset
+
+ (often referred to simply as 
+\begin_inset Quotes eld
+\end_inset
+
+the posterior probability of 
+\series bold
+s
+\series default
+ given 
+\series bold
+y
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+), is proportional to the prior probability of the parameters 
+\begin_inset Formula $p\left(\mathbf{s}\right)$
+\end_inset
+
+ updated with the likelihood function 
+\begin_inset Formula $L\left(\mathbf{y}|\mathbf{s}\right)$
+\end_inset
+
+ that expresses how well 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is estimated using the model and a candidate parameter set 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+. The pdfs in all cases are assumed to follow or at least be well-approximated by Gaussian distributions. This assumption is important and somewhat restrictive, but is made for computational simplicity. Active research is ongoing on alternatives to this approach, but the traditional Gaussian assumption is adopted in this report and is still considered a practical and useful assumption for many cases.
+\end_layout
+
+\begin_layout Standard
+
+In the Bayesian context, expressing the parameters and the likelihood function as probability distributions formally incorporates an estimate of their uncertainty rather than treating the parameters as perfectly known values. All 
+\emph on
+a posteriori 
+\emph default
+(also called posterior) distributions are conditional upon the specific data used in the calibration process. Perhaps less obviously, posterior distributions are also conditional on all other modeling and data assumptions and decisions that go into formulating the problem: which model and what model options are chosen, numerical considerations such as discretization and solver convergence criteria, boundary conditions that may or may not be considered static and known, variance values and weights given to individual observations and parameters, and others. As a result, if any of these underlying assumptions and decisions change, it is expected, in the Bayesian context, that the parameters estimated and the associated posterior uncertainty will also change.
+\end_layout
+
+\begin_layout Standard
+
+The conditionality includes 
+\emph on
+all 
+\emph default
+decisions made in the process of constructing a model and incorporating data, however, not all of this information is explicitly addressed by the modeler. In fact, the only 
+\emph on
+explicit 
+\emph default
+conditionality is on the observation data. The information contained in the prior pdf (
+\begin_inset Formula $p\left(\mathbf{s}\right)$
+\end_inset
+
+) in eq. 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes1"
+
+\end_inset
+
+ is critical because it represents the state of knowledge about the parameters in the system prior to updating through the calibration process. In this report, assumptions made prior to calibration are intentionally limited and are restricted to the assignment of a mean value (unknown) of each distinct parameter type and region within the model domain (beta association--described below), and a characteristic about continuity or smoothness of the parameter field (implemented as a variogram--also described below). The degree to which this continuity characteristic is enforced is dictated by the observations included and the subsequent performance of the model. This construction is similar (and in some cases, mathematically equivalent) to Tikhonov regularization 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "Tikhonov1963a,Tikhonov1963b,AsterEtal2005"
+
+\end_inset
+
+. Limitation of the information assumed 
+\emph on
+a priori 
+\emph default
+is similar to assuming a low or diffuse level of 
+\emph on
+a priori 
+\emph default
+soft-knowledge (called an ignorance prior in 
+\begin_inset CommandInset citation
+LatexCommand citealt
+after "chapter 12"
+before ""
+key "jaynesBook"
+
+\end_inset
+
+). In this case, the resulting model is driven more by information obtained from site-specific observations than from prior assumptions based on soft-knowledge. A goal of this approach is to limit the subjective information used in favor of an objective and repeatable result based on observation data. Additionally, so-called structural parameters that enforce the characteristic smoothness are estimated. An algorithm that encompasses all of these aspects is considered an Empirical Bayes approach.
+\end_layout
+
+\begin_layout Standard
+
+The concept of a beta association is an important one that is revisited throughout this report. 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "fienenIsthmusWRR"
+
+\end_inset
+
+ describe the need to to represent the generalized mean value for a specific parameter type (for example, hydraulic conductivity in a groundwater model) in a specific region of a model a 
+\begin_inset Quotes eld
+\end_inset
+
+facies association.
+\begin_inset Quotes erd
+\end_inset
+
+ To be more general, this concept is incorporated here by the use of the term 
+\begin_inset Quotes eld
+\end_inset
+
+beta
+\begin_inset Quotes erd
+\end_inset
+
+, derived from the mathematical symbol used. . In the methodology described in this report, parameter values are estimated by estimating a mean value (termed 
+\begin_inset Formula $\beta$
+\end_inset
+
+ in the mathematics) and fluctuations about that mean. Each parameter, therefore, must be associated with a mean value.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+fcolorbox{black}{ltgrey}{
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+begin{minipage}[t]{0.9
+\backslash
+columnwidth}
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+textbf{A Note on Parameters}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\begin_layout Standard
+
+The term ``parameters'' refers to discrete values of system state.
+\end_layout
+
+\begin_layout Standard
+
+When we describe ``parameter type'' we mean a group of parameters
+\end_layout
+
+\begin_layout Standard
+
+that belong to the same class of system state (for example, hydraulic
+\end_layout
+
+\begin_layout Standard
+
+conductivity or recharge). In applications appropriate for bgaPEST,
+\end_layout
+
+\begin_layout Standard
+
+there must be multiple parameter values of a given type that are spatially
+\end_layout
+
+\begin_layout Standard
+
+or temporally distributed. When a ``parameter'' is listed, the meaning
+\end_layout
+
+\begin_layout Standard
+
+is restricted to a single value of system model input that is to be
+\end_layout
+
+\begin_layout Standard
+
+estimated.
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ It would be tempting to use another term such as 
+\begin_inset Quotes eld
+\end_inset
+
+zone
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+facies
+\begin_inset Quotes erd
+\end_inset
+
+ to describe this concept, but the term 
+\begin_inset Quotes eld
+\end_inset
+
+beta association
+\begin_inset Quotes erd
+\end_inset
+
+ was selected specifically to highlight the flexibility of the concept. The important idea is that the method described in bgaPEST depends on being able to associate each parameter with a mean value. In the case of distributed parameters (for example, hydraulic conductivity or recharge being distributed throughout a region in a model in which each model cell or node is assigned a unique value), the subdivision of the entire model domain into beta associations accounts for hydrogeologic contacts or facies to be delineated. This delineation assumes that there is little or no correlation across these natural divisions. Similarly, parameters of one type are typically not correlated with parameters of a different type. Beta associations allow the inclusion of multiple parameter types and the delineation of important geologic features in distributed parameter sets. In the BGA algorithm, parameters in different beta associations are assigned zero correlation.
+\end_layout
+
+\begin_layout Standard
+
+The likelihood function in eq. 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes1"
+
+\end_inset
+
+, 
+\begin_inset Formula $L\text{\ensuremath{\left(\mathbf{y}|\mathbf{s}\right)}}$
+\end_inset
+
+, expresses the correspondence of model outcomes with field observations collocated in space and time. This correspondence is expressed as the sum of the squared differences between outcomes and observations, weighted by a covariance matrix, which expresses the relative certainty of each observation. This is equivalent to the weighted measurement objective function in PEST 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "PEST"
+
+\end_inset
+
+. The advantages to the Bayesian approach stem from the conceptual framework, the ability to use a a probability density function to represent parameterization rather than single values , and the empirical nature of the balance between prior information and likelihood. These elements of Bayes' equation form the fundamental basis for the bgaPEST software described here.
+\end_layout
+
+\begin_layout Standard
+
+The 
+\emph on
+Geostatistical 
+\emph default
+aspects of the method are expressed in the prior pdf 
+\begin_inset Formula $\left(p\left(\mathbf{s}\right)\right)$
+\end_inset
+
+ of the parameter values. Geostatistics is a form a interpolation that uses a spatial function called a variogram to fill in information between data points. The most common technique of geostatistics is called Kriging. In this section, we discuss geostatistics in a conceptual way using a photographic image as an example. The mathematics relevant to BGA are discussed in later sections. More details about the history and use of geostatistics in general, including software for using the technique are found in 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "Isaaks1989,DeutschJourneal1992,Kitanidis1997,sgems"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+
+\begin_inset Graphics 
+	filename figures/Kriging_image.pdf
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:mikephoto"
+
+\end_inset
+
+Photographic images illustrating the geostatistical interpolation process. The image on the left is a JPG format image with 
+\begin_inset Formula $320\times240$
+\end_inset
+
+ pixels. The image on the right is also a JPG image, but it was created by first sampling a subset of the pixels in the original image (30 in the vertical direction and 20 in the horizontal) and then using the geostatistical technique of Kriging to interpolate values for the other pixels. The interpolation was performed using the sGeMS software package 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+protect
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "sgems"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+The photograph in the left panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mikephoto"
+
+\end_inset
+
+ is a JPG taken on a digital camera. As a grayscale image, the information of the image can be stored in a matrix with the number of rows and columns, 320 rows and 240 columns in this case, indicating the number of pixels in the vertical and horizontal dimensions, respectively. The values at each pixel are a brightness value, in this case normalized to a maximum value of 64.0. In the original image, there are 
+\begin_inset Formula $320\times240=76,800$
+\end_inset
+
+ pixels, each of which may be considered a discrete packet of information. To illustrate the Kriging process, the photograph was first subsampled on an evenly spaced grid of 30 rows and 20 columns with the brightness value retained at each location. This results in a greatly reduced set of information containing 
+\begin_inset Formula $30\times20=600$
+\end_inset
+
+ pixels. In the photograph in the right panel of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:mikephoto"
+
+\end_inset
+
+, the faint impression of the subsampling grid is visible in some areas as the subsampled values are depicted at those locations. Using the geostatistical technique of Kriging with an appropriate variogram, it is possible to 
+\begin_inset Quotes eld
+\end_inset
+
+fill in
+\begin_inset Quotes erd
+\end_inset
+
+ the missing data between subsampled data points to present a full image of the matrix but with substantially less detail than the original.
+\end_layout
+
+\begin_layout Standard
+
+The main role of the variogram in geostatistics and, indeed, in BGA, is to act as a constraint, controlling the shape of the interpolated values filling in between the known data values. In BGA, this connection is not quite as direct as in the photograph interpolation example, but it is useful to think of the variogram (as a quantification of the prior pdf) as a control on the shape of the estimated parameters.
+\end_layout
+
+\begin_layout Standard
+
+Various other interpolation techniques could be used to fill in the missing data and each would have its own degree of information loss or smoothing relative to the original. Kriging has a long history of use in earth science applications and, while the interpolated image is much smoother than the original image, there is more shape and information than if, for example, linear interpolation was used to fill the values between each data point.
+\end_layout
+
+\begin_layout Standard
+
+The variogram used in Kriging is an empirical function that characterizes the difference between a property as a function of separation distance. To determine a variogram appropriate for a problem, the first step is to plot a variogram function (a function of difference in property value) against separation distance (depicted as red 'x' marks in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:varill"
+
+\end_inset
+
+). Next, a function type is selected from a family of valid variogram model types. In the photograph example an exponential variogram is used. Later in this report, more mathematical details about variograms and variogram choice are presented.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+
+\begin_inset Graphics 
+	filename figures/exponential_variogram.pdf
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:varill"
+
+\end_inset
+
+Exponential variogram fit to empirical variogram for the image processing example. The empirical variogram binned values are depicted by red 'x' marks while the continuous black line shows the analytical variogram fit to the empirical values. The fit was performed manually using the sGeMS software package (
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "sgems"
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+Returning to the geostatistical aspect of BGA, a variogram model is used as the prior information in the Bayesian construction. As discussed above, a goal of BGA is to specify little information in the prior and to allow the information contained in the calibration data set to inform the results as much as possible. This is accomplished by specifying only the family of variogram model used rather than specifying its specific shape. Using the example in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:varill"
+
+\end_inset
+
+, the family of variogram (in this case exponential) indicates only that function will assume a curvilinear shape; the specific parameters or the variogram function dictate the rate of curvature. In terms of using a variogram for the prior distribution in BGA, specifying the variogram type only informs the most general characteristic of the field (for example, the field must be continuous and 
+\begin_inset Quotes eld
+\end_inset
+
+smooth
+\begin_inset Quotes erd
+\end_inset
+
+). The degree to which this characteristic is enforced is controlled by the calibration data set.
+\end_layout
+
+\begin_layout Section
+
+Bayesian Geostatistical Approach Overview
+\end_layout
+
+\begin_layout Standard
+
+The Bayesian geostatistical approach is described in detail in 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
+
+\end_inset
+
+ among others. In this Section, we provide a conceptual overview of the method. A more detailed description, including more mathematical details, is included in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+The core of the Bayesian geostatistical inverse method is Bayes' theorem, which states 
+\begin_inset Formula \begin{equation}
+p(\mathbf{s|y})\propto L(\mathbf{y|s})p(\mathbf{s})\label{eq:bayes}
+\end{equation}
+\end_inset
+
+where 
+\series bold
+
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+
+\series default
+ are the measured data, 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ are the unknown parameters, 
+\begin_inset Formula $p(\mathbf{s|y})$
+\end_inset
+
+ is the posterior probability density function (pdf) of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ given 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+, 
+\begin_inset Formula $L(\mathbf{y|s})$
+\end_inset
+
+ is the likelihood function, and 
+\begin_inset Formula $p(\mathbf{s})$
+\end_inset
+
+ is the prior pdf of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+. Details of these pdfs are explained below.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+
+\begin_inset Graphics 
+	filename figures/normals.pdf
+	scale 55
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:normals"
+
+\end_inset
+
+Graphical illustration of Bayes' theorem.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:normals"
+
+\end_inset
+
+ depicts one-dimensional distributions graphically illustrating Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bayes"
+
+\end_inset
+
+. In this example, the prior distribution 
+\begin_inset Formula $p\left(\mathbf{s}\right)$
+\end_inset
+
+ is diffuse, meaning the variance is relatively high and, correspondingly, commitment to a particular value is low. The likelihood function 
+\begin_inset Formula $L\left(\mathbf{y|s}\right)$
+\end_inset
+
+, on the other hand, has lower variance, suggesting a process that brings a higher level of certainty to the estimation of the parameters 
+\begin_inset Formula $\left(\mathbf{s}\right)$
+\end_inset
+
+ than is indicated by the prior distribution only. The resulting posterior distribution 
+\begin_inset Formula $p\left(\mathbf{s|y}\right)$
+\end_inset
+
+ is a convolution of the prior and likelihood functions. The peak is shifted significantly from the prior toward the likelihood and is narrower, representing less uncertainty.
+\end_layout
+
+\begin_layout Standard
+
+In bgaPEST, an empirical Bayes 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "Robbins1956,casella1985"
+
+\end_inset
+
+ perspective is adopted. Empirical Bayes means that the general characteristics of the prior and (optionally) epistemic covariances introduced above are provided in the model setup, but the values of 
+\begin_inset Quotes eld
+\end_inset
+
+structural
+\begin_inset Quotes erd
+\end_inset
+
+ parameters that control the structure of the system--the balance between smoothness and misfit--are estimated from the observation data. In other words, the level of roughness in the solution is dictated by the information content of the observation data rather than specified by the user ahead of time.
+\end_layout
+
+\begin_layout Standard
+
+The prior distribution is the main mechanism by which soft-knowledge about the parameter field is imparted on the parameter estimation process. In the Empirical Bayes perspective, this soft-knowledge is intentionally limited such that significant flexibility is available to the algorithm and a specific practitioner's preconceived notions, which are more subjective, are replaced by the objective power of the site-specific observations. This idea is inspired, also, by the concept of multiple working hypotheses 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "Chamberlin1890"
+
+\end_inset
+
+. Chamberlin warned of scientists falling victim to a 
+\begin_inset Quotes eld
+\end_inset
+
+paternalistic affection
+\begin_inset Quotes erd
+\end_inset
+
+ for his or her initial explanation of a phenomenon such that they are blind to other explanations that may be more appropriate. This is not to discount the value of soft-knowledge--indeed, the general characteristics imparted through specification of the prior information and the interpretation of the results of using BGA rely deeply on expertise--but it highlights a goal of leaving as much flexibility as possible in the process.
+\end_layout
+
+\begin_layout Standard
+
+In bgaPEST, then, the practitioner specifies a type of variogram (nugget, linear, or exponential) that is used to control the variability--smoothness or roughness--of parameters within a beta association, but the 
+\emph on
+degree
+\emph default
+ to which this characteristic is enforced is determined by restricted maximum likelihood (RML). In RML, the value of structural parameters that control the variogram behavior is treated as a probability distribution and the most likely values resulting in either the best possible fit (if the epistemic error term is estimated) or a user-specific level of fit (if the epistemic error term is fixed) are estimated. 
+\begin_inset Quotes eld
+\end_inset
+
+Fit,
+\begin_inset Quotes erd
+\end_inset
+
+ in this context, refers to the correspondence between observation data and model outputs collocated in space and time with the measured observations. Fit and epistemic error are discussed in more detail in the next section. A danger, when providing a model with substantial flexibility, is an 
+\begin_inset Quotes eld
+\end_inset
+
+overly complex
+\begin_inset Quotes erd
+\end_inset
+
+ model that is 
+\begin_inset Quotes eld
+\end_inset
+
+overfit
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before "e.g. "
+key "drapersmith66,Hill2006"
+
+\end_inset
+
+. To mitigate this issue, the RML approach is consistent with the principle of maximum entropy such that the smoothest solution is chosen, based on the structural parameters estimated from the data. For a discussion of subtle formal differences from minimum relative entropy, see 
+\begin_inset CommandInset citation
+LatexCommand citet
+after "p. 333-342"
+before ""
+key "Rubin2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+An extension to this approach is the inclusion of information about the prior mean 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "NowakCirpka2004"
+
+\end_inset
+
+. Although the mean is estimated in the solution, a prior value and covariance can be supplied to constrain the estimate. Typically, a relatively high covariance magnitude is used so the constraint on the estimated mean is weak or 
+\begin_inset Quotes eld
+\end_inset
+
+diffuse.
+\begin_inset Quotes erd
+\end_inset
+
+ Thus the prior mean principally serves the role of providing numerical stability rather than compelling the solution to adhere closely to prior values. Similarly, prior information and covariance can be supplied on the structural parameters to constrain the estimated values to more closely follow an initial conception of the parameter field variability.
+\end_layout
+
+\begin_layout Standard
+
+The forward model is constructed to provide outputs of values collocated in space and time with measured observations. The likelihood function quantifies the difference (misfit) between the model simulated outputs and associated observations. In all modeling, perfect correspondence between forecasts and observations is neither attainable nor desirable. The observations themselves are corrupted by measurement errors and there is usually a lack of perfect correspondence between the exact nature of the measurements and the simulated counterparts. This corruption is due to uncertainty from sources including the paucity of observations, imperfections in the conceptual model, and approximations made to codify the physics of the phenomena into a numerical model framework. All of these sources of uncertainty are described by the overarching term 
+\begin_inset Quotes eld
+\end_inset
+
+epistemic uncertainty
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "p. 4"
+before ""
+key "Rubin2003"
+
+\end_inset
+
+. This epistemic uncertainty characterizes the expected misfit between simulated and observed equivalents, and is expressed through a covariance function. As a result, the likelihood function can be characterized by a Gaussian distribution with zero mean and covariance defined by the epistemic uncertainty.
+\end_layout
+
+\begin_layout Standard
+
+With both the prior pdf and likelihood function expressed as Gaussian distributions, the resulting posterior pdf is also Gaussian. The values of the parameters 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ that result in the maximum value of the posterior pdf are therefore the most likely solution on a point-by-point basis. The solution as a whole is always a somewhat smoothed version of reality, but the influence of small-scale variability can be approximated through conditional realizations. The balance between the strength of smoothing and the level of fit between simulated and observed equivalents is found through calculation of optimal values for the structural parameters. Optionally, this can include a value to quantify the epistemic uncertainty. The result will favor smoothness, but may achieve a level of fit corresponding to an unrealistically low level of epistemic uncertainty. As a result, it is generally most appropriate to fix the level of epistemic uncertainty but allow the other structural parameters to be estimated.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+fcolorbox{black}{ltgrey}{
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+begin{minipage}[t]{0.9
+\backslash
+columnwidth}
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+textbf{Structural Parameters}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\begin_layout Standard
+
+The term ``structural parameters'' used here has a specific meaning.
+\end_layout
+
+\begin_layout Standard
+
+Similar to the more general term ``parameters,'' structural parameters
+\end_layout
+
+\begin_layout Standard
+
+are variable values that are estimated in the bgaPEST algorithm. Unlike
+\end_layout
+
+\begin_layout Standard
+
+typical parameters, however, structural parameters do not 
+\backslash
+emph{directly
+\end_layout
+
+\begin_layout Standard
+
+}control physical aspects of the system in the way that, for example,
+\end_layout
+
+\begin_layout Standard
+
+hydraulic conductivity or stream roughness do in hydrologic models.
+\end_layout
+
+\begin_layout Standard
+
+Instead, structural parameters control the structure of the general
+\end_layout
+
+\begin_layout Standard
+
+parameters. For example, the variogram values (e.g. variance, slope,
+\end_layout
+
+\begin_layout Standard
+
+and correlation length) that control to roughness of distributed parameter
+\end_layout
+
+\begin_layout Standard
+
+fields are structural parameters, as is the value of variance controlling
+\end_layout
+
+\begin_layout Standard
+
+epistemic uncertainty. Because these parameters must be estimated
+\end_layout
+
+\begin_layout Standard
+
+but are not directly connected to the physics of the problem, they
+\end_layout
+
+\begin_layout Standard
+
+are also in other work referred to as ``nuisance'' parameters or
+\end_layout
+
+\begin_layout Standard
+
+``hyperparameters.'' We adopt the term ``structural'' to highlight
+\end_layout
+
+\begin_layout Standard
+
+the fact that the impact these parameters has on the solution is control
+\end_layout
+
+\begin_layout Standard
+
+of the shape or structure of the distributed parameter fields.%
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Correlation-Zones"
+
+\end_inset
+
+Beta Associations
+\end_layout
+
+\begin_layout Standard
+
+In an idealized problem, a single covariance model (for example, a single variogram) is flexible enough to encompass the entire variability of the hydraulic parameters. However, in many hydrogeologic applications, lithologic contacts and unconformities can create discontinuities in parameter values that a single covariance model cannot characterize. Partitioning the field based on either the data 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before "e.g. "
+key "fienenEtal2004"
+
+\end_inset
+
+ or through interrogation of preliminary solutions 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before "e.g. "
+key "FienenWRR2008"
+
+\end_inset
+
+ can greatly improve the parameter estimation results. This partitioning is implemented by imposing discontinuities in the stochastic field that censor correlation among all cells that do not occur in the same partition. In this context, 
+\begin_inset Quotes eld
+\end_inset
+
+stochastic
+\begin_inset Quotes erd
+\end_inset
+
+ refers to the entity being partitioned (namely the correlation structure of the parameter field) but we emphasize here that the locations of the imposed discontinuities are themselves considered deterministic and certain. This concept of partitioning is consistent with zonal boundaries in models made up of homogeneous zones but allows more flexibility by allowing properties within the zone to vary. Furthermore, multiple types of parameters (for example, in a flow and transport model, hydraulic conductivity and porosity) are commonly estimated. While at the physical level, these parameters may be related, they must correspond to different mean values, so similar censoring of correlation among different types of parameters is also necessary in most applications through partitioning.
+\end_layout
+
+\begin_layout Standard
+
+For hydrogeologic applications, the term 
+\begin_inset Quotes eld
+\end_inset
+
+facies association,
+\begin_inset Quotes erd
+\end_inset
+
+ from the facies architecture field, is a good description for these partitions 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "fienenIsthmusWRR"
+
+\end_inset
+
+. The term 
+\begin_inset Quotes eld
+\end_inset
+
+facies association
+\begin_inset Quotes erd
+\end_inset
+
+ typically refers to descriptive properties of a subset of a medium in the field or at least for a specific project. 
+\begin_inset Quotes eld
+\end_inset
+
+Architectural elements
+\begin_inset Quotes erd
+\end_inset
+
+ is used in the broader case where the characteristics are more formally defined, (see 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "Collinson1969,Walker1984,Walker1992,SwiftEtAl2003"
+
+\end_inset
+
+). It would be appropriate to use the less restrictive and less transferable term 
+\begin_inset Quotes eld
+\end_inset
+
+facies association
+\begin_inset Quotes erd
+\end_inset
+
+ in hydrogeologic applications because when we subdivide the correlation structure of the medium, we often base the stochastic discontinuities (bounding surfaces, or contacts) on perceived hydraulic properties. These properties will often coincide with differences in age, provenance, or depositional environment, but such coincidence is not required for or by their use. In all cases, partitioning into facies associations are most effective when based on readily observable hydrologic or lithologic attributes.
+\end_layout
+
+\begin_layout Standard
+
+For bgaPEST to be a more general tool (not limited to hydrogeologic modeling), we have broadened this concept by adopting the term 
+\begin_inset Quotes eld
+\end_inset
+
+beta association.
+\begin_inset Quotes erd
+\end_inset
+
+ As shown in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bestest"
+
+\end_inset
+
+, the Greek letter 
+\begin_inset Formula $\beta$
+\end_inset
+
+ stands for the mean of a region of distributed parameters. Beta associations can, therefore, delineate regions of a distributed parameter field that have similar statistical properties and correspond to the same mean value. However, importantly, beta associations can also refer to completely different parameter types (for example, hydraulic conductivity and recharge).
+\end_layout
+
+\begin_layout Standard
+
+To clarify our terminology in this work, partitions delineated by stochastic discontinuity within a distributed parameter field are referred to as 
+\begin_inset Quotes eld
+\end_inset
+
+beta associations,
+\begin_inset Quotes erd
+\end_inset
+
+ whereas zones of piecewise continuity are referred to as 
+\begin_inset Quotes eld
+\end_inset
+
+homogeneous zones.
+\begin_inset Quotes erd
+\end_inset
+
+ The beta associations delineate sub-regions of the model domain that share correlation characteristics and are uncorrelated from neighboring beta associations; they are usually delineated by features that are easily identified in measured data or geologic conceptualizations of a given site area. In beta associations, variability of parameter values within each cell is allowed and constrained by the 
+\emph on
+a priori
+\emph default
+ covariance structure, whereas in homogeneous zones, a single parameter value represents the property for the entire zone. Beta associations also delineate regions in the model (whether defined by one or more parameter values) that correspond to different mean values 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+fcolorbox{black}{ltgrey}{
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+parbox{0.9
+\backslash
+columnwidth}{
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+textbf{Beta Associations and Zones:
+\backslash
+emph{ Why aren't ``beta associations''
+\end_layout
+
+\begin_layout Standard
+
+just called ``zones''}?}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\begin_layout Standard
+
+Beta associations are a term specific to bgaPEST. As discussed in
+\end_layout
+
+\begin_layout Standard
+
+the main text, this term evolved from the term ``facies association,''
+\end_layout
+
+\begin_layout Standard
+
+which describes partitioning of parameter fields based on hydrogeologic
+\end_layout
+
+\begin_layout Standard
+
+characteristics. This term was used in place of ``zones'' because
+\end_layout
+
+\begin_layout Standard
+
+of a long history of zones referring to regions of piecewise constant
+\end_layout
+
+\begin_layout Standard
+
+homogeneity (one parameter value applied to every node within a region).
+\end_layout
+
+\begin_layout Standard
+
+Beta associations are 
+\backslash
+emph{not} homogeneous, so a distinct term was
+\end_layout
+
+\begin_layout Standard
+
+sought that describes the characteristic of regions partitioned due
+\end_layout
+
+\begin_layout Standard
+
+to their characteristics and how these characteristics correlation
+\end_layout
+
+\begin_layout Standard
+
+to regions around them. To generalize beyond hydrogeologic applications,
+\end_layout
+
+\begin_layout Standard
+
+and to account for the fact the distinct parameter types require distinct
+\end_layout
+
+\begin_layout Standard
+
+partitions, ``beta associations'' was the term chosen. Each of these
+\end_layout
+
+\begin_layout Standard
+
+parameter partitions has a distinct mean value $
+\backslash
+left(
+\backslash
+beta
+\backslash
+right)$
+\end_layout
+
+\begin_layout Standard
+
+to be estimated within the region, so the partitioning of the problem
+\end_layout
+
+\begin_layout Standard
+
+results in different $
+\backslash
+beta$ values; because the parameter type and/or
+\end_layout
+
+\begin_layout Standard
+
+region must be associated with a mean value $
+\backslash
+left(
+\backslash
+beta
+\backslash
+right)$,
+\end_layout
+
+\begin_layout Standard
+
+we use the term ``beta associations.''%
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+bgaPEST Overview
+\end_layout
+
+\begin_layout Standard
+
+The use of BGA concepts described previously have been restricted to primarily academic and/or custom applications due to non-general nature of the BGA coding. The BGA formulation used in bgaPEST is meant to make the approach generally available to a wider class of modeling problems. This generality is obtained by the following design considerations. The input/output design of bgaPEST follows that of the widely used PEST software 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "PEST,PESTAdd"
+
+\end_inset
+
+. This approach has two primary restrictions. First, input provided to the model, and output derived from a model, uses an ASCII text file format. This restriction can be relaxed, however, provided that a translation utility can be deployed that converts data of another format--for example, binary--to or from ASCII, as appropriate. Second, the model must run in 
+\begin_inset Quotes eld
+\end_inset
+
+batch
+\begin_inset Quotes erd
+\end_inset
+
+ mode where many model runs can be called by PEST without user intervention. Therefore, the only kind of model that PEST cannot easily accommodate is one in which any changes to model input or the reading of model output must take place in a graphical user interface. This generality of model compatibility is a powerful capability that bgaPEST is able to take advantage of by virtue of efficient open-source modules that make this external control of a model possible using the same protocols as PEST.
+\end_layout
+
+\begin_layout Standard
+
+As discussed below, bgaPEST must control the model for two purposes: to evaluate the likelihood function (assessing the correspondence between model output and collocated observation data, given a candidate set of parameter values) and to calculate the 
+\begin_inset Quotes eld
+\end_inset
+
+Jacobian
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+sensitivity
+\begin_inset Quotes erd
+\end_inset
+
+ matrix that is required for solving the calibration equations. To enable PEST (and bgaPEST) to write input for a model, template files are created that provide a mapping of named parameters into their proper place in input files for the model. More than one template file can be used corresponding to multiple model input files. To enable reading of output files, instruction files are created that contain a set of instructions (including locating specific line numbers or searching for specific text) that enable extraction of output values to be compared with site observation data. Leveraging the modules that implement the PEST input/output protocols takes advantage of the flexibility and generality of PEST. It also makes it possible to take advantage of some of the utility programs already created to be compatible with the PEST suite of software. Programs created using the JUPITER program employ a very similar set of protocols by virtue of the PEST modules being provided to the JUPITER project. As a result, template and instruction files created to work with a model are largely interchangeable among projects implemented in PEST, bgaPEST, and programs created using JUPITER. A full description of the format of template and instruction files is not part of the scope of this work: detailed descriptions are provided in the PEST documentation 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter 3"
+before ""
+key "PEST"
+
+\end_inset
+
+. All options implemented in template and instruction files in PEST are available in bgaPEST.
+\end_layout
+
+\begin_layout Standard
+
+This initial implementation is written in FORTRAN-90. The calculation of the Jacobian (sensitivity or derivatives) matrix can either be implemented using a script written by the user, or employing a Python script provided with bgaPEST. The Python script depends on several utilities that are standard with PEST and available for download at http://www.pesthomepage.org. The necessary executable files are also provided with bgaPEST. For users on the Windows operating system, installation of Python is optional as the Python codes are compiled into executables using py2exe that can be called by the main program. For users on Macintosh or Linux systems, all the code must be compiled for the native platform and Python should already be installed so the Python scripts may be called directly without need to compile them separately. The use of external derivatives (sensitivity) calculation with PEST and Python will be replaced by integration of a general parallel run management suite (GENIE, 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "GENIE"
+
+\end_inset
+
+) as part of future work. Parallelization is possible using beoPEST 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "beoPEST"
+
+\end_inset
+
+, but the entire process, including starting and stopping all parallel computer (slave) programs must be encapsulated in a script that is called by bgaPEST.
+\end_layout
+
+\begin_layout Section
+
+Running bgaPEST
+\end_layout
+
+\begin_layout Standard
+
+The bgaPEST program uses a single input control file, template and instruction files to control the underlying model, and generates several output files. These files are discussed in the context of progression of the bgaPEST program in the remainder of this section. Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart"
+
+\end_inset
+
+ shows the general progression of a bgaPEST parameter estimation run. The entire process is controlled by variables in the input 
+\family typewriter
+.bgp
+\family default
+ file discussed below.
+\end_layout
+
+\begin_layout Standard
+
+To obtain an optimal solution to the parameter estimation problem, it is necessary to perform multiple iterations. An iteration is defined as a single run of the entire estimation process with a particular set of values. Multiple iterations are required due to the nonlinearity of the problem and due to the necessity of estimating structural parameters separately from model parameters. Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+ provides more detail about the methodology used to obtain a solution for a set of optimal parameters and structural parameters in bgaPEST.
+\end_layout
+
+\begin_layout Standard
+
+Outer iterations (also called bga iterations) are wrapped around the traditional parameter estimation process with values of the structural parameters held constant. Inner parameter estimation iterations are performed to account for the (restricted maximum likelihood) estimation of structural parameters. If structural parameters are not chosen to be estimated, then a single outer iteration is performed using the initial values of structural parameters and inner iterations are performed until convergence or until the number of iterations reaches 
+\family typewriter
+it_max_phi
+\family default
+. If a linesearch (discussed below) is requested, this is performed within the inner iterations. If structural parameter optimization is requested, it is performed after convergence has occurred or maximum inner iterations are reached. Then, restricted maximum likelihood is performed to estimate a new set of structural parameters. The interdependence between structural parameters and model parameters requires reiteration of the inner iterations and structural parameter estimation until both have converged or the maximum number of outer iterations has been reached. At the end of both inner and outer iteration convergence, or exceedance of maximum iterations, posterior covariance is calculated, if requested.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+
+\begin_layout Standard
+\align center
+
+
+\begin_inset Graphics 
+	filename figures/flowchart_short2.pdf
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:flowchart"
+
+\end_inset
+
+Abbreviated flowchart showing the progression of the major bgaPEST procedures. Text in blue italics is interpretive, summarizing the more programmatic language represented in black plain type.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+bgaPEST Control Variables
+\end_layout
+
+\begin_layout Standard
+
+Two types of variables are used in bgaPEST: data variables and control variables. Data variables are values such as model parameters, observations, file names, and other data that are needed by the bgaPEST program. Control variables, on the other hand, drive the actions that are performed on these data elements. As such, control variables are abstracted on level from data variables and control either the reading/writing of data or the progression of the algorithm. Many control variables are straightforward (for example, 
+\family typewriter
+it_max_phi
+\family default
+
+\emph on
+, 
+\emph default
+an integer, is the total number of iterations allowed in each quasi-linear inner estimation optimization. 
+\emph on
+default=10).
+\emph default
+ Such variables are defined in the context of the input instructions in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+. However, other control variables are accompanied by important conventions regarding their impact on the performance of the algorithm. For these cases, in this section, more detail is provided about certain control variables. 
+\end_layout
+
+\begin_layout Description
+
+
+\family typewriter
+structural_conv
+\family default
+ 
+\emph on
+float
+\emph default
+, 
+\emph on
+default=0.001
+\emph default
+Convergence criterion for structural parameter convergence. Positive or negative values can be used to trigger two different measures of convergence, as noted below. In either case, however, convergence is compared to the absolute value of 
+\family typewriter
+structural_conv
+\family default
+. 
+\begin_inset Newline newline
+\end_inset
+
+ If positive, convergence is based on the absolute difference in structural parameter objective function over consecutive iterations. 
+\begin_inset Formula \[
+\mathrm{conv}=\mathrm{abs}\left(\Phi_{S,i}-\Phi_{S,i-1}\right)
+\]
+\end_inset
+
+where 
+\begin_inset Formula $i\mbox{ }$
+\end_inset
+
+ is the current structural parameter optimization iteration, 
+\begin_inset Formula $i-1$
+\end_inset
+
+ is the previous structural parameter optimization iteration, and 
+\begin_inset Formula $\Phi_{S}$
+\end_inset
+
+ is the structural parameter objective function.
+\begin_inset Newline newline
+\end_inset
+
+ If negative, convergence is based on the norm of the difference between consecutive structural parameter values. 
+\begin_inset Formula \[
+\mathrm{conv=}\sqrt{\left(\frac{\mathbf{\theta}_{i-1}-\theta_{i}}{\theta_{i-1}}\right)^{T}\left(\frac{\mathbf{\theta}_{i-1}-\theta_{i}}{\theta_{i-1}}\right)}
+\]
+\end_inset
+
+where 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $i-1$
+\end_inset
+
+ are as defined above, and 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ is a vector containing all structural parameters currently being estimated (may include epistemic uncertainty, if requested). 
+\end_layout
+
+\begin_layout Description
+
+
+\family typewriter
+phi_conv
+\family default
+ 
+\emph on
+float, default=0.001 
+\emph default
+Convergence criterion for objective function convergence. The convergence at each inner iteration is evaluated as the absolute difference from one inner iteration to the next. This is evaluated as 
+\begin_inset Formula \[
+\mathrm{conv}=\mathrm{abs}\left(\Phi_{T,i_{in}}-\Phi_{T,i_{in}-1}\right)
+\]
+\end_inset
+
+where
+\emph on
+ 
+\begin_inset Formula $i_{in}$
+\end_inset
+
+ 
+\emph default
+is the current inner iteration, and 
+\begin_inset Formula $\Phi_{T}$
+\end_inset
+
+ is the total objective function (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phiT"
+
+\end_inset
+
+). 
+\end_layout
+
+\begin_layout Description
+
+
+\family typewriter
+bga_conv
+\family default
+ 
+\emph on
+float, default=
+\begin_inset Formula $10\times$
+\end_inset
+
+
+\emph default
+
+\family typewriter
+phi_conv
+\family default
+
+\emph on
+ 
+\emph default
+Convergence criterion for objective function outer iterations. The convergence at each outer iteration is evaluated as the absolute difference from one outer iteration to the next. This accounts for both convergence of 
+\begin_inset Formula $\Phi_{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\Phi_{S}$
+\end_inset
+
+. The convergence is evaluated as 
+\begin_inset Formula \[
+\mathrm{conv}=\mathrm{abs}\left(\Phi_{T,i_{out}}-\Phi_{T,i_{out}-1}\right)
+\]
+\end_inset
+
+where 
+\begin_inset Formula $i_{out}$
+\end_inset
+
+ is the outer iteration, and 
+\begin_inset Formula $\Phi_{T}$
+\end_inset
+
+ is the total objective function (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phiT"
+
+\end_inset
+
+).
+\emph on
+ 
+\emph default
+ 
+\end_layout
+
+\begin_layout Description
+
+
+\family typewriter
+Q_compression_flag
+\family default
+ 
+\emph on
+integer, default=0
+\emph default
+ Flag to determine how to calculate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ [0] = no compression--calculate full 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix, [1] = Calculate separate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix for each beta association. In addition to controlling the behavior of prior covariance compression, this flag also determines whether a full posterior covariance matrix or only the diagonal are calculated.
+\end_layout
+
+\begin_layout Description
+
+
+\family typewriter
+posterior_cov_flag
+\family default
+ 
+\emph on
+integer 
+\emph default
+Flag to determine whether posterior covariance matrix should be calculated. [0] = do not calculate posterior covariance matrix, [1] = calculate posterior covariance. If 
+\family typewriter
+Q_compression_flag=1
+\family default
+, only the diagonal of the posterior covariance matrix is calculated. If 
+\family typewriter
+posterior_cov_flag=0
+\family default
+ then 95% confidence intervals are not calculated and the output file 
+\family typewriter
+<casename>.bpp.fin
+\family default
+ discussed below does not include confidence intervals. 
+\end_layout
+
+\begin_layout Subsection
+
+Input Files
+\end_layout
+
+\begin_layout Standard
+
+The bgaPEST program is run from the command line by typing 
+\family typewriter
+bgaPEST.exe 
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bgp
+\family default
+ where 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+
+\family default
+ is a filename containing input instructions. Detailed input instruction are in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+
+Output Files
+\end_layout
+
+\begin_layout Standard
+
+Several output files are generated throughout the progression of a single bgaPEST run. These files are summarized in this section.
+\end_layout
+
+\begin_layout Subsubsection
+
+bgaPEST Record File 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpr
+\family default
+
+\end_layout
+
+\begin_layout Standard
+
+The main output file for bgaPEST is called 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpr
+\family default
+. Initial values of bgaPEST input are repeated to form a record for the bgaPEST run. After each inner iteration, as defined above, the objective function is reported and external files are written that include current parameter values and observation values. After each outer iteration, structural parameter values are also reported for each beta association in which structural parameter estimation was requested and for the epistemic uncertainty term, if requested. After the final outer iteration, all structural parameter values--including those which were not estimated--are reported to make a complete record.
+\end_layout
+
+\begin_layout Subsubsection
+
+bgaPEST Parameter Value Files 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpp.
+\begin_inset Formula $<$
+\end_inset
+
+#Oi
+\begin_inset Formula $>$
+\end_inset
+
+_
+\begin_inset Formula $<$
+\end_inset
+
+#Ii
+\begin_inset Formula $>$
+\end_inset
+
+
+\family default
+
+\end_layout
+
+\begin_layout Standard
+
+The parameter values are written to files called 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpp.
+\begin_inset Formula $<$
+\end_inset
+
+#Oi
+\begin_inset Formula $>$
+\end_inset
+
+_
+\begin_inset Formula $<$
+\end_inset
+
+#Ii
+\begin_inset Formula $>$
+\end_inset
+
+ 
+\family default
+where
+\family typewriter
+ 
+\begin_inset Formula $<$
+\end_inset
+
+#Oi
+\begin_inset Formula $>$
+\end_inset
+
+ 
+\family default
+is the outer iteration number and
+\family typewriter
+ 
+\begin_inset Formula $<$
+\end_inset
+
+#Ii
+\begin_inset Formula $>$
+\end_inset
+
+ 
+\family default
+is the inner iteration number. These ascii files are printed in columns with the following headers: 
+\family typewriter
+ParamName
+\family default
+; 
+\family typewriter
+ParamGroup
+\family default
+; 
+\family typewriter
+BetaAssoc
+\family default
+; 
+\family typewriter
+ParamVal
+\family default
+. At the beginning of a bgaPEST run, a file 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpp.0 
+\family default
+is written in the same format to record the initial parameter values used. This is done to avoid cluttering the 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpr
+\family default
+ file with what is often a very long list of parameters and their values. Parameter values that were subjected to logarithmic transformation are reported in their linear space, 
+\emph on
+not 
+\emph default
+log-transformed space.
+\end_layout
+
+\begin_layout Standard
+
+Another special case of parameter value files is written at the end of a bgaPEST run and called 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpp.fin
+\family default
+. This file contains the final parameter values estimated as optimal by bgaPEST. Furthermore, if posterior covariance calculation was requested, two additional columns are added: 
+\family typewriter
+95pctLCL
+\family default
+ and 
+\family typewriter
+95pctUCL
+\family default
+ which are the 95% lower and upper confidence limits, respectively. These confidence limits are obtained by applying the subtraction and addition, respectively, of 
+\begin_inset Formula $2\times\sqrt{\mathbf{V}_{ii}}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{s}_{i}$
+\end_inset
+
+--the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ optimal parameter value. In this case, 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is the posterior covariance, so 
+\begin_inset Formula $\sqrt{\mathbf{V}_{ii}}$
+\end_inset
+
+ is the standard deviation of the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ parameter. The 95% confidence limits are reported in linear space, 
+\emph on
+not
+\emph default
+ log-transformed space, so for log-transformed parameters, the upper and lower 95% percent confidence limits are not symmetrical about the parameter value.
+\end_layout
+
+\begin_layout Subsubsection
+
+bgaPEST Observation Value Files 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bre.
+\begin_inset Formula $<$
+\end_inset
+
+#Oi
+\begin_inset Formula $>$
+\end_inset
+
+_
+\begin_inset Formula $<$
+\end_inset
+
+#Ii
+\begin_inset Formula $>$
+\end_inset
+
+
+\family default
+
+\end_layout
+
+\begin_layout Standard
+
+The observation values obtained by running the forward model with the currently estimated parameters are written to files called 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bre.
+\begin_inset Formula $<$
+\end_inset
+
+#Oi
+\begin_inset Formula $>$
+\end_inset
+
+_
+\begin_inset Formula $<$
+\end_inset
+
+#Ii
+\begin_inset Formula $>$
+\end_inset
+
+ 
+\family default
+following a similar convention as with the 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpp
+\family default
+ files above. The ascii files are printed with the following headers: 
+\family typewriter
+ObsName
+\family default
+;
+\family typewriter
+ ObsGroup
+\family default
+;
+\family typewriter
+ Modeled
+\family default
+;
+\family typewriter
+ Measured
+\family default
+. These files may be easily copied into a spreadsheet or read with a plotting program to calculate and plot residuals.
+\end_layout
+
+\begin_layout Subsubsection
+
+Posterior Covariance File 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.post.cov
+\family default
+
+\end_layout
+
+\begin_layout Standard
+
+If the input variable 
+\family typewriter
+posterior_cov_flag=1
+\family default
+, then posterior covariance of the parameters 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ is calculated. In addition to this information being used to report 95% confidence limits as described above, the posterior covariance matrix is also written to the file 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.post.cov
+\family default
+. If the variable 
+\family typewriter
+Q_compression_flag=1
+\family default
+, then compression is used for saving the prior covariance matrix. This is done when a large number of parameters is used and, thus, the full covariance matrices are unwieldy. Based on this choice, the posterior covariance is either reported as the diagonal of the posterior covariance matrix 
+\begin_inset Formula $\left(diag\left(\mathbf{V}\right)\right)$
+\end_inset
+
+ if 
+\family typewriter
+Q_compression_flag=1
+\family default
+ or the full covariance matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ if 
+\family typewriter
+Q_compression_flag=0
+\family default
+. The output formats are discussed at the end of Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+fcolorbox{black}{ltgrey}{
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+begin{minipage}[t]{0.9
+\backslash
+columnwidth}
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+textbf{Posterior Covariance and Parameter log-Transformations}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\begin_layout Standard
+
+In this section, it was indicated that in the 
+\backslash
+texttt{$<$casename$>$.bpp.fin}
+\end_layout
+
+\begin_layout Standard
+
+file, parameter values and 95
+\backslash
+% confidence intervals are reported
+\end_layout
+
+\begin_layout Standard
+
+in linear (untransformed) space while in the 
+\backslash
+texttt{$<$casename$>$.post.cov
+\end_layout
+
+\begin_layout Standard
+
+}file, posterior covariance values are reported in estimation (log-transformed)
+\end_layout
+
+\begin_layout Standard
+
+space. Why the difference? The two files  serve slightly different
+\end_layout
+
+\begin_layout Standard
+
+purposes. The parameter output file presents values in the units they
+\end_layout
+
+\begin_layout Standard
+
+are entered in (and, presumably, the units ``seen'' by the forward
+\end_layout
+
+\begin_layout Standard
+
+model). As a result, 95
+\backslash
+% confidence intervals are reported in the
+\end_layout
+
+\begin_layout Standard
+
+same way. Furthermore, the addition and subtraction of $2
+\backslash
+times
+\backslash
+sqrt{
+\backslash
+mathbf{V}_{ii}}$
+\end_layout
+
+\begin_layout Standard
+
+must be applied to the parameters before back-transformation, which
+\end_layout
+
+\begin_layout Standard
+
+explains the asymmetry of the confidence limits. On the other hand,
+\end_layout
+
+\begin_layout Standard
+
+the full posterior covariance matrix is intended for other analysis
+\end_layout
+
+\begin_layout Standard
+
+(propagation of variance through to predictions, conditional realizations,
+\end_layout
+
+\begin_layout Standard
+
+and others) in which the information should be retained in estimation
+\end_layout
+
+\begin_layout Standard
+
+(log-transformed) space. In the end, the decision of how to report
+\end_layout
+
+\begin_layout Standard
+
+these values is one of convention, and this side box is intended to
+\end_layout
+
+\begin_layout Standard
+
+make clear which was chosen in each case.%
+\end_layout
+
+\begin_layout Standard
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+Suggestions and Guidelines for Initial Use
+\end_layout
+
+\begin_layout Standard
+
+The Bayesian Geostatistical Approach is a highly parameterized method that is appropriate for some, but not all applications. In this section, we outline a few considerations to aid in the decision about whether to use bgaPEST on a given problem based on the history and characteristics of the method. We also provide a few guidelines to help avoid potential pitfalls in the application of bgaPEST.
+\end_layout
+
+\begin_layout Standard
+
+This report documents the first release of bgaPEST and, to our knowledge, the first implementation of BGA available in a generalized package. As a result, users of this version will be among the first to apply this software outside of academia where custom programs have been the rule. Nonetheless, the method has a 20 year history. The majority of applications have been to groundwater modeling projects including (but not limited to): pumping test analysis 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "SnodgrassPKK1998"
+
+\end_inset
+
+; hydraulic tomography 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "LiCirpka2007,FienenWRR2008,LiCirpka2008,CardiffPKK2009,cardiff2012"
+
+\end_inset
+
+; borehole logging 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "fienenEtal2004"
+
+\end_inset
+
+; contaminant source identification 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "SnodgrassPKK1997,MichalakPKK2002a,MichalakPKK2003"
+
+\end_inset
+
+; and nonparametric tracer test analysis 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "FienenWRR2006"
+
+\end_inset
+
+. The main application to date that does not involve groundwater is in atmospheric modeling 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "MIchalak2004,MuellerEtAl2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+
+Characteristics for Suggested Use
+\end_layout
+
+\begin_layout Standard
+
+The characteristics that unite these applications form a solid guide when deciding if bgaPEST is appropriate for a given application. First, and foremost, there must be a parameter set that varies either in space or time. For example, a time series of chemical concentrations (a breakthrough curve), a hydraulic conductivity field, a recharge field, or surface flux of atmospheric gasses. These parameters should vary continuously over reasonably substantial areas for a variogram to be an adequate descriptor of the shape of the parameter field. Sub-areas delineated by geologic contacts, or in the case of time series, punctuated by known events, can be partitioned into beta associations, as discussed throughout this report. Another consideration is a more practical one--model run time.
+\end_layout
+
+\begin_layout Standard
+
+The nature of bgaPEST is that many parameters are to be estimated. Throughout the parameter estimation process, a Jacobian sensitivity matrix must be calculated, requiring one model run per parameter. This computational burden must be considered and, potentially mitigated. In academic settings, many researchers have taken advantage of adjoint state techniques to make the calculation of the Jacobian matrix more efficient in the case where parameters greatly outnumber observations. Adjoint state versions of commercial and government codes are not typically available, however, but bgaPEST is equipped to handle Jacobian matrices calculated outside of bgaPEST so users who are able to write such codes can make use of them. Similarly, parallelization of the Jacobian calculations is a feature that will be added in the future. For now, through clever scripting, it is possible to use beoPEST outside of bgaPEST to parallelize the calculations of the Jacobian matrix. In this initial release of bgaPEST, however, it may be more practical to stick with models with short run times, run Jacobian calculations in series and just recognize that the computational burden may be high.
+\end_layout
+
+\begin_layout Standard
+
+Adjoint-state Jacobian calculation is an attractive method to mitigate high computational expense of this method. However, production codes for adjoint state calculations are rare. For more information on the technique, see 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "TownleyWilson1985,Sykes1985,SamperNeuman1986,RamaRao1995,neupauerWilson1999"
+
+\end_inset
+
+ and references therein.
+\end_layout
+
+\begin_layout Standard
+
+A common occurrence in groundwater modeling applications is that parameters far exceed observations in number. This, of course, can change in transient simulations where, if each measurement in time at a single measurement location is considered an observation, the numbers of observations and parameters may equalize. bgaPEST is most appropriate for the former case--where parameters outnumber observations, typically by a large margin. Several programming and mathematical accommodations are made to enable the number of parameters to grow very large (testing has been performed with 90,000 parameters). However, if the number of observation grows significantly, computer memory will become a limitation in many cases. For transient problems, one should consider the information content of each measurement point in time. Often, the number of observation points can be effectively reduced by considering moments rather than discrete points 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "LiNowakCirpka2005"
+
+\end_inset
+
+ or by other time series processing such as methods available in R 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "R"
+
+\end_inset
+
+ or TSPROC 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "TSPROC"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+
+Guidelines
+\end_layout
+
+\begin_layout Standard
+
+The number of applications of bgaPEST this far is limited. As new software and a relatively novel technique, it will take time for users to 
+\begin_inset Quotes eld
+\end_inset
+
+get a feel
+\begin_inset Quotes erd
+\end_inset
+
+ for the behavior and characteristics of the tool. In this section, we provide a few guidelines that we hope will help users avoid pitfalls. In future releases, building on the experience of a larger user base, more guidelines will become available.
+\end_layout
+
+\begin_layout Subparagraph*
+
+Run Times
+\end_layout
+
+\begin_layout Standard
+
+For a typical groundwater model, somewhere between 5 and 15 outer iterations will often be required. For each outer iteration, it is likely that about 5 inner iterations are necessary. This means up to 75 calculations of the Jacobian matrix may be required. Without parallelization or adjoint state, users should carefully consider how many parameters can be accommodated as run times grow in length. For planning, assume that the time required for each Jacobian calculation is the number of parmeters 
+\begin_inset Formula $\left(m\right)$
+\end_inset
+
+ 
+\begin_inset Formula $\times$
+\end_inset
+
+ Run Time.
+\end_layout
+
+\begin_layout Subparagraph*
+
+Beta Associations
+\end_layout
+
+\begin_layout Standard
+
+Beta associations provide the ability to include knowledge about contacts and other partitions in the parameter fields. Some beta associations can have a separate parameter value in each node, while others can be treated as homogeneous zones. This is accomplished through the design of the template file. In addition to allowing for the inclusion of well-known structures such as lithologic contacts, beta associations also allow for some regions--either because of greater importance to the ultimate management decisions, due to greater density of data, or both--to have a large number of parameters whereas other regions have homogeneous values. By only allowing a large number of parameters in focused areas of interest, the overall number of parameters can be reduced, thus mitigating some of the concerns about run times.
+\end_layout
+
+\begin_layout Subparagraph*
+
+Line Search
+\end_layout
+
+\begin_layout Standard
+
+The purpose of the line search is similar to the purpose of the Levenberg-Marquardt adjustment used in PEST. While the Levenberg-Marquardt search makes a correction to the search direction when the optimization algorithm might otherwise stray from the optimal direction, the linesearch adjusts the length along the Quasi-Newton direction to avoid overshooting. The linesearch, therefore, serves its greatest purpose in its first iteration or two. After that, the value of the linesearch is limited for mathematical reasons having to do with linearization of the problem (see Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:methodologyDetails"
+
+\end_inset
+
+ for more details). As a result, a value of between 2 and 5 for 
+\family typewriter
+it_max_linesearch
+\family default
+ in the control variables is generally adequate. If the linesearch algorithm does not converge, a warning will be issued and, while it is good to know that this took place, the linesearch has served its purpose and little gain will be achieved by increasing 
+\family typewriter
+it_max_linesearch.
+\family default
+
+\end_layout
+
+\begin_layout Subparagraph*
+
+Level of Fit
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset Quotes eld
+\end_inset
+
+With great power comes great responsibility.
+\begin_inset Quotes erd
+\end_inset
+
+ In applications where parameters outnumber observations, a real danger lurks of overfitting. In other words, parameters can be adjusted to achieve a level of correspondence between simulated and observed equivalents that exceeds a reasonable level. The danger of this is that some of the 
+\emph on
+lack
+\emph default
+ of correspondence is often due to random epistemic error and is not representative of actual system behavior. However, if the parameters are adjusted to match observations within this margin of error, they are 
+\begin_inset Quotes eld
+\end_inset
+
+fitting the noise.
+\begin_inset Quotes erd
+\end_inset
+
+ The ramifications of this are mainly a diminishment of predictive power of the model and unrealistic roughness of the parameter fields estimated. There are two means of avoiding this problem. One is the maximum entropy property of BGA. The algorithm is designed to find the 
+\emph on
+smoothest
+\emph default
+ solution consistent with the level of fit. If all structural parameters--including 
+\begin_inset Formula $\sigma_{R}$
+\end_inset
+
+--are estimated, the algorithm will try to achieve perfect fit with the smoothest solution that can do so. This may still lead to overfitting, however, so in most cases, it is more appropriate to set the level of fit using 
+\family typewriter
+sig_0
+\family default
+ in the Epistemic Error Term input block described below to a level of fit chosen by the user to be appropriate given known and suspected uncertainties about both the observation quality and the model. Weights on observations can account for different levels of quality in different observations. In most cases, the user should also set 
+\family typewriter
+sig_opt=0
+\family default
+ to force the algorithm to use a consistent value for epistemic uncertainty and thus to manually control the level of fit. If set this way, the algorithm will adjust the other structural parameters to achieve the smoothest possible solution corresponding to the specified level of fit.
+\end_layout
+
+\begin_layout Standard
+
+The level of smoothness in the optimal BGA solution is always smoother than conditional realizations 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "Kitanidis1995"
+
+\end_inset
+
+ which characterize more of the potential variability in each solution. In cases such as transport models where heterogeneity is the most important, conditional realizations (made possible using the optimal solution and the posterior covariance--both provided by bgaPEST) will provide a more precise characterization of system behavior in heterogeneity.
+\end_layout
+
+\begin_layout Subparagraph*
+
+Structural Parameter Optimization
+\end_layout
+
+\begin_layout Standard
+
+A good general guideline for all modeling is to start simple and add complexity as appropriate. In bgaPEST, this goal is achieved by starting with small values of variogram parameters (slope for the linear, variance for the nugget or exponential) such that the solution will be very smooth. By optimizing for structural parameters, roughness will be introduced by the algorithm until convergence at the optimal level of roughness. At the early, exploratory stages of a project, it might be desirable to set 
+\family typewriter
+sig_opt=1
+\family default
+ to see what level of fit may be achievable, but the user should be prepared to override this in later stages as allowing too much roughness to be introduced. For the prior distribution variogram parameters, however, optimization should always be employed in keeping with the Empirical Bayes perspective the algorithm was designed with.
+\end_layout
+
+\begin_layout Section
+
+Limitations to Version 1.0
+\end_layout
+
+\begin_layout Standard
+
+bgaPEST marks the first widely available implementation of BGA for use by practitioners. Limitations, of course, accompany this first implementation. Version 1.0 does not have an explicit parallelization facility. This can be overcome by using external programs for derivatives and calling a parallel Jacobian calculation package such a BeoPEST 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "beoPEST"
+
+\end_inset
+
+ or GENIE 
+\begin_inset CommandInset citation
+LatexCommand citep
+after ""
+before ""
+key "GENIE"
+
+\end_inset
+
+ whenever a Jacobian matrix is required. The impact of this is on the run times required to obtain a solution.
+\end_layout
+
+\begin_layout Standard
+
+A practical upper limit on the number of parameters estimated is on the order of 100,000. To estimate a larger number of parameters, machines with a large amount of random access memory (RAM) must be used. At some greater limit, methods such as periodic embedding or other decompositions must be incorporated to mitigate the expense of storing and calculating the prior covariance matrix.
+\end_layout
+
+\begin_layout Standard
+
+The source code is written in Fortran-90 and should be compilable on any platform with a Fortran compiler. Special care was taken to avoid obscure and nonstandard language features. Nonetheless, it is possible that some platform- or compiler-specific problems may be encountered.
+\end_layout
+
+\begin_layout Standard
+
+It is possible to use bgaPEST with a small number of parameters, but the assumption from the start is that parameters in at least part of the spatio-temporal domain represent a field of correlated instances (e.g. model nodes, discrete times) that often outnumber the number of data observations. A combination of homogeneous parameters in zones with a refined area of interest that is distributed is a common application and, as implemented through beta associations, this mix of distributed and zoned parameters is supported and encouraged. Typically, sufficient data to support a distributed parameter set is limited to part of a model domain in space or time.
+\end_layout
+
+\begin_layout Standard
+
+In considering uncertainty, version 1.0 presents posterior covariance values. For some applications, conditional realizations may be desired to capture candidate roughness of solutions within the ensemble distribution of solutions. Details for conditional realizations are provided by 
+\begin_inset CommandInset citation
+LatexCommand citet
+after ""
+before ""
+key "Kitanidis1995"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+
+References Cited
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+bibliographystyle{usgs}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+bibliography{GW}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+putbib[GW]
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_body
+\end_document
