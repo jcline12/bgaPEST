@@ -133,6 +133,35 @@ Abstract
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raggedcolumns
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+raggedright
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 bgaPEST is a highly parameterized inversion software package implementing
  the Bayesian Geostatistical Approach in a framework compatible with PEST.
  Highly parameterized inversion refers to cases in which parameters are
@@ -3692,6 +3721,511 @@ bibliography{GW}
 
 \end_layout
 
+\begin_layout Section
+Appendix 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Input-Instructions"
+
+\end_inset
+
+Input Instructions
+\end_layout
+
+\begin_layout Standard
+In this appendix, the general strategy for input instructions is described.
+ The input is arranged in a file called 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bgp
+\family default
+, which is made up of input blocks, as discussed below.
+ Following a discussion of more detail of the general input protocols, subsectio
+ns in which specific input blocks are discussed including variables and
+ data that can be input in them are presented.
+\end_layout
+
+\begin_layout Subsection
+General Structure of Input
+\end_layout
+
+\begin_layout Standard
+The general input structure is designed on a subset of the JUPITER protocol
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BantaEtAl2006"
+
+\end_inset
+
+.
+ The advantage of this protocol over XML or the previous input format for
+ PEST is that annotations that are easily read by humans are part of the
+ input protocol.
+ The full JUPITER protocol, however, has memory and computational overhead
+ that can become a problem for large and complicated data sets.
+ The protocol used here, therefore, is simplified but should be easily recogniza
+ble to users of other JUPITER-compatible programs.
+\end_layout
+
+\begin_layout Standard
+The strategy for input is designed to use 
+\family typewriter
+BLOCKS
+\family default
+ that are made up of either 
+\family typewriter
+KEYWORDS
+\family default
+ for individual variables or 
+\family typewriter
+TABLES
+\family default
+ for a series of data.
+ The specification of whether a given block uses 
+\family typewriter
+KEYWORDS
+\family default
+ or 
+\family typewriter
+TABLES
+\family default
+ is preordained and the input blocks defined below indicate which is required.
+\end_layout
+
+\begin_layout Subsubsection
+Blocks
+\end_layout
+
+\begin_layout Standard
+Input Blocks are allowed to take one of two forms: either 
+\family typewriter
+KEYWORDS 
+\family default
+or
+\family typewriter
+ TABLES
+\family default
+.
+ All input blocks are delineated by the words 
+\family typewriter
+BEGIN
+\family default
+ and 
+\family typewriter
+END
+\family default
+.
+ The header line also includes the name and type of the block and the final
+ line contains the name of the block.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN prior_mean_cv KEYWORDS
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+prior_betas=1
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+beta_cov_form = 0
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+END prior_mean_cv
+\end_layout
+
+\begin_layout Subsubsection
+Keywords
+\end_layout
+
+\begin_layout Standard
+Keyword variables correspond to single values identifies with an 
+\begin_inset Quotes eld
+\end_inset
+
+=
+\begin_inset Quotes erd
+\end_inset
+
+ sign.
+ Multiple 
+\family typewriter
+KEYWORDS
+\family default
+ can be entered on each line in an input file but no spaces are allowed
+ in 
+\family typewriter
+KEYWORDS
+\family default
+ names or variable values.
+ An example is: 
+\family typewriter
+prior_betas=1.
+\end_layout
+
+\begin_layout Subsubsection
+Tables
+\end_layout
+
+\begin_layout Standard
+Table variables are used for tabular data series that have multiple values
+ in categories.
+ Tables are identified by listing the number of rows (
+\family typewriter
+nrow
+\family default
+), number of columns (
+\family typewriter
+ncol
+\family default
+), and providing the keyword 
+\family typewriter
+columnlabels
+\family default
+.
+ This is followed by 
+\family typewriter
+nrow
+\family default
+ rows of data, with values arranged in 
+\family typewriter
+ncol
+\family default
+ columns, corresponding to the same order as the 
+\family typewriter
+columnlabels
+\family default
+, and delimited by one or more spaces.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv TABLE
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+nrow=2 ncol=5 columnlabels 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+BetaAssoc Toep_flag Nrow Ncol Nlay 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+1 0 21 21 1 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+2 1 21 21 1 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Subsubsection
+Files 
+\end_layout
+
+\begin_layout Standard
+A user may want to shorten the length of the main input file by reading
+ certain input from external text files.
+ This can be done by signaling an input block with the word 
+\family typewriter
+FILES
+\family default
+, to read a file containing the entire set of information for the block.
+ Regardless of whether the external text file contains a 
+\family typewriter
+KEYWORDS
+\family default
+ or 
+\family typewriter
+TABLE
+\family default
+ block, a block definition must be in place directing the program to the
+ external file.
+ For example:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv FILE 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+compression.txt
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Standard
+In this example, the contents of the file compression.txt would be:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+BEGIN Q_compression_cv TABLE 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+nrow=2 ncol=5 columnlabels 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+BetaAssoc Toep_flag Nrow Ncol Nlay 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+1 0 21 21 1 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+2 1 21 21 1 
+\family default
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+END Q_compression_cv
+\end_layout
+
+\begin_layout Subsection
+bgaPEST Input Blocks
+\end_layout
+
+\begin_layout Standard
+The specific input blocks used in bgaPEST are discussed, in order of appearance
+ in the 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bgp
+\family default
+ file.
+ The order of the blocks is important to maintain in the order discussed
+ in this report.
+ For each block, data types are identified either as 
+\emph on
+float
+\emph default
+, 
+\emph on
+integer
+\emph default
+, or 
+\emph on
+string
+\emph default
+.
+ Values entered as 
+\emph on
+float
+\emph default
+ can include scientific/engineering notation, but in all cases should contain
+ a 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+ even if no fractional detail is included.
+ Conversely, 
+\emph on
+integers
+\emph default
+ must not contain 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Variables identified as 
+\emph on
+string
+\emph default
+ may not include spaces because whitespace is used as the delimiter for
+ rows in tables and separating keywords.
+\end_layout
+
+\begin_layout Standard
+Each block is also defined with a suffix of 
+\begin_inset Quotes eld
+\end_inset
+
+cv
+\begin_inset Quotes erd
+\end_inset
+
+ for 
+\begin_inset Quotes eld
+\end_inset
+
+control variables,
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+data
+\begin_inset Quotes erd
+\end_inset
+
+ for data.
+ Control variables are those that govern the behavior of the algorithm as
+ a whole as opposed to data points (such as parameter values, structural
+ parameter values, etc.).
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status collapsed
@@ -3700,12 +4234,7202 @@ status collapsed
 
 
 \backslash
-putbib[GW]
+fcolorbox{black}{ltgrey}{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}[t]{0.9
+\backslash
+columnwidth}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{A note on default variable values}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+In the input instructions below, some variables list a default value.
+\end_layout
+
+\begin_layout Plain Layout
+
+Part of the design strategy of this software was to not burden users
+\end_layout
+
+\begin_layout Plain Layout
+
+with determining appropriate values for each and every variable that
+\end_layout
+
+\begin_layout Plain Layout
+
+controls the algorithm.
+ As a result, default values are provided for
+\end_layout
+
+\begin_layout Plain Layout
+
+some variables.
+ In those cases, input by the user in the 
+\backslash
+texttt{.bgp}
+\end_layout
+
+\begin_layout Plain Layout
+
+file is optional.
+ If no value is provided by the user, the default
+\end_layout
+
+\begin_layout Plain Layout
+
+value will be used by bgaPEST.
+ If a variable not listed with a default
+\end_layout
+
+\begin_layout Plain Layout
+
+value in these input instructions is omitted by a user, bgaPEST will
+\end_layout
+
+\begin_layout Plain Layout
+
+return with an error indicating that the variable is not present.%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}}
 \end_layout
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Subsubsection
+Algorithmic Control Variables 
+\family typewriter
+algorithmic_cv
+\family default
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+The following 
+\family typewriter
+KEYWORDS
+\family default
+ variables are in the 
+\family typewriter
+algorithmic_cv
+\family default
+ block.
  
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+structural_conv
+\family default
+ 
+\emph on
+float,default=0.001
+\emph default
+ Convergence criterion for structural parameter convergence.
+ If positive, convergence is based on the absolute difference in structural
+ parameter objective function over consecutive iterations.
+ If negative, convergence is based on the norm of the difference between
+ consecutive structural parameter values.
+ Used only if at least one structural parameter is to be estimated.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+phi_conv
+\family default
+ 
+\emph on
+float, default=0.001 
+\emph default
+Convergence criterion for objective function inner iterations.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+bga_conv
+\family default
+ 
+\emph on
+float, default=
+\begin_inset Formula $10\times$
+\end_inset
+
+
+\family typewriter
+\emph default
+phi_conv
+\family default
+\emph on
+ 
+\emph default
+Convergence criterion for objective function outer iterations.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_structural
+\family default
+ 
+\emph on
+integer, default=10 
+\emph default
+Total number of iterations allowed in structural parameter optimization.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_phi
+\family default
+ 
+\emph on
+integer, default=10 
+\emph default
+Total number of iterations allowed in each quasi-linear estimation optimization.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_bga
+\family default
+ 
+\emph on
+integer, default=10 
+\emph default
+Total number of outer iterations allowed for the entire algorithm.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+linesearch
+\family default
+ 
+\emph on
+integer, default=0 
+\emph default
+Flag to determine whether a line search should be conducted.
+ [0] = do not use linesearch, [1] = use linesearch.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+it_max_linesearch
+\family default
+ 
+\emph on
+integer, default=4 
+\emph default
+Total number of outer iterations allowed for the line search.
+ Used only if 
+\family typewriter
+linesearch
+\family default
+ = 1.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+theta_cov_form
+\family default
+ 
+\emph on
+integer, default=0
+\emph default
+ Form of the theta covariance matrix.
+ [0] = none, [1] = diagonal, [2] = full matrix.
+ [0] means no prior covariance on theta provided and it is assumed totally
+ unknown.
+ Used only if at least one structural parameter is to be estimated.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Q_compression_flag
+\family default
+ 
+\emph on
+integer, default=0 
+\emph default
+Flag to determine how to calculate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ [0] = no compression--calculate full 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix, [1] = Calculate separate 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ matrix for each beta association.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+par_anisotropy
+\family default
+ 
+\emph on
+integer, default=0 
+\emph default
+Flag to determine whether parameter anisotropy should be considered when
+ making the 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ matrix: [0] = do not consider anisotropy, [1]=consider anisotropy.
+ If anisotropy is considered, a 
+\family typewriter
+parameter_anisotropy
+\family default
+ block should be included, as defined below.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+deriv_mode
+\family default
+ 
+\emph on
+integer, default=0 
+\emph default
+Flag to determine whether sensitivities are calculated using an external
+ call to PEST or using a user-supplied program (such as adjoint state).
+ [0] = use PEST, [1] = use external program identified below in the 
+\family typewriter
+model_command_lines
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+posterior_cov_flag
+\family default
+ 
+\emph on
+integer, default=0 
+\emph default
+Flag to determine whether posterior covariance matrix should be calculated.
+ [0] = do not calculate posterior covariance matrix, [1] = calculate posterior
+ covariance matrix.
+ If 
+\family typewriter
+Q_compression_flag = 1
+\family default
+, only the diagonal of the posterior covariance matrix is calculated.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+jacobian_file
+\family default
+ 
+\emph on
+string, default=
+\begin_inset Quotes eld
+\end_inset
+
+scratch.jco
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\emph default
+Name of the file generated by an external program if 
+\family typewriter
+deriv_mode = 1
+\family default
+.
+ If
+\family typewriter
+ deriv_mode = 0
+\family default
+, this value is ignored and left at its default value.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+jacobian_format
+\family default
+ 
+\emph on
+string, default=
+\begin_inset Quotes eld
+\end_inset
+
+binary
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\emph default
+Format of the file indicated in jacobian_file.
+ [binary] indicates a binary file formatted as a JCO file from PEST, [ascii]
+ indicates a file of a standard PEST matrix format, discussed below in this
+ documentation.
+ If
+\family typewriter
+ deriv_mode = 0
+\family default
+, this value is ignored and left at its default value.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Prior Mean Control Variables 
+\family typewriter
+prior_mean_cv
+\family default
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+The following 
+\family typewriter
+KEYWORDS
+\family default
+ variables are in the 
+\family typewriter
+prior_mean_cv
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+prior_betas
+\family default
+ 
+\emph on
+integer
+\emph default
+ Flag indicating whether information about prior mean 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ will be supplied.
+ [0] = no, [1] = yes.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+beta_cov_form
+\family default
+ 
+\emph on
+integer, default=0 
+\emph default
+Form of the prior mean 
+\begin_inset Formula $\left(\beta\right)$
+\end_inset
+
+ covariance matrix 
+\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
+\end_inset
+
+.
+ [0] = none, [1] = diagonal, [2] = full matrix.
+ This value is used only if
+\family typewriter
+ prior_betas = 1
+\family default
+.
+
+\emph on
+ 
+\emph default
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Beta Association Data 
+\family typewriter
+prior_mean_data
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+ This is also the block where beta associations are defined, even if prior
+ means are not defined.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+BetaAssoc
+\family default
+ 
+\emph on
+integer 
+\emph default
+Identifier of each beta association (one per row).
+ These should be sequential integers.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Partrans
+\family default
+ 
+\emph on
+string 
+\emph default
+Transformation indicator determining whether 
+\begin_inset Formula $\beta$
+\end_inset
+
+ values will be in physical or estimation space.
+ Acceptable values are 
+\family typewriter
+log
+\family default
+ and 
+\family typewriter
+none
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+beta_0
+\family default
+ 
+\emph on
+float
+\emph default
+ Value of prior mean value 
+\begin_inset Formula $\left(\beta_{0}\right)$
+\end_inset
+
+ for the row's beta association.
+ This value is used only if
+\family typewriter
+ prior_betas = 1
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+beta_cov_#
+\family default
+ 
+\emph on
+float 
+\emph default
+The number of values provided is based on the value of 
+\family typewriter
+beta_cov_form
+\family default
+ specified above:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+
+\series medium
+If
+\series default
+ 
+\family typewriter
+beta_cov_form = 1
+\family default
+, one value is provided.
+ 
+\end_layout
+
+\begin_layout Description
+
+\series medium
+If
+\series default
+ 
+\family typewriter
+beta_cov_form = 2
+\family default
+, 
+\family typewriter
+nrow
+\family default
+ values are provided, corresponding to the current row of the beta covariance
+ matrix 
+\begin_inset Formula $\left(\mathbf{Q}_{\beta\beta}\right)$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+ This value is used only if
+\family typewriter
+ prior_betas = 1
+\family default
+.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+Structural Parameter Control Variables 
+\family typewriter
+structural_parameter_cv
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+BetaAssoc
+\family default
+ 
+\emph on
+integer 
+\emph default
+Identified for each beta association (one per row).
+ These should be sequential integers.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+prior_cov_mode
+\family default
+ 
+\emph on
+integer, default = 1 
+\emph default
+Flag to indicate whether prior covariance of parameters 
+\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
+\end_inset
+
+ is supplied or calculated.
+ This is reserved for future use - currently 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ is always calculated, so this value is ignored if present.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+var_type
+\family default
+ 
+\emph on
+integer, 
+\shape italic
+\emph default
+default=1
+\shape default
+\emph on
+ 
+\emph default
+This is a flag to indicate which variogram type is used to express the prior
+ covariance 
+\begin_inset Formula $\left(\mathbf{Q}_{\mathbf{ss}}\right)$
+\end_inset
+
+.
+ Acceptable choices are [0] = pure nugget, [1] = linear, [2] = exponential.
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+struct_par_opt
+\family default
+ 
+\emph on
+integer, 
+\shape italic
+\emph default
+default=1
+\shape default
+\emph on
+ 
+\emph default
+Flag for whether structural parameters are meant to be optimized or not.
+ This can be chosen for each structural parameter individually.
+ [0] = do not optimize (hold at initial value), [1] = optimize using a marginal
+ distribution.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+trans_theta
+\family default
+ 
+\emph on
+integer, 
+\shape italic
+\emph default
+default=0
+\shape default
+\emph on
+ 
+\emph default
+Flag for whether a power transformation should be applied to the structural
+ parameters in the current row.
+ [0] = do not transform, [1] = transform.
+ This value is only used of 
+\family typewriter
+struct_par_opt = 1
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+alpha_trans
+\family default
+ 
+\emph on
+float, 
+\shape italic
+\emph default
+default = 50
+\shape default
+ Exponent of the power transformation used only if 
+\family typewriter
+trans_theta = 1
+\family default
+.
+\end_layout
+
+\begin_layout Subsubsection
+Structural Parameter Data 
+\family typewriter
+structural_parameter_data
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+BetaAssoc
+\family default
+ 
+\emph on
+integer 
+\emph default
+Identifier of each beta association (one per row).
+ These should be sequential integers.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+theta_0_1
+\family default
+ 
+\emph on
+float 
+\emph default
+Initial value of 
+\begin_inset Formula $\theta_{1,0}$
+\end_inset
+
+ which is the starting value of the first structural parameter for prior
+ covariance.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+theta_0_2
+\family default
+ 
+\emph on
+float 
+\emph default
+Initial value of 
+\begin_inset Formula $\theta_{2,0}$
+\end_inset
+
+ which is the starting value of the second structural parameter for prior
+ covariance.
+ If using a linear or nugget variogram, an arbitrary negative value should
+ be entered here indicating that the value will be ignored.
+ For an exponential variogram, this parameter is the correlation length.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Structural Parameter Covariance Data 
+\family typewriter
+structural_parameter_cov
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+The only covariance model currently supported is diagonal, so there must
+ be one covariance value for each 
+\begin_inset Formula $\theta$
+\end_inset
+
+ parameter.
+ This block is only read if 
+\family typewriter
+theta_cov_form
+\family default
+ is not zero.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+theta_cov_1
+\family default
+ 
+\emph on
+float 
+\emph default
+Variance of the current row's 
+\begin_inset Formula $\theta$
+\end_inset
+
+ parameter.
+ If using an exponential variogram, then a single beta association will
+ have two structural parameters.
+ To handle this possibility, the variance values should be listed, one per
+ line, in the order of beta associations, then in order 
+\begin_inset Formula $\theta_{1}$
+\end_inset
+
+ then 
+\begin_inset Formula $\theta_{2}$
+\end_inset
+
+.
+ Even structural parameters that will not be estimated (e.g.
+ that are held at their initial values, as indicated by 
+\family typewriter
+struct_par_opt
+\family default
+ above, must have a placeholder value entered here to maintain the order--the
+ placeholder value is arbitrary and will be ignored.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Epistemic Error Term 
+\family typewriter
+epistemic_error_term
+\family default
+ KEYWORDS
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+sig_0
+\family default
+ 
+\emph on
+float 
+\emph default
+Initial value of the epistemic error 
+\begin_inset Formula $\left(\sigma_{o}\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+sig_opt
+\family default
+ 
+\emph on
+integer 
+\emph default
+Flag indicating whether epistemic error should be optimized for or not.
+ [0] = do not optimize, [1] = optimize.
+ If 
+\family typewriter
+sig_opt = 0
+\family default
+, then the value of 
+\family typewriter
+sig_0
+\family default
+ is used throughout the inversion.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+sig_p_var
+\family default
+ 
+\emph on
+float, 
+\shape italic
+\emph default
+default=0
+\shape default
+\emph on
+ 
+\emph default
+Prior variance on 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
+ 
+\family typewriter
+sig_p_var = 0
+\family default
+ means no prior variance on epistemic error is provided and it is assumed
+ totally unknown.
+ This value is used only if 
+\family typewriter
+sig_opt = 1
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+trans_sig
+\family default
+ 
+\emph on
+integer, 
+\shape italic
+\emph default
+default=0
+\shape default
+\emph on
+ 
+\emph default
+Flag for whether a power transformation should be applied to the epistemic
+ error.
+ [0] = do not transform, [1] = transform.
+ This value is used only if 
+\family typewriter
+sig_opt = 1.
+
+\family default
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+alpha_trans
+\family default
+ 
+\emph on
+float, 
+\shape italic
+\emph default
+default = 50
+\shape default
+ Exponent of the power transformation, used only if 
+\family typewriter
+trans_sig = 1
+\family default
+.
+\end_layout
+
+\begin_layout Subsubsection
+Parameter Control Variables 
+\family typewriter
+parameter_cv
+\family default
+ KEYWORDS
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+ndim
+\family default
+ 
+\emph on
+integer
+\emph default
+ Number of dimensions over which the estimated parameters span.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Prior Covariance Compression Control Variables 
+\family typewriter
+Q_compression_cv
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+This table must contain the same number of rows as there are beta associations
+ to be defined.
+ The rows must be in ascending order of beta association numbers.
+ This block is only read if 
+\family typewriter
+Q_compression_flag
+\family default
+ = 1.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+BetaAssoc
+\family default
+ 
+\emph on
+integer 
+\emph default
+Identified of each beta association (one per row).
+ These typically are sequential integers.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Toep_flag
+\family default
+ 
+\emph on
+integer
+\emph default
+ This is a flag to determine whether a Toeplitz transformation should be
+ applied to the prior covariance matrix 
+\begin_inset Formula $\mbox{\ensuremath{\left(\mathbf{Q_{ss}}\right)}}$
+\end_inset
+
+.
+ [0] = do not use Toeplitz transformation, [1] = do use Toeplitz transformation.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Nrow
+\family default
+ 
+\emph on
+integer 
+\emph default
+Number of rows in the current beta association (only read if 
+\family typewriter
+Toep_flag = 1
+\family default
+).
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Ncol
+\family default
+ 
+\emph on
+integer 
+\emph default
+Number of columns in the current beta association (only read if 
+\family typewriter
+Toep_flag = 1
+\family default
+).
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Nlay
+\family default
+ 
+\emph on
+integer 
+\emph default
+Number of layers in the current beta association (only read if 
+\family typewriter
+Toep_flag = 1
+\family default
+).
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Parameter Groups 
+\family typewriter
+parameter_groups
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table corresponds to one of the parameter groups.
+ These groups are used to group together parameters by type and are not
+ the same as beta associations.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+groupname
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of the group in the current row.
+ Note that these cannot contain spaces.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Parameter Data 
+\family typewriter
+parameter_data
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table provides information for one parameter.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+ParamName
+\family default
+ 
+\emph on
+string
+\emph default
+ Name for the parameter.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+StartValue
+\family default
+ 
+\emph on
+float 
+\emph default
+Staring parameter value.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+GroupName
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of the group to which the parameter belongs.
+ This name must be defined in the 
+\family typewriter
+parameter_groups
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+BetaAssoc
+\family default
+ 
+\emph on
+integer
+\emph default
+ Beta association to which this parameter belongs.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+SenMethod
+\family default
+ 
+\emph on
+integer
+\emph default
+ Sensitivity method used for this parameter type.
+ This parameter may now be arbitrary--it is reserved for future use and
+ currently is ignored.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+x1
+\family default
+ 
+\emph on
+float
+\emph default
+ Location in the first dimension.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+x2
+\family default
+ 
+\emph on
+float
+\emph default
+ Location in the second dimension.
+ Only read if 
+\family typewriter
+ndim 
+\begin_inset Formula $>$
+\end_inset
+
+= 2
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+x3
+\family default
+ 
+\emph on
+float
+\emph default
+ Location in the third dimension.
+ Only read if 
+\family typewriter
+ndim = 3
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Observation Groups 
+\family typewriter
+observation_groups
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table corresponds to one of the observation groups.
+ These groups are used to group together observations by type and are used
+ to report portions of the objective function.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+groupname
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of the group in the current row.
+ Note that these cannot contain spaces.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Observation Data 
+\family typewriter
+observation_data
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+One observation is presented on each line.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+ObsName
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of an observation.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+ObsValue
+\family default
+ 
+\emph on
+float
+\emph default
+ Value of the observation.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+GroupName
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of the group to which the observation belongs.
+ This name must be defined in the 
+\family typewriter
+observation_groups
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Weight
+\family default
+ 
+\emph on
+float
+\emph default
+ A relative weight that gets applied to the epistemic error.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Model Command Lines 
+\family typewriter
+model_command_lines
+\family default
+ KEYWORDS
+\end_layout
+
+\begin_layout Standard
+Currently a single forward model command and an option derivative model
+ command can be supplied here.
+ These string keywords can include path information if the command line
+ batch files or shell scripts are not located in the current working directory,
+ but spaces are not allowed.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+Command
+\family default
+ 
+\emph on
+string
+\emph default
+ This is the batch file or shell script that runs the forward model.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+DerivCommand
+\family default
+ 
+\emph on
+string
+\emph default
+ This is the optional batch file or shell script that is used to calculate
+ derivatives.
+ This is only used if 
+\family typewriter
+deriv_method = 1
+\family default
+ in the 
+\family typewriter
+algorithmic_cv
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Model Input Files 
+\family typewriter
+model_input_files
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table includes a matched template file and model input
+ file.
+ This allows the program to create the correct input files for the model.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+TemplateFile
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of a template file for making model input.
+ Must end in 
+\family typewriter
+.tpl
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+ModInFile
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of the model input file corresponding to the TemplateFile identified
+ on the same row.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Model Output Files 
+\family typewriter
+model_output_files
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table includes a matched instruction file and model output
+ file.
+ This allows the program to read the results of model runs correctly.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+InstructionFile
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of an instruction file for reading model output.
+ Must end in 
+\family typewriter
+.ins
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+ModOutFile
+\family default
+ 
+\emph on
+string
+\emph default
+ Name of the model output file corresponding to the InstructionFile identified
+ on the same row.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Parameter Anisotropy 
+\family typewriter
+parameter_anisotropy
+\family default
+ TABLE
+\end_layout
+
+\begin_layout Standard
+Each row of this table contains information for parameter anisotropy for
+ a beta association.
+ This block is read only if the variable 
+\family typewriter
+par_anisotropy
+\family default
+ =1 in the 
+\family typewriter
+algorithmic_cv
+\family default
+ block.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+BetaAssoc
+\family default
+ 
+\emph on
+integer
+\emph default
+ Identifier of a beta association.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+horiz_angle
+\family default
+ 
+\emph on
+float 
+\emph default
+Angle, in degrees of the principal direction of anisotropy in a horizontal
+ plane.
+ See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+ for details.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+horiz_ratio
+\family default
+ 
+\emph on
+float 
+\emph default
+Ratio of maximum to minimum principal property values in the horizontal
+ plane.
+ See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+ for details.
+ 
+\end_layout
+
+\begin_layout Description
+
+\family typewriter
+vertical_ratio
+\family default
+ 
+\emph on
+float 
+\emph default
+Ratio of maximum to minimum principal property values in the vertical direction.
+ See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+ for details.
+ This value is only read if 
+\family typewriter
+ndim=3
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+PEST Matrix Formats for Jacobian and Posterior Covariance
+\end_layout
+
+\begin_layout Standard
+On two occasions in 
+\family typewriter
+bgaPEST
+\family default
+ a matrix text file format from 
+\family typewriter
+PEST
+\family default
+ is used to store matrices: when posterior covariance output from 
+\family typewriter
+bgaPEST
+\family default
+ is specified as a full matrix; and when Jacobian sensitivity matrix information
+ is exchanged from an external code with 
+\family typewriter
+bgaPEST
+\family default
+ run through, for example, a Python script.
+\end_layout
+
+\begin_layout Standard
+The posterior covariance matrix may take two forms: a full matrix; or a
+ diagonal matrix.
+ These options are discussed below.
+ Two options are available for Jacobian sensitivity matrices 
+\begin_inset Formula $\left(\mathbf{H}\right)$
+\end_inset
+
+ to be read by 
+\family typewriter
+bgaPEST
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=0
+\family default
+, 
+\family typewriter
+PEST
+\family default
+ is used, external to 
+\family typewriter
+bgaPEST
+\family default
+, to calculate the Jacobian matrix resulting in a binary file with the extension
+ 
+\family typewriter
+.jco
+\family default
+.
+ If 
+\family typewriter
+deriv_mode=
+\family default
+1 then an external program is used to calculate 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ and a file written by the external program must be communicated to 
+\family typewriter
+bgaPEST
+\family default
+.
+ This file can either be a 
+\family typewriter
+.jco
+\family default
+ file or a 
+\family typewriter
+.jac
+\family default
+ file which is an ASCII file following the format of a standard matrix file
+ used by 
+\family typewriter
+PEST
+\family default
+, as described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+, Section 4.4.3.
+ An example and description of the format of a standard 
+\family typewriter
+PEST
+\family default
+ matrix follow, quoting from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:matrix"
+
+\end_inset
+
+ depicts an example matrix file holding a matrix with three rows and four
+ columns.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/standard_PEST_matrix.pdf
+	scale 25
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Example of a standard 
+\family typewriter
+PEST
+\family default
+ matrix file, adapted from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:matrix"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The first line of a matrix file contains 3 integers.
+ The first two indicate the number of rows (
+\family typewriter
+NROW
+\family default
+) and number of columns (
+\family typewriter
+NCOL
+\family default
+) in the following matrix.
+ The next integer (named 
+\family typewriter
+ICODE
+\family default
+) is a code, the role of which will be discussed shortly.
+ Following the header line is the matrix itself, in which entries are space-sepa
+rated and wrapped to the next line if appropriate.
+ The maximum line length is 500 characters, so wrapping to the next line
+ must occur within 500 characters.
+ It is recommended to wrap lines after 8 values and to maintain maximum
+ possible precision.
+\end_layout
+
+\begin_layout Standard
+In use for Jacobian matrices by 
+\family typewriter
+bgaPEST
+\family default
+, 
+\family typewriter
+ICODE
+\family default
+ is set to 2, so the string 
+\begin_inset Quotes grd
+\end_inset
+
+
+\family typewriter
+* row names
+\family default
+” is printed next, followed by 
+\family typewriter
+NROW
+\family default
+ names (of 20 characters or less in length), containing the names associated
+ with rows of the matrix.
+ 
+\family typewriter
+NCOL
+\family default
+ column names follow in a similar format, following the string 
+\begin_inset Quotes grd
+\end_inset
+
+
+\family typewriter
+* column names
+\family default
+”.
+\end_layout
+
+\begin_layout Standard
+Other options for 
+\family typewriter
+ICODE
+\family default
+ are described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "PESTAdd"
+
+\end_inset
+
+ and are used in 
+\family typewriter
+bgaPEST
+\family default
+ for output of the posterior covariance matrix.
+ The two options for posterior covariance output both refer to square matrixes
+ that have the same names of columns and rows.
+ As a result, only one list of names follows the data following the string
+ 
+\begin_inset Quotes grd
+\end_inset
+
+
+\family typewriter
+* row and column names
+\family default
+”.
+\end_layout
+
+\begin_layout Standard
+If compression is used in the prior covariance matrix, 
+\family typewriter
+bgaPEST
+\family default
+ only outputs the diagonal elements of the posterior covariance.
+ In this case, 
+\family typewriter
+ICODE=-1
+\family default
+ and only the diagonal entries are listed, one per line, after the header
+ line.
+ If compression is not used, the entire posterior covariance matrix is printed
+ using 
+\family typewriter
+ICODE=1
+\family default
+ with 8 values per line.
+\end_layout
+
+\begin_layout Subsection
+References Cited
+\end_layout
+
+\begin_layout Section
+Appendix 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:quickstart"
+
+\end_inset
+
+Quick Start Instructions
+\end_layout
+
+\begin_layout Standard
+One advantage of using block input and keywords, as discussed in Appendix
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+, is that default values are provided within bgaPEST so they can be skipped
+ by a user.
+ The values provided as defaults have general applicability and will all
+ be reported in the 
+\family typewriter
+
+\begin_inset Formula $<$
+\end_inset
+
+casename
+\begin_inset Formula $>$
+\end_inset
+
+.bpr 
+\family default
+file.
+ In this section, then, the bare minimum level of input is described to
+ get a project running.
+\end_layout
+
+\begin_layout Paragraph*
+Forward Model
+\end_layout
+
+\begin_layout Standard
+The forward model must exist and have the ability--either inherently or
+ through pre- and post-processing--to receive input and provide output using
+ text (ascii) files.
+ For bgaPEST to be able to run the model, template files (
+\family typewriter
+.TPL
+\family default
+) and instruction files (
+\family typewriter
+.INS
+\family default
+) must be provided corresponding with model input and output, respectively.
+ Details of the contruction of these files are in 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "chapter 3"
+key "PEST"
+
+\end_inset
+
+.
+ The template and instruction files are detailed in the 
+\family typewriter
+model_input_files
+\family default
+ and 
+\family typewriter
+model_output_files 
+\family default
+blocks, respectively.
+ The 
+\family typewriter
+model_command_lines
+\family default
+ block must also be included with an entry for either a batch file or shell
+ script in the 
+\family typewriter
+command
+\family default
+ keyword that runs the model.
+\end_layout
+
+\begin_layout Paragraph*
+Observations
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+observation_groups
+\family default
+ block must be completed.
+ All observations can belong to the same group if desired.
+ Groups are reported in output to assist in interpretation of results.
+ The 
+\family typewriter
+observation_data
+\family default
+ block must also be completed.
+\end_layout
+
+\begin_layout Paragraph*
+Beta Associations
+\end_layout
+
+\begin_layout Standard
+Beta associations are first defined in the 
+\family typewriter
+prior_mean_data
+\family default
+ block.
+ If no prior information about mean values and their covariance is to be
+ supplied, the only information necessary is a row for each beta association
+ in the 
+\family typewriter
+prior_mean_data
+\family default
+ block and a decision about whether to transform the value with a logarithmic
+ transform or not.
+ Note that beta associations indicate regions and groups that will have
+ the same mean value estimated regardless of whether prior information about
+ the mean is provided or not.
+\end_layout
+
+\begin_layout Paragraph*
+Structural Parameters
+\end_layout
+
+\begin_layout Standard
+Each beta association must have a variogram specified for it, defined by
+ structural parameters.
+ Therefore, the 
+\family typewriter
+structural_parameters_cv
+\family default
+ and 
+\family typewriter
+structural_parameter_data
+\family default
+ blocks must be completed.
+ Whether or not to optimize for structural parameter values, and whether
+ or not to provide prior information about the values is optional.
+\end_layout
+
+\begin_layout Paragraph*
+Parameters
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+parameter_groups
+\family default
+ block must be completed and, like with observations, it is acceptable for
+ all parameters to be in a single group, and groups do not need to correspond
+ with beta associations.
+ The 
+\family typewriter
+parameter_cv
+\family default
+ keyword 
+\family typewriter
+ndim
+\family default
+ must be provided, and the 
+\family typewriter
+parameter_data
+\family default
+ block must be completed.
+\end_layout
+
+\begin_layout Paragraph*
+Algorithmic Control Variables
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+algorithmic_cv
+\family default
+ block contains variables that all have default values.
+ However, bgaPEST must find the 
+\family typewriter
+algorithmic_cv
+\family default
+ block - even if it is empty.
+ If the 
+\family typewriter
+algorithmic_cv
+\family default
+ block is empty, all default values will be used.
+\end_layout
+
+\begin_layout Paragraph*
+Example .bgp Input File
+\end_layout
+
+\begin_layout Standard
+The following text shows a bgaPEST input file.
+ Two dependent files for parameters and observations are shown in abbreviated
+ form to indicate their format.
+ 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+\begin_inset Newline newline
+\end_inset
+
+
+\family default
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Example1.bgp
+\series default
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+BEGIN algorithmic_cv KEYWORDS 
+\begin_inset Newline newline
+\end_inset
+
+ structural_conv=0.004 phi_conv=0.004 
+\begin_inset Newline newline
+\end_inset
+
+ bga_conv=1.0e-2 it_max_structural=10 
+\begin_inset Newline newline
+\end_inset
+
+ it_max_phi=15 it_max_bga=15 
+\begin_inset Newline newline
+\end_inset
+
+ linesearch=1 it_max_linesearch=3 
+\begin_inset Newline newline
+\end_inset
+
+ theta_cov_form=1 Q_compression_flag=1 deriv_mode = 1 
+\begin_inset Newline newline
+\end_inset
+
+ jacobian_format = ascii jacobian_file = S1_1.jac 
+\begin_inset Newline newline
+\end_inset
+
+ posterior_cov_flag = 1 par_anisotropy=0 
+\begin_inset Newline newline
+\end_inset
+
+ END algorithmic_cv 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN prior_mean_cv KEYWORDS 
+\begin_inset Newline newline
+\end_inset
+
+ prior_betas= 1 beta_cov_form=1 
+\begin_inset Newline newline
+\end_inset
+
+ END prior_mean_cv 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN prior_mean_data TABLE 
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=7 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ BetaAssoc Partrans beta_0 beta_cov_1 beta_cov_2 beta_cov_3 beta_cov_4 
+\begin_inset Newline newline
+\end_inset
+
+ 1 log -7.6 5e-7 65.
+ 3.1 4.1 
+\begin_inset Newline newline
+\end_inset
+
+ END prior_mean_data 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN structural_parameter_cv TABLE 
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=6 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ BetaAssoc prior_cov_mode var_type struct_par_opt trans_theta alpha_trans
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 1 2 1 1 1 20 
+\begin_inset Newline newline
+\end_inset
+
+ END structural_parameter_cv 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN structural_parameters_data TABLE
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=3 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ BetaAssoc theta_0_1 theta_0_2 
+\begin_inset Newline newline
+\end_inset
+
+ 1 1.0e-007 -0.1 
+\begin_inset Newline newline
+\end_inset
+
+ END structural_parameters_data
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN structural_parameters_cov TABLE 
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=1 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ theta_cov_1 
+\begin_inset Newline newline
+\end_inset
+
+ 11.1 
+\begin_inset Newline newline
+\end_inset
+
+ END structural_parameters_cov
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN epistemic_error_term KEYWORDS 
+\begin_inset Newline newline
+\end_inset
+
+ sig_0 = 1.000e-000 sig_opt = 0 sig_p_var=0.00001 
+\begin_inset Newline newline
+\end_inset
+
+ END epistemic_error_term
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN parameter_cv KEYWORDS 
+\begin_inset Newline newline
+\end_inset
+
+ ndim=3 
+\begin_inset Newline newline
+\end_inset
+
+ END parameter_cv 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN Q_compression_cv TABLE
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=5 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ BetaAssoc Toep_flag Nrow Ncol Nlay 
+\begin_inset Newline newline
+\end_inset
+
+ 1 1 21 21 1 
+\begin_inset Newline newline
+\end_inset
+
+ END Q_compression_cv
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN parameter_groups TABLE 
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=2 columnlabels
+\begin_inset Newline newline
+\end_inset
+
+ groupname grouptype 
+\begin_inset Newline newline
+\end_inset
+
+ pargp_uno 1 
+\begin_inset Newline newline
+\end_inset
+
+ END parameter_groups 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN parameter_data FILES 
+\begin_inset Newline newline
+\end_inset
+
+ PARAMETERS.txt 
+\begin_inset Newline newline
+\end_inset
+
+ END parameter_data 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN observation_groups TABLE 
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=1 columnlabels
+\begin_inset Newline newline
+\end_inset
+
+ groupname obsgp_oden 
+\begin_inset Newline newline
+\end_inset
+
+ END observation_groups 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN observation_data FILES 
+\begin_inset Newline newline
+\end_inset
+
+ obs12.txt 
+\begin_inset Newline newline
+\end_inset
+
+ END observation_data 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN model_command_lines KEYWORDS 
+\begin_inset Newline newline
+\end_inset
+
+ Command = modflow.bat 
+\begin_inset Newline newline
+\end_inset
+
+ DerivCommand = modflow_adj.bat 
+\begin_inset Newline newline
+\end_inset
+
+ END model_command_lines 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN model_input_files TABLE 
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=2 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ TemplateFile ModInFile 
+\begin_inset Newline newline
+\end_inset
+
+ S1_mul.tpl S1_.mul 
+\begin_inset Newline newline
+\end_inset
+
+ END model_input_files 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN model_output_files TABLE
+\begin_inset Newline newline
+\end_inset
+
+ nrow=1 ncol=2 columnlabels
+\begin_inset Newline newline
+\end_inset
+
+ InstructionFile ModOutFile
+\begin_inset Newline newline
+\end_inset
+
+ S1_1_hbs.ins S1_1.hbs 
+\begin_inset Newline newline
+\end_inset
+
+ END model_output_files 
+\begin_inset Newline newline
+\end_inset
+
+ BEGIN parameter_anisotropy TABLE
+\begin_inset Newline newline
+\end_inset
+
+ nrow = 1 ncol = 4 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ BetaAssoc horiz_angle horiz_ratio vertical_ratio 
+\begin_inset Newline newline
+\end_inset
+
+ 1 45 10 10 
+\begin_inset Newline newline
+\end_inset
+
+ END parameter_anisotropy
+\family default
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\series bold
+PARAMETERS.txt
+\series default
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+BEGIN parameter_data 
+\begin_inset Newline newline
+\end_inset
+
+ TABLE nrow=441 ncol=8 columnlabels 
+\begin_inset Newline newline
+\end_inset
+
+ ParamName StartValue GroupName BetaAssoc SenMethod x1 x2 x3 
+\begin_inset Newline newline
+\end_inset
+
+ P1 2.000000000000000E-04 pargp_uno 1 1 1.0000E+00 1.000E+000.00E+00 
+\begin_inset Newline newline
+\end_inset
+
+ P2 2.000000000000000E-04 pargp_uno 1 1 2.0000E+00 1.000E+000.00E+00 
+\begin_inset Newline newline
+\end_inset
+
+ P3 2.000000000000000E-04 pargp_uno 1 1 3.0000E+00 1.000E+000.00E+00
+\begin_inset Newline newline
+\end_inset
+
+ ...
+\begin_inset Newline newline
+\end_inset
+
+ P440 2.000000000000000E-04 pargp_uno 1 1 2.0000E+01 2.100E+010.00E+00 
+\begin_inset Newline newline
+\end_inset
+
+ P441 2.000000000000000E-04 pargp_uno 1 1 2.1000E+01 2.100E+010.00E+00 
+\begin_inset Newline newline
+\end_inset
+
+ END parameter_data
+\family default
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+obs12.txt
+\series default
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+BEGIN observation_data TABLE 
+\begin_inset Newline newline
+\end_inset
+
+ nrow=12 ncol=4 columnlabels ObsName ObsValue GroupName Weight 
+\begin_inset Newline newline
+\end_inset
+
+ P001T0000 33.8154 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P002T0000 29.9383 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P003T0000 28.4674 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P004T0000 30.9286 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P005T0000 24.7332 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P006T0000 31.5769 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P007T0000 27.3057 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P008T0000 29.3834 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P009T0000 27.8658 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P010T0000 30.4177 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P011T0000 28.5865 obsgp_oden 1.0 
+\begin_inset Newline newline
+\end_inset
+
+ P012T0000 27.4403 obsgp_oden 1.0 
+\family default
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\family typewriter
+END observation_data 
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:variables1-1"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:variables1-2"
+
+\end_inset
+
+ summarize the input blocks and variables names, types, and default values.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement !t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Variables_for_documentation1.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:variables1-1"
+
+\end_inset
+
+Summary of input blocks with variables identified.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement !t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Variables_for_documentation2.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:variables1-2"
+
+\end_inset
+
+Summary of input blocks with variables identified (continued)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+References Cited
+\end_layout
+
+\begin_layout Section
+Appendix Details of the Method
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:methodologyDetails"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Bayesian geostatistical approach is described in detail in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004"
+
+\end_inset
+
+ among others.
+ The mathematics are reviewed here.
+\end_layout
+
+\begin_layout Subsection
+The Bayesian Geostatistical Approach
+\end_layout
+
+\begin_layout Standard
+In the Bayesian geostatistical approach, the posterior pdf is calculated
+ as 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s|y})\propto\mathrm{\underbrace{\exp\left(\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right)}_{L\left(\mathbf{y}|\mathbf{s}\right)}\underbrace{\exp\left(\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right)}_{p\left(\mathbf{s}\right)}}\label{eq:BGA}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\series bold
+
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ 
+\series default
+is the 
+\begin_inset Formula $m\times1$
+\end_inset
+
+ vector of parameter values at distributed spatial locations in the model,
+ 
+\begin_inset Formula $\mathbf{X\beta^{*}}$
+\end_inset
+
+ is the prior mean, 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ is the 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ prior covariance of 
+\begin_inset Formula $\left(\mathbf{s}-\mathbf{X\beta^{*}}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{h\left(\mathbf{s}\right)}$
+\end_inset
+
+ is the 
+\begin_inset Formula $n\times1$
+\end_inset
+
+ vector of modeled forecasts collocated with observations 
+\begin_inset Formula $\left(\mathbf{y}\right),$
+\end_inset
+
+ and 
+\series bold
+
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ 
+\series default
+is the 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ epistemic uncertainty covariance, modeled as 
+\begin_inset Formula $\sigma_{R}^{2}\mathbf{I}$
+\end_inset
+
+ where 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ represents epistemic uncertainty, and 
+\begin_inset Formula $\mathbf{I}$
+\end_inset
+
+ is an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ identity matrix.
+ In general terms, the likelihood function 
+\begin_inset Formula $\left(L\left(\mathbf{y}|\mathbf{s}\right)\right)$
+\end_inset
+
+ characterizes the misfit between model forecasts and observations while
+ the prior pdf 
+\begin_inset Formula $\left(p\left(\mathbf{s}\right)\right)$
+\end_inset
+
+ defines a characteristic (such as smoothness or continuity) that is assumed
+ to apply to the parameter field.
+ The prior pdf also serves the role of regularization.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in The best estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ maximizes the posterior pdf.
+ A computationally efficient method to find the best estimates of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\hat{\mathbf{s}}\mbox{ and }\mathbf{\hat{\beta}}\mbox{, respectively}\right)$
+\end_inset
+
+ is through 
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:bestest}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in which is the superposition of the prior mean (first term) and an innovatio
+n term which considers deviations of the predictions from the observations
+ (second term).
+ In this context, 
+\begin_inset Formula $\beta$
+\end_inset
+
+ in the first term is not the prior mean, but is the best estimate of the
+ mean (mapped onto the parameter field through the 
+\begin_inset Formula $m\times p$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ matrix) while the second term is fluctuations about the estimated mean.
+ 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ in the second term (often referred to as the 
+\begin_inset Formula $n\times m$
+\end_inset
+
+ Jacobian, sensitivity, or susceptibility matrix) is the sensitivity of
+ observation values to parameter values 
+\begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
+\end_inset
+
+, which can be calculated using either finite difference or adjoint-state
+ methods.
+ In bgaPEST, finite-difference calculations for 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ are calculated using PEST whereas adjoint-state calculations depend on
+ the specific model being used and must be calculated using an external
+ program.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in
+\end_layout
+
+\begin_layout Standard
+The values for 
+\begin_inset Formula $\mathbf{\hat{\beta}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\xi}$
+\end_inset
+
+ are found by solving the 
+\begin_inset Formula $(n+p)\times(n+p)$
+\end_inset
+
+ linear system of cokriging equations 
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{Q_{yy}}$
+\end_inset
+
+ is the 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ auto-covariance matrix of the observations, defined as 
+\begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
+\end_inset
+
+, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of observations, and 
+\begin_inset Formula $p$
+\end_inset
+
+ is the number of beta associations.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in In hydrogeologic applications, the numerical forward model is typically
+ nonlinear.
+ Further nonlinearity can be induced by using a logarithmic transformation,
+ which is a convenient way to enforce non-negativity on parameters and is
+ often an appropriate transformation for hydraulic conductivity parameters
+ in groundwater models.
+\end_layout
+
+\begin_layout Standard
+Provided that the nonlinearities introduced are not too extreme, a solution
+ can be obtained through successive linearizations following the quasi-linear
+ extension 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Kitanidis1995"
+
+\end_inset
+
+.
+ The forward model, 
+\begin_inset Formula $\mathbf{h(s)}$
+\end_inset
+
+ is expanded about the current best estimate of the parameters 
+\begin_inset Formula $\mathbf{\tilde{s}}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\mathbf{h}(\mathbf{s})\mathbf{\approx h}(\mathbf{\tilde{s}})\mathbf{+\tilde{H}}(\mathbf{s-\tilde{s}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{\tilde{H}}$
+\end_inset
+
+, as a function of 
+\begin_inset Formula $\mathbf{\tilde{s,}}$
+\end_inset
+
+ is evaluated at each linearization.
+ We assign the subscript 
+\begin_inset Formula $_{k}$
+\end_inset
+
+ to indicate iteration number, and correct the measurements for the 
+\begin_inset Formula $k^{th}$
+\end_inset
+
+ linearization as 
+\begin_inset Formula 
+\[
+\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}.
+\]
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in Then the cokriging equations (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging-1"
+
+\end_inset
+
+) are updated 
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\tilde{\mathbf{Q}}_{\mathbf{yy},k} & \tilde{\mathbf{H}}_{k}\mathbf{X}\\
+\mathbf{X}^{T}\tilde{\mathbf{H}}_{k}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}_{k}\\
+\hat{\mathbf{\beta}}_{k}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}_{k}^{'}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:iterations-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\tilde{\mathbf{Q}}_{\mathbf{yy},k}=\tilde{\mathbf{H}}_{k}\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}+\mathbf{R}$
+\end_inset
+
+ .
+ From this set of equations, the next estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\tilde{\mathbf{s}}_{k+1}=\mathbf{X\hat{\beta}}_{k}+\mathbf{Q_{ss}}\tilde{\mathbf{H}}_{k}^{T}\mathbf{\xi}_{k}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in This can be iterated until there is minimal difference in the parameter
+ estimates, or when there is minimal further improvement in the objective
+ function.
+ The objective function, which we seek to minimize, is 
+\begin_inset Formula $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
+\end_inset
+
+ which is equivalent to maximizing Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:BGA"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\Phi=\mathbf{-}\ln p\left(\mathbf{s|y}\right)=(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})+\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Line Search
+\end_layout
+
+\begin_layout Standard
+In some cases, numerical instability makes convergence difficult.
+ A line search is implemented in which a linear search is performed between
+ the most recent best estimate of the parameters 
+\begin_inset Formula $\left(\mathbf{\hat{s}}\right)$
+\end_inset
+
+ and the current linearization of the parameters 
+\begin_inset Formula $\left(\mathbf{\widetilde{\mathbf{s}}}\right)$
+\end_inset
+
+, seeking a parameter value that minimizes an objective function.
+\end_layout
+
+\begin_layout Standard
+The linesearch optimizes a single parameter, 
+\begin_inset Formula $\rho$
+\end_inset
+
+, along a linear dimension between 
+\begin_inset Formula $\mathbf{\hat{s}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\widetilde{\mathbf{s}}}$
+\end_inset
+
+ as 
+\begin_inset Formula 
+\[
+\mathbf{s}_{opt}=\mathbf{\mathbf{\hat{s}}}\rho+\mathbf{\widetilde{\mathbf{s}}}\left(1-\rho\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{s}_{opt}$
+\end_inset
+
+ minimizes the objective function, 
+\begin_inset Formula $\Phi,$
+\end_inset
+
+ using a Nelder-Mead simplex 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "see, e.g., "
+key "Press1992"
+
+\end_inset
+
+, which guarantees monotonic decrease in 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ over successive iterations.
+ It is recommended to limit the number of linesearch iterations to a relatively
+ low number, as the goal of handling weak linearity is balanced against
+ the computations required to perform the line search.
+ The greatest advantage is likely achieved in the first few (less than five)
+ iterations.
+ The role of the line search is not to find a minimum value of 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ because the nonlinearity of the overall problem prevents it.
+ Rather, the line search is meant to be a correction of search direction
+ for stability.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in
+\end_layout
+
+\begin_layout Subsection
+Parameter Field Anisotropy
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:anisotropy"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In distributed parameter fields, such as hydraulic conductivity in groundwater
+ models, it is common to encounter anisotropy along an axis that may or
+ not be aligned with the coordinate (x, y, z) axes.
+ bgaPEST allows the definition of anisotropy in a horizontal plane at any
+ angle from the x-axis and also in the vertical direction.
+ The general layout of horizontal anisotropy is illustrated in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:anisotropy"
+
+\end_inset
+
+.
+ The angle from the x-axis (specified in degrees) is defined by 
+\family typewriter
+horiz_angle
+\family default
+ and the amount of anisotropy is defined by 
+\family typewriter
+horiz_ratio
+\family default
+.
+ 
+\family typewriter
+p_max
+\family default
+ refers to the direction with maximum parameter values and 
+\family typewriter
+p_min
+\family default
+ refers to the direction of minimum parameter values.
+ The ratio is used to adjust the effective distance (and thereby the covariance
+ values) along that principal direction.
+ The user supplies values for 
+\family typewriter
+horiz_angle
+\family default
+ and 
+\family typewriter
+horiz_ratio
+\family default
+ for each beta association.
+ If some beta associations are not meant to exhibit anisotropy, the user
+ may simply set 
+\family typewriter
+horiz_ratio=1.0
+\family default
+.
+ If none of the beta associations exhibit anisotropy, the entire 
+\family typewriter
+parameter_anisotropy
+\family default
+ block can be eliminated by setting the algorithmic control variable 
+\family typewriter
+par_anisotropy=0
+\family default
+ which means the block, if present, is ignored.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/anisotropy.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:anisotropy"
+
+\end_inset
+
+Schematic diagram of horizontal anisotropy defining conventions for bgaPEST.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Anisotropy is introduced in the calculation of distances that are, then,
+ used in the calculation of the prior covariance matrix 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ discussed below.
+ For every pair of points, they must first be rotated into the principal
+ direction orientation.
+ This is accomplished using a rotation matrix: 
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+x_{rot,i}\\
+y_{rot,i}
+\end{array}\right]=\left[\begin{array}{cc}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{array}\right]\left[\begin{array}{c}
+x_{i}\\
+y_{i}
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $i$
+\end_inset
+
+ indicates the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ point of the pair 
+\begin_inset Formula $\left(i=1,2\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is the angle (in degrees) specified by 
+\family typewriter
+horiz_angle
+\family default
+, 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+ are the point coordinates in the original coordinate system, and 
+\begin_inset Formula $x_{rot}$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{rot}$
+\end_inset
+
+ are the location projected into the coordinate system corresponding to
+ the orientation of horizontal anisotropy.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in Once this projection is made, the horizontal distance is calculated
+ as 
+\begin_inset Formula 
+\[
+distance=\sqrt{\left(x_{rot,1}-x_{rot,2}\right)^{2}+\texttt{{horiz\_ratio}\ensuremath{\times}}\left(y_{rot,1}-y_{rot,2}\right)^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For three-dimensional parameter fields, a second anisotropy ratio may be
+ specified as 
+\family typewriter
+vertical_ratio
+\family default
+.
+ In the vertical direction, no angle is specified, so the rotation step
+ is not required and distance is calculated as 
+\begin_inset Formula 
+\[
+distance=\sqrt{\begin{array}{c}
+\left(x_{rot,1}-x_{rot,2}\right)^{2}\\
++\texttt{{horiz\_ratio}\ensuremath{\times}}\left(y_{rot,1}-y_{rot,2}\right)^{2}\\
++\texttt{{vertical\_ratio}\ensuremath{\times}}\left(z_{rot,1}-z_{rot,2}\right)^{2}
+\end{array}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Prior-Probability-Density"
+
+\end_inset
+
+Prior Probability Density Function
+\end_layout
+
+\begin_layout Standard
+The prior pdf of 
+\series bold
+s
+\series default
+ can be characterized as multi-Gaussian through its mean and covariance.
+ The 
+\begin_inset Formula $(m\times1)$
+\end_inset
+
+ unknown parameter vector, 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+, is modeled as a random process with mean 
+\begin_inset Formula 
+\begin{equation}
+E[\mathbf{s}]=\mathbf{X}\mathbf{\beta}\label{eq:Es}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $E[\cdot]$
+\end_inset
+
+ indicates expected value, 
+\begin_inset Formula $m$
+\end_inset
+
+ is the number of parameters, 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ is a 
+\begin_inset Formula $(p\times1)$
+\end_inset
+
+ vector of drift coefficients, and 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ is an 
+\begin_inset Formula $(m\times p)$
+\end_inset
+
+ matrix of base functions.
+ In the absence of prior drift, the 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ are the beta association mean values and 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ is a selection matrix mapping each value in 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ into their appropriate beta association.
+ 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ contains all zeros except for 
+\series bold
+
+\begin_inset Formula $\mathbf{X}_{ij}^{th}$
+\end_inset
+
+
+\series default
+ element, which maps the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ parameter to the 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ beta association, that contains the value of one.
+ Subdivision into beta associations within distributed parameter domains
+ have been critical to success in hydrogeologic settings which include strong
+ contrasts in parameter values indicative of geologic contacts [see e.g.
+ 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "fienenEtal2004"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "FienenWRR2008"
+
+\end_inset
+
+].
+ Prior drift is accounted for in 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ through trends expressed in the nonzero terms, although this is not currently
+ implemented in bgaPEST.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in The prior covariance 
+\begin_inset Formula $(\mathbf{Q_{ss}})$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ for a known 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\mathbf{Q_{ss}(}\mathbf{\theta})=E[(\mathbf{s}\mathbf{-}\mathbf{X\beta})(\mathbf{s}\mathbf{-}\mathbf{X\beta})^{T}]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ is a covariance function with structural parameters 
+\begin_inset Formula $\mathbf{\theta}.$
+\end_inset
+
+ In bgaPEST, allowable covariance functions 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in include: 
+\end_layout
+
+\begin_layout Enumerate
+the nugget 
+\begin_inset Formula 
+\[
+\mathbf{R}\left(\mathbf{d}\right)=\sigma^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+and the exponential covariance function 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{R}(\mathbf{d})=\sigma^{2}\mathrm{exp}(\mathbf{-}\frac{\left|\mathbf{d}\right|}{\ell})\label{eq:exp_GCF}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\left|\mathbf{d}\right|$
+\end_inset
+
+ is separation distance, 
+\begin_inset Formula $\sigma^{2}$
+\end_inset
+
+ is variance, and 
+\begin_inset Formula $\ell$
+\end_inset
+
+ is integral scale.
+ If the integral scale is set such that 
+\begin_inset Formula $\ell$
+\end_inset
+
+>
+\begin_inset Formula $\mathrm{max}(\left|\mathbf{d}\right|)$
+\end_inset
+
+ we can substitute 
+\begin_inset Formula $\sigma^{2}=\theta\ell$
+\end_inset
+
+ and restate Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:exp_GCF"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{Q_{ss}}(\mathbf{h},\theta)=\theta\ell\mathrm{exp}(-\frac{\mathbf{\left|\mathbf{d}\right|}}{\ell}).\label{eq:Qss}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can also set 
+\begin_inset Formula $\ell=10\times\mathrm{max(\mathbf{\left|d\right|})}$
+\end_inset
+
+ so the behavior of the covariance function will be as a linear variogram
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "FienenWRR2008"
+
+\end_inset
+
+ which enforces continuity at a scale determined by the single free structural
+ parameter 
+\begin_inset Formula $\theta.$
+\end_inset
+
+ The motivation for this covariance function choice is to impart minimal
+ assumptions about parameter structure onto the solution.
+ The appropriate value of 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ is calculated through restricted maximum likelihood.
+ For the remainder of this derivation, 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ is assumed known.
+ In bgaPEST, as discussed below in the input instructions, either the exponentia
+l or linear variogram models may be used.
+\end_layout
+
+\begin_layout Standard
+Assembling the mean and covariance, the prior pdf is 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s}|\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}.\label{eq:prior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the case of no knowledge about the prior mean, the prior pdf of 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ can be modeled as uniform over all space as 
+\begin_inset Formula $p(\mathbf{\beta)\propto1}$
+\end_inset
+
+ and both 
+\series bold
+s
+\series default
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ are estimated together, so that the conditional distribution in Equation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:prior"
+
+\end_inset
+
+ is replaced by a joint distribution 
+\begin_inset Formula 
+\[
+p(\mathbf{s},\beta)\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta})^{T}\mathbf{Q_{ss}^{-1}}(\mathbf{s-X\beta})\right]}.
+\]
+
+\end_inset
+
+Frequently, at least diffuse knowledge about the prior mean is available
+ and can be modeled as multi-Gaussian with mean 
+\begin_inset Formula $\mathbf{\beta^{*}}$
+\end_inset
+
+ and covariance 
+\begin_inset Formula $\mathbf{Q_{\beta\beta}}$
+\end_inset
+
+.
+ Typically, 
+\begin_inset Formula $\mathbf{Q_{\beta\beta}}$
+\end_inset
+
+ is modeled as a diagonal matrix with variance values on the diagonal indicating
+ independence among the 
+\begin_inset Formula $\beta^{*}$
+\end_inset
+
+.
+ Incorporating the prior information yields a prior pdf for 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s})\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\right]}\label{eq:final_prior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{X\beta^{*}}$
+\end_inset
+
+ is the prior mean, and 
+\begin_inset Formula $\mathbf{G_{ss}=Q_{ss}+XQ_{\beta\beta}X^{\mathbf{T}}}$
+\end_inset
+
+ is the prior covariance 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "NowakCirpka2004"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in The incorporation of prior mean information, even assuming very
+ high variance values in 
+\begin_inset Formula $\mathbf{Q_{\beta\beta},}$
+\end_inset
+
+ can provide numerical stability without overly biasing the results.
+ In the original formulations of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995"
+
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{G_{ss}}=\mathbf{Q_{ss}}$
+\end_inset
+
+ and no prior covariance is supplied on the values for 
+\begin_inset Formula $\beta.$
+\end_inset
+
+ This behavior can be duplicated in bgaPEST by specifying prior_betas=0
+ in the input block for Prior Mean Control Variables.
+\end_layout
+
+\begin_layout Subsection
+Prior Covariance Matrix Storage Issues
+\end_layout
+
+\begin_layout Standard
+In underdetermined problems suitable for bgaPEST, the number of parameters
+ can be very large.
+ The prior covariance matrix discussed above can, therefore, grow to such
+ large dimensions that it cannot be practically stored in computer memory.
+ However, two techniques are provided to alleviate some of this storage
+ stress: compression and Toeplitz transformation.
+\end_layout
+
+\begin_layout Standard
+Compression takes advantage of the fact that values in the 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix relating parameters in different beta associations, by definition,
+ have the value of zero.
+ As a result, a general 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix can be viewed as a partitioned matrix of nonzero blocks 
+\begin_inset Formula $\left(\mathbf{G}_{\mathbf{ss},\beta i}\right)$
+\end_inset
+
+ and zero blocks 
+\begin_inset Formula 
+\[
+\mathbf{G}_{\mathbf{ss}}=\left[\begin{array}{cccc}
+\mathbf{G}_{\mathbf{ss},\beta1} & \mathbf{0} & \mathbf{0} & \mathbf{0}\\
+\mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta2} & \mathbf{0} & \mathbf{0}\\
+\mathbf{0} & \mathbf{0} & \ddots & \mathbf{0}\\
+\mathbf{0} & \mathbf{0} & \mathbf{0} & \mathbf{G}_{\mathbf{ss},\beta p}
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There is no need to store the zero elements provided that accommodations
+ are made to avoid multiplications that involve the zeros.
+ These accommodations have been made in bgaPEST and compression is, therefore,
+ allowed.
+\end_layout
+
+\begin_layout Standard
+In cases where spacial spacing is constant in respective directions, 
+\begin_inset Formula $\mathbf{G}_{\mathbf{ss},\beta i}$
+\end_inset
+
+ is a block Toeplitz matrix 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "toeplitz"
+
+\end_inset
+
+.
+ A square, symmetric 
+\begin_inset Formula $j\times j$
+\end_inset
+
+ matrix is Toeplitz in form if it has diagonals that all have the same value
+ as in this example 
+\begin_inset Formula 
+\[
+\mathbf{T}=\text{\ensuremath{\left[\begin{array}{ccccc}
+t_{0} & t_{1} & \dots\  & t_{j-2} & t_{j-1}\\
+t_{1} & t_{0} & t_{1} & \ddots\  & t_{j-2}\\
+\vdots\  & t_{1} & t_{0} & \ddots\  & \vdots\\
+t_{j-2} & \ddots\  & \ddots\  & \ddots\  & t_{1}\\
+t_{j-1} & t_{j-2} & \dots\  & t_{1} & t_{0}
+\end{array}\right]}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This matrix has the properties that there are only 
+\begin_inset Formula $j$
+\end_inset
+
+ unique values, and these values occur in a regular order such that only
+ a vector of length 
+\begin_inset Formula $j$
+\end_inset
+
+ needs to be stored from which individual rows can be constructed to perform
+ matrix multiplication operations.
+ The spacing, as indicated above, must be constant.
+ For example, in a spatial model such as properties in a groundwater model,
+ 
+\begin_inset Formula $\Delta x,$
+\end_inset
+
+ 
+\begin_inset Formula $\Delta y,$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta z$
+\end_inset
+
+ must be constant, but these values do not need to be equal to each other.
+ While this is restrictive in the sense that it implies a regular grid that
+ may not correspond to geometry in the field.
+ However, the regular grid required to take advantage of Toeplitz storage
+ and operations can be assigned to one beta association with a surrounding,
+ irregular grid put in another beta association with fewer parameter values.
+\end_layout
+
+\begin_layout Standard
+In order to use Toeplitz structure in three dimensions, there must be a
+ three-level embedding of Toeplitz matrices 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "MarcoDiss"
+
+\end_inset
+
+.
+ The first level corresponds to the model layers, the second level corresponds
+ to model rows, and the third level corresponds to model columns.
+ Inspection of the schematic example in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:toep"
+
+\end_inset
+
+ shows that every distinct value represented in the entire matrix is found
+ in the first (leftmost) column.
+ Cycling of rows or columns, relative to the single stored vector, can be
+ used to reconstruct any row or column of the main matrix to be used in
+ multiplication operations.
+ In bgaPEST, a combination of Toeplitz and complete blocks can make up the
+ 
+\begin_inset Formula $\mathbf{G_{ss}}$
+\end_inset
+
+ matrix in Compressed form, as discussed above.
+\end_layout
+
+\begin_layout Standard
+For even larger problems (more parameters) specialized Fourier tranform-based
+ functions may be useful to speed up the computations made with compressed
+ matrices 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Nowak2003,NowakCirpka2004"
+
+\end_inset
+
+.
+ The restriction of regular grid spacing can also be relaxed using a Karhunen-Lo
+eve transform 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "LiCirpka2006"
+
+\end_inset
+
+.
+ Both of these advances may be considered as future improvements to bgaPEST
+ but are not currently implemented.
+\end_layout
+
+\begin_layout Standard
+Detailed input instructions for bgaPEST are presented in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Input-Instructions"
+
+\end_inset
+
+.
+ It is important to note, however, that if Toeplitz compression is invoked,
+ parameters must be listed in the 
+\family typewriter
+.bgp
+\family default
+ input file in order, sorted first by layer, then by column, and finally
+ by row.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/toeplitz_3_level.pdf
+	scale 55
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:toep"
+
+\end_inset
+
+Schematic graphical visualization of a three-level embedded set of Toeplitz
+ blocks in a covariance matrix (modified from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "MarcoDiss"
+
+\end_inset
+
+).
+ The smallest squares represent individual matrix entries (values) and the
+ colors correspond to distinct values.
+ In this synthetic example, it is assumed that there are three rows, three
+ columns, and three layers in the underlying model.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Likelihood Function
+\end_layout
+
+\begin_layout Standard
+The parameters 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ are related to observations 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ through a measurement equation 
+\begin_inset Formula 
+\[
+\mathbf{y=h(s)+v}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ is an 
+\begin_inset Formula $(n\times1)$
+\end_inset
+
+ vector of observations, such as hydraulic heads or solute concentrations,
+ 
+\begin_inset Formula $\mathbf{h(s)}$
+\end_inset
+
+ is a transfer function or numerical model that calculates predictions which
+ are collocated spatially and temporally with the observation values, and
+ 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ is an 
+\begin_inset Formula $(n\times1)$
+\end_inset
+
+ vector of epistemic uncertainty terms, modeled as a random process with
+ zero mean and covariance matrix 
+\begin_inset Formula $\mathbf{R.}$
+\end_inset
+
+ Epistemic uncertainty is the result of imperfect or sparse measurements
+ and an incomplete or inappropriate conceptual model 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "p. 4"
+key "Rubin2003"
+
+\end_inset
+
+.
+ The epistemic uncertainty terms are assumed independent and uncorrelated
+ so 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{R=\sigma_{R}^{2}W}\label{eq:R}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is the epistemic uncertainty parameter and 
+\series bold
+
+\begin_inset Formula $\mathbf{W}$
+\end_inset
+
+
+\series default
+ is an 
+\begin_inset Formula $(n\times n)$
+\end_inset
+
+ diagonal weight matrix in which each element is 
+\begin_inset Formula $\mathbf{W}_{ii}=\frac{1}{\omega_{i}^{2}}$
+\end_inset
+
+ where 
+\begin_inset Formula $\omega_{i}$
+\end_inset
+
+ is the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ weight, specified by the user.
+ The purpose of the values of 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is to allow for different confidence in different individual observations
+ or groups of observations.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in In reality, the component of epistemic uncertainty due to measurement
+ error is likely uncorrelated, but the component due to modeling and conceptual
+ uncertainty is likely systematic and correlated 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "GaganisSmith2001"
+
+\end_inset
+
+.
+ A significant portion of this uncertainty may be reduced by not lumping
+ parameters into homogeneous zones 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "GallagherDoherty2007"
+
+\end_inset
+
+, and the means to characterize the structure of 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ are rarely available.
+ If information about 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ is available, however, it could be included and Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:R"
+
+\end_inset
+
+ could be replaced by a more complicated matrix.
+ This option is currently not available in bgaPEST, however.
+ Proceeding with Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:R"
+
+\end_inset
+
+ the likelihood function, assumed multi-Gaussian, is 
+\begin_inset Formula 
+\begin{equation}
+L(\mathbf{y|s})\propto\mathrm{exp\left[-\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right].}\label{eq:likelihood}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The structural parameter for the likelihood function is 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ and is calculated along with 
+\begin_inset Formula $\theta$
+\end_inset
+
+ using restricted maximum likelihood.
+\end_layout
+
+\begin_layout Subsection
+Posterior Probability Density Function
+\end_layout
+
+\begin_layout Standard
+Applying Bayes' theorem with the product of Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:final_prior"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:likelihood"
+
+\end_inset
+
+ yields the posterior pdf 
+\begin_inset Formula 
+\begin{equation}
+p(\mathbf{s|y})\propto\mathrm{exp\left[\mathbf{-}\frac{1}{2}(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})\mathbf{-}\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}\right]}\label{eq:posterior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The best estimate of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ maximizes the posterior pdf.
+ A computationally efficient method to find the best estimates of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\beta}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(\hat{\mathbf{s}}\mbox{ and }\mathbf{\hat{\beta}}\mbox{, respectively}\right)$
+\end_inset
+
+ is through 
+\begin_inset Formula 
+\begin{equation}
+\hat{\mathbf{s}}=\mathbf{X\hat{\beta}+Q_{ss}H^{\mathbf{T}}\xi}\label{eq:shat}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in which is the superposition of the prior mean (first term) and an innovatio
+n term which considers deviations of the model outputs from the observations
+ (second term).
+ 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ in the second term (often referred to as the Jacobian, sensitivity, or
+ susceptibility matrix) is the sensitivity of observation values to parameter
+ values 
+\begin_inset Formula $\mbox{where }H_{ij}=\frac{\partial\mathbf{h}\left(\mathbf{s}\right)_{i}}{\partial\mathbf{s}_{j}}$
+\end_inset
+
+ is calculated using either finite-difference or adjoint-state methods.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in The values for 
+\begin_inset Formula $\mathbf{\hat{\beta}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{\xi}$
+\end_inset
+
+ are found by solving the 
+\begin_inset Formula $(n+p)\times(n+p)$
+\end_inset
+
+ linear system of cokriging equations 
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{Q_{yy}}$
+\end_inset
+
+ is the auto-covariance matrix of the observations, defined as 
+\begin_inset Formula $\mathbf{HQ_{ss}H^{\mathbf{T}}+R}$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in
+\end_layout
+
+\begin_layout Subsection
+Quasi-Linear Extension
+\end_layout
+
+\begin_layout Standard
+As discussed by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+, we must adjust calculations of the posterior pdf to account for nonlinearity.
+ To do this, we expand the solution in a first-order Taylor expansion, resulting
+ in an updated set of cokriging equations from Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+\mathbf{Q_{yy}} & \mathbf{HX}\\
+\mathbf{X}^{T}\mathbf{H}^{T} & \mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}
+\end{array}\right]\left[\begin{array}{c}
+\mathbf{\xi}\\
+\mathbf{\hat{\beta}}
+\end{array}\right]=\left[\begin{array}{c}
+\mathbf{y}-\mathbf{h}\left(\mathbf{\tilde{s}}\right)+\mathbf{H}\tilde{\mathbf{s}}\\
+\mathbf{-}\mathbf{Q_{\beta\beta}^{-1}}\beta^{*}
+\end{array}\right]\label{eq:cokriging_nonlinear}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At each iteration (later referred to as inner iterations), the system in
+ Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:cokriging_nonlinear"
+
+\end_inset
+
+ is solved, resulting in an updated estimate of 
+\begin_inset Formula $\hat{\mathbf{s}}$
+\end_inset
+
+ calculated through Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:shat"
+
+\end_inset
+
+.
+ At each iteration, the objective function, based on minimizing the negative
+ logarithm of the posterior pdf (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:posterior"
+
+\end_inset
+
+) is evaluated using the current value of 
+\begin_inset Formula $\mathbf{\hat{s}}$
+\end_inset
+
+: this is equivalent to finding the values of 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ that 
+\emph on
+maximize 
+\emph default
+the posterior probability.
+ Switching to a minimization problem and taking the logarithm has computational
+ advantages.
+\end_layout
+
+\begin_layout Standard
+The objective function, then, is 
+\begin_inset Formula 
+\begin{equation}
+\Phi_{T}=\Phi_{M}+\Phi_{R}\label{eq:phiT}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\Phi_{T}$
+\end_inset
+
+ is the total objective function, 
+\begin_inset Formula $\Phi_{M}$
+\end_inset
+
+ is the misfit objective function (also corresponding to the likelihood
+ function) and 
+\begin_inset Formula $\Phi_{R}$
+\end_inset
+
+ is the regularization objective function (also corresponding to the prior
+ pdf).
+ The components of Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:phiT"
+
+\end_inset
+
+ are 
+\begin_inset Formula 
+\[
+\Phi_{M}=\frac{1}{2}\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{\hat{s}})\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and 
+\begin_inset Formula 
+\[
+\Phi_{R}=\frac{1}{2}(\mathbf{\hat{s}-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{\hat{s}-X\beta^{*}})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where both the negative signs and exponentiation are obviated by taking
+ the negative logarithm of 
+\begin_inset Formula $p\left(\mathbf{s}|\mathbf{y}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in 
+\end_layout
+
+\begin_layout Subsection
+Implementation of Partitions into Beta Associations
+\end_layout
+
+\begin_layout Standard
+The concept of beta associations is discussed above and details of their
+ implementation are explained here.
+ First, the prior covariance matrix 
+\begin_inset Formula $\mathbf{Q_{ss}}$
+\end_inset
+
+ is censored by assigning a value of zero to each element which characterizes
+ covariance between cells of different regions or parameter types, as defined
+ by beta associations.
+ It is not required that the covariance model be the same for each beta
+ association.
+ If different covariance models are used for different zones, this is reflected
+ in the appropriate parts of 
+\begin_inset Formula $\mathbf{Q_{ss}}.$
+\end_inset
+
+ Furthermore, in some applications, a single structural parameter, 
+\begin_inset Formula $\theta,$
+\end_inset
+
+ may be estimated and applied to all of 
+\begin_inset Formula $\mathbf{Q_{ss}.}$
+\end_inset
+
+ In other cases, and necessarily if the covariance model differs in various
+ beta association, multiple elements of 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ are estimated.
+\end_layout
+
+\begin_layout Standard
+A distinct prior mean parameter 
+\begin_inset Formula $\mathbf{\beta^{*}}$
+\end_inset
+
+ is assigned for each beta association, and the matrix 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ (Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Es"
+
+\end_inset
+
+) is determined as explained in above.
+ In cases where the mean of each zone is completely unknown, no values for
+ 
+\begin_inset Formula $\mathbf{\beta^{*}}$
+\end_inset
+
+ are provided, but the 
+\begin_inset Formula $\mathbf{X}$
+\end_inset
+
+ matrix is constructed nonetheless and in both cases a value of 
+\begin_inset Formula $\mathbf{\hat{\beta}}$
+\end_inset
+
+ is calculated for each beta association.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Structural-Parameters"
+
+\end_inset
+
+Structural Parameters and Restricted Maximum Likelihood
+\end_layout
+
+\begin_layout Standard
+A vital element to the method outlined above is proper selection of the
+ structural parameters.
+ Structural parameters--also called hyperparameters--or nuisance parameters,
+ are the parameters that characterize the covariance structure of both the
+ epistemic uncertainty related to the observations, and the inherent variability
+ of the parameters.
+ In this work, structural parameters may include the epistemic uncertainty
+ term in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:R"
+
+\end_inset
+
+ 
+\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
+\end_inset
+
+ and the prior pdf variogram parameters in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Qss"
+
+\end_inset
+
+ 
+\begin_inset Formula $\left(\theta\right).$
+\end_inset
+
+ These parameters are estimated using Restricted Maximum Likelihood consistent
+ with the approaches of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "KitanidisVomvoris1983"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "LiCirpka2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Applying Bayes' theorem to the structural parameters, given the measurements,
+ we calculate 
+\begin_inset Formula 
+\[
+p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\propto L\left(\mathbf{y}_{k}^{'}|\theta\right)p\left(\mathbf{\theta}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The likelihood function evaluates how closely the observations and predictions
+ match, given the current linearization and the current set of structural
+ parameters 
+\begin_inset Formula 
+\begin{equation}
+L\left(\mathbf{y}_{k}^{'}|\theta\right)\propto\mathrm{det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]\label{eq:theta_like}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0 in where 
+\begin_inset Formula $\mathbf{G_{yy}}$
+\end_inset
+
+ is the measurement autocovariance defined as 
+\begin_inset Formula 
+\[
+\mathbf{G_{yy}}=\mathbf{Q_{yy}}+\mathbf{HXQ_{\beta\beta}X}^{T}\mathbf{H}^{T}.
+\]
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+parindent
+\end_layout
+
+\end_inset
+
+ 0.25 in
+\end_layout
+
+\begin_layout Standard
+Note that 
+\begin_inset Formula $\mathbf{Q_{yy}}$
+\end_inset
+
+ is intrinsically dependent upon the values of 
+\begin_inset Formula $\theta.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Prior information about the structural parameters may also be included,
+ with prior mean 
+\begin_inset Formula $\mathbf{\theta^{*}}$
+\end_inset
+
+ and covariance matrix 
+\begin_inset Formula $\mathbf{Q_{\theta\theta}}$
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\begin{equation}
+p\left(\mathbf{\theta}\right)\propto\mathrm{det}\left(\mathbf{Q_{\theta\theta}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)\right]\label{eq:theta_prior}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The posterior pdf is the product of Equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_prior"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:theta_like"
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\propto\mathrm{\mathrm{det}\left(\mathbf{Q_{\theta\theta}}\right)^{-\frac{1}{2}}det}\left(\mathbf{G_{yy}}\right)^{-\frac{1}{2}}\exp\left[\begin{array}{c}
+-\frac{1}{2}\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)\\
+-\frac{1}{2}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To find the most likely values for 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ we minimize 
+\begin_inset Formula $-\ln\left(p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)\right)$
+\end_inset
+
+ resulting in the objective function 
+\begin_inset Formula 
+\[
+\Phi_{S}=\mathrm{\frac{1}{2}\ln\left(\mathbf{\det\left(G_{yy}\right)}\right)}+\frac{1}{2}\left[\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)+\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)^{T}\mathbf{G_{yy}^{-1}}\left(\mathbf{y}_{k}^{'}-\mathbf{HX\beta^{*}}\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+where unchanging quantities are absorbed into the constant of proportionality
+ including 
+\begin_inset Formula $\det\left(\mathbf{Q}_{\mathbf{\theta\theta}}\right)^{-\frac{1}{2}}$
+\end_inset
+
+ .
+ The optimal values for 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ are found using the Nelder-Mead simplex algorithm 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "p. 408-410"
+before "e.g. "
+key "Press1992"
+
+\end_inset
+
+.
+ Non-negativity in the 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ parameters is enforced using a power transformation 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "BoxCox1964"
+
+\end_inset
+
+.
+ As indicated by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Kitanidis1995"
+
+\end_inset
+
+, nonlinearity requires that structural parameters are estimated iteratively
+ with the estimation of hydraulic parameters.
+ This is accomplished through a sequence of coupled inversion as follows.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Initialize hydraulic parameters as 
+\begin_inset Formula $\left(\mathbf{s_{0}}\right)$
+\end_inset
+
+ and structural parameters 
+\begin_inset Formula $\left(\mathbf{\theta_{0}}\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Solve for a new estimate of hydraulic parameters 
+\begin_inset Formula $\left(\hat{\mathbf{s}}\right)$
+\end_inset
+
+ holding 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ constant.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Solve for a new estimate of structural parameters 
+\begin_inset Formula $\left(\mathbf{\hat{\theta}}\right)$
+\end_inset
+
+ holding 
+\begin_inset Formula $\mathbf{s}$
+\end_inset
+
+ constant.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Repeat steps 2 and 3 until the change in 
+\begin_inset Formula $\mathbf{\theta}$
+\end_inset
+
+ in two consecutive outer iterations of steps 2 and 3 decreases below a
+ specified tolerance.
+ 
+\end_layout
+
+\begin_layout Subsection
+Posterior Covariance
+\end_layout
+
+\begin_layout Standard
+The posterior covariance can be calculated based on the inverse of the Hessian
+ of the objective function 
+\begin_inset CommandInset citation
+LatexCommand citep
+before "for example, "
+key "NowakCirpka2004"
+
+\end_inset
+
+.
+ In closed form, the equation for the full posterior covariance matrix is:
+ 
+\begin_inset Formula 
+\[
+\mathbf{V}=\mathbf{\mathbf{G}_{ss}}-\mathbf{G_{sy}G}_{\mathbf{yy}}^{-1}\mathbf{G}_{\mathbf{sy}}^{T}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{G_{sy}}=\mathbf{G_{ss}H}^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G_{yy}}=\mathbf{HG_{ss}H}^{T}+\mathbf{R}$
+\end_inset
+
+.
+ In the case where compression of 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is not used, the full matrix 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is calculated and reported.
+ Where compression of 
+\begin_inset Formula $\mathbf{Q}$
+\end_inset
+
+ is used, however, the diagonal of 
+\begin_inset Formula $\mathbf{V}$
+\end_inset
+
+ is returned as a vector of variances on parameters.
+ This information is reported in a separate file, but also used to calculated
+ posterior 95% confidence intervals.
+ The full matrix, when reported, can be used to calculate conditional realizatio
+ns 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Kitanidis1995,Kitanidis1996ana"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+References Cited
+\end_layout
+
+\begin_layout Section
+Appendix 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:example1"
+
+\end_inset
+
+Single Layer Example Application
+\end_layout
+
+\begin_layout Standard
+The first example application presented is a single-layer groundwater model.
+ The forward model is a steady-state, MODFLOW-2005 model with 21 rows and
+ 21 columns with constant row and column spacing of 1 m.
+ The hydraulic conductivity field is heterogeneous, varying from 
+\begin_inset Formula $6.068\times10^{-05}$
+\end_inset
+
+ to 
+\begin_inset Formula $0.048$
+\end_inset
+
+ meters/day.
+ The true hydraulic conductivity field is depicted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:trueK1L"
+
+\end_inset
+
+.
+ Observations of head at the locations shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:residL1-sigfixed"
+
+\end_inset
+
+ were used for parameter estimation.
+ To generate observations representing what would be field measurements
+ in a non-synthetic case, the model was run forward using the true synthetic
+ hydraulic conductivity values and the resulting head values were perturbed
+ with normally distributed noise with mean of zero and standard deviation
+ of 0.01 m.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/TrueK.pdf
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+True hydraulic conductivity field for the single layer example application.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:trueK1L"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The boundary conditions are constant head, highest at the northwest corner
+ and linearly decreasing to the southeast, as depicted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:stheads1L"
+
+\end_inset
+
+.
+ There is a well at row 13, column 6, extracting water at a constant rate
+ of 0.231 liters/minute.
+ No recharge is simulated in this case.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/starting_heads.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:stheads1L"
+
+\end_inset
+
+Boundary condition (constant head) for the single layer example application.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Two options exist to calculate sensitivity (Jacobian) matrices: an experimental
+ adjoint-state version of MODFLOW, or finite difference calculations using
+ the python linkage and PEST, as capable in the released version of bgaPEST.
+ Two scenarios were tested as well: a case in which the epistemic error
+ term 
+\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
+\end_inset
+
+ is estimated, and one where 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is fixed at a value approximately two orders of magnitude higher thanthe
+ artificial noise used to corrupt the synthetic 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ values previously generated by the model--
+\begin_inset Formula $1.0m$
+\end_inset
+
+.
+ This level of epistemic uncertainty is intended to be unrealistically high,
+ but also encompasses both measurement and modeling error and was used to
+ demonstrate a case where overfitting would be avoided at all costs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/1_lay_best_pars_sigma_fixed.pdf
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:KL1-sigfixed"
+
+\end_inset
+
+Parameters (hydraulic conductivity field) estimated for the 1 layer example
+ application using bgaPEST with 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ fixed at 
+\begin_inset Formula $1.0m$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/1_layer_fixed_sigma_residuals.pdf
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:residL1-sigfixed"
+
+\end_inset
+
+Squared residuals, plotted at their locations in the model, for the 1 layer
+ example application using bgaPEST with 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ fixed at 
+\begin_inset Formula $1.0m$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:KL1-sigfixed"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:residL1-sigfixed"
+
+\end_inset
+
+ show the estimated parameter field and the corresponding squared residuals,
+ respectively, for the case in which 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is fixed at 
+\begin_inset Formula $1.0m$
+\end_inset
+
+.
+ In this case, the relatively high value ascribed to epistemic uncertainty
+ certainly prevents overfitting.
+ The solution, in fact, is quite smooth, and the linear variogram slope
+ parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ was estimated to be 
+\begin_inset Formula $3.66\times10^{-01}$
+\end_inset
+
+.
+ Appropriately, the most structure expressed in the parameter field, and
+ the correspondingly lowest residuals, are found in the vicinity of the
+ pumping well where the greatest stress (and therefore the greatest amount
+ of information) is found.
+ This phenomenon is discussed in further detail by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "FienenWRR2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The smoothness of the parameter field is as expected by the bgaPEST algorithm
+ and consistent with the maximum entropy property of the algorithm.
+ In other words, the true hydraulic conductivity field is quite rough but
+ the algorithm estimates parameters that smooth over these rough areas.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+smearing
+\begin_inset Quotes erd
+\end_inset
+
+ of higher values across a larger area than in reality is also consistent
+ with maximum entropy and also information content--an anomalous region
+ of high hydraulic conductivity emanates from the area of the well due to
+ the focus of stress (and therefore information) near the pumping well.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/1_lay_best_pars_sigma_estimated.pdf
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:KL1-sigEstimated"
+
+\end_inset
+
+Parameters (hydraulic conductivity field) estimated for the 1 layer example
+ application using bgaPEST with 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ estimated by the bgaPEST algorithm.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/1_layer_estimated_sigma_residuals.pdf
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:residL1-sigEstimated"
+
+\end_inset
+
+Squared residuals, plotted at their locations in the model, for the 1 layer
+ example application using bgaPEST with 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ estimated.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:KL1-sigEstimated"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:residL1-sigEstimated"
+
+\end_inset
+
+ show the estimated parameter field and the corresponding squared residuals,
+ respectively, for the case in which 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is estimated by the bgaPEST algorithm.
+ The estimated value for epistemic uncertainty was 
+\begin_inset Formula $1.007\times10^{-01}$
+\end_inset
+
+ and the variogram slope 
+\begin_inset Formula $\left(\theta\right)$
+\end_inset
+
+ was 
+\begin_inset Formula $2.836\times10^{-01}.$
+\end_inset
+
+ These results are similar to the case in which 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ was held constant.
+ The parameter field shows a similar shape and smoothness level, although
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:KL1-sigEstimated"
+
+\end_inset
+
+ shows a bit more structure (roughness).
+ Correspondingly, the residuals are generally lower.
+ A key point here, however, is that the pattern of the residuals is similar
+ and, again, reflects the general information content of the stress induced
+ on the system.
+ 
+\end_layout
+
+\begin_layout Subsection
+References Cited
+\end_layout
+
+\begin_layout Section
+Appendix 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:example2"
+
+\end_inset
+
+Three Layer Example Application
+\end_layout
+
+\begin_layout Standard
+A three layer groundwater model is presented to explore the use of multiple
+ beta associations, anisotropy, and a larger number of parameters.
+ In this case, the model is 40 rows by 35 columns across three layers.
+ The row spacing is 2.0 m while the column spacing is 1.5 m.
+ The layers, from shallowest to deepest, are 1.8 m, 1.4 m, and 1.8 m in thickness,
+ respectively.
+ The disparate row, column, and layer spacing was used to test the Toeplitz
+ compression option.
+ The model has constant head boundaries on all sides (set at the same elevation-
+-60 meters) and a single well at row 18, column 17, extracting at 0.01 liters/min
+ute from each layer.
+ This low flow rate is not meant to represent typical field conditions,
+ but rather highlights what can be learned with even a very small stress
+ on the system.
+\end_layout
+
+\begin_layout Standard
+The true parameter field, shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3Ltruek"
+
+\end_inset
+
+, varies from 0.01 to 0.075 meters/day.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3_layer_TRUE_K_field.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "3Ltruek"
+
+\end_inset
+
+True synthetic hydraulic conductivity field for each layer in the three
+ layer example application.
+ Values are shown in natural logarithm space to make the differences more
+ visible.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Five cases are illustrated here, as summarized in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:3lay"
+
+\end_inset
+
+.
+ In all cases, each layer is treated as a separate beta association.
+ In each of these layers, the initial value for the prior structural parameter
+ (the linear variogram slope, 
+\begin_inset Formula $\theta$
+\end_inset
+
+) is 
+\begin_inset Formula $1.0\times10^{-5}$
+\end_inset
+
+.
+ Cases 1 and 2 illustrate how the level of fit (and, therefore, the degree
+ of roughness of the solution) can be influenced by adjusting the epistemic
+ uncertainty term 
+\begin_inset Formula $\left(\sigma_{R}^{2}\right)$
+\end_inset
+
+, so in these cases, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set at a fixed value.
+ In Case 3, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set low 
+\begin_inset Formula $\left(1.0\times10^{-5}\right)$
+\end_inset
+
+ and the restricted maximum likelihood algorithm is given the freedom to
+ estimate it.
+ This is to illustrate the best achievable fit that one might achieve given
+ the specific observation set provided without regard for overfitting.
+ In Cases 5 and 6, estimates are made with specification of anisotropy in
+ the prior covariance.
+ Inspection of the true parameter field in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "3Ltruek"
+
+\end_inset
+
+ suggests a possible correlation along the horizontal axis, indicative of
+ a channel feature.
+ In Cases 5 and 6, therefore, an arbitrarily chosen ratio of 100 is applied
+ with a rotation angle of zero.
+ In Case 5, like in Case 3, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is estimated to achieve the best possible fit, while in Case 6, 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.0\times10^{-1}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement !t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename tables/3_layer_tables_for_structural_parameters.pdf
+	scale 90
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:3lay"
+
+\end_inset
+
+Summary of the five cases investigated.
+ The table shows which structural parameters were estimated and fixed, and
+ also indicates anisotropy when used.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case1"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case1"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 1.
+ In this case, meant to be conservative with respect to overfitting, the
+ squared differences are smaller in magnitude than the specified value of
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(1.0\times10^{-1}\right)$
+\end_inset
+
+ and very little roughness in the solution is required to achieve the level
+ of fit desired.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3KL_case1.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case1"
+
+\end_inset
+
+Case 1: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.00\times10^{-01}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3L_resid_case1.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case1"
+
+\end_inset
+
+Case 1: Squared differences between modeled and 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.00\times10^{-01}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case2"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case2"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 2.
+ In this case, the specified value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ 
+\begin_inset Formula $\left(1.0\times10^{-2}\right)$
+\end_inset
+
+ is lower and , accordingly, the squared head differences are lower, and
+ more structure (roughness) is observed in the parameters, as expected.
+ Note that, in this case, even with very low residuals, the parameter fields
+ estimated are a smoothed representation of the 
+\begin_inset Quotes eld
+\end_inset
+
+truth.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3KL_case2.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case2"
+
+\end_inset
+
+Case 2: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.00\times10^{-02}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3L_resid_case2.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case2"
+
+\end_inset
+
+Case 2: Squared differences between modeled and 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.00\times10^{-02}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case3"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case3"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 3.
+ In this case, the value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is estimated by the restricted maximum likelihood value algorithm.
+ The head values match perfectly to machine precision, and the roughness
+ of the field is the greatest of Cases 1 through 3, as expected.
+ The major features of the 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ hydraulic conductivity field are reproduced by this solution although they
+ are smoothed, somewhat, as expected.
+ Importantly, while the highest hydraulic conductivity values in layer 2
+ are slightly offset to the west, no artifacts are introduced that would
+ be considered spurious in this solution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3KL_case3.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case3"
+
+\end_inset
+
+Case 3: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is initially 
+\begin_inset Formula $1.00\times10^{-05}$
+\end_inset
+
+ and estimated by bgaPEST at an optimal value of 
+\begin_inset Formula $7.79\times10^{-08}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3L_resid_case3.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case3"
+
+\end_inset
+
+Case 3: Squared differences between modeled and 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is initially 
+\begin_inset Formula $1.00\times10^{-05}$
+\end_inset
+
+ and estimated by bgaPEST at an optimal value of 
+\begin_inset Formula $7.79\times10^{-08}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case5"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case5"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 5.
+ In this case, the value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set at a very low value 
+\begin_inset Formula $\left(1.0\times10^{-4}\right)$
+\end_inset
+
+ to attempt to achieve excellent fit while introducing anisotropy with the
+ principal direction aligned with the horizontal axis.
+ In layer 1, a somewhat spurious artifact is found in the form of a high
+ hydraulic conductivity zone near the middle of the field.
+ The head targets almost match within machine precision, however, and all
+ other features are reasonable.
+ This highlights the fact that, within a single beta association, if anisotropy
+ is used, 
+\emph on
+all 
+\emph default
+features estimated will roughly correspond to that framework so, in a Bayesian
+ sense, the answer is 
+\emph on
+conditional 
+\emph default
+on the prior assumption that the anisotropy is an appropriate general characteri
+stic shape of the parameter field.
+ Such assumptions must be made cautiously.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3KL_case5.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case5"
+
+\end_inset
+
+Case 5: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is initially 
+\begin_inset Formula $1.00\times10^{-04}$
+\end_inset
+
+ and estimated by bgaPEST at an optimal value of 
+\begin_inset Formula $1.18\times10^{-05}$
+\end_inset
+
+.
+ Parameter anisotropy also invoked as described in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:3lay"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3L_resid_case5.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case5"
+
+\end_inset
+
+Case 5: Squared differences between modeled and 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is initially 
+\begin_inset Formula $1.00\times10^{-04}$
+\end_inset
+
+ and estimated by bgaPEST at an optimal value of 
+\begin_inset Formula $1.18\times10^{-05}$
+\end_inset
+
+.
+ Parameter anisotropy also invoked as described in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:3lay"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LK_case6"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3Lresid_case6"
+
+\end_inset
+
+ show the estimated hydraulic conductivity field and squared differences
+ between measured and observed head values, respectively, for Case 6.
+ In this case, the value of 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set at a the same value as Case 1 
+\begin_inset Formula $\left(1.0\times10^{-1}\right)$
+\end_inset
+
+ to compare a solution with and without anisotropy assumed.
+ Since anisotropy is a reasonable characteristic of the 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ field in this case, better fits are achieved (nearly an order of magnitude
+ lower residuals) and the general pattern of the parameter field is better
+ in Case 6 using anisotropy than in Case 1 without anisotropy.
+ This highlights the power that anisotropy can bring to a parameter estimation
+ problem when it is appropriate even when 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is set conservatively to avoid overfitting.
+ As discussed above, however, this will, in a sense, force the solution
+ to conform to such a shape, so it's use should be approached with caution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3KL_case6.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3LK_case6"
+
+\end_inset
+
+Case 6: Hydraulic conductivity fields estimated using bgaPEST compared to
+ the true, synthetic hydraulic conductivity field.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.00\times10^{-01}$
+\end_inset
+
+.
+ Parameter anisotropy also invoked as described in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:3lay"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename figures/3L_resid_case6.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:3Lresid_case6"
+
+\end_inset
+
+Case 6: Squared differences between modeled and 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ head values.
+ Symbol size qualitatively indicates magnitude while color scale quantifies
+ magnitude.
+ Locations of the circles indicate observation location in the model domain
+ in plan view.
+ 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ is held constant at 
+\begin_inset Formula $1.00\times10^{-01}$
+\end_inset
+
+.
+ Parameter anisotropy also invoked as described in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:3lay"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%
+\backslash
+subsection{References Cited}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Appendix 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:example3"
+
+\end_inset
+
+Reverse Flood Routing Example Application
+\end_layout
+
+\begin_layout Standard
+An example application of reverse flood routing in open channels is presented
+ in this section 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "doriareverserouting"
+
+\end_inset
+
+.
+ Reverse flood routing is useful to obtain hydrographs in upstream ungauged
+ stations by means of information available at downstream monitored sites.
+ The considered channel was prismatic and 20
+\begin_inset space ~
+\end_inset
+
+km long; the cross sections (spaced by 100
+\begin_inset space ~
+\end_inset
+
+m) were trapezoidal in shape with bottom width of 10
+\begin_inset space ~
+\end_inset
+
+m and side slope of 2/1.
+ A longitudinal channel slope of 0.001 and a Manning coefficient of 0.033
+\begin_inset space ~
+\end_inset
+
+m
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+-1/3
+\end_layout
+
+\end_inset
+
+s were adopted.
+ The upstream and downstream boundary conditions were a discharge time series
+ and the uniform flow condition, respectively.
+ The initial condition was set consistent with the steady-state of a constant
+ flow rate equal to the first value of the upstream hydrograph.
+ The BASEChain module of BASEMENT 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Basement"
+
+\end_inset
+
+ that solves the De Saint Venant equations for unsteady one dimensional
+ flow was adopted as forward model.
+ A flood wave with time to peak of 2.5 hours, peak discharge of 164
+\begin_inset space ~
+\end_inset
+
+m
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+/s and base flow of 25
+\begin_inset space ~
+\end_inset
+
+m
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+/s was considered to obtain the corresponding downstream outflow subsequently
+ corrupted with multiplicative random errors and used in the inverse procedure.
+ The simulation time was equal to 15 hours; the input and output hydrograph
+ time discretization was constant and equal to 5 minutes resulting in 181
+ values.
+ The initial flow condition and the downstream discharge time series (181
+ observations) were then used to estimate the inflow hydrograph (181 parameters).
+ The initial parameter values were set to the mean value of the observations.
+ The sensitivity (Jacobian) matrix was evaluated by means of a finite difference
+ calculations using the python linkage and PEST, as capable in the released
+ version of bgaPEST.
+ The epistemic error term 
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ and the linear variogram slope parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ were estimated by the restricted maximum likelihood value algorithm.
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Reverse-routing"
+
+\end_inset
+
+ the actual input hydrograph, the actual downstream hydrograph, assessed
+ by applying the forward model, and the error corrupted one used for the
+ inversion are reported along with the reproduced inflow and the corresponding
+ outflow.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Reverse-routing"
+
+\end_inset
+
+ summarizes the estimated structural parameters.
+ In the first case the downstream hydrograph was corrupted with a 1% multiplicat
+ive random error (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Reverse-routing"
+
+\end_inset
+
+a), in the second case a 10% multiplicative random error was used (Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Reverse-routing"
+
+\end_inset
+
+b).
+ In both the inversions, there is a good match between the estimated input
+ hydrograph and the actual one; the peak discharge and time are properly
+ reproduced.
+ The estimated epistemic error variance increases in the second case taking
+ account of the higher erroneous observations (Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Reverse-routing"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename figures/Reverse_Routing.pdf
+	scale 90
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Reverse-routing"
+
+\end_inset
+
+Reverse routing: inflow and outflow hydrographs for the prismatic channel.
+ (a) the observations were corrupted with a 1% random error; (b) a 10% random
+ error was used.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement !t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Random errors 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10%
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\theta$
+\end_inset
+
+ [m
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+
+s
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+-3
+\end_layout
+
+\end_inset
+
+] 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.0\times10^{-2}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1.0\times10^{-2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sigma_{R}^{2}$
+\end_inset
+
+ [m
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+
+s
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+-2
+\end_layout
+
+\end_inset
+
+] 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1.7\times10^{-1}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $9.3$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Reverse-routing"
+
+\end_inset
+
+Reverse routing: estimated structural parameters 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+References Cited
 \end_layout
 
 \end_body
