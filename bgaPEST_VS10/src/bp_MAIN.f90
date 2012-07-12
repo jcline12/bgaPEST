@@ -191,7 +191,7 @@ program bp_main
                                           !as read in the parameter file. Then became the best estimate. 
             
             !-- CONVERT OR NOT SENSITIVITY AND PARAMETERS IN THE ESTIMATION SPACE
-            if (maxval(d_PM%Partrans).eq.1) then  !If yes, the parameters transformation is required  
+            if (maxval(d_PM%Partrans).ge.1) then  !If yes, the parameters transformation is required  
                call sen_par_trans(cv_PAR, cv_OBS, d_PAR, d_A, d_PM) !Converting sensitivity and parameters in the estimation space
             endif
           
@@ -208,7 +208,7 @@ program bp_main
             endif
             
             !-- BACK-TRANSFORM OR NOT PARAMETERS INTO PHYSICAL SPACE
-            if (maxval(d_PM%Partrans).eq.1) then  !If yes, we need to back-transform the parameters in the physical space  
+            if (maxval(d_PM%Partrans).ge.1) then  !If yes, we need to back-transform the parameters in the physical space  
                call par_back_trans(cv_PAR, d_PAR, d_PM)
             endif 
             

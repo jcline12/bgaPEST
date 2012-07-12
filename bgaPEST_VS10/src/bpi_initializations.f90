@@ -88,6 +88,7 @@ contains
             nullify(d_PM%InvQbb)
             nullify(d_PM%InvQbbB0)
             nullify(d_PM%Partrans)
+            nullify(d_PM%alpha)
             BL(3)%label           = 'prior_mean_data'
             BL(3)%numrows         = UNINIT_INT
             BL(3)%numkw           = 0 
@@ -136,7 +137,7 @@ contains
             BL(6)%numkw           = 0 
             
             d_S%sig_0     = UNINIT_REAL
-            d_S%sig_opt   = UNINIT_INT
+            d_S%sig_opt   = 1
             d_S%sig_p_var = UNINIT_REAL
             d_S%trans_sig = 0
             d_S%alpha_trans_sig = 50.
