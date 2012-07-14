@@ -82,6 +82,7 @@ module bayes_pest_control
             double precision,pointer	::	Qbb(:,:)       !MD Covariance of beta
             double precision,pointer    ::  InvQbb(:,:)    !MD Inverse of covariance of beta
             double precision,pointer    ::  InvQbbB0(:)    !MD Inverse of covariance of beta * beta0
+            double precision,pointer    ::  alpha(:)       !MD Exponent of power transformation
             integer, pointer            ::  Partrans(:)    !MD Vector of parameter transformation  [1] Log [0] None
       end type d_prior_mean
       

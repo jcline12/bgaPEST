@@ -148,15 +148,17 @@ end subroutine bdp_read_cv_prior_mean
          d_PM%Partrans   = UNINIT_INT  ! array
    
    if (cv_PM%betas_flag.eq.0) then      
-      call bdp_alloc_Partrans(d_PM,columnname,columnstring,2,BL(3)%numrows)
+      call bdp_alloc_Partrans(d_PM,columnname,columnstring,3,BL(3)%numrows)
        !**********************************************************************************
        !*************     PARAMETER TRANSFORMATION FLAG     ******************************
          do j=1,BL(3)%numrows
-           call ids_read_block_table(ifail,BL(3)%label,2,columnname,columnstring,line,filename)
+           call ids_read_block_table(ifail,BL(3)%label,3,columnname,columnstring,line,filename)
            tmp_str = trim(adjustl(columnstring(2)))  
             call bpc_casetrans(tmp_str,'lo')
             if (tmp_str.eq.'log') then
                 d_PM%Partrans(j)=1
+            elseif (tmp_str.eq.'power') then
+                d_PM%Partrans(j)=2
             elseif (tmp_str.eq.'none') then
                 d_PM%Partrans(j)=0
             else
@@ -166,6 +168,7 @@ end subroutine bdp_read_cv_prior_mean
               call utl_writmess(6,retmsg)
               stop
             endif
+            if (columnstring(3).ne.' ') call drealread(ifail, columnstring(3), d_PM%alpha(j))
          enddo
        !********************************************************************************
        !********************************************************************************
@@ -182,9 +185,9 @@ end subroutine bdp_read_cv_prior_mean
             
           case (1)    !covariance of beta on diagonal
             ! allocate and initialize both d_PM and column variables for table reading
-            call bdp_alloc_d_PM(d_PM,columnname,columnstring,4,BL(3)%numrows)
+            call bdp_alloc_d_PM(d_PM,columnname,columnstring,5,BL(3)%numrows)
             do i=1,BL(3)%numrows
-              call ids_read_block_table(ifail,BL(3)%label,4,columnname,columnstring,line,filename)
+              call ids_read_block_table(ifail,BL(3)%label,5,columnname,columnstring,line,filename)
               
                !**********************************************************************************
                !*************     PARAMETER TRANSFORMATION FLAG     ******************************
@@ -192,6 +195,8 @@ end subroutine bdp_read_cv_prior_mean
                 call bpc_casetrans(tmp_str,'lo')
                   if (tmp_str.eq.'log') then
                     d_PM%Partrans(i)=1
+                  elseif (tmp_str.eq.'power') then
+                    d_PM%Partrans(i)=2
                   elseif (tmp_str.eq.'none') then
                     d_PM%Partrans(i)=0
                   else
@@ -203,12 +208,12 @@ end subroutine bdp_read_cv_prior_mean
                  endif
               !********************************************************************************
               !********************************************************************************
-             
-              call drealread(ifail, columnstring(3), d_PM%beta_0(i))
-              call drealread(ifail, columnstring(4), d_PM%Qbb(i,i))
+              if (columnstring(3).ne.' ') call drealread(ifail, columnstring(3), d_PM%alpha(i))
+              call drealread(ifail, columnstring(4), d_PM%beta_0(i))
+              call drealread(ifail, columnstring(5), d_PM%Qbb(i,i))
             enddo
           case (2)    !full beta covariance matrix.  cv_PM%prior_betas by cv_PM%prior_betas
-            numcol = cv_PAR%p + 3
+            numcol = cv_PAR%p + 4
             ! allocate and initialize both d_PM and column variables for table reading
             call  bdp_alloc_d_PM(d_PM,columnname,columnstring,numcol,BL(3)%numrows)
             do i=1,BL(3)%numrows
@@ -220,6 +225,8 @@ end subroutine bdp_read_cv_prior_mean
                 call bpc_casetrans(tmp_str,'lo')
                   if (tmp_str.eq.'log') then
                     d_PM%Partrans(i)=1
+                  elseif (tmp_str.eq.'power') then
+                    d_PM%Partrans(i)=2
                   elseif (tmp_str.eq.'none') then
                     d_PM%Partrans(i)=0
                   else
@@ -231,10 +238,10 @@ end subroutine bdp_read_cv_prior_mean
                  endif
               !********************************************************************************
               !********************************************************************************
-             
-              call drealread(ifail, columnstring(3), d_PM%beta_0(i))
-              do j = 4,numcol
-                call drealread(ifail, columnstring(j), d_PM%Qbb(i,j-3))
+              if (columnstring(3).ne.' ') call drealread(ifail, columnstring(3), d_PM%alpha(i))
+              call drealread(ifail, columnstring(4), d_PM%beta_0(i))
+              do j = 5,numcol
+                call drealread(ifail, columnstring(j), d_PM%Qbb(i,j-4))
               enddo
             enddo
         end select
@@ -611,9 +618,9 @@ end subroutine bdp_read_data_prior_mean
          ! read and parse
         do k=1,nrows
           call ids_read_block_table(ifail,BL(4)%label,numcol,columnname,columnstring,line,filename)
-             call intread(ifail, columnstring(2),cv_S%prior_cov_mode(k))
-             call intread(ifail, columnstring(3),cv_S%var_type(k)) 
-             call intread(ifail, columnstring(4),cv_S%struct_par_opt(k))
+             if (columnstring(2).ne.' ') call intread(ifail, columnstring(2),cv_S%prior_cov_mode(k))
+             if (columnstring(3).ne.' ') call intread(ifail, columnstring(3),cv_S%var_type(k)) 
+             if (columnstring(4).ne.' ') call intread(ifail, columnstring(4),cv_S%struct_par_opt(k))
              select case (cv_S%var_type(k))
                 case(0) ! nugget variogram
                     cv_S%num_theta_type(k) = 1
@@ -622,9 +629,8 @@ end subroutine bdp_read_data_prior_mean
                 case(2) ! exponential variogram
                     cv_S%num_theta_type(k) = 2
              end select
-        !     call intread(ifail, columnstring(5),cv_S%num_theta_type(k))
-             call intread(ifail, columnstring(5),cv_S%trans_theta(k))
-             call drealread(ifail, columnstring(6),cv_S%alpha_trans(k))
+             if (columnstring(5).ne.' ') call intread(ifail, columnstring(5),cv_S%trans_theta(k))
+             if (columnstring(6).ne.' ') call drealread(ifail, columnstring(6),cv_S%alpha_trans(k))
         enddo
        
  end subroutine bdp_read_cv_structural_parameters_tbl
@@ -1144,8 +1150,10 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
          columnstring(1)=' '
          columnname(2)='Partrans'
          columnstring(2)=' '
-         columnname(3)='beta_0'
+         columnname(3)='alpha_trans'
          columnstring(3)=' '
+         columnname(4)='beta_0'
+         columnstring(4)=' '
          allocate (d_PM%beta_0(nrows))          
             d_PM%beta_0 = UNINIT_REAL ! an array 
          allocate (d_PM%Qbb(nrows,nrows))
@@ -1154,12 +1162,13 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
             d_PM%Qbb = 0. ! an array
             d_PM%InvQbb   = UNINIT_REAL ! an array
             d_PM%InvQbbB0 = UNINIT_REAL ! an array
-          do i=4,nval
-           call int2char(i-3,instr)
+          do i=5,nval
+           call int2char(i-4,instr)
            write(columnname(i),*) 'beta_cov_',instr
            columnstring(i)=' '
           enddo 
-         
+         allocate (d_PM%alpha(nrows))
+         d_PM%alpha = 50.  
        end subroutine bdp_alloc_d_PM
        
        
@@ -1182,7 +1191,10 @@ subroutine bdp_alloc_cov_S(d_S,cv_S,columnname,columnstring,numcol,numrow)
          columnstring(1)=' '
          columnname(2)='Partrans'
          columnstring(2)=' '
-                  
+         columnname(3)='alpha_trans'
+         columnstring(3)=' '
+         allocate (d_PM%alpha(nrows))
+         d_PM%alpha = 50.         
        end subroutine bdp_alloc_Partrans
        
 !********  subroutine bdp_init_keyword_vars

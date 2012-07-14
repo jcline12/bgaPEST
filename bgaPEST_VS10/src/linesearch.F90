@@ -107,7 +107,7 @@ end module linesearch
    d_PAR%pars_lns=rho*d_PAR%pars+(1.-rho)*d_PAR%pars_old 
   
   !-- BACK-TRANSFORM OR NOT PARAMETERS IN THE PHYSICAL SPACE BEFORE THE FORWARD RUN
-  if (maxval(d_PM%Partrans).eq.1) then  !If yes, we need to back-transform the parameters in the physical space  
+  if (maxval(d_PM%Partrans).ge.1) then  !If yes, we need to back-transform the parameters in the physical space  
      call par_back_trans_lns(cv_PAR, d_PAR, d_PM)           
   endif 
     
