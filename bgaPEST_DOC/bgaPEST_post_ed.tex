@@ -119,8 +119,8 @@ Middleton, Wisconsin 53562 \\
 
 \pagestyle{body}
 \footnotetext[1]{Department of Civil and Environmental Engineering and Architecture,
-University of Parma, Parma, Italy}
-\footnotetext[2]{Watermark Numerical Computing, Brisbane, Australia and Australian National Centre for Groundwater Research and Training, Adelaide, Australia}
+University of Parma, Parma, Italy.}
+\footnotetext[2]{Watermark Numerical Computing, Brisbane, Australia and Australian National Centre for Groundwater Research and Training, Adelaide, Australia.}
 
 \begin{multicols}{2}
 %%\begin{bibunit}
@@ -162,7 +162,7 @@ them all together.%
 ``Geostatistical'' refers to the  use of an autocorrelated spatial
 or temporal function to provide prior information about the parameters.
 This BGA approach has been coded using the protocol and approach of
-PEST \citep{PEST,PESTAdd}, the most widely used computer code of
+PEST \citep{PEST4,PESTAdd4}, the most widely used computer code of
 its type. Though the BGA and PEST have been primarily applied to the
 environmental modeling field, a general view of the inverse problem
 is discussed here, one that covers most classes of problems where
@@ -245,7 +245,7 @@ information, which, in turn, can be used for improved prediction and
 decision-making. Second, a computer code--bgaPEST version 1.0--is
 introduced and documented in which BGA is deployed using the protocols
 and input/output concepts developed in the free and open-source PEST
-suite of software \citet{PEST}. This report provides details on the
+suite of software \citet{PEST4}. This report provides details on the
 mathematical theory behind BGA, followed by detailed instructions
 for using the computer program. Conventions and assumptions for using
 the program are also included in the discussion. To our knowledge,
@@ -258,7 +258,7 @@ Although the relation of design concepts is beyond the scope of this
 report, the input block and keywords needed to run bgaPEST are described
 fully in Appendix \ref{sec:Input-Instructions}. A full description of the format of the general
 approach of template and instruction files are also not included here:
-detailed descriptions are provided in the PEST documentation \citep[chapter 3]{PEST}.
+detailed descriptions are provided in the PEST documentation \citep[chapter 3]{PEST4}.
 All options implemented in template and instruction files in PEST
 are available in bgaPEST. A distributed parameterization scheme is
 discussed in this report that is facilitates the introduction of 
@@ -359,7 +359,7 @@ of the model. This construction is similar (and in some cases, mathematically
 equivalent) to Tikhonov regularization \citep{Tikhonov1963a,Tikhonov1963b,AsterEtal2005}.
 Limitation of the information assumed \emph{a priori }is similar to
 assuming a low or diffuse level of \emph{a priori }soft-knowledge
-(called an ignorance prior in \citealt[chapter 12]{jaynesBook}).
+(called an ignorance prior in \citealt{jaynesBook}, chapter 12).
 In this case, the resulting model is driven more by information obtained
 from site-specific observations than from prior assumptions based
 on soft-knowledge. A goal of this approach is to limit the subjective
@@ -418,7 +418,7 @@ collocated in space and time. This correspondence is expressed as
 the sum of the squared differences between outcomes and observations,
 weighted by a covariance matrix, which expresses the relative certainty
 of each observation. This is equivalent to the weighted measurement
-objective function in PEST \citep{PEST}. The advantages to the Bayesian
+objective function in PEST \citep{PEST4}. The advantages to the Bayesian
 approach stem from the conceptual framework, the ability to use a
 a probability density function to represent parameterization rather
 than single values , and the empirical nature of the balance between
@@ -434,7 +434,7 @@ section, we discuss geostatistics in a conceptual way using a photographic
 image as an example. The mathematics relevant to BGA are discussed
 in later sections. More details about the history and use of geostatistics
 in general, including software for using the technique are found in
-\citet{Isaaks1989,DeutschJourneal1992,Kitanidis1997,sgems}.
+\citet{Isaaks1989}, \citet{DeutschJourneal1992}, \citet{Kitanidis1997}, and \citet{sgems}.
 
 \begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.6]{figures/Kriging_image}\end{center}
@@ -502,7 +502,7 @@ about variograms and variogram choice are presented.
 for the image processing example. The empirical variogram binned values
 are depicted by red 'x' marks while the continuous black line shows
 the analytical variogram fit to the empirical values. The fit was
-performed manually using the sGeMS software package (\citet{sgems}).}
+performed manually using the sGeMS software package (\citet{sgems})}
 \end{figure*}
 
 
@@ -524,7 +524,7 @@ by the calibration data set.
 
 \SECTION{Bayesian Geostatistical Approach Overview}
 
-The Bayesian geostatistical approach is described in detail in \citet{KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004}
+The Bayesian geostatistical approach is described in detail in \citet{KitanidisVomvoris1983}, \citet{HoeksemaKitanidis1984a}, \citet{Kitanidis1995}, and \citet{NowakCirpka2004}
 among others. In this Section, we provide a conceptual overview of
 the method. A more detailed description, including more mathematical
 details, is included in Appendix \ref{sec:methodologyDetails}.
@@ -545,7 +545,7 @@ of $\mathbf{s}$. Details of these pdfs are explained below.
 \includegraphics[scale=0.55]{figures/normals}
 \par\end{centering}
 
-\caption{\label{fig:normals}Graphical illustration of Bayes' theorem.}
+\caption{\label{fig:normals}Graphical illustration of Bayes' theorem}
 \end{figure*}
 
 
@@ -603,7 +603,7 @@ data and model outputs collocated in space and time with the measured
 observations. Fit and epistemic error are discussed in more detail
 in the next section. A danger, when providing a model with substantial
 flexibility, is an ``overly complex'' model that is ``overfit''
-\citep[e.g. ][]{drapersmith66,Hill2006}. To mitigate this issue,
+\citep[for example, ][]{drapersmith66, Hill2006}. To mitigate this issue,
 the RML approach is consistent with the principle of maximum entropy
 such that the smoothest solution is chosen, based on the structural
 parameters estimated from the data. For a discussion of subtle formal
@@ -663,15 +663,15 @@ The term ``structural parameters'' used here has a specific meaning.
 Similar to the more general term ``parameters,'' structural parameters
 are variable values that are estimated in the bgaPEST algorithm. Unlike
 typical parameters, however, structural parameters do not \emph{directly
-}control physical aspects of the system in the way that, for example,
+} control physical aspects of the system in the way that, for example,
 hydraulic conductivity or stream roughness do in hydrologic models.
 Instead, structural parameters control the structure of the general
-parameters. For example, the variogram values (e.g. variance, slope,
+parameters. For example, the variogram values (for example variance, slope,
 and correlation length) that control to roughness of distributed parameter
 fields are structural parameters, as is the value of variance controlling
 epistemic uncertainty. Because these parameters must be estimated
 but are not directly connected to the physics of the problem, they
-are also in other work referred to as ``nuisance'' parameters or
+are also referred to by other authors as ``nuisance'' parameters or
 ``hyperparameters.'' We adopt the term ``structural'' to highlight
 the fact that the impact these parameters has on the solution is control
 of the shape or structure of the distributed parameter fields.%
@@ -686,8 +686,8 @@ single variogram) is flexible enough to encompass the entire variability
 of the hydraulic parameters. However, in many hydrogeologic applications,
 lithologic contacts and unconformities can create discontinuities
 in parameter values that a single covariance model cannot characterize.
-Partitioning the field based on either the data \citep[e.g. ][]{fienenEtal2004}
-or through interrogation of preliminary solutions \citep[e.g. ][]{FienenWRR2008}
+Partitioning the field based on either the data \citep[for example, ][]{fienenEtal2004}
+or through interrogation of preliminary solutions \citep[for example, ][]{FienenWRR2008}
 can greatly improve the parameter estimation results. This partitioning
 is implemented by imposing discontinuities in the stochastic field
 that censor correlation among all cells that do not occur in the same
@@ -754,13 +754,13 @@ just called ``zones''}?}
 
 Beta associations are a term specific to bgaPEST. As discussed in
 the main text, this term evolved from the term ``facies association,''
-which describes partitioning of parameter fields based on hydrogeologic
+which describes partitioning of parameter fields on the basis of hydrogeologic
 characteristics. This term was used in place of ``zones'' because
 of a long history of zones referring to regions of piecewise constant
 homogeneity (one parameter value applied to every node within a region).
 Beta associations are \emph{not} homogeneous, so a distinct term was
-sought that describes the characteristic of regions partitioned due
-to their characteristics and how these characteristics correlation
+sought that describes the characteristic of regions partitioned according 
+to their characteristics and the way these characteristics correlate 
 to regions around them. To generalize beyond hydrogeologic applications,
 and to account for the fact the distinct parameter types require distinct
 partitions, ``beta associations'' was the term chosen. Each of these
@@ -780,7 +780,7 @@ nature of the BGA coding. The BGA formulation used in bgaPEST is meant
 to make the approach generally available to a wider class of modeling
 problems. This generality is obtained by the following design considerations.
 The input/output design of bgaPEST follows that of the widely used
-PEST software \citep{PEST,PESTAdd}. This approach has two primary
+PEST software \citep{PEST4,PESTAdd4}. This approach has two primary
 restrictions. First, input provided to the model, and output derived
 from a model, uses an ASCII text file format. This restriction can
 be relaxed, however, provided that a translation utility can be deployed
@@ -819,7 +819,7 @@ model are largely interchangeable among projects implemented in PEST,
 bgaPEST, and programs created using JUPITER. A full description of
 the format of template and instruction files is not part of the scope
 of this work: detailed descriptions are provided in the PEST documentation
-\citep[chapter 3]{PEST}. All options implemented in template and
+\citep[chapter 3]{PEST4}. All options implemented in template and
 instruction files in PEST are available in bgaPEST.
 
 This initial implementation is written in FORTRAN-90. The calculation
@@ -888,7 +888,7 @@ is calculated, if requested.
 \caption{\label{fig:flowchart}Abbreviated flowchart showing the progression
 of the major bgaPEST procedures. Text in blue italics is interpretive,
 summarizing the more programmatic language represented in black plain
-type.}
+type}
 \end{figure*}
 
 
@@ -1058,13 +1058,13 @@ The output formats are discussed at the end of Appendix \ref{sec:Input-Instructi
 \textbf{Posterior Covariance and Parameter log-Transformations}
 
 In this section, it was indicated that in the \texttt{$<$casename$>$.bpp.fin}
-file, parameter values and 95\% confidence intervals are reported
-in linear (untransformed) space while in the \texttt{$<$casename$>$.post.cov
+file, parameter values and 95 percent confidence intervals are reported
+in linear (untransformed) space, whereas in the \texttt{$<$casename$>$.post.cov
 }file, posterior covariance values are reported in estimation (log-transformed)
 space. Why the difference? The two files  serve slightly different
 purposes. The parameter output file presents values in the units they
 are entered in (and, presumably, the units ``seen'' by the forward
-model). As a result, 95\% confidence intervals are reported in the
+model). As a result, 95 percent confidence intervals are reported in the
 same way. Furthermore, the addition and subtraction of $2\times\sqrt{\mathbf{V}_{ii}}$
 must be applied to the parameters before back-transformation, which
 explains the asymmetry of the confidence limits. On the other hand,
@@ -1139,7 +1139,7 @@ high.
 Adjoint-state Jacobian calculation is an attractive method to mitigate
 high computational expense of this method. However, production codes
 for adjoint state calculations are rare. For more information on the
-technique, see \citep{TownleyWilson1985,Sykes1985,SamperNeuman1986,RamaRao1995,neupauerWilson1999}
+technique, see \citet{TownleyWilson1985}, \citet{Sykes1985}, \citet{SamperNeuman1986}, \citet{RamaRao1995}, and \citet{neupauerWilson1999}
 and references therein.
 
 A common occurrence in groundwater modeling applications is that parameters
@@ -1347,10 +1347,10 @@ Collinson, J.D., 1969, Sedimentology of Grindslow shales and Kinderscout grit---
 
 \bibitem[{Deutsch and Journel(1992)}]{DeutschJourneal1992}
 Deutsch, C.V., and Journel, A.G., 1992, GSLIB---Geostatistical software library and user’s guide: New York, Oxford University Press, 340 p.
-\bibitem[{Doherty(2010{\natexlab{a}})}]{PEST}
+\bibitem[{Doherty(2010a)}]{PEST4}
 Doherty, J., 2010a, PEST, Model-independent parameter estimation---User manual (5th ed., with slight additions): Brisbane, Australia, Watermark Numerical Computing. 
 
-\bibitem[{Doherty(2010{\natexlab{b}})}]{PESTAdd}
+\bibitem[{Doherty(2010b)}]{PESTAdd4}
 Doherty, J., 2010b, PEST, Model-independent parameter estimation---Addendum to user manual (5th ed.): Brisbane, Australia, Watermark Numerical Computing.
 
 \bibitem[{Draper and Smith(1966)}]{drapersmith66}
@@ -1379,7 +1379,7 @@ Hoeksema, R.J., and Kitanidis, P.K., 1984, An application of the geostatistical 
 \bibitem[{Isaaks and Srivastava(1989)}]{Isaaks1989}
 Isaaks, E.H., and Srivastava, R.M., 1989, Applied geostatistics: Oxford, UK; New York; Oxford University Press, 561 p.
 
-\bibitem[{Jaynes and Bretthorst(2003)}]{jaynesBook}
+\bibitem[{Jaynes and Bretthorst,(2003)}]{jaynesBook}
 Jaynes, E.T., and Bretthorst, G.L., 2003, Probability theory---The logic of science: Cambridge, UK; New York; Cambridge University Press, 727 p.
 
 \bibitem[{Kitanidis(1995)}]{Kitanidis1995}
@@ -1956,7 +1956,7 @@ for details. This value is only read if \texttt{ndim=3}.
 \subsection{PEST Matrix Formats for Jacobian and Posterior Covariance}
 
 On two occasions in \texttt{bgaPEST} a matrix text file format from
-\texttt{PEST} is used to store matrices: when posterior covariance
+\texttt{PEST2} is used to store matrices: when posterior covariance
 output from \texttt{bgaPEST} is specified as a full matrix; and when
 Jacobian sensitivity matrix information is exchanged from an external
 code with \texttt{bgaPEST} run through, for example, a Python script. 
@@ -1964,16 +1964,16 @@ code with \texttt{bgaPEST} run through, for example, a Python script.
 The posterior covariance matrix may take two forms: a full matrix;
 or a diagonal matrix. These options are discussed below. Two options
 are available for Jacobian sensitivity matrices $\left(\mathbf{H}\right)$
-to be read by \texttt{bgaPEST}. If \texttt{deriv\_mode=0}, \texttt{PEST}
+to be read by \texttt{bgaPEST}. If \texttt{deriv\_mode=0}, \texttt{PEST2}
 is used, external to \texttt{bgaPEST}, to calculate the Jacobian matrix
 resulting in a binary file with the extension \texttt{.jco}. If \texttt{deriv\_mode=}1
 then an external program is used to calculate $\mathbf{H}$ and a
 file written by the external program must be communicated to \texttt{bgaPEST}.
 This file can either be a \texttt{.jco} file or a \texttt{.jac} file
 which is an ASCII file following the format of a standard matrix file
-used by \texttt{PEST}, as described in \citet{PESTAdd}, Section 4.4.3.
-An example and description of the format of a standard \texttt{PEST}
-matrix follow, quoting from \citet{PESTAdd}.
+used by \texttt{PEST2}, as described in \citet{PESTAdd2}, Section 4.4.3.
+An example and description of the format of a standard \texttt{PEST2}
+matrix follow, quoting from \citet{PESTAdd2}.
 
 Figure \ref{fig:matrix} depicts an example matrix file holding a
 matrix with three rows and four columns.
@@ -1981,7 +1981,7 @@ matrix with three rows and four columns.
 \begin{figure*}[!t]
 \begin{centering}
 \includegraphics[scale=0.25]{figures/standard_PEST_matrix}
-\caption{Example of a standard \texttt{PEST} matrix file, adapted from \citet{PESTAdd}}
+\caption{Example of a standard \texttt{PEST2} matrix file, adapted from \citet{PESTAdd2}}
 \label{fig:matrix}
 \end{centering}
 \end{figure*}
@@ -2004,7 +2004,7 @@ or less in length), containing the names associated with rows of the
 matrix. \texttt{NCOL} column names follow in a similar format, following
 the string \textquotedblleft{}\texttt{{*} column names}\textquotedblright{}. 
 
-Other options for \texttt{ICODE} are described in \citet{PESTAdd}
+Other options for \texttt{ICODE} are described in \citet{PESTAdd2}
 and are used in \texttt{bgaPEST} for output of the posterior covariance
 matrix. The two options for posterior covariance output both refer
 to square matrixes that have the same names of columns and rows. As
@@ -2029,8 +2029,9 @@ with 8 values per line.
 \bibitem[{Banta and others(2006)Banta, Poeter, Doherty, and
   Hill}]{BantaEtAl2006}
 Banta, E.R., Poeter, E.P., Doherty, J.E., and Hill, M.C., 2006, JUPITER: \underline{J}oint \underline{U}niversal \underline{P}arameter \underline{I}den\underline{T}ification and \underline{E}valuation of \underline{R}eliability---An application programming interface (API) for model analysis: U.S. Geological Survey Techniques and Methods, book 6, chap. E1, 268 p.
-
-\bibitem[{Doherty(2010)}]{PESTAdd}
+\bibitem[{Doherty(2010a)}]{PEST2}
+Doherty, J., 2010a, PEST, Model-independent parameter estimation---User manual (5th ed., with slight additions): Brisbane, Australia, Watermark Numerical Computing. 
+\bibitem[{Doherty(2010b)}]{PESTAdd2}
 Doherty, J., 2010, PEST, Model-independent parameter estimation---Addendum to user manual (5th ed.): Brisbane, Australia, Watermark Numerical Computing.
 
 \end{thebibliography}
@@ -2056,7 +2057,7 @@ or through pre- and post-processing--to receive input and provide
 output using text (ascii) files. For bgaPEST to be able to run the
 model, template files (\texttt{.TPL}) and instruction files (\texttt{.INS})
 must be provided corresponding with model input and output, respectively.
-Details of the contruction of these files are in \citep[chapter 3]{PEST}.
+Details of the contruction of these files are in \citet[][chap. 3]{PEST3}.
 The template and instruction files are detailed in the \texttt{model\_input\_files}
 and \texttt{model\_output\_files }blocks, respectively. The \texttt{model\_command\_lines}
 block must also be included with an entry for either a batch file
@@ -2077,7 +2078,7 @@ Beta associations are first defined in the \texttt{prior\_mean\_data}
 block. If no prior information about mean values and their covariance
 is to be supplied, the only information necessary is a row for each
 beta association in the \texttt{prior\_mean\_data} block and a decision
-about whether to transform the value with a logarithmic transform
+about whether to transform the value with a logarithmic or power transform
 or not. Note that beta associations indicate regions and groups that
 will have the same mean value estimated regardless of whether prior
 information about the mean is provided or not.
@@ -2231,16 +2232,17 @@ Tables \ref{tab:variables1-1} and \ref{tab:variables1-2} summarize the input blo
 names, types, and default values.
 
 \begin{table}[!t]
+\caption{\label{tab:variables1-1}Summary of input blocks with variables identified}
 \begin{center}\includegraphics[scale=0.5]{Variables_for_documentation1}\end{center}
 
-\caption{\label{tab:variables1-1}Summary of input blocks with variables identified.}
+
 \end{table}
 
 
 \begin{table}[!t]
+\caption{\label{tab:variables1-2}Summary of input blocks with variables identified (continued)}
 \begin{center}\includegraphics[scale=0.5]{Variables_for_documentation2}\end{center}
 
-\caption{\label{tab:variables1-2}Summary of input blocks with variables identified (continued)}
 \end{table}
 
 \subsection{References Cited}
@@ -2251,7 +2253,7 @@ names, types, and default values.
   \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
   \urlstyle{rm}\Url}\fi
 
-\bibitem[{Doherty(2010)}]{PEST}
+\bibitem[{Doherty(2010)}]{PEST3}
 Doherty, J., 2010, PEST, Model-independent parameter estimation---User manual (5th ed., with slight additions): Brisbane, Australia, Watermark Numerical Computing.
 
 \end{thebibliography}
@@ -2261,7 +2263,7 @@ Doherty, J., 2010, PEST, Model-independent parameter estimation---User manual (5
 %\begin{bibunit}
 \APPENDIX{Details of the Method\label{sec:methodologyDetails}}
 
-The Bayesian geostatistical approach is described in detail in \citet{KitanidisVomvoris1983,HoeksemaKitanidis1984a,Kitanidis1995,NowakCirpka2004}
+The Bayesian geostatistical approach is described in detail in \citet{KitanidisVomvoris1983}, \citet{HoeksemaKitanidis1984a}, \citet{Kitanidis1995}, and \citet{NowakCirpka2004}
 among others. The mathematics are reviewed here.
 
 
@@ -2337,9 +2339,8 @@ associations.
 \parindent 0.25 in
 In hydrogeologic applications, the numerical forward model is typically
 nonlinear. Further nonlinearity can be induced by using a logarithmic
-transformation, which is a convenient way to enforce non-negativity
-on parameters and is often an appropriate transformation for hydraulic
-conductivity parameters in groundwater models.
+or power transformation, which is a convenient way to enforce non-negativity
+on parameters.
 
 Provided that the nonlinearities introduced are not too extreme, a
 solution can be obtained through successive linearizations following
@@ -2409,7 +2410,7 @@ as
 
 \parindent 0 in
 where $\mathbf{s}_{opt}$ minimizes the objective function, $\Phi,$
-using a Nelder-Mead simplex \citep[see, e.g., ][]{Press1992}, which
+using a Nelder-Mead simplex \citep[see, for example, ][]{Press1992}, which
 guarantees monotonic decrease in $\Phi$ over successive
 iterations. It is recommended to limit the number of linesearch iterations
 to a relatively low number, as the goal of handling weak linearity
@@ -2447,7 +2448,7 @@ ignored.
 \begin{center}\includegraphics{figures/anisotropy}\end{center}
 
 \caption{\label{fig:anisotropy}Schematic diagram of horizontal anisotropy
-defining conventions for bgaPEST. }
+defining conventions for bgaPEST }
 \end{figure*}
 
 
@@ -2519,7 +2520,7 @@ element, which maps the $i^{th}$ parameter to the $j^{th}$ beta
 association, that contains the value of one. Subdivision into beta
 associations within distributed parameter domains have been critical
 to success in hydrogeologic settings which include strong contrasts
-in parameter values indicative of geologic contacts {[}see e.g. \citealp{fienenEtal2004}
+in parameter values indicative of geologic contacts {[}see, for example, \citealp{fienenEtal2004}
 and \citealp{FienenWRR2008}{]}. Prior drift is accounted for in $\mathbf{X}$
 through trends expressed in the nonzero terms, although this is not
 currently implemented in bgaPEST.
@@ -2540,8 +2541,8 @@ include:
 \[
 \mathbf{R}\left(\mathbf{d}\right)=\sigma^{2}
 \]
-
-\item and the exponential covariance function 
+and
+\item the exponential covariance function 
 \begin{equation}
 \mathbf{R}(\mathbf{d})=\sigma^{2}\mathrm{exp}(\mathbf{-}\frac{\left|\mathbf{d}\right|}{\ell})\label{eq:exp_GCF}
 \end{equation}
@@ -2696,7 +2697,7 @@ embedded set of Toeplitz blocks in a covariance matrix (modified from
 \citet{MarcoDiss}). The smallest squares represent individual matrix
 entries (values) and the colors correspond to distinct values. In
 this synthetic example, it is assumed that there are three rows, three
-columns, and three layers in the underlying model.}
+columns, and three layers in the underlying model}
 \end{figure*}
 
 
@@ -2943,8 +2944,8 @@ resulting in the objective function
 \noindent where unchanging quantities are absorbed into the constant of proportionality
 including $\det\left(\mathbf{Q}_{\mathbf{\theta\theta}}\right)^{-\frac{1}{2}}$
 . The optimal values for $\mathbf{\theta}$ are found using the Nelder-Mead
-simplex algorithm \citep[e.g. ][p. 408-410]{Press1992}. Non-negativity
-in the $\mathbf{\theta}$ parameters is enforced using a power transformation
+simplex algorithm \citep[for example, ][p. 408-410]{Press1992}. Non-negativity
+in the $\mathbf{\theta}$ parameters can be enforced using a power transformation
 \citep{BoxCox1964}. As indicated by \citet{Kitanidis1995}, nonlinearity
 requires that structural parameters are estimated iteratively with
 the estimation of hydraulic parameters. This is accomplished through
@@ -3063,7 +3064,7 @@ of zero and standard deviation of 0.01 m.
 \begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.4]{figures/TrueK}\end{center}
 
-\caption{True hydraulic conductivity field for the single layer example application.\label{fig:trueK1L}}
+\caption{True hydraulic conductivity field for the single layer example application\label{fig:trueK1L}}
 
 
 \end{figure*}
@@ -3077,7 +3078,7 @@ in this case.
 \begin{center}\includegraphics[scale=0.5]{figures/starting_heads}\end{center}
 
 \caption{\label{fig:stheads1L}Boundary condition (constant head) for the single
-layer example application.}
+layer example application}
 \end{figure*}
 
 
@@ -3099,7 +3100,7 @@ would be avoided at all costs.
 
 \caption{\label{fig:KL1-sigfixed}Parameters (hydraulic conductivity field)
 estimated for the 1 layer example application using bgaPEST with $\sigma_{R}^{2}$
-fixed at $1.0m$.}
+fixed at $1.0$ m}
 \end{figure*}
 
 
@@ -3108,7 +3109,7 @@ fixed at $1.0m$.}
 
 \caption{\label{fig:residL1-sigfixed}Squared residuals, plotted at their locations
 in the model, for the 1 layer example application using bgaPEST with
-$\sigma_{R}^{2}$ fixed at $1.0m$.}
+$\sigma_{R}^{2}$ fixed at $1.0$ m}
 \end{figure*}
 
 
@@ -3139,7 +3140,7 @@ therefore information) near the pumping well.
 
 \caption{\label{fig:KL1-sigEstimated}Parameters (hydraulic conductivity field)
 estimated for the 1 layer example application using bgaPEST with $\sigma_{R}^{2}$
-estimated by the bgaPEST algorithm.}
+estimated by the bgaPEST algorithm}
 \end{figure*}
 
 
@@ -3148,7 +3149,7 @@ estimated by the bgaPEST algorithm.}
 
 \caption{\label{fig:residL1-sigEstimated}Squared residuals, plotted at their
 locations in the model, for the 1 layer example application using
-bgaPEST with $\sigma_{R}^{2}$ estimated.}
+bgaPEST with $\sigma_{R}^{2}$ estimated}
 \end{figure*}
 
 
@@ -3231,11 +3232,12 @@ $\sigma_{R}^{2}$ is estimated to achieve the best possible fit, while
 in Case 6, $\sigma_{R}^{2}$ is held constant at $1.0\times10^{-1}.$
 
 \begin{table}[!t]
-\begin{center}\includegraphics[scale=0.9]{tables/3_layer_tables_for_structural_parameters}\end{center}
-
 \caption{\label{tab:3lay}Summary of the five cases investigated. The table
 shows which structural parameters were estimated and fixed, and also
-indicates anisotropy when used. }
+indicates anisotropy when used}
+\begin{center}\includegraphics[scale=0.9]{tables/3_layer_tables_for_structural_parameters}\end{center}
+
+
 
 
 \end{table}
@@ -3461,6 +3463,8 @@ a 1\% random error; (b) a 10\% random error was used.  }
 
 
 \begin{table}[!t]
+\caption{\label{tab:Reverse-routing}Reverse routing: estimated structural
+parameters  }
 \noindent \begin{centering}
 \begin{tabular}{ccc}
 \hline 
@@ -3473,8 +3477,7 @@ $\sigma_{R}^{2}$ {[}m\textsuperscript{6}s\textsuperscript{-2}{]} & $1.7\times10^
 \end{tabular}
 \par\end{centering}
 
-\caption{\label{tab:Reverse-routing}Reverse routing: estimated structural
-parameters  }
+
 \end{table}
 \subsection{References Cited}
 \begin{thebibliography}{2}
