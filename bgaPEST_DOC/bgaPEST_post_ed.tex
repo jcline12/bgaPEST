@@ -13,7 +13,7 @@
 %\usepackage{bibunits}
 %\defaultbibliographystyle{usgs}
 \usepackage{calc}
-\renewcommand{\conversionpage}{}
+\renewcommand{\conversionpage}{\theconversions}
 %\setboolean{tabletoc}{false}
 \usepackage[blacklinks]{usgshyperref}
 
@@ -3059,7 +3059,7 @@ of zero and standard deviation of 0.01 m.
 \begin{figure*}[!t]
 \begin{center}\includegraphics[scale=0.4]{figures/TrueK}\end{center}
 
-\caption{True hydraulic conductivity field for the single layer example application\label{fig:trueK1L}}
+\caption{True hydraulic conductivity field for the single-layer example application\label{fig:trueK1L}}
 
 
 \end{figure*}
@@ -3263,7 +3263,7 @@ field. $\sigma_{R}^{2}$ is held constant at $1.00\times10^{-01}$}
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case1}\end{center}
 
 \caption{\label{fig:3Lresid_case1}Case 1: Squared differences between modeled
-and ``true'' head values. Symbol size qualitatively indicates magnitude
+and ``true'' head values. Symbol size qualitatively indicates magnitude,
 and color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view.  $\sigma_{R}^{2}$ is held constant at $1.00\times10^{-01}$}
 \end{figure*}
@@ -3291,7 +3291,7 @@ field.  $\sigma_{R}^{2}$ is held constant at $1.00\times10^{-02}$}
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case2}\end{center}
 
 \caption{\label{fig:3Lresid_case2}Case 2: Squared differences between modeled
-and ``true'' head values. Symbol size qualitatively indicates magnitude
+and ``true'' head values. Symbol size qualitatively indicates magnitude,
 and color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view. $\sigma_{R}^{2}$ is held constant at $1.00\times10^{-02}$}
 \end{figure*}
@@ -3323,7 +3323,7 @@ field. $\sigma_{R}^{2}$ is initially $1.00\times10^{-05}$ and estimated by bgaPE
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case3}\end{center}
 
 \caption{\label{fig:3Lresid_case3}Case 3: Squared differences between modeled
-and ``true'' head values. Symbol size qualitatively indicates magnitude
+and ``true'' head values. Symbol size qualitatively indicates magnitude,
 and color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view. $\sigma_{R}^{2}$ is initially $1.00\times10^{-05}$ and estimated by bgaPEST at an optimal value of $7.79\times10^{-08}$}
 \end{figure*}
@@ -3358,7 +3358,7 @@ field. $\sigma_{R}^{2}$ is initially $1.00\times10^{-04}$ and estimated by bgaPE
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case5}\end{center}
 
 \caption{\label{fig:3Lresid_case5}Case 5: Squared differences between modeled
-and ``true'' head values. Symbol size qualitatively indicates magnitude
+and ``true'' head values. Symbol size qualitatively indicates magnitude,
 and color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view. $\sigma_{R}^{2}$ is initially $1.00\times10^{-04}$ and estimated by bgaPEST at an optimal value of $1.18\times10^{-05}$. Parameter anisotropy also invoked as described in Table \ref{tab:3lay}}
 \end{figure*}
@@ -3393,7 +3393,7 @@ field. $\sigma_{R}^{2}$ is held constant at $1.00\times10^{-01}$. Parameter anis
 \begin{center}\includegraphics[scale=0.5]{figures/3L_resid_case6}\end{center}
 
 \caption{\label{fig:3Lresid_case6}Case 6: Squared differences between modeled
-and ``true'' head values. Symbol size qualitatively indicates magnitude
+and ``true'' head values. Symbol size qualitatively indicates magnitude,
 and color scale quantifies magnitude. Locations of the circles indicate
 observation location in the model domain in plan view. $\sigma_{R}^{2}$ is held constant at $1.00\times10^{-01}$. Parameter anisotropy also invoked as described in Table \ref{tab:3lay}}
 \end{figure*}
@@ -3411,42 +3411,42 @@ by means of information available at downstream gaged sites. The
 considered channel was prismatic and 20~kilometers long; the cross sections
 (spaced by 100~meters (m)) were trapezoidal in shape with bottom width of
 10~m and side slope of 2/1. A longitudinal channel slope of 0.001
-and a Manning coefficient of 0.033~m\textsuperscript{-1/3}s were
-adopted. The upstream and downstream boundary conditions were a discharge
+and a unitless Manning coefficient of 0.033 were
+adopted. The upstream and downstream boundary conditions were a streamflow
 time series and the uniform flow condition, respectively. The initial
-condition was set consistent with the steady-state of a constant flow
+condition was set consistent with the steady state of a constant flow
 rate equal to the first value of the upstream hydrograph. The BASEChain
 module of BASEMENT \citep{Basement} that solves the De Saint Venant
 equations for unsteady one dimensional flow was adopted as forward
-model. A flood wave with time to peak of 2.5 hours, peak discharge
-of 164~m\textsuperscript{3}/s and base flow of 25~m\textsuperscript{3}/s
+model. A flood wave with time to peak of 2.5 hours, peak flow
+of 164~cubic meters per second (m\textsuperscript{3}/s) and base flow of 25~m\textsuperscript{3}/s
 was considered to obtain the corresponding downstream outflow subsequently
 corrupted with multiplicative random errors and used in the inverse
 procedure. The simulation time was equal to 15 hours; the input and
 output hydrograph time discretization was constant and equal to 5
 minutes resulting in 181 values. The initial flow condition and the
-downstream discharge time series (181 observations) were then used
+downstream streamflow time series (181 observations) were then used
 to estimate the inflow hydrograph (181 parameters). The initial parameter
 values were set to the mean value of the observations. The sensitivity
-(Jacobian) matrix was evaluated by means of a finite difference calculations
-using the python linkage and PEST, as capable in the released version
+(Jacobian) matrix was evaluated by means of a finite-difference calculations
+using the Python linkage and PEST, as capable in the released version
 of bgaPEST. The epistemic error term $\sigma_{R}^{2}$ and the linear
 variogram slope parameter $\theta$ were estimated by the restricted
 maximum likelihood value algorithm. 
 
-In Figure \ref{fig:Reverse-routing} the actual input hydrograph,
+In figure \ref{fig:Reverse-routing} the actual input hydrograph,
 the actual downstream hydrograph, assessed by applying the forward
 model, and the error corrupted one used for the inversion are reported
 along with the reproduced inflow and the corresponding outflow. Table
 \ref{tab:Reverse-routing} summarizes the estimated structural parameters.
-In the first case the downstream hydrograph was corrupted with a 1\%
-multiplicative random error (Figure \ref{fig:Reverse-routing}a),
-in the second case a 10\% multiplicative random error was used (Figure
-\ref{fig:Reverse-routing}b). In both the inversions, there is a good
+In the first case the downstream hydrograph was corrupted with a 1 percent
+multiplicative random error (figure \ref{fig:Reverse-routing}a),
+in the second case a 10 percent multiplicative random error was used (figure
+\ref{fig:Reverse-routing}b). In both the inversions, there is a close
 match between the estimated input hydrograph and the actual one; the
-peak discharge and time are properly reproduced. The estimated epistemic
+peak flow and time are properly reproduced. The estimated epistemic
 error variance increases in the second case taking account of the
-higher erroneous observations (Table \ref{tab:Reverse-routing}).
+higher erroneous observations (table \ref{tab:Reverse-routing}).
 
 \begin{figure*}[!t]
 \noindent \begin{centering}
@@ -3455,7 +3455,7 @@ higher erroneous observations (Table \ref{tab:Reverse-routing}).
 
 \caption{\label{fig:Reverse-routing}Reverse routing: inflow and outflow hydrographs
 for the prismatic channel. (a) the observations were corrupted with
-a 1\% random error; (b) a 10\% random error was used.  }
+a 1 percent random error; (b) a 10 percent random error was used}
 \end{figure*}
 
 
