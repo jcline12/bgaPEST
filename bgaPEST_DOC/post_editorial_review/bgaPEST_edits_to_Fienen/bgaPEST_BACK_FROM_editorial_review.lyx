@@ -163,10 +163,12 @@ Watermark Numerical Computing, Brisbane, Australia
 \end_inset
 
 
+\change_inserted -74556787 1342823113
+[Note 1]
 \change_inserted -1837876828 1342029982
 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -258,7 +260,7 @@ pproach
  
 \change_inserted -1837876828 1342031142
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -684,11 +686,13 @@ a posteriori
  
 \change_inserted -1837876828 1342547763
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823128
+Note: 
 \change_inserted -1837876828 1342547792
 USGS style is to not use italic for Latin phrases.
 \change_unchanged
@@ -730,11 +734,13 @@ a posteriori
  
 \change_inserted -1837876828 1342547798
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823136
+Note: 
 \change_inserted -1837876828 1342547801
 No ital.
 \change_unchanged
@@ -777,7 +783,7 @@ GITHUB LINK HERE
 the bleeding edge development branches
 \change_inserted -1837876828 1342112146
 revisions in progress
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -832,6 +838,16 @@ Obtaining the Software.
 \end_inset
 
 
+\change_inserted -74556787 1342823883
+NOTE: I think this section would go better before 
+\begin_inset Quotes eld
+\end_inset
+
+Obtaining the Software.
+\begin_inset Quotes erd
+\end_inset
+
+
 \change_unchanged
 
 \end_layout
@@ -847,7 +863,7 @@ eport is intended to serve two purposes.
  First, a Bayesian approach to parameter estimation--
 \change_inserted -1837876828 1342034100
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -899,7 +915,7 @@ key "PEST"
 provides
 \change_inserted -1837876828 1342034261
 gives
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -1020,7 +1036,7 @@ also
  values for each model node or cell
 \change_inserted -1837876828 1342034609
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -1154,10 +1170,10 @@ Acknowledg
 e
 \change_unchanged
 ments
-\change_inserted -1837876828 1342111153
+\change_deleted -74556787 1342823168
 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -1169,9 +1185,11 @@ Note 7
 
 \end_inset
 
-
-\change_unchanged
  
+\change_inserted -74556787 1342823173
+{Note 7}
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard
@@ -1331,11 +1349,13 @@ s
 .
 \change_inserted -1837876828 1342548161
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823185
+Note: 
 \change_inserted -1837876828 1342548169
 Get rid of paragraph break here.
 \change_unchanged
@@ -1485,7 +1505,7 @@ a posteriori
 \emph default
 
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -1677,7 +1697,7 @@ key "jaynesBook"
 knowledge
 \change_inserted -1837876828 1342113502
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -1895,7 +1915,7 @@ aspects of the method are expressed in the prior pdf
  The most common technique of geostatistics is called Kriging
 \change_inserted -1837876828 1342114621
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -2168,7 +2188,7 @@ reference "fig:varill"
 ).
 \change_inserted -1837876828 1342117945
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -3444,7 +3464,7 @@ ortran
 90.
 \change_inserted -1837876828 1342190506
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -4476,7 +4496,7 @@ which are the 95
  
 \change_inserted -1837876828 1342196074
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -5228,7 +5248,7 @@ Line Search
 The purpose of the line search
 \change_inserted -1837876828 1342197887
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -6432,12 +6452,15 @@ totally
  unknown
 \change_inserted -1837876828 1342551496
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823052
+NOTE: 
 \change_inserted -1837876828 1342551509
+
 \begin_inset Quotes eld
 \end_inset
 
@@ -8128,7 +8151,7 @@ a matrix text file format from
 PEST
 \change_inserted -1837876828 1342613432
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -8255,7 +8278,7 @@ key "PESTAdd"
 .
 \change_inserted -1837876828 1342614562
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -8643,7 +8666,7 @@ prior_mean_data
 .
 \change_inserted -1837876828 1342204201
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -9825,7 +9848,7 @@ parindent
  
 \change_inserted -1837876828 1342699941
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -10018,6 +10041,8 @@ Refer back to note 13
 \end_inset
 
 
+\change_inserted -74556787 1342823748
+NOTE: Refer back to note 13
 \change_unchanged
 
 \end_layout
@@ -10181,7 +10206,7 @@ horiz_ratio
 
 \family typewriter
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -11187,7 +11212,7 @@ t
 ial spacing 
 \change_inserted -1837876828 1342446879
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -12262,7 +12287,7 @@ are the parameters that characterize the covariance structure of both the
  In this work
 \change_inserted -1837876828 1342450573
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -13598,6 +13623,12 @@ Remember to deal with renumbering the cases in this section (to account
 \end_layout
 
 \begin_layout Standard
+
+\change_inserted -74556787 1342823855
+NOTE: Remember to deal with renumbering the cases in this section (to account
+ for the missing #4).
+ 
+\change_unchanged
 A three
 \change_inserted -1837876828 1342456936
 -
@@ -15089,7 +15120,7 @@ m
 s 
 \change_inserted -1837876828 1342701995
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -15110,7 +15141,7 @@ were adopted.
 discharge
 \change_inserted -1837876828 1342205015
 streamflow
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout

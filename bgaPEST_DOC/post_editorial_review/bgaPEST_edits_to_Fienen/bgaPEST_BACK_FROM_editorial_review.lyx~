@@ -65,7 +65,7 @@
 \papersides 1
 \paperpagestyle default
 \tracking_changes true
-\output_changes false
+\output_changes true
 \html_math_output 0
 \html_css_as_file 0
 \html_be_strict false
@@ -163,6 +163,8 @@ Watermark Numerical Computing, Brisbane, Australia
 \end_inset
 
 
+\change_inserted -74556787 1342823113
+[Note 1]
 \change_inserted -1837876828 1342029982
 
 \begin_inset Note Note
@@ -188,35 +190,6 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-
-\change_deleted -74556787 1342714480
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-raggedcolumns
-\end_layout
-
-\end_inset
-
- 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-raggedright
-\end_layout
-
-\end_inset
-
-
-\change_unchanged
 
 \end_layout
 
@@ -287,7 +260,7 @@ pproach
  
 \change_inserted -1837876828 1342031142
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -713,11 +686,13 @@ a posteriori
  
 \change_inserted -1837876828 1342547763
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823128
+Note: 
 \change_inserted -1837876828 1342547792
 USGS style is to not use italic for Latin phrases.
 \change_unchanged
@@ -759,11 +734,13 @@ a posteriori
  
 \change_inserted -1837876828 1342547798
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823136
+Note: 
 \change_inserted -1837876828 1342547801
 No ital.
 \change_unchanged
@@ -806,7 +783,7 @@ GITHUB LINK HERE
 the bleeding edge development branches
 \change_inserted -1837876828 1342112146
 revisions in progress
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -876,7 +853,7 @@ eport is intended to serve two purposes.
  First, a Bayesian approach to parameter estimation--
 \change_inserted -1837876828 1342034100
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -928,7 +905,7 @@ key "PEST"
 provides
 \change_inserted -1837876828 1342034261
 gives
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -1049,7 +1026,7 @@ also
  values for each model node or cell
 \change_inserted -1837876828 1342034609
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -1183,7 +1160,7 @@ Acknowledg
 e
 \change_unchanged
 ments
-\change_inserted -1837876828 1342111153
+\change_deleted -74556787 1342823168
 
 \begin_inset Note Note
 status open
@@ -1198,9 +1175,11 @@ Note 7
 
 \end_inset
 
-
-\change_unchanged
  
+\change_inserted -74556787 1342823173
+{Note 7}
+\change_unchanged
+
 \end_layout
 
 \begin_layout Standard
@@ -1360,11 +1339,13 @@ s
 .
 \change_inserted -1837876828 1342548161
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823185
+Note: 
 \change_inserted -1837876828 1342548169
 Get rid of paragraph break here.
 \change_unchanged
@@ -1706,7 +1687,7 @@ key "jaynesBook"
 knowledge
 \change_inserted -1837876828 1342113502
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -1811,96 +1792,6 @@ fluctuations about that mean.
 \end_layout
 
 \begin_layout Standard
-
-\change_deleted -74556787 1342714491
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-fcolorbox{black}{ltgrey}{
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}[t]{0.9
-\backslash
-columnwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{A Note on Parameters}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-The term ``parameters'' refers to discrete values of system state.
-\end_layout
-
-\begin_layout Plain Layout
-
-When we describe ``parameter type'' we mean a group of parameters
-\end_layout
-
-\begin_layout Plain Layout
-
-that belong to the same class of system state (for example, hydraulic
-\end_layout
-
-\begin_layout Plain Layout
-
-conductivity or recharge).
- In applications appropriate for bgaPEST,
-\end_layout
-
-\begin_layout Plain Layout
-
-there must be multiple parameter values of a given type that are spatially
-\end_layout
-
-\begin_layout Plain Layout
-
-or temporally distributed.
- When a ``parameter'' is listed, the meaning
-\end_layout
-
-\begin_layout Plain Layout
-
-is restricted to a single value of system model input that is to be
-\end_layout
-
-\begin_layout Plain Layout
-
-estimated.
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\change_unchanged
  It would be tempting to use another term such as 
 \begin_inset Quotes eld
 \end_inset
@@ -2014,7 +1905,7 @@ aspects of the method are expressed in the prior pdf
  The most common technique of geostatistics is called Kriging
 \change_inserted -1837876828 1342114621
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -2287,7 +2178,7 @@ reference "fig:varill"
 ).
 \change_inserted -1837876828 1342117945
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -3019,153 +2910,6 @@ Hence
  but allow the other structural parameters to be estimated.
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-fcolorbox{black}{ltgrey}{
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}[t]{0.9
-\backslash
-columnwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{Structural Parameters}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-The term ``structural parameters'' used here has a specific meaning.
-\end_layout
-
-\begin_layout Plain Layout
-
-Similar to the more general term ``parameters,'' structural parameters
-\end_layout
-
-\begin_layout Plain Layout
-
-are variable values that are estimated in the bgaPEST algorithm.
- Unlike
-\end_layout
-
-\begin_layout Plain Layout
-
-typical parameters, however, structural parameters do not 
-\backslash
-emph{directly
-\end_layout
-
-\begin_layout Plain Layout
-
-}control physical aspects of the system in the way that, for example,
-\end_layout
-
-\begin_layout Plain Layout
-
-hydraulic conductivity or stream roughness do in hydrologic models.
-\end_layout
-
-\begin_layout Plain Layout
-
-Instead, structural parameters control the structure of the general
-\end_layout
-
-\begin_layout Plain Layout
-
-parameters.
- For example, the variogram values (
-\change_deleted -1837876828 1342457937
-e.g.
-\change_inserted -1837876828 1342457939
-for example,
-\change_unchanged
- variance, slope,
-\end_layout
-
-\begin_layout Plain Layout
-
-and correlation length) that control to roughness of distributed parameter
-\end_layout
-
-\begin_layout Plain Layout
-
-fields are structural parameters, as is the value of variance controlling
-\end_layout
-
-\begin_layout Plain Layout
-
-epistemic uncertainty.
- Because these parameters must be estimated
-\end_layout
-
-\begin_layout Plain Layout
-
-but are not directly connected to the physics of the problem, they
-\end_layout
-
-\begin_layout Plain Layout
-
-are also 
-\change_deleted -1837876828 1342457975
-in other work 
-\change_unchanged
-referred to 
-\change_inserted -1837876828 1342457981
-by other authors 
-\change_unchanged
-as ``nuisance'' parameters or
-\end_layout
-
-\begin_layout Plain Layout
-
-``hyperparameters.'' We adopt the term ``structural'' to highlight
-\end_layout
-
-\begin_layout Plain Layout
-
-the fact that the impact these parameters has on the solution is control
-\end_layout
-
-\begin_layout Plain Layout
-
-of the shape or structure of the distributed parameter fields.%
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -3485,190 +3229,6 @@ covariance structure, whereas in homogeneous zones, a single parameter value
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-fcolorbox{black}{ltgrey}{
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-parbox{0.9
-\backslash
-columnwidth}{
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{Beta Associations and Zones:
-\backslash
-emph{ Why aren't ``beta associations''
-\end_layout
-
-\begin_layout Plain Layout
-
-just called ``zones''}?}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-Beta associations are a term specific to bgaPEST.
- As discussed in
-\end_layout
-
-\begin_layout Plain Layout
-
-the main text, this term evolved from the term ``facies association,''
-\end_layout
-
-\begin_layout Plain Layout
-
-which describes partitioning of parameter fields 
-\change_deleted -1837876828 1342458020
-based
-\change_unchanged
- on 
-\change_inserted -1837876828 1342458024
-the basis of 
-\change_unchanged
-hydrogeologic
-\end_layout
-
-\begin_layout Plain Layout
-
-characteristics.
- This term was used in place of ``zones'' because
-\end_layout
-
-\begin_layout Plain Layout
-
-of a long history of zones referring to regions of piecewise constant
-\end_layout
-
-\begin_layout Plain Layout
-
-homogeneity (one parameter value applied to every node within a region).
-\end_layout
-
-\begin_layout Plain Layout
-
-Beta associations are 
-\backslash
-emph{not} homogeneous, so a distinct term was
-\end_layout
-
-\begin_layout Plain Layout
-
-sought that describes the characteristic of regions partitioned 
-\change_deleted -1837876828 1342458046
-due
-\change_inserted -1837876828 1342458048
-according
-\change_unchanged
-
-\end_layout
-
-\begin_layout Plain Layout
-
-to their characteristics and 
-\change_deleted -1837876828 1342458052
-how
-\change_inserted -1837876828 1342458054
-the way
-\change_unchanged
- these characteristics correlat
-\change_inserted -1837876828 1342458073
-e
-\change_deleted -1837876828 1342458067
-ion
-\change_unchanged
-
-\end_layout
-
-\begin_layout Plain Layout
-
-to regions around them.
- To generalize beyond hydrogeologic applications,
-\end_layout
-
-\begin_layout Plain Layout
-
-and to account for the fact the distinct parameter types require distinct
-\end_layout
-
-\begin_layout Plain Layout
-
-partitions, ``beta associations'' was the term chosen.
- Each of these
-\end_layout
-
-\begin_layout Plain Layout
-
-parameter partitions has a distinct mean value $
-\backslash
-left(
-\backslash
-beta
-\backslash
-right)$
-\end_layout
-
-\begin_layout Plain Layout
-
-to be estimated within the region, so the partitioning of the problem
-\end_layout
-
-\begin_layout Plain Layout
-
-results in different $
-\backslash
-beta$ values; because the parameter type and/or
-\end_layout
-
-\begin_layout Plain Layout
-
-region must be associated with a mean value $
-\backslash
-left(
-\backslash
-beta
-\backslash
-right)$,
-\end_layout
-
-\begin_layout Plain Layout
-
-we use the term ``beta associations.''%
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
@@ -3894,7 +3454,7 @@ ortran
 90.
 \change_inserted -1837876828 1342190506
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -4926,7 +4486,7 @@ which are the 95
  
 \change_inserted -1837876828 1342196074
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -5196,185 +4756,6 @@ reference "sec:Input-Instructions"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-fcolorbox{black}{ltgrey}{
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}[t]{0.9
-\backslash
-columnwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{Posterior Covariance and Parameter log-Transformations}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-In this section, it was indicated that in the 
-\backslash
-texttt{$<$casename$>$.bpp.fin}
-\end_layout
-
-\begin_layout Plain Layout
-
-file, parameter values and 95
-\backslash
-
-\change_deleted -1837876828 1342457840
-%
-\change_inserted -1837876828 1342457840
--percent
-\change_unchanged
- confidence intervals are reported
-\end_layout
-
-\begin_layout Plain Layout
-
-in linear (untransformed) space
-\change_inserted -1837876828 1342458126
-,
-\change_unchanged
- 
-\change_deleted -1837876828 1342458128
-while
-\change_inserted -1837876828 1342458129
-whereas
-\change_unchanged
- in the 
-\backslash
-texttt{$<$casename$>$.post.cov
-\end_layout
-
-\begin_layout Plain Layout
-
-}file, posterior covariance values are reported in estimation (log-transformed)
-\end_layout
-
-\begin_layout Plain Layout
-
-space.
- Why the difference? The two files
-\change_deleted -1837876828 1342458140
- 
-\change_unchanged
- serve slightly different
-\end_layout
-
-\begin_layout Plain Layout
-
-purposes.
- The parameter output file presents values in the units they
-\end_layout
-
-\begin_layout Plain Layout
-
-are entered in (and, presumably, the units ``seen'' by the forward
-\end_layout
-
-\begin_layout Plain Layout
-
-model).
- As a result, 95
-\backslash
-
-\change_deleted -1837876828 1342457841
-%
-\change_inserted -1837876828 1342457841
--percent
-\change_unchanged
- confidence intervals are reported in the
-\end_layout
-
-\begin_layout Plain Layout
-
-same way.
- Furthermore, the addition and subtraction of $2
-\backslash
-times
-\backslash
-sqrt{
-\backslash
-mathbf{V}_{ii}}$
-\end_layout
-
-\begin_layout Plain Layout
-
-must be applied to the parameters before back-transformation, which
-\end_layout
-
-\begin_layout Plain Layout
-
-explains the asymmetry of the confidence limits.
- On the other hand,
-\end_layout
-
-\begin_layout Plain Layout
-
-the full posterior covariance matrix is intended for other analysis
-\end_layout
-
-\begin_layout Plain Layout
-
-(propagation of variance through to predictions, conditional realizations,
-\end_layout
-
-\begin_layout Plain Layout
-
-and others) in which the information should be retained in estimation
-\end_layout
-
-\begin_layout Plain Layout
-
-(log-transformed) space.
- In the end, the decision of how to report
-\end_layout
-
-\begin_layout Plain Layout
-
-these values is one of convention, and this side box is intended to
-\end_layout
-
-\begin_layout Plain Layout
-
-make clear which was chosen in each case.%
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}
-\end_layout
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -5857,7 +5238,7 @@ Line Search
 The purpose of the line search
 \change_inserted -1837876828 1342197887
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -6881,100 +6262,6 @@ and so forth
 ).
 \end_layout
 
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-fcolorbox{black}{ltgrey}{
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{minipage}[t]{0.9
-\backslash
-columnwidth}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{A note on default variable values}
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-In the input instructions below, some variables list a default value.
-\end_layout
-
-\begin_layout Plain Layout
-
-Part of the design strategy of this software was to not burden users
-\end_layout
-
-\begin_layout Plain Layout
-
-with determining appropriate values for each and every variable that
-\end_layout
-
-\begin_layout Plain Layout
-
-controls the algorithm.
- As a result, default values are provided for
-\end_layout
-
-\begin_layout Plain Layout
-
-some variables.
- In those cases, input by the user in the 
-\backslash
-texttt{.bgp}
-\end_layout
-
-\begin_layout Plain Layout
-
-file is optional.
- If no value is provided by the user, the default
-\end_layout
-
-\begin_layout Plain Layout
-
-value will be used by bgaPEST.
- If a variable not listed with a default
-\end_layout
-
-\begin_layout Plain Layout
-
-value in these input instructions is omitted by a user, bgaPEST will
-\end_layout
-
-\begin_layout Plain Layout
-
-return with an error indicating that the variable is not present.%
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{minipage}}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Algorithmic Control Variables 
 \family typewriter
@@ -7155,12 +6442,15 @@ totally
  unknown
 \change_inserted -1837876828 1342551496
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
 
+\change_inserted -74556787 1342823052
+NOTE: 
 \change_inserted -1837876828 1342551509
+
 \begin_inset Quotes eld
 \end_inset
 
@@ -8851,7 +8141,7 @@ a matrix text file format from
 PEST
 \change_inserted -1837876828 1342613432
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -8978,7 +8268,7 @@ key "PESTAdd"
 .
 \change_inserted -1837876828 1342614562
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -9366,7 +8656,7 @@ prior_mean_data
 .
 \change_inserted -1837876828 1342204201
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -10548,7 +9838,7 @@ parindent
  
 \change_inserted -1837876828 1342699941
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -10904,7 +10194,7 @@ horiz_ratio
 
 \family typewriter
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -11910,7 +11200,7 @@ t
 ial spacing 
 \change_inserted -1837876828 1342446879
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -12985,7 +12275,7 @@ are the parameters that characterize the covariance structure of both the
  In this work
 \change_inserted -1837876828 1342450573
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -15812,7 +15102,7 @@ m
 s 
 \change_inserted -1837876828 1342701995
 
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
@@ -15833,7 +15123,7 @@ were adopted.
 discharge
 \change_inserted -1837876828 1342205015
 streamflow
-\begin_inset Note Note
+\begin_inset Note Greyedout
 status open
 
 \begin_layout Plain Layout
