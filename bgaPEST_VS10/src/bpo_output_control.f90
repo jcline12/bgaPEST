@@ -131,46 +131,53 @@ contains
       double precision, allocatable   :: lcl(:),ucl(:),finalparvalue(:)
       integer                         :: i,j
         
-        
-        allocate(finalparvalue(cv_PAR%npar))
-        finalparvalue = d_PAR%pars !-- these are the optimal values, still in physical space   
         call utl_int2char(PARNWIDTH,parwstr)
         call utl_int2char(PARGROUPNMWID,pargwstr) 
-
-        !--- handle transformations to estimation space as appropriate
-        do i = 1,cv_PAR%npar 
-         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
-            finalparvalue(i) = log(d_PAR%pars(i))   
-         endif
-        enddo   
-
-    if (ci95_flag .eq. 1) then  ! only calculate LCL and UCL if posterior covariance was calculated
-
-        allocate(lcl(cv_PAR%npar))
-        allocate(ucl(cv_PAR%npar))
         
-        write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16,1A16,1A16)')") trim(parwstr),trim(pargwstr)
-        write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal','95pctLCL','95pctLCL'
+    if (ci95_flag .eq. 1) then  ! only calculate LCL and UCL if posterior covariance was calculated
+      
+      allocate(finalparvalue(cv_PAR%npar))
+      finalparvalue = d_PAR%pars !-- these are the optimal values, still in physical space    
+      !--- handle transformations to estimation space as appropriate
+      if (maxval(d_PM%Partrans).ge.1) then  !If yes, the parameters transformation is required  
+        do i = 1,cv_PAR%npar 
+          if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
+            finalparvalue(i) = log(d_PAR%pars(i))
+          elseif (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.2) then
+            finalparvalue(i)=d_PM%alpha(d_PAR%BetaAssoc(i))*((d_PAR%pars(i)**(1./d_PM%alpha(d_PAR%BetaAssoc(i))))-1)   
+          endif
+        enddo   
+      endif
+        
+      allocate(lcl(cv_PAR%npar))
+      allocate(ucl(cv_PAR%npar))
+       
+      write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16,1A16,1A16)')") trim(parwstr),trim(pargwstr)
+      write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal','95pctLCL','95pctLCL'
    
         !-- calculate LCL, and UCL
         lcl = finalparvalue
         ucl = finalparvalue
         lcl = lcl - 2*sqrt(V)
         ucl = ucl + 2*sqrt(V)
-
-        !-- backtransform to physical space as appropriate
+        if (allocated(finalparvalue)) deallocate(finalparvalue)     
+      !-- backtransform to physical space as appropriate
+      if (maxval(d_PM%Partrans).ge.1) then  !If yes, the parameters back-transformation is required  
         do i = 1,cv_PAR%npar 
          if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
-              finalparvalue(i) = exp(finalparvalue(i))
               ucl(i) = exp(ucl(i))
               lcl(i) = exp(lcl(i))
+         elseif (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.2) then
+              ucl(i) = ((ucl(i)/d_PM%alpha(d_PAR%BetaAssoc(i)))+1)**(d_PM%alpha(d_PAR%BetaAssoc(i)))
+              lcl(i) = ((lcl(i)/d_PM%alpha(d_PAR%BetaAssoc(i)))+1)**(d_PM%alpha(d_PAR%BetaAssoc(i)))
          endif
         enddo 
-            
+      endif      
+       
         !--  write parameter values, LCL, and UCL
         do j = 1,cv_PAR%npar    
             write(outlinefmt,"('(1A',A,',1A',A,',1I13,1E16.8,1E16.8,1E16.8)')")  trim(parwstr),trim(pargwstr)
-            write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),finalparvalue(j), &
+            write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),d_PAR%pars(j), &
                      lcl(j),ucl(j)
         enddo
         if (allocated(lcl)) deallocate(lcl)
@@ -179,21 +186,16 @@ contains
     else ! -- write final parameter values without confidence intervals if no posterior covariance was calculated
         write(outlinefmt,"('(1A',A,',1A',A,',1A13,1A16)')") trim(parwstr),trim(pargwstr)
         write(writunit,trim(outlinefmt)) 'ParamName','ParamGroup','BetaAssoc','ParamVal'
-        !-- backtransform to physical space as appropriate
-        do i = 1,cv_PAR%npar 
-         if (d_PM%Partrans(d_PAR%BetaAssoc(i)).eq.1) then
-              finalparvalue(i) = exp(finalparvalue(i))
-         endif
-        enddo 
-            
-        !--  write parameter values, LCL, and UCL
+                    
+        !--  write parameter values
         do j = 1,cv_PAR%npar    
             write(outlinefmt,"('(1A',A,',1A',A,',1I13,1E16.8)')")  trim(parwstr),trim(pargwstr)
-            write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),finalparvalue(j)
+            write(writunit,trim(outlinefmt)) trim(d_PAR%parnme(j)),trim(d_PAR%group(j)), d_PAR%BetaAssoc(j),d_PAR%pars(j)
         enddo
         
      endif ! -- ci95_flag
-        if (allocated(finalparvalue)) deallocate(finalparvalue)  
+        
+       
          
    end subroutine bpo_write_allpars_95ci
       
