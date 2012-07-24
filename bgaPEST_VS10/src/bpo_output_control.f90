@@ -340,6 +340,15 @@ contains
         ! write out each beta association's details
         do i = 1,cv_PAR%p
             write(bprunit,60) Q0_all(i)%BetaAss
+            write(bprunit,20) indent,'Estimation space for this Beta Association: [none] physical space, [log] log transf., [power] power transf.'
+            select case (d_PM%Partrans(i))
+              case (0)
+                write(bprunit,25) indent,indent,'none - Estimation is in the physical space'
+              case (1)  
+                write(bprunit,25) indent,indent,'log - Estimation is in a log transformed space'
+              case (2)
+                write(bprunit,74) indent,indent,'power - Estimation is in a power transformed space',' with alpha ', d_PM%alpha(i)
+            end select
             write(bprunit,20) indent,'Parameter number at which this Beta Association starts'
             write(bprunit,45) indent,indent,'Beta_start: ',Q0_all(i)%Beta_start
             write(bprunit,20) indent,'Toeplitz Flag'
@@ -355,9 +364,22 @@ contains
         enddo
     else
         !indicate no compression specified
-            write(bprunit,65) indent,' No Compression Requested.'
+      do i = 1,cv_PAR%p
+        write(bprunit,60) i
+            write(bprunit,20) indent,'Estimation space for this Beta Association: [none] physical space, [log] log transf., [power] power transf.'
+            select case (d_PM%Partrans(i))
+              case (0)
+                write(bprunit,25) indent,indent,'none - Estimation is in the physical space'
+              case (1)  
+                write(bprunit,25) indent,indent,'log - Estimation is in a log transformed space'
+              case (2)
+                write(bprunit,74) indent,indent,'power - Estimation is in a power transformed space',' with alpha ', d_PM%alpha(i)
+            end select
+       enddo
+            write(bprunit,*)
+            write(bprunit,65) indent,'No Compression Requested.'
     endif    
-60 format('Variables for Beta Association: ',I3)
+60 format(' Variables for Beta Association: ',I3)
 65 format(2A)
    
 !!! Derivatives Calculations
