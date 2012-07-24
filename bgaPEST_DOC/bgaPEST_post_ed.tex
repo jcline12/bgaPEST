@@ -578,12 +578,12 @@ as possible in the process.
 In bgaPEST, then, the practitioner specifies a type of variogram (nugget,
 linear, or exponential) that is used to control the variability---smoothness
 or roughness---of parameters within a beta association, but the \emph{degree}
-to which this characteristic is enforced is determined by restricted
+to which this characteristic is enforced is determined by a Bayesian adaptation of restricted
 maximum likelihood (RML). In RML, the value of structural parameters
 that control the variogram behavior is treated as a probability distribution
 and the most likely values resulting in either the best possible fit
 (if the epistemic error term is estimated) or a user-specific level
-of fit (if the epistemic error term is fixed) are estimated. ``Fit,''
+of fit (if the epistemic error term is fixed) are estimated. The Bayesian adaptation to RML in this report is through the inclusion of prior information and uncertainty, which is not strictly possible in traditional RML. ``Fit,''
 in this context, refers to the correspondence between observation
 data and model outputs collocated in space and time with the measured
 observations. Fit and epistemic error are discussed in more detail
@@ -1005,8 +1005,8 @@ addition, respectively, of $2\times\sqrt{\mathbf{V}_{ii}}$ to $\mathbf{s}_{i}$--
 $i$th optimal parameter value. In this case, $\mathbf{V}$ is
 the posterior covariance, so $\sqrt{\mathbf{V}_{ii}}$ is the standard
 deviation of the $i$th parameter. The 95 percent confidence limits are
-reported in linear space, \emph{not} log-transformed space, so for
-log-transformed parameters, the upper and lower 95 percent percent confidence
+reported in linear space, \emph{not} log-transformed or power-transformed space, so for
+log-transformed or power-transformed parameters, the upper and lower 95 percent percent confidence
 limits are not symmetrical about the parameter value. 
 
 
@@ -1021,7 +1021,7 @@ These files can be easily copied into a spreadsheet or read with a
 plotting program to calculate and plot residuals.
 
 
-\subsubsection{Posterior Covariance File \texttt{$<$casename$>$.post.cov}}
+\subsubsection{Posterior Covariance File \newline{}\texttt{$<$casename$>$.post.cov}}
 
 If the input variable \texttt{posterior\_cov\_flag=1}, then posterior
 covariance of the parameters $\mathbf{s}$ is calculated. In addition
@@ -2053,7 +2053,7 @@ or through pre- and post-processing--to receive input and provide
 output using text (ASCII) files. For bgaPEST to be able to run the
 model, template files (\texttt{.TPL}) and instruction files (\texttt{.INS})
 must be provided corresponding with model input and output, respectively.
-Details of the contruction of these files are in \citet[][chap. 3]{PEST3}.
+Details of the construction of these files are in \citet[][chap. 3]{PEST3}.
 The template and instruction files are detailed in the \texttt{model\_input\_files}
 and \texttt{model\_output\_files }blocks, respectively. The \texttt{model\_command\_lines}
 block also must be included with an entry for either a batch file
@@ -3412,7 +3412,7 @@ considered channel was prismatic and 20~kilometers long; the cross sections
 (spaced by 100~meters (m)) were trapezoidal in shape with bottom width of
 10~m and side slope of 2/1. A longitudinal channel slope of 0.001
 and a unitless Manning coefficient of 0.033 were
-adopted. The upstream and downstream boundary conditions were a streamflow
+adopted. The Manning coefficient is expressed as unitless when all other quantities are in SI units (as is the case here). A correction factor would be required if English units were used for the other quantities. The upstream and downstream boundary conditions were a streamflow
 time series and the uniform flow condition, respectively. The initial
 condition was set consistent with the steady state of a constant flow
 rate equal to the first value of the upstream hydrograph. The BASEChain
@@ -3485,7 +3485,7 @@ $\sigma_{R}^{2}$ {[}m\textsuperscript{6}s\textsuperscript{-2}{]} & $1.7\times10^
   \urlstyle{rm}\Url}\fi
 
 \bibitem[{D'Oria and Tanda(2012)}]{doriareverserouting}
-D'Oria, M., and Tanda, M.G., in press, Reverse flow routing in open channels---A Bayesian geostatistical approach: Journal of Hydrology.
+D'Oria, M., and Tanda, M.G., 2012, Reverse flow routing in open channels---A Bayesian geostatistical approach: Journal of Hydrology, doi: 10.106/j.hydrol.2012
 
 \bibitem[{Faeh and others(2011)Faeh, Mueller, Rousselot, Vetsch, Volz,
   Vonwiller, R., and Farshi}]{Basement}
