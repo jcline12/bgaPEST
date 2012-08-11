@@ -881,6 +881,8 @@ end subroutine bdp_read_data_model_command_line
         nullify(d_MIO%infle)
         nullify(d_MIO%ins)
         nullify(d_MIO%outfle) 
+        nullify(d_MIO%pargroup) 
+        
          
         if (bl(15)%numrows .EQ. 0) then
           retmsg = 'No input information provided in model_input_files block'  
@@ -891,9 +893,13 @@ end subroutine bdp_read_data_model_command_line
         cv_MIO%ntplfle = bl(15)%numrows
         allocate (d_MIO%tpl(cv_MIO%ntplfle))
         allocate (d_MIO%infle(cv_MIO%ntplfle))
-        d_MIO%tpl   = UNINIT_CHAR ! array
-        d_MIO%infle = UNINIT_CHAR ! array
+        d_MIO%tpl       = UNINIT_CHAR ! array
+        d_MIO%infle     = UNINIT_CHAR ! array
+        d_MIO%pargroup  = UNINIT_CHAR ! array
         
+        select case bl(15)%numcol
+        
+        case(2) ! no parameter groups used - must also be that (cv_A%deriv_mode .ne. 4)
         allocate (columnname(2))
         allocate (columnstring(2))
       ! first read input/tpl information
@@ -904,6 +910,19 @@ end subroutine bdp_read_data_model_command_line
           d_MIO%tpl(i) = trim(adjustl(columnstring(1)))
           d_MIO%infle(i) = trim(adjustl(columnstring(2)))
          enddo
+        case(3) ! parameter groups used - must also be that (cv_A%deriv_mode .eq. 4)
+        allocate (columnname(3))
+        allocate (columnstring(3))
+      ! first read input/tpl information
+         columnname=(/'TemplateFile','ModInFile','groupname'/)
+         columnstring=' ' ! array
+         do i=1,cv_MIO%ntplfle
+          call ids_read_block_table(ifail,bl(15)%label,2,columnname,columnstring,line,filename)
+          d_MIO%tpl(i) = trim(adjustl(columnstring(1)))
+          d_MIO%infle(i) = trim(adjustl(columnstring(2)))
+          d_MIO%pargroup(i) = trim(adjustl(columnstring(3)))
+         enddo            
+        end select
       ! next read output/ins information
       if (bl(16)%numrows .EQ. 0) then
           retmsg = 'No input information provided in model_output_files block'  

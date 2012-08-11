@@ -60,6 +60,8 @@ subroutine bpd_finalize(d_PM, d_S, cv_PAR, d_PAR, &
   if (associated(d_MIO%infle))     deallocate(d_MIO%infle,stat=ierr)
   if (associated(d_MIO%ins))       deallocate(d_MIO%ins,stat=ierr)
   if (associated(d_MIO%outfle))    deallocate(d_MIO%outfle,stat=ierr)
+  if (associated(d_MIO%pargroup))  deallocate(d_MIO%pargroup,stat=ierr)
+  
 
   end subroutine bpd_finalize
            

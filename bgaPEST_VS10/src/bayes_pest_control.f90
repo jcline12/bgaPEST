@@ -176,6 +176,7 @@ module bayes_pest_control
             character(len=100),pointer	::	infle(:) !MD Input file
             character(len=100),pointer	::	ins(:) !MD Instruction file
             character(len=100),pointer	::	outfle(:) !MD Output file
+            character(len=100), pointer ::  pargroup(:) ! parameter groups for parallel run setup
       end type d_minout 
       
       type  :: kernel_XQR        ! kernels of X, Q, and R

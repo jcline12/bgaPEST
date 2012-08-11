@@ -6,7 +6,7 @@ module extern_derivs
 
 contains
 
-subroutine bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
+subroutine bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS,cv_A)
 
 implicit none
 
@@ -14,6 +14,7 @@ implicit none
 !-- declarations
 
        type (cv_param)              :: cv_PAR
+       type (cv_algorithmic)        :: cv_A
        type (cv_observ)             :: cv_OBS
        type (d_observ)              :: d_OBS
        type (d_comlin)              :: d_MOD
@@ -25,6 +26,17 @@ implicit none
        call bpc_openfile(iunit,'bgaPEST.#mc',1)
        write(iunit,*) d_MOD%com
        close(iunit)
+       
+!-- write the parameter group and template file lookup
+       if (cv_A%deriv_mode .eq. 4) then
+           iunit = utl_nextunit()
+           call bpc_openfile(iunit,'bgaPEST.#pgtpl' ,1)
+           write(iunit,50) 'TPL_FILE','PARGROUP'
+           do i = 1,cv_MIO%ntplfle
+                write(iunit,50) d_MIO%tpl(i),d_MIO%pargroup(i)
+           enddo
+           close(iunit)
+       endif       
        
 !-- write the MIO file
        iunit = utl_nextunit()
@@ -50,6 +62,7 @@ implicit none
 55      format(A50,F10.5,A12)
        close(iunit)
            
+
 !-- write the observations file       
        iunit = utl_nextunit()
        call bpc_openfile(iunit,'bgaPEST.#obs',1)

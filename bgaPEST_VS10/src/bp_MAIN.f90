@@ -131,7 +131,7 @@ program bp_main
 
 !--  SETUP THE MODEL INPUT AND OUTPUT INFORMATION (TPL/INPUT AND INS/OUTPUT PAIRINGS)
     call bpm_setup_mio(errstruc, cv_MIO, d_MIO,  cv_PAR%npargp, &
-                       cv_OBS%nobsgp, cv_PAR%npar, cv_OBS%nobs, miostruc)
+                        cv_OBS%nobsgp, cv_PAR%npar, cv_OBS%nobs, miostruc)
                      
 !--  INITIALIZE THE INVERSE MODEL
     !Make Q0, R0, X0, and InvQbb if necessary   
@@ -152,8 +152,8 @@ program bp_main
     endif
     
 !-- CALL THE SETUP OF EXTERNAL DERIVATIVES FILES (IF REQUIRED).  THIS HAPPENS ONLY ONCE FOR ALL BUT PARAMETERS FILE
-    if (cv_A%deriv_mode .eq. 0) then
-        call bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS)
+    if ((cv_A%deriv_mode .eq. 0) .or. (cv_A%deriv_mode .eq. 4)) then
+        call bxd_write_ext_PEST_files(d_MOD, cv_MIO, d_MIO, cv_OBS, cv_PAR, d_OBS,cv_A)
     endif
     
 !-- WRITE THE HEADER INFORMATION TO THE BPR Run Record FILE

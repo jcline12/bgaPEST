@@ -88,9 +88,18 @@ contains
             call system(d_MOD%com)
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
-              call utl_bomb_out(errstruc)
+              call utl_bomb_out(errstruc)        
             endif 
-    end select
+        case (4) ! Parallel Jacobian Using Condor Externally
+            call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
+            select case (cv_A%jacobian_format)
+              case ('binary')
+                call readJCO(cv_A%jacfle, d_A)
+              case ('ascii')
+                call readJAC(cv_A%jacfle, d_A)
+            end select
+
+        end select
     
   
 
