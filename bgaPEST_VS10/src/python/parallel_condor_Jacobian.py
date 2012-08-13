@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 
 '''
 parallel_condor_Jacobian --> program for external bgaPEST derivatives using Condor.
@@ -41,11 +42,16 @@ class Jacobian_calculator:
         self.mio = dict(zip(np.atleast_1d(indat['MIO_FILE']),
                                   np.atleast_1d(indat['MOD_FILE'])))
         
-        
+    def write_par_files(self):
+        # split out the par file into one for each group
+        for cg in self.pargpuniq:
+            ofp = open(cg + '.#par','w')
+            ofp.write('%12s%12s%12s\n' %('PARGPNME','))
 # ####### #
  # M A I N #
   # ####### #
- 
+param_to_perturb = int(sys.argv[1])
+
 jack = Jacobian_calculator()
 
 jack.read_parameters_and_meta_data()
