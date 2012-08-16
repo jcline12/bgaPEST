@@ -17,7 +17,7 @@ subroutine bpd_finalize(d_PM, d_S, cv_PAR, d_PAR, &
        type (cv_observ)     :: cv_OBS
        type (d_observ)      :: d_OBS
        type (d_comlin)      :: d_MOD
-       type (d_minout)      :: d_MIO                    
+       type (d_minout)      :: d_MIO                 
 !-- deallocate algorithmic data array (d_A) 
   if (associated(d_A%H))           deallocate(d_A%H,stat=ierr)
   if (associated(d_A%HQHt))        deallocate(d_A%HQHt,stat=ierr)
@@ -30,6 +30,7 @@ subroutine bpd_finalize(d_PM, d_S, cv_PAR, d_PAR, &
   if (associated(d_PM%Qbb))        deallocate(d_PM%Qbb,stat=ierr)
   if (associated(d_PM%InvQbb))     deallocate(d_PM%InvQbb,stat=ierr)
   if (associated(d_PM%InvQbbB0))   deallocate(d_PM%InvQbbB0,stat=ierr)
+  
 !-- deallocate structural parameter data (d_XQR) 
   if (associated(d_XQR%X))         deallocate(d_XQR%X,stat=ierr)
   if (associated(d_XQR%Q0))        deallocate(d_XQR%Q0,stat=ierr)
@@ -41,6 +42,11 @@ subroutine bpd_finalize(d_PM, d_S, cv_PAR, d_PAR, &
   if (associated(d_S%invQtheta))   deallocate(d_S%invQtheta,stat=ierr)
   if (associated(d_S%struct_par_opt_vec_0)) deallocate(d_S%struct_par_opt_vec_0,stat=ierr)
   if (associated(d_S%struct_par_opt_vec))   deallocate(d_S%struct_par_opt_vec,stat=ierr)
+
+!-- deallocate parameter control values (cv_PAR)
+  if (associated(cv_PAR%grp_name))   deallocate(cv_PAR%grp_name,stat=ierr)       
+  if (associated(cv_PAR%grp_type))   deallocate(cv_PAR%grp_type,stat=ierr)       
+  if (associated(cv_PAR%derinc))    deallocate(cv_PAR%derinc,stat=ierr)       
 
 !-- deallocate parameter structure (d_PAR)
   if (associated(d_PAR%group))     deallocate(d_PAR%group,stat=ierr)

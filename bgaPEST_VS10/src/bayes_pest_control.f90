@@ -117,6 +117,7 @@ module bayes_pest_control
             integer                         :: npar    !MD Total number of parameters 
             character (len=50), pointer     :: grp_name(:) !MD Name of the parameter groups
             integer, pointer                :: grp_type(:) !MD Type of groups 
+            double precision, pointer       :: derinc(:) !MNF derivative increment for group
             integer                         :: ndim  !MD Spatial dimensions
             integer                         :: p     !MD Number of means
       end type cv_param

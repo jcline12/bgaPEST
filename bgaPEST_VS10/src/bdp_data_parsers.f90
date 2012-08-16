@@ -374,17 +374,19 @@ end subroutine bdp_read_data_prior_mean
               call bdp_init_keyword_vars(BL,10)
               cv_PAR%npargp=bl(10)%numrows
               allocate(cv_PAR%grp_name(cv_PAR%npargp))
-              allocate(cv_PAR%grp_type(cv_PAR%npargp))              
-              numcol = 2
+              allocate(cv_PAR%grp_type(cv_PAR%npargp))     
+              allocate(cv_PAR%derinc(cv_PAR%npargp))     
+              numcol = 3
               allocate(columnstring(numcol))
               allocate(columnname(numcol))
-              columnname=(/'groupname','grouptype'/)
-              columnstring=(/' ',' '/)
+              columnname=(/'groupname','grouptype','derinc'/)
+              columnstring=(/' ',' ',' '/)
               
               do i=1,cv_PAR%npargp
                  call ids_read_block_table(ifail,bl(10)%label,2,columnname,columnstring,line,filename)
                  cv_PAR%grp_name(i) = trim(adjustl(columnstring(1)))
                  call intread(ifail, columnstring(2),cv_PAR%grp_type(i))
+                 call DREALREAD(ifail,columnstring(3),cv_PAR%derinc(i))
               enddo
               
     end subroutine bdp_read_parameter_groups
@@ -859,16 +861,17 @@ end subroutine bdp_read_epistemic_error
          
 end subroutine bdp_read_data_model_command_line  
       
-!********  subroutine bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,inunit,retmsg)
-         subroutine bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,inunit,retmsg)
+!********  subroutine bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,cv_A,inunit,retmsg)
+         subroutine bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,cv_A,npargp,inunit,retmsg)
           use bayes_pest_control
           use jupiter_input_data_support
        ! DECLARATIONS
          implicit none
          type(d_minout),       intent(inout)       :: d_MIO
-         type (cv_minout),     intent(inout)          :: cv_MIO
+         type(cv_algorithmic), intent(in)          :: cv_A
+         type (cv_minout),     intent(inout)       :: cv_MIO
          type(tp_block),       intent(inout)       :: BL(NUM_BLOCK) 
-         integer,              intent(in)          :: inunit
+         integer,              intent(in)          :: inunit,npargp ! npargp is number of parameter groups 
          character (len=ERRORWIDTH), intent(inout) :: retmsg
          character (len=COLWIDTH), pointer     :: columnname(:)
          character (len=COLWIDTH), pointer     :: columnstring(:)         
@@ -893,13 +896,25 @@ end subroutine bdp_read_data_model_command_line
         cv_MIO%ntplfle = bl(15)%numrows
         allocate (d_MIO%tpl(cv_MIO%ntplfle))
         allocate (d_MIO%infle(cv_MIO%ntplfle))
+        allocate (d_MIO%pargroup(npargp))
         d_MIO%tpl       = UNINIT_CHAR ! array
         d_MIO%infle     = UNINIT_CHAR ! array
-        d_MIO%pargroup  = UNINIT_CHAR ! array
-        
-        select case bl(15)%numcol
-        
-        case(2) ! no parameter groups used - must also be that (cv_A%deriv_mode .ne. 4)
+        d_MIO%pargroup  = UNINIT_CHAR ! array      
+
+        if (cv_A%deriv_mode .eq. 4) then ! parameter groups used - (cv_A%deriv_mode .eq. 4)
+        allocate (columnname(3))
+        allocate (columnstring(3))
+      ! first read input/tpl information
+         columnname=(/'TemplateFile','ModInFile','groupname'/)
+         columnstring=' ' ! array
+         do i=1,cv_MIO%ntplfle
+          call ids_read_block_table(ifail,bl(15)%label,3,columnname,columnstring,line,filename)
+          d_MIO%tpl(i) = trim(adjustl(columnstring(1)))
+          d_MIO%infle(i) = trim(adjustl(columnstring(2)))
+          d_MIO%pargroup(i) = trim(adjustl(columnstring(3)))
+         enddo   
+         
+        else ! no parameter groups used -  (cv_A%deriv_mode .ne. 4)
         allocate (columnname(2))
         allocate (columnstring(2))
       ! first read input/tpl information
@@ -910,20 +925,9 @@ end subroutine bdp_read_data_model_command_line
           d_MIO%tpl(i) = trim(adjustl(columnstring(1)))
           d_MIO%infle(i) = trim(adjustl(columnstring(2)))
          enddo
-        case(3) ! parameter groups used - must also be that (cv_A%deriv_mode .eq. 4)
-        allocate (columnname(3))
-        allocate (columnstring(3))
-      ! first read input/tpl information
-         columnname=(/'TemplateFile','ModInFile','groupname'/)
-         columnstring=' ' ! array
-         do i=1,cv_MIO%ntplfle
-          call ids_read_block_table(ifail,bl(15)%label,2,columnname,columnstring,line,filename)
-          d_MIO%tpl(i) = trim(adjustl(columnstring(1)))
-          d_MIO%infle(i) = trim(adjustl(columnstring(2)))
-          d_MIO%pargroup(i) = trim(adjustl(columnstring(3)))
-         enddo            
-        end select
-      ! next read output/ins information
+        endif
+
+        ! next read output/ins information
       if (bl(16)%numrows .EQ. 0) then
           retmsg = 'No input information provided in model_output_files block'  
           return     

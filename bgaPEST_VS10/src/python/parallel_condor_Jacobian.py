@@ -1,5 +1,4 @@
 import numpy as np
-import sys
 
 '''
 parallel_condor_Jacobian --> program for external bgaPEST derivatives using Condor.
@@ -47,13 +46,34 @@ class Jacobian_calculator:
         for cg in self.pargpuniq:
             ofp = open(cg + '.#par','w')
             ofp.write('%12s%12s%12s\n' %('PARGPNME','))
-# ####### #
- # M A I N #
-  # ####### #
-param_to_perturb = int(sys.argv[1])
 
-jack = Jacobian_calculator()
-
-jack.read_parameters_and_meta_data()
-
-i=1
+    def Jacobian2jac(Xtmp,outfile):
+        # open the outfile
+        ofp = open(outfile,'w')
+        # write out the header
+        ofp.write('%10d%10d%10d\n' %(nobs,npar,2))
+        # write out the Jacobian
+        k = 0
+        cp = 0
+        for i in Xtmp:
+            k+=1
+            cp+=1
+            ofp.write('%16.8e ' %(i))
+            if (k==8):
+                k = 0
+                ofp.write('\n')
+            elif (cp==npar):
+                cp = 0
+                k = 0
+                ofp.write('\n')
+                
+        # now write out the observation names
+        ofp.write('* row names\n')
+        for cobs in obsnames:
+            ofp.write('%s\n' %(cobs))
+        
+        # now write out the parameter names
+        ofp.write('* column names\n')
+        for i in np.arange(npar):
+            ofp.write('p%d\n' %(i+1))
+        ofp.close()        

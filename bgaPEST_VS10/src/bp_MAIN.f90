@@ -183,7 +183,8 @@ program bp_main
                     forward_flag_der = 1
                 case (1)
                     forward_flag_der = 2
-                    
+				case (4)
+                    forward_flag_der = 4 
              end select
              call bpf_model_run(errstruc, d_MOD, cv_PAR,d_PAR, cv_OBS, cv_A,  d_OBS, d_A, forward_flag_der, miostruc)
      
