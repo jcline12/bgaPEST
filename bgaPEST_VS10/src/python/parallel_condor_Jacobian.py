@@ -15,6 +15,7 @@ class Jacobian_Master:
         self.tpl_pargp =  [] # dictionary with pargroups and tpl files 
         self.obs_names = []
         self.base_obs_vals = [] # base observations values
+        self.derinc = [] # dictionary with pargroups and derincs
         self.parnames = []
         self.parvals = []
         self.jacfolder = []
@@ -51,6 +52,12 @@ class Jacobian_Master:
                 self.pargpuniq  = np.unique(self.pargroups)
                 self.NPAR = len(self.parvals)
                 del indat    
+    def read_derinc(self):
+        # read in the parameter files and get group information
+        indat = np.genfromtxt('bgaPEST.#pargp', names=True,dtype=None)
+        self.derinc = dict(zip(np.atleast_1d(indat['PARGPNME']),
+                                  np.atleast_1d(indat['DERINC'])))
+        del indat            
                 
     def read_obs_files(self,cpar):
         # read in each OBF file and parse the results into JACOBIAN rows
@@ -58,11 +65,59 @@ class Jacobian_Master:
         for cins in self.mio:
             indat = np.genfromtxt(os.path.join(os.getcwd(),self.jacfolder,cins[:-4] + '.obf.%d' %(cpar)),dtype=None)
             for line in indat:
-                tmpobs[self.obslookup[line[0]]] = line[1]
+                indie = self.obslookup[line[0]]
+                tmpobs[indie] = line[1]
         if cpar == -999:
             self.base_obs_vals = tmpobs
         else:
             self.JAC[:,cpar] = tmpobs
+            
+            
+    def calc_JAC(self):
+        # convert raw observations values to Jacobian derivatives
+        delta_par = self.parvals.copy()
+        
+        for cpar in np.arange(len(delta_par)):
+            # calculate the denominator (delta parameter)
+            pertgrp = self.pargroups[cpar]
+            pertamt = self.derinc[pertgrp]            
+            delta_par[cpar] *= pertamt
+            
+            # now perform the maths on the Jacobian column corresponding to the current parameter
+            self.JAC[:,cpar] = (self.JAC[:,cpar]-self.base_obs_vals) / delta_par[cpar]
+
+    def Jacobian2jac(self,outfile):
+        # open the outfile
+        ofp = open(outfile,'w')
+        # write out the header
+        ofp.write('%10d%10d%10d\n' %(self.NOBS,self.NPAR,2))
+        # write out the Jacobian
+        k = 0
+        cp = 0
+        for crow in self.JAC:
+            for cval in crow:
+                k+=1
+                cp+=1
+                ofp.write('%16.8e ' %(cval))
+                if (k==8):
+                    k = 0
+                    ofp.write('\n')
+                elif (cp==self.NPAR):
+                    cp = 0
+                    k = 0
+                    ofp.write('\n')
+                
+        # now write out the observation names
+        ofp.write('* row names\n')
+        for cobs in self.obs_names:
+            ofp.write('%s\n' %(cobs))
+        
+        # now write out the parameter names
+        ofp.write('* column names\n')
+        for cp in self.parnames:
+            ofp.write('%s\n' %(cp))
+        ofp.close()              
+    
             
 class Jacobian_one_run:
     # initialize the class
@@ -78,7 +133,7 @@ class Jacobian_one_run:
         self.JAC = []
         self.tpl_pargp = [] # dictionary with pargroups and tpl files 
         
-    def make_model_input(self):
+    def make_model_input_and_run(self):
         # first make all the input files
 
         # determine which parameter must be perturbed and increment it
@@ -100,11 +155,10 @@ class Jacobian_one_run:
                       self.tpl_pargp[cg] + ' ' +
                       self.mio[self.tpl_pargp[cg]] + ' ' +
                       cg + '.#jacpars')
-    
-    def run_model(self):
-        # use subprocess in case we later need to interact with the shell
-        print 'running %s' %(self.modcall)
-        p = sub.call(self.modcall)
+            # now, run the model using the modcall inherited from bgaPEST   
+            print 'running %s' %(self.modcall)
+            p = sub.call(self.modcall)    
+   
         
     def read_obs(self):
         # use INSCHEK to obtain the observation values in multiple files
@@ -157,33 +211,4 @@ class Jacobian_one_run:
             ofp = open(cg + '.#par','w')
             ofp.write('%12s%12s%12s\n' %('PARGPNME','PARVAL1','PARGP'))
 
-    def Jacobian2jac(Xtmp,outfile):
-        # open the outfile
-        ofp = open(outfile,'w')
-        # write out the header
-        ofp.write('%10d%10d%10d\n' %(nobs,npar,2))
-        # write out the Jacobian
-        k = 0
-        cp = 0
-        for i in Xtmp:
-            k+=1
-            cp+=1
-            ofp.write('%16.8e ' %(i))
-            if (k==8):
-                k = 0
-                ofp.write('\n')
-            elif (cp==npar):
-                cp = 0
-                k = 0
-                ofp.write('\n')
-                
-        # now write out the observation names
-        ofp.write('* row names\n')
-        for cobs in obsnames:
-            ofp.write('%s\n' %(cobs))
-        
-        # now write out the parameter names
-        ofp.write('* column names\n')
-        for i in np.arange(npar):
-            ofp.write('p%d\n' %(i+1))
-        ofp.close()        
+      

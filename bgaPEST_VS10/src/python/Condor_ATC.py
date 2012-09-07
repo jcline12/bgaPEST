@@ -1,7 +1,8 @@
 import numpy as np
 import subprocess as sub
 import parallel_condor_Jacobian as pcj
-import os, shutil
+import os
+import shutil
 
 
 
@@ -16,20 +17,21 @@ fulljack.read_pars()
 
 fulljack.read_mio_ins()
 
-fulljack.jacfolder = '#jacfilestmp#'
 
-'''
 # make a scratch directory for all the output files
 fulljack.jacfolder = '#jacfilestmp#'
+'''
 if os.path.exists(os.path.join(os.getcwd(),fulljack.jacfolder)):
     shutil.rmtree(os.path.join(os.getcwd(),fulljack.jacfolder))
 os.mkdir(os.path.join(os.getcwd(),fulljack.jacfolder))
 
+
 # run all the runs --> without CONDOR FOR NOW
 for i in np.arange(fulljack.NPAR):
-    print 'running run number ---> %d' %(i)
+    print '===============\n\nrunning run number ---> %d\n===============\n' %(i)
+
     sub.call('python condor_single_run.py %d' %(i))
-    
+ 
 # finally run the base case
 sub.call('python condor_single_run.py -999')
 
@@ -48,4 +50,12 @@ for i in np.arange(fulljack.NPAR):
     fulljack.read_obs_files(i)
     
 
+# get the derivative increments
+fulljack.read_derinc()
+
+# adjust from observation values to sensitivities in fulljack.JAC
+fulljack.calc_JAC()
+
+# finally, write out the Jacobian into a text file
+fulljack.Jacobian2jac('scratch_jack.jac')
 k=1
