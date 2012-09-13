@@ -11,21 +11,26 @@ import shutil
 # initialize a Jacobian Master object to hold results
 fulljack = pcj.Jacobian_Master()
 
+# read in the metadat that will be necessary to perform a Jacobian run
 fulljack.read_obs_names()
 
 fulljack.read_pars()
 
 fulljack.read_mio_ins()
 
+fulljack.read_jacfle()
+
+fulljack.update_condor_subfile()
 
 # make a scratch directory for all the output files
 fulljack.jacfolder = '#jacfilestmp#'
-'''
+
+# if it exists, empty it -- else, create it
 if os.path.exists(os.path.join(os.getcwd(),fulljack.jacfolder)):
     shutil.rmtree(os.path.join(os.getcwd(),fulljack.jacfolder))
 os.mkdir(os.path.join(os.getcwd(),fulljack.jacfolder))
 
-
+'''
 # run all the runs --> without CONDOR FOR NOW
 for i in np.arange(fulljack.NPAR):
     print '===============\n\nrunning run number ---> %d\n===============\n' %(i)
@@ -57,5 +62,5 @@ fulljack.read_derinc()
 fulljack.calc_JAC()
 
 # finally, write out the Jacobian into a text file
-fulljack.Jacobian2jac('scratch_jack.jac')
+fulljack.Jacobian2jac(fulljack.jacfle)
 k=1

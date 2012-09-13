@@ -25,5 +25,3 @@ jack_one_run.make_model_input_and_run()
 # get the observation values and save to proper filename
 jack_one_run.read_obs()
 
-
-i=1

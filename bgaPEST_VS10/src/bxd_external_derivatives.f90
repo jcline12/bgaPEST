@@ -26,6 +26,11 @@ implicit none
        call bpc_openfile(iunit,'bgaPEST.#mc',1)
        write(iunit,*) d_MOD%com
        close(iunit)
+!-- write the command line file
+       iunit = utl_nextunit()
+       call bpc_openfile(iunit,'bgaPEST.#jacfle',1)
+       write(iunit,*) cv_A%jacfle
+       close(iunit)
        
 !-- write the parameter group and template file lookup
        if (cv_A%deriv_mode .eq. 4) then
@@ -57,7 +62,7 @@ implicit none
        write(iunit,52) 'PARGPNME','DERINC','FORCEN'
 52     format(A50,A10,A12)
        do i = 1,cv_PAR%npargp
-        write(iunit,55) cv_PAR%grp_name(i), 0.01, 'always_2'
+        write(iunit,55) cv_PAR%grp_name(i), cv_PAR%derinc(i), 'always_2'
        enddo       
 55      format(A50,F10.5,A12)
        close(iunit)

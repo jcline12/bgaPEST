@@ -21,9 +21,23 @@ class Jacobian_Master:
         self.jacfolder = []
         self.pargroups = []
         self.pargpuniq = []
+        self.jacfle = []
         self.NPAR = []
         self.NOBS = []
     
+    def read_jacfle(self):
+        self.jacfle = open('bgaPEST.#jacfle','r').readlines()[0].strip().split()[0]
+    
+    def update_condor_subfile(self):
+        indat = open('condor_jacobian.sub','r').readlines()
+        ofp = open('condor_jacobian.sub','w')
+        for line in indat:
+            if line.strip().split()[0].lower() == 'queue':
+                ofp.write('queue %d\n' %(self.NPAR))
+            else:
+                ofp.write(line)
+        ofp.close()
+        
     def read_mio_ins(self):
         # read in the MIO information
         indat = np.genfromtxt('bgaPEST.#mio', names=True,dtype=None)
@@ -157,7 +171,7 @@ class Jacobian_one_run:
                       cg + '.#jacpars')
             # now, run the model using the modcall inherited from bgaPEST   
             print 'running %s' %(self.modcall)
-            p = sub.call(self.modcall)    
+            sub.call(self.modcall)    
    
         
     def read_obs(self):
@@ -171,9 +185,6 @@ class Jacobian_one_run:
                     os.remove(os.path.join(os.getcwd(),outfile))
                 # now copy the current output file to include the pertub number on the end
                 os.rename('%s.obf' %(cfile[:-4]),outfile)
-        
-
-            
     
     def read_parameters_and_meta_data(self):
         # read in the template and parameter group data and make a dictionary
