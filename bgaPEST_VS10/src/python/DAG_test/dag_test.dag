@@ -1,0 +1,5 @@
+# test simple single node DAG with post-processing
+
+JOB A condor_test.sub
+SCRIPT PRE A dag_pre.sh
+SCRIPT POST A dag_post.sh

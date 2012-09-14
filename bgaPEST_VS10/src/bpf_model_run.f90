@@ -94,6 +94,7 @@ contains
             endif 
         case (4) ! Parallel Jacobian Using Condor Externally
             call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
+            call system(d_MOD%dercom)
             select case (cv_A%jacobian_format)
               case ('binary')
                 call readJCO(cv_A%jacfle, d_A)
