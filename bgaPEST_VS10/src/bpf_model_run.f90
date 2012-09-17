@@ -26,31 +26,33 @@ contains
     type (cv_algorithmic)               :: cv_A
     type(d_algorithmic),  intent(inout) :: d_A
     type (d_observ)                     :: d_OBS
-    integer, intent(in)                 :: forward_flag ! 0, 1, 2, or 3
+    integer, intent(in)                 :: forward_flag ! 0, 1, 2, 3, or 4
                                         ! 0 is forward run
                                         ! 1 is external PEST-style Jacobian
                                         ! 2 is dercom alternative Jacobian
                                         ! 3 is forward run for linesearch using d_PAR%pars_lns
+                                        ! 4 is external and parallel Jacobian using Condor
     integer                             :: i, ifail
     character (len=100)                 :: adjfle
-
-!-- MIO delete the last set of output files
-    if(mio_delete_model_output_files(errstruc,miostruc).ne.0) then
-      call utl_bomb_out(errstruc)
-    endif   
+!! only perform MIO write and read if parallel Condor derivatives not invoked
+    if (forward_flag .ne. 4) then
+    !-- MIO delete the last set of output files 
+        if(mio_delete_model_output_files(errstruc,miostruc).ne.0) then
+          call utl_bomb_out(errstruc)
+        endif   
  
-!-- MIO write the model input files
-    select case (forward_flag)
-        case (3)
-            if(mio_write_model_input_files(errstruc,miostruc, d_PAR%pars_lns).ne.0) then
-                call utl_bomb_out(errstruc)
-            endif 
-        case default
-            if(mio_write_model_input_files(errstruc,miostruc, d_PAR%pars).ne.0) then
-              call utl_bomb_out(errstruc)
-            endif   
-    end select
-
+    !-- MIO write the model input files
+        select case (forward_flag)
+            case (3)
+                if(mio_write_model_input_files(errstruc,miostruc, d_PAR%pars_lns).ne.0) then
+                    call utl_bomb_out(errstruc)
+                endif 
+            case default
+                if(mio_write_model_input_files(errstruc,miostruc, d_PAR%pars).ne.0) then
+                  call utl_bomb_out(errstruc)
+                endif   
+        end select
+    endif ! forward_flag .ne. 4
 
 !-- RUN THE MODEL IN THE MODE DESIRED
     select case (forward_flag)
@@ -88,9 +90,19 @@ contains
             call system(d_MOD%com)
             !-- MIO read the ouput file results and update 
             if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
-              call utl_bomb_out(errstruc)
+              call utl_bomb_out(errstruc)        
             endif 
-    end select
+        case (4) ! Parallel Jacobian Using Condor Externally
+            call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
+            call system(d_MOD%dercom)
+            select case (cv_A%jacobian_format)
+              case ('binary')
+                call readJCO(cv_A%jacfle, d_A)
+              case ('ascii')
+                call readJAC(cv_A%jacfle, d_A)
+            end select
+
+        end select
     
   
 

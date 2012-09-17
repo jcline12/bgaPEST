@@ -117,6 +117,7 @@ module bayes_pest_control
             integer                         :: npar    !MD Total number of parameters 
             character (len=50), pointer     :: grp_name(:) !MD Name of the parameter groups
             integer, pointer                :: grp_type(:) !MD Type of groups 
+            double precision, pointer       :: derinc(:) !MNF derivative increment for group
             integer                         :: ndim  !MD Spatial dimensions
             integer                         :: p     !MD Number of means
       end type cv_param
@@ -176,6 +177,7 @@ module bayes_pest_control
             character(len=100),pointer	::	infle(:) !MD Input file
             character(len=100),pointer	::	ins(:) !MD Instruction file
             character(len=100),pointer	::	outfle(:) !MD Output file
+            character(len=100), pointer ::  pargroup(:) ! parameter groups for parallel run setup
       end type d_minout 
       
       type  :: kernel_XQR        ! kernels of X, Q, and R

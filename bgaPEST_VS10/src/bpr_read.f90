@@ -115,7 +115,7 @@ module bayes_pest_reader
                             & inunit,errmsg,miostruc)
        call bpi_init_algorithmic_DATA(d_A,cv_PAR%npar,cv_OBS%nobs) !Allocate memory and initialize H matrix (nobs x npar)
        call bdp_read_data_model_command_line(BL,d_MOD,cv_A%deriv_mode,inunit,errmsg)       
-       call bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,inunit,errmsg)
+       call bdp_read_data_model_input_output(BL,d_MIO,cv_MIO,cv_A,cv_PAR%npargp,inunit,errmsg)
        if (cv_A%par_anisotropy .eq. 1) then
            call bdp_read_data_par_anisotropy(BL,d_ANI,cv_PAR,inunit,errmsg)
        endif

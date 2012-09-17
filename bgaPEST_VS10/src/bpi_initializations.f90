@@ -158,7 +158,7 @@ contains
          type(tp_block),intent(inout)     :: BL(NUM_BLOCK) 
        ! INITIALIZATIONS
             nullify(cv_PAR%grp_name)
-            nullify(cv_PAR%grp_type)
+            nullify(cv_PAR%derinc)
             cv_PAR%npargp         = UNINIT_INT ! number of parameter groups
             cv_PAR%ndim           = UNINIT_INT ! number of dimensions (ok for 1, 2, or 3)         
             BL(8)%label           = 'parameter_cv'
@@ -272,7 +272,7 @@ contains
             bl(15)%numkw           = 0
             bl(16)%label           = 'model_output_files'
             bl(16)%numrows         = UNINIT_INT
-            bl(16)%numkw           = 0 
+            bl(16)%numkw           = 0  
 
        end subroutine bpi_init_mio_CVs
        
