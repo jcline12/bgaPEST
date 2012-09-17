@@ -33,7 +33,9 @@ class Jacobian_Master:
         ofp = open('condor_jacobian.sub','w')
         for line in indat:
             if line.strip().split()[0].lower() == 'queue':
-                ofp.write('queue %d\n' %(self.NPAR))
+                ofp.write('queue %d\n' %(self.NPAR+1))
+            elif line.strip().split()[0].lower() == 'arguments':
+                ofp.write('arguments = $(Process) %d \n' %(self.NPAR))
             else:
                 ofp.write(line)
         ofp.close()

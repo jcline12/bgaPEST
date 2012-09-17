@@ -49,7 +49,7 @@ for cf in os.listdir(os.getcwd()):
 # read in the results and populate the Jacobian
 fulljack.JAC = np.zeros((fulljack.NOBS,fulljack.NPAR))
 
-fulljack.read_obs_files(-999)
+fulljack.read_obs_files(fulljack.NPAR)
 
 for i in np.arange(fulljack.NPAR):
     fulljack.read_obs_files(i)
