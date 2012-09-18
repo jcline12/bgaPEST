@@ -1,6 +1,8 @@
 import numpy as np
 import os
 import subprocess as sub
+import time
+import zipfile
 
 '''
 parallel_condor_Jacobian --> program for external bgaPEST derivatives using Condor.
@@ -26,13 +28,15 @@ class Jacobian_Master:
         self.NOBS = []
     
     def read_jacfle(self):
-        self.jacfle = open('bgaPEST.#jacfle','r').readlines()[0].strip().split()[0]
+        self.jacfle = open(os.path.join(os.getcwd(),'data','bgaPEST.#jacfle'),'r').readlines()[0].strip().split()[0]
     
     def update_condor_subfile(self):
-        indat = open('condor_jacobian.sub','r').readlines()
+        indat = open('condor_jacobian.sub.orig','r').readlines()
         ofp = open('condor_jacobian.sub','w')
         for line in indat:
-            if line.strip().split()[0].lower() == 'queue':
+            if len(line.strip()) == 0:
+                ofp.write(line)
+            elif line.strip().split()[0].lower() == 'queue':
                 ofp.write('queue %d\n' %(self.NPAR+1))
             elif line.strip().split()[0].lower() == 'arguments':
                 ofp.write('arguments = $(Process) %d \n' %(self.NPAR))
@@ -42,7 +46,7 @@ class Jacobian_Master:
         
     def read_mio_ins(self):
         # read in the MIO information
-        indat = np.genfromtxt('bgaPEST.#mio', names=True,dtype=None)
+        indat = np.genfromtxt(os.path.join(os.getcwd(),'data','bgaPEST.#mio'), names=True,dtype=None)
         instmp = []
         modtmp = []
         for cf in indat['MIO_FILE']:
@@ -52,7 +56,7 @@ class Jacobian_Master:
     
     def read_obs_names(self):
         # read in the base observations values
-        indat = np.genfromtxt('bgaPEST.#obs',names=True,dtype=None)
+        indat = np.genfromtxt(os.path.join(os.getcwd(),'data','bgaPEST.#obs'),names=True,dtype=None)
         self.obs_names = indat['OBSNME']
         self.NOBS = len(self.obs_names)
         # make a dictionary of indices along with observation names
@@ -61,7 +65,7 @@ class Jacobian_Master:
 
     def read_pars(self):
         # read in the parameter values file
-                indat = np.genfromtxt('bgaPEST.#par', names=True,dtype=None)
+                indat = np.genfromtxt(os.path.join(os.getcwd(),'data','bgaPEST.#par'), names=True,dtype=None)
                 self.parnames = indat['PARNME']
                 self.parvals = indat['PARVAL1']        
                 self.pargroups  = indat['PARGP']
@@ -70,7 +74,7 @@ class Jacobian_Master:
                 del indat    
     def read_derinc(self):
         # read in the parameter files and get group information
-        indat = np.genfromtxt('bgaPEST.#pargp', names=True,dtype=None)
+        indat = np.genfromtxt(os.path.join(os.getcwd(),'data','bgaPEST.#pargp'), names=True,dtype=None)
         self.derinc = dict(zip(np.atleast_1d(indat['PARGPNME']),
                                   np.atleast_1d(indat['DERINC'])))
         del indat            
@@ -87,6 +91,12 @@ class Jacobian_Master:
             self.base_obs_vals = tmpobs
         else:
             self.JAC[:,cpar] = tmpobs
+    def jacobian_extract(self):
+	# unzip all the output files
+	for cf in os.listdir(os.path.join(os.getcwd(),'#jacfilestmp#')):
+            if '.zip' in cf:
+                zf = zipfile.ZipFile(os.path.join(os.getcwd(),'#jacfilestmp#',cf))
+		zf.extractall(path=os.path.join(os.getcwd(),'#jacfilestmp#'))
             
             
     def calc_JAC(self):
@@ -131,11 +141,14 @@ class Jacobian_Master:
         # actually submit the DAG
         sub.call('condor_submit_dag  -notification never ' + dag_sub, shell=True)
         # watch for the jacdone.#stat file
-        while jac_in_proc:
-            if os.path.exists(os.path.join(os.getcwd(),'jacdone.#stat')):
+        kk = 0
+	while jac_in_proc:
+            kk+=1
+	    if os.path.exists(os.path.join(os.getcwd(),'jacdone.#stat')):
                 jac_in_proc = False
             time.sleep(10)        
-
+            if np.remainder(kk,10) == 0:
+                sub.call('condor_release -all',shell=True) 
 
     def Jacobian2jac(self,outfile):
         # CONVERTS THE JACOBIAN TO A TEXT FILE READABLE BY bgaPEST
@@ -206,7 +219,7 @@ class Jacobian_one_run:
             sub.call('tempchek ' + 
                       self.tpl_pargp[cg] + ' ' +
                       self.mio[self.tpl_pargp[cg]] + ' ' +
-                      cg + '.#jacpars')
+                      cg + '.#jacpars', shell=True)
             # now, run the model using the modcall inherited from bgaPEST   
             print 'running %s' %(self.modcall)
             sub.call(self.modcall)    

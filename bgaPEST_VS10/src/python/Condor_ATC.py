@@ -4,11 +4,7 @@ import parallel_condor_Jacobian as pcj
 import os
 import shutil
 
-currdirect = os.getcwd()
-try:
-    os.chdir(os.path.join(currdirect,'data'))
-except:
-    exit('Could not cd to "data"')
+
 
 # initialize a Jacobian Master object to hold results
 fulljack = pcj.Jacobian_Master()
@@ -35,6 +31,9 @@ os.mkdir(os.path.join(os.getcwd(),fulljack.jacfolder))
 # perform the model runs
 fulljack.jacobian_master()
 
+# unzip all the model run files
+fulljack.jacobian_extract()
+
 # read in the results and populate the Jacobian
 fulljack.JAC = np.zeros((fulljack.NOBS,fulljack.NPAR))
 
@@ -50,10 +49,6 @@ fulljack.read_derinc()
 # adjust from observation values to sensitivities in fulljack.JAC
 fulljack.calc_JAC()
 
-try:
-    os.chdir(os.path.join(currdirect))
-except:
-    exit('Could not cd to back out of "data"')
 
 # finally, write out the Jacobian into a text file
 fulljack.Jacobian2jac(fulljack.jacfle)
