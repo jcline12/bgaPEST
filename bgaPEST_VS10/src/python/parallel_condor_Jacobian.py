@@ -83,7 +83,7 @@ class Jacobian_Master:
             for line in indat:
                 indie = self.obslookup[line[0]]
                 tmpobs[indie] = line[1]
-        if cpar == -999:
+        if cpar == self.NPAR:
             self.base_obs_vals = tmpobs
         else:
             self.JAC[:,cpar] = tmpobs
@@ -101,8 +101,44 @@ class Jacobian_Master:
             
             # now perform the maths on the Jacobian column corresponding to the current parameter
             self.JAC[:,cpar] = (self.JAC[:,cpar]-self.base_obs_vals) / delta_par[cpar]
+    def jacobian_master(self):
+        # look for the status file that indicates complete 
+        print 'checking for status file'
+        if os.path.exists(os.path.join(os.getcwd(),'jacdone.#stat')):
+            print 'status file found and removed'
+            os.remove(os.path.join(os.getcwd(),'jacdone.#stat'))
+        else:
+            print 'no status file found'
+        
+        # clear out the log folder or, if there isn't one yet, make one
+        # N.B. --> this holds the Condor logs - not the DAGMAN ones
+        if os.path.exists(os.path.join(os.getcwd(),'log')):
+            for cf in os.listdir(os.path.join(os.getcwd(),'log')):
+                print cf
+                os.remove(os.path.join(os.getcwd(),'log',cf))
+        else:
+            os.mkdir(os.path.join(os.getcwd(),'log'))
+        
+        # submit the Jacobian DAGMAN job to Condor
+        jac_in_proc = True
+        dag_sub = 'dag_jacobian.dag'
+        print 'Starting --> ' + dag_sub
+        # clear out the log files for the DAG
+        for cf in os.listdir(os.getcwd()):
+            if dag_sub + '.' in cf:
+                os.remove(os.path.join(os.getcwd(),cf))
+                print 'removing --> ' + os.path.join(os.getcwd(),cf)
+        # actually submit the DAG
+        sub.call('condor_submit_dag  -notification never ' + dag_sub, shell=True)
+        # watch for the jacdone.#stat file
+        while jac_in_proc:
+            if os.path.exists(os.path.join(os.getcwd(),'jacdone.#stat')):
+                jac_in_proc = False
+            time.sleep(10)        
+
 
     def Jacobian2jac(self,outfile):
+        # CONVERTS THE JACOBIAN TO A TEXT FILE READABLE BY bgaPEST
         # open the outfile
         ofp = open(outfile,'w')
         # write out the header
@@ -153,8 +189,8 @@ class Jacobian_one_run:
         # first make all the input files
 
         # determine which parameter must be perturbed and increment it
-        # (if self.perturb == -999 then it's a base run --> no incrementing)
-        if self.perturb > -999:
+        # (if self.perturb == NPAR then it's a base run --> no incrementing)
+        if self.perturb < self.NPAR:
             pertgrp = self.pargroups[self.perturb]
             pertamt = self.derinc[pertgrp]
             self.parvals[self.perturb] += self.parvals[self.perturb]*pertamt
