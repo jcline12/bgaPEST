@@ -44,7 +44,11 @@
 
 \renewcommand{\pagereporttitle}
 {Approaches in Highly Parameterized Inversion: bgaPEST, a Bayesian
-Geostatistical Approach Implementation With PEST---Documentation and Instructions }
+Geostatistical Approach Implementation With PEST---Documentation and Instructions}
+
+\renewcommand{\citereporttitle}
+{Approaches in Highly Parameterized Inversion: bgaPEST, a Bayesian
+Geostatistical Approach Implementation With PEST---Documentation and Instructions}
 
 \renewcommand{\reporttitle}
 {Approaches in Highly Parameterized Inversion: bgaPEST, a Bayesian
@@ -60,7 +64,7 @@ Geostatistical Approach Implementation With PEST---Documentation and Instruction
 \renewcommand{\cooperator}{}
 \renewcommand{\cooperationwith}{}
 
-\renewcommand{\reportseries}{Techniques and Methods, Book 7, Section \#\#}
+\renewcommand{\reportseries}{Techniques and Methods, Book 7, Section C, Chapter 9}
 \renewcommand{\reportwebsiteremainder}{tm/tm7c\#\#}
 
 \renewcommand{\reportnumber}{}
@@ -818,23 +822,20 @@ instruction files in PEST are available in bgaPEST.
 
 This initial implementation of bgaPEST is written in Fortran-90. The calculation
 of the Jacobian (sensitivity or derivatives) matrix can be
-implemented either using a script written by the user or employing a Python
+implemented either using a script written by the user or employing a Python\footnote[5]
+{``Python\textsuperscript{\textregistered}" is a registered trademark of the Python Software Foundation.}
 script provided with bgaPEST. The Python script depends on several
 utilities that are standard with PEST and available for download at
 http://www.pesthomepage.org. The necessary executable files are also
-provided with bgaPEST. For users on the Windows operating system,
+provided with bgaPEST. For users on the Windows\footnote[6]{``Windows\textsuperscript{\textregistered}" is a registered trademark of the Microsoft group of companies.} operating system,
 installation of Python is optional because the Python codes are compiled
 into executables using py2exe that can be called by the main program.
-For users on Macintosh or Linux systems, all the code must be compiled
+For users on Macintosh\footnote[7]{``Macintosh\textsuperscript{\textregistered}" is a registered trademark of Apple, Inc. in the U.S. and other countries.} or Linux\footnote[8]{``Linux\textsuperscript{\textregistered}" is the registered trademark of Linus Torvalds in the U.S. and other countries.} systems, all the code must be compiled
 for the native platform and Python should already be installed so
 the Python scripts may be called directly without need to compile
 them separately. The use of external derivatives (sensitivity) calculation
-with PEST and Python will be replaced by integration of a general
-parallel run management suite (GENIE, \citet{GENIE}) as part of future
-work. Parallelization is possible by using beoPEST \citep{beoPEST},
-but the entire process---including starting and stopping all parallel
-computer (slave) programs---must be encapsulated in a script that is
-called by bgaPEST. 
+with PEST and Python can be replaced by using the parallel external derivatives capabilities described in Appendix \ref{sec:parallel}. Alternatively, it would be possible to implement the general
+parallel run management suite (GENIE, \citet{GENIE}). 
 
 
 \SECTION{Running bgaPEST}
@@ -1076,7 +1077,7 @@ The Bayesian Geostatistical Approach is a highly parameterized method
 that is appropriate for some, but not all applications. In this section,
 we outline a few considerations to aid in the decision about whether
 to use bgaPEST on a given problem given the history and characteristics
-of the method. We also offer a few guidelines to help usres avoid potential
+of the method. We also offer a few guidelines to help users avoid potential
 pitfalls in the application of bgaPEST.
 
 This report documents the first release of bgaPEST and, to our knowledge,
@@ -1101,7 +1102,7 @@ when deciding whether bgaPEST is appropriate for a given application. First
 and foremost, there must be a parameter set that varies in either
 space or time; for example, a time series of chemical concentrations
 (a breakthrough curve), a hydraulic conductivity field, a recharge
-field, or surface flux of atmospheric gasses. These parameters should
+field, or surface flux of atmospheric gases. These parameters should
 vary continuously over reasonably substantial areas so that a variogram
 serves as an adequate descriptor of the shape of the parameter field.
 Subareas delineated by geologic contacts---or in the case of time
@@ -1119,14 +1120,7 @@ efficient in the case where parameters greatly outnumber observations.
 Adjoint-state versions of commercial and government codes are not
 typically available, however, but bgaPEST is equipped to handle Jacobian
 matrices calculated outside of bgaPEST so that users who are able to write
-such codes can make use of them. Similarly, parallelization of the
-Jacobian calculations is a feature that will be added in the future.
-For now, through clever scripting, it is possible to use beoPEST outside
-of bgaPEST to parallelize the calculations of the Jacobian matrix.
-In this initial release of bgaPEST, however, it may be more practical
-to stick with models with short run times, run Jacobian calculations
-in series and just recognize that the computational burden may be
-high. 
+such codes can make use of them. Similarly, parallelization supported to a limited degree using Python scripts and Condor \citep{Condor766} for run management. This parallel implementation is documented in Appendix \ref{sec:parallel}.
 
 Adjoint-state Jacobian calculation is an attractive method to mitigate
 high computational expense of this method; however, production codes
@@ -1296,7 +1290,7 @@ of data observations. A combination of homogeneous parameters in zones
 with a refined area of interest that is distributed is a common application
 and, as implemented through beta associations, this mix of distributed
 and zoned parameters is supported and encouraged. Typically, sufficient
-data to support a distributed parameter set is limited to part of
+data to support a distributed parameter set are limited to part of
 a model domain in space or time.
 
 In considering uncertainty, version 1.0 presents posterior covariance
@@ -1335,7 +1329,7 @@ Aster, R.C., Borchers, B., and Thurber, C.H., 2005, Parameter estimation and inv
 
 \bibitem[{Banta and others(2006)Banta, Poeter, Doherty, and
   Hill}]{BantaEtAl2006}
-Banta, E.R., Poeter, E.P., Doherty, J.E., and Hill, M.C., 2006, JUPITER: \underline{J}oint \underline{U}niversal \underline{P}arameter \underline{I}den\underline{T}ification and Evaluation of Reliability---An application programming interface (API) for model analysis: U.S. Geological Survey Techniques and Methods, book 6, chap. E1, 268 p.
+Banta, E.R., Poeter, E.P., Doherty, J.E., and Hill, M.C., 2006, JUPITER: \underline{J}oint \underline{U}niversal \underline{P}arameter \underline{I}den\underline{T}ification and \underline{E}valuation of \underline{R}eliability---An application programming interface (API) for model analysis: U.S. Geological Survey Techniques and Methods, book 6, chap. E1, 268 p.
 
 \bibitem[{Cardiff and Kitanidis(2009)}]{CardiffPKK2009}
 Cardiff, M., and Kitanidis, P.K., 2009, Bayesian inversion for facies detection---An extensible level set framework: Water Resources Research, v. 45, W10416, doi:10.1029/2008wr007675.
@@ -1351,6 +1345,9 @@ Chamberlin, T.C., 1890, The method of multiple working hypotheses: Science (Old 
 
 \bibitem[{Collinson(1969)}]{Collinson1969}
 Collinson, J.D., 1969, Sedimentology of Grindslow shales and Kinderscout grit---A deltaic complex in Namurian of Northern England: Journal of Sedimentary Petrology, v. 39, no. 1, p. 194--221.
+
+\bibitem[{Condor Team(2012)}]{Condor766}
+Condor Team, 2012, Condor Version 7.6.6 Manual: Madison, Wisconsin, University of Wisconsin---Madison.
 
 \bibitem[{Deutsch and Journel(1992)}]{DeutschJourneal1992}
 Deutsch, C.V., and Journel, A.G., 1992, GSLIB---Geostatistical software library and user’s guide: New York, Oxford University Press, 340 p.
@@ -1962,7 +1959,7 @@ for details. This value is read only if \texttt{ndim=3}.
 
 \subsection{PEST Matrix Formats for Jacobian and Posterior Covariance}
 
-On two occasions in bgaPEST a matrix text file format from
+On two occasions in bgaPEST, a matrix text file format from
 PEST is used to store matrices: when posterior covariance
 output from bgaPEST is specified as a full matrix; and when
 Jacobian sensitivity matrix information is exchanged from an external
@@ -1975,7 +1972,7 @@ to be read by bgaPEST. If \texttt{deriv\_mode=0}, PEST
 is used, external to bgaPEST, to calculate the Jacobian matrix
 resulting in a binary file with the extension \texttt{.jco}. If \texttt{deriv\_mode=}1
 then an external program is used to calculate $\mathbf{H}$ and a
-file written by the external program must be communicated to bgaPEST.
+file, written by the external program, must be communicated to bgaPEST.
 This file can either be a \texttt{.jco} file or a \texttt{.jac} file
 which is an ASCII file following the format of a standard matrix file
 used by PEST, as described in \citet{PESTAdd2}, section 4.4.3.
@@ -2036,8 +2033,6 @@ with 8 values per line.
 \bibitem[{Banta and others(2006)Banta, Poeter, Doherty, and
   Hill}]{BantaEtAl2006}
 Banta, E.R., Poeter, E.P., Doherty, J.E., and Hill, M.C., 2006, JUPITER: \underline{J}oint \underline{U}niversal \underline{P}arameter \underline{I}den\underline{T}ification and \underline{E}valuation of \underline{R}eliability---An application programming interface (API) for model analysis: U.S. Geological Survey Techniques and Methods, book 6, chap. E1, 268 p.
-\bibitem[{Doherty(2010a)}]{PEST2}
-Doherty, J., 2010a, PEST, Model-independent parameter estimation---User manual (5th ed., with slight additions): Brisbane, Australia, Watermark Numerical Computing. 
 \bibitem[{Doherty(2010b)}]{PESTAdd2}
 Doherty, J., 2010, PEST, Model-independent parameter estimation---Addendum to user manual (5th ed.): Brisbane, Australia, Watermark Numerical Computing.
 
@@ -2063,7 +2058,7 @@ The forward model must exist and have the ability---either inherently
 or through pre- and post-processing---to receive input and provide
 output using text (ASCII) files. For bgaPEST to be able to run the
 model, template files (\texttt{.TPL}) and instruction files (\texttt{.INS})
-must be provided corresponding with model input and output, respectively.
+must be provided, corresponding with model input and output, respectively.
 Details of the construction of these files are in \citet[][chap. 3]{PEST3}.
 The template and instruction files are detailed in the \texttt{model\_input\_files}
 and \texttt{model\_output\_files }blocks, respectively. The \texttt{model\_command\_lines}
@@ -3075,6 +3070,25 @@ Rubin, Y., 2003, Applied stochastic hydrogeology: Oxford, UK; New York; Oxford U
 %\putbib[GW]
 %\end{bibunit}
 %\begin{bibunit}
+\APPENDIX{\label{sec:parallel}Parallel Implementation of Jacobian Calculations}
+
+The parallel stuff here \citep{Condor766}.
+
+\subsection{References Cited}
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+
+\bibitem[{Condor Team(2012)}]{Condor766}
+Condor Team, 2012, Condor Version 7.6.6 Manual: Madison, Wisconsin, University of Wisconsin---Madison.
+\end{thebibliography}
+
+
+
 \APPENDIX{\label{sec:example1}Single-Layer Example Application}
 
 The first example application presented is a single-layer groundwater
@@ -3090,20 +3104,20 @@ the true synthetic hydraulic conductivity values and the resulting
 head values were perturbed with normally distributed noise with mean
 of zero and standard deviation of 0.01 m.
 
-\begin{figure*}[!t]
+\begin{figure*}[!b]
 \begin{center}\includegraphics[scale=0.4]{figures/TrueK.pdf}\end{center}
 
 \caption{True hydraulic conductivity field for the single-layer example application\label{fig:trueK1L}}
 
 
-\end{figure*}
+\end{figure*}[!b]
 The boundary conditions are constant head, highest at the northwest
 corner and linearly decreasing to the southeast, as depicted in figure
 \ref{fig:stheads1L}. There is a well at row 13, column 6, extracting
 water at a constant rate of 0.231 liters per minute. No recharge is simulated
 in this case.
 
-\begin{figure*}[!t]
+\begin{figure*}
 \begin{center}\includegraphics[scale=0.5]{figures/starting_heads.pdf}\end{center}
 
 \caption{\label{fig:stheads1L}Boundary condition (constant head) for the single
@@ -3133,7 +3147,7 @@ fixed at $1.0$ m}
 \end{figure*}
 
 
-\begin{figure*}[!t]
+\begin{figure*}[!h]
 \begin{center} \includegraphics[scale=0.4]{figures/1_layer_fixed_sigma_residuals.pdf}\end{center}
 
 \caption{\label{fig:residL1-sigfixed}Squared residuals, plotted at their locations
@@ -3164,7 +3178,7 @@ information content---an anomalous region of high hydraulic conductivity
 emanates from the area of the well in response to the focus of stress (and
 therefore information) being near the pumping well.
 
-\begin{figure*}[!t]
+\begin{figure*}[!h]
 \begin{center} \includegraphics[scale=0.7]{figures/1_lay_best_pars_sigma_estimated.pdf}\end{center}
 
 \caption{\label{fig:KL1-sigEstimated}Parameters (hydraulic conductivity field)
@@ -3173,7 +3187,7 @@ estimated by the bgaPEST algorithm}
 \end{figure*}
 
 
-\begin{figure*}[!t]
+\begin{figure*}
 \begin{center} \includegraphics[scale=0.4]{figures/1_layer_estimated_sigma_residuals}\end{center}
 
 \caption{\label{fig:residL1-sigEstimated}Squared residuals, plotted at their
@@ -3194,6 +3208,7 @@ shows a bit more structure (roughness). Correspondingly, the residuals
 are generally lower. A key point here, however, is that the pattern
 of the residuals is similar and, again, reflects the general information
 content of the stress induced on the system.
+\clearpage{}
 \subsection{Reference Cited}
 \begin{thebibliography}{1}
 \providecommand{\natexlab}[1]{#1}
@@ -3228,7 +3243,7 @@ a very small stress on the system.
 The true parameter field, shown in figure \ref{3Ltruek}, varies from
 0.01 to 0.075 meter per day. 
 
-\begin{figure*}[!t]
+\begin{figure*}[!b]
 \begin{center}\includegraphics{figures/3_layer_TRUE_K_field.pdf}\end{center}
 
 \caption{\label{3Ltruek}True synthetic hydraulic conductivity field for each

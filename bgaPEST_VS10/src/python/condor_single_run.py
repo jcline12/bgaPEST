@@ -6,7 +6,7 @@ Single run configuration for external bgaPEST derivatives using Condor
 '''
 
 parind = int(sys.argv[1]) #index for which parameter to perturb
-
+NPAR = int(sys.argv[2])
 # ####### #
  # M A I N #
   # ####### #

@@ -6,8 +6,6 @@ import shutil
 
 
 
-
-
 # initialize a Jacobian Master object to hold results
 fulljack = pcj.Jacobian_Master()
 
@@ -30,26 +28,16 @@ if os.path.exists(os.path.join(os.getcwd(),fulljack.jacfolder)):
     shutil.rmtree(os.path.join(os.getcwd(),fulljack.jacfolder))
 os.mkdir(os.path.join(os.getcwd(),fulljack.jacfolder))
 
-'''
-# run all the runs --> without CONDOR FOR NOW
-for i in np.arange(fulljack.NPAR):
-    print '===============\n\nrunning run number ---> %d\n===============\n' %(i)
+# perform the model runs
+fulljack.jacobian_master()
 
-    sub.call('python condor_single_run.py %d' %(i))
- 
-# finally run the base case
-sub.call('python condor_single_run.py -999')
-
-# this is only in place until redirect is made (using python)
-for cf in os.listdir(os.getcwd()):
-    if '.obf.' in cf:
-        shutil.move(cf,os.path.join(os.getcwd(),fulljack.jacfolder,cf))
-'''
+# unzip all the model run files
+fulljack.jacobian_extract()
 
 # read in the results and populate the Jacobian
 fulljack.JAC = np.zeros((fulljack.NOBS,fulljack.NPAR))
 
-fulljack.read_obs_files(-999)
+fulljack.read_obs_files(fulljack.NPAR)
 
 for i in np.arange(fulljack.NPAR):
     fulljack.read_obs_files(i)
@@ -61,6 +49,11 @@ fulljack.read_derinc()
 # adjust from observation values to sensitivities in fulljack.JAC
 fulljack.calc_JAC()
 
+
 # finally, write out the Jacobian into a text file
 fulljack.Jacobian2jac(fulljack.jacfle)
-k=1
+
+
+
+
+print "Condor_ATC completed a Jacobian on Condor"
