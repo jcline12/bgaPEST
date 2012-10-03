@@ -7,7 +7,7 @@ jacdir = '#jacfilestmp#'
 for cf in os.listdir(os.path.join(os.getcwd(),jacdir)):
     if '.zip' in cf.lower():
         try:
-            sub.call('wine unzip %s' %(cf))
+            sub.call('unzip %s' %(cf))
         except:
             'Unzip failed......'
 

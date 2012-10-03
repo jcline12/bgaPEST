@@ -3,7 +3,7 @@ BEGIN algorithmic_cv KEYWORDS
  it_max_structural=10 it_max_phi=15 it_max_bga=15 
  linesearch=1         it_max_linesearch=3
  theta_cov_form=1 Q_compression_flag=1
- deriv_mode = 4
+ deriv_mode = 0
  jacobian_format = ascii
  jacobian_file = S1_1.jac
  posterior_cov_flag = 1
@@ -55,9 +55,9 @@ BEGIN Q_compression_cv TABLE
 END Q_compression_cv
 
 BEGIN parameter_groups TABLE
-  nrow=1 ncol=2 columnlabels
-  groupname     grouptype
-  pargp_uno     1
+  nrow=1 ncol=3 columnlabels
+  groupname     grouptype derinc
+  pargp_uno     1        0.01
 END parameter_groups   
 
 BEGIN parameter_data FILES  
