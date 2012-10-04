@@ -51,12 +51,12 @@ module linesearch
         step(1) = 0.5D+00
         konvge = 1
         reqmin = 1.0D-02
-        
+
         call nelmin_ls ( Jmin,n,start,xmin,ynewlo,reqmin,step,konvge,cv_A%it_max_lns,icount,numres,ifault, & 
         & d_XQR,d_S,cv_PAR,cv_A,d_A,d_PAR,d_PM,cv_OBS,d_OBS,cv_PM,d_MOD,miostruc,errstruc)
         
         if (ifault.eq.2) then !Maximum number of iterations has exceeded --> Warning               
-          write(retmsg,10) it_phi   
+        write(retmsg,10) it_phi   
 10        format('Warning: Maximum number of iterations exceeded in linesearch procedure during quasi-linear iteration',i4, & 
                  & '. The value that gives the minimum obj. funct. during the procedure will be considered.') 
           call utl_writmess(6,retmsg) 
@@ -64,8 +64,9 @@ module linesearch
         
         d_PAR%pars=xmin(1)*d_PAR%pars+(1-xmin(1))*d_PAR%pars_old 
         d_PAR%phi_T=ynewlo
-        
+                write(*,*) "ginger"
         write(*,*) xmin(1)
+                write(*,*) "ginger"
  end subroutine lns_proc
  
 end module linesearch 

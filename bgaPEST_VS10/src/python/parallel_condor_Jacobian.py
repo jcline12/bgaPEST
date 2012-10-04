@@ -1,8 +1,6 @@
 import numpy as np
 import os
 import subprocess as sub
-import time
-import zipfile
 
 '''
 parallel_condor_Jacobian --> program for external bgaPEST derivatives using Condor.
@@ -91,12 +89,6 @@ class Jacobian_Master:
             self.base_obs_vals = tmpobs
         else:
             self.JAC[:,cpar] = tmpobs
-    def jacobian_extract(self):
-	# unzip all the output files
-	for cf in os.listdir(os.path.join(os.getcwd(),'#jacfilestmp#')):
-            if '.zip' in cf:
-                zf = zipfile.ZipFile(os.path.join(os.getcwd(),'#jacfilestmp#',cf))
-		zf.extractall(path=os.path.join(os.getcwd(),'#jacfilestmp#'))
             
             
     def calc_JAC(self):
@@ -106,9 +98,10 @@ class Jacobian_Master:
         for cpar in np.arange(len(delta_par)):
             # calculate the denominator (delta parameter)
             pertgrp = self.pargroups[cpar]
-            pertamt = self.derinc[pertgrp]            
+            pertamt = self.derinc[pertgrp]  
+            print 'pertamt = > %f' %(pertamt)
             delta_par[cpar] *= pertamt
-            
+            print 'curr delta par => %f' %(delta_par[cpar])
             # now perform the maths on the Jacobian column corresponding to the current parameter
             self.JAC[:,cpar] = (self.JAC[:,cpar]-self.base_obs_vals) / delta_par[cpar]
     def jacobian_master(self):
@@ -141,14 +134,11 @@ class Jacobian_Master:
         # actually submit the DAG
         sub.call('condor_submit_dag  -notification never ' + dag_sub, shell=True)
         # watch for the jacdone.#stat file
-        kk = 0
-	while jac_in_proc:
-            kk+=1
-	    if os.path.exists(os.path.join(os.getcwd(),'jacdone.#stat')):
+        while jac_in_proc:
+            if os.path.exists(os.path.join(os.getcwd(),'jacdone.#stat')):
                 jac_in_proc = False
             time.sleep(10)        
-            if np.remainder(kk,10) == 0:
-                sub.call('condor_release -all',shell=True) 
+
 
     def Jacobian2jac(self,outfile):
         # CONVERTS THE JACOBIAN TO A TEXT FILE READABLE BY bgaPEST
@@ -205,8 +195,12 @@ class Jacobian_one_run:
         # (if self.perturb == NPAR then it's a base run --> no incrementing)
         if self.perturb < self.NPAR:
             pertgrp = self.pargroups[self.perturb]
+            print 'pertgrp ' + self.pargroups[self.perturb]
             pertamt = self.derinc[pertgrp]
+            print 'pertamt => %f' %(pertamt)
+            print 'pre-perturb val. -> %f' %(self.parvals[self.perturb])
             self.parvals[self.perturb] += self.parvals[self.perturb]*pertamt
+            print 'post-perturb val. -> %f' %(self.parvals[self.perturb])
 
         for cg in self.pargpuniq:            
             # write a par file for the current group              

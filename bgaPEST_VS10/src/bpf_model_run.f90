@@ -34,8 +34,7 @@ contains
                                         ! 4 is external and parallel Jacobian using Condor
     integer                             :: i, ifail
     character (len=100)                 :: adjfle
-!! only perform MIO write and read if parallel Condor derivatives not invoked
-    if (forward_flag .ne. 4) then
+
     !-- MIO delete the last set of output files 
         if(mio_delete_model_output_files(errstruc,miostruc).ne.0) then
           call utl_bomb_out(errstruc)
@@ -52,7 +51,6 @@ contains
                   call utl_bomb_out(errstruc)
                 endif   
         end select
-    endif ! forward_flag .ne. 4
 
 !-- RUN THE MODEL IN THE MODE DESIRED
     select case (forward_flag)
@@ -93,8 +91,13 @@ contains
               call utl_bomb_out(errstruc)        
             endif 
         case (4) ! Parallel Jacobian Using Condor Externally
+            call system(d_MOD%com) ! run the model once, forward, to have outputs with current parameters 
+            !-- MIO read the ouput file results and update 
+            if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
+              call utl_bomb_out(errstruc) 
+            endif
             call bxd_write_param_file(cv_PAR,d_PAR) ! write the parameter file
-            call system(d_MOD%dercom)
+            call system('python CondorATC.py')
             select case (cv_A%jacobian_format)
               case ('binary')
                 call readJCO(cv_A%jacfle, d_A)

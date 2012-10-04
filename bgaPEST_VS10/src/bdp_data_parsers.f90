@@ -383,7 +383,7 @@ end subroutine bdp_read_data_prior_mean
               columnstring=(/' ',' ',' '/)
               
               do i=1,cv_PAR%npargp
-                 call ids_read_block_table(ifail,bl(10)%label,2,columnname,columnstring,line,filename)
+                 call ids_read_block_table(ifail,bl(10)%label,3,columnname,columnstring,line,filename)
                  cv_PAR%grp_name(i) = trim(adjustl(columnstring(1)))
                  call intread(ifail, columnstring(2),cv_PAR%grp_type(i))
                  call DREALREAD(ifail,columnstring(3),cv_PAR%derinc(i))

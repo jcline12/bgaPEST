@@ -9,6 +9,9 @@ import shutil
 # initialize a Jacobian Master object to hold results
 fulljack = pcj.Jacobian_Master()
 
+# zip up the data directory for sending
+fulljack.zip_data_dir()
+
 # read in the metadat that will be necessary to perform a Jacobian run
 fulljack.read_obs_names()
 

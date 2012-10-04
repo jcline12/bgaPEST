@@ -6,16 +6,16 @@ Single run configuration for external bgaPEST derivatives using Condor
 '''
 
 parind = int(sys.argv[1]) #index for which parameter to perturb
-NPAR = int(sys.argv[2])
 # ####### #
  # M A I N #
   # ####### #
 # initialize a single model run object
 jack_one_run = pcj.Jacobian_one_run()
-
+jack_one_run.NPAR = int(sys.argv[2])
 # determine which parameter index to perturb
 jack_one_run.perturb = int(sys.argv[1])
 
+print 'perturbing parameter %d' %(int(sys.argv[1]))
 # read in the parameter values and meta data for the run
 jack_one_run.read_parameters_and_meta_data()
 
