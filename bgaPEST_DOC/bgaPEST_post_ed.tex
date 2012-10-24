@@ -64,8 +64,8 @@ Geostatistical Approach Implementation With PEST---Documentation and Instruction
 \renewcommand{\cooperator}{}
 \renewcommand{\cooperationwith}{}
 
-\renewcommand{\reportseries}{Techniques and Methods, Book 7, Section C, Chapter 9}
-\renewcommand{\reportwebsiteremainder}{tm/tm7c\#\#}
+\renewcommand{\reportseries}{Techniques and Methods, Book 7, Section C9}
+\renewcommand{\reportwebsiteremainder}{tm/tm7c9}
 
 \renewcommand{\reportnumber}{}
 \renewcommand{\reportyear}{2012}
@@ -404,7 +404,7 @@ different beta associations are assigned zero correlation.
 
 The likelihood function in equation \ref{eq:bayes1}, $L\text{\ensuremath{\left(\mathbf{y}|\mathbf{s}\right)}}$,
 expresses the correspondence of model outcomes with field observations
-collocated in space and time. This correspondence is expressed as
+colocated in space and time. This correspondence is expressed as
 the sum of the squared differences between outcomes and observations,
 weighted by a covariance matrix, which expresses the relative certainty
 of each observation. This is equivalent to the weighted measurement
@@ -596,7 +596,7 @@ and the most likely values resulting in either the best possible fit
 (if the epistemic error term is estimated) or a user-specific level
 of fit (if the epistemic error term is fixed) are estimated. The Bayesian adaptation to RML in this report is through the inclusion of prior information and uncertainty, which is not strictly possible in traditional RML. ``Fit,''
 in this context, refers to the correspondence between observation
-data and model outputs collocated in space and time with the measured
+data and model outputs colocated in space and time with the measured
 observations. Fit and epistemic error are discussed in more detail
 in the next section. A danger of providing a model with substantial
 flexibility, is an ``overly complex'' model that is ``overfit''
@@ -617,7 +617,7 @@ prior values. Similarly, prior information and covariance can be supplied
 on the structural parameters to constrain the estimated values to
 more closely follow an initial conception of the parameter field variability.
 
-The forward model is constructed to generate outputs of values collocated
+The forward model is constructed to generate outputs of values colocated
 in space and time with measured observations. The likelihood function
 quantifies the difference (misfit) between the model simulated outputs
 and associated observations. In all modeling, perfect correspondence
@@ -795,7 +795,7 @@ as PEST.
 
 As discussed below, bgaPEST must control the model for two purposes:
 to evaluate the likelihood function (assessing the correspondence
-between model output and collocated observation data, given a candidate
+between model output and colocated observation data, given a candidate
 set of parameter values) and to calculate the ``Jacobian'' or ``sensitivity''
 matrix that is required for solving the calibration equations. To
 enable PEST (and bgaPEST) to write input for a model, template files
@@ -1262,7 +1262,7 @@ the algorithm.
 
 bgaPEST marks the first widely available implementation of BGA for
 use by practitioners. Limitations, of course, accompany this first
-implementation. For example, version 1.0 does not have an explicit parallelization
+implementation. For example, version 1.0 has a limited explicit parallelization
 facility. This can be overcome by using external programs for derivatives
 and calling a parallel Jacobian calculation package such a BeoPEST
 \citep{beoPEST} or GENIE \citep{GENIE} whenever a Jacobian matrix
@@ -1544,7 +1544,7 @@ variable values. An example is: \texttt{prior\_betas=1.}
 
 Table variables are used for tabular data series that have multiple
 values in categories. Tables are identified by listing the number
-of rows (\texttt{nrow}) and number of columns (\texttt{ncol}) and by providing
+of rows (\texttt{nrow}), and number of columns (\texttt{ncol}), and by providing
 the keyword \texttt{columnlabels}. This is followed by \texttt{nrow}
 rows of data, with values arranged in \texttt{ncol} columns, corresponding
 to the same order as the \texttt{columnlabels} and delimited by one
@@ -1658,16 +1658,16 @@ full $Q_{0}$ matrix, {[}1{]} = Calculate separate $Q_{0}$ matrix
 for each beta association. 
 \item [{\texttt{par\_anisotropy}}] \emph{integer, default=0 }Flag to determine
 whether parameter anisotropy should be considered when making the
-$\mathbf{Q}$ matrix: {[}0{]} = do not consider anisotropy, {[}1{]}=consider
+$\mathbf{Q}$ matrix. {[}0{]} = do not consider anisotropy, {[}1{]}=consider
 anisotropy. If anisotropy is considered, a \texttt{parameter\_anisotropy}
 block should be included, as defined below. 
 \item [{\texttt{deriv\_mode}}] \emph{integer, default=0 }Flag to determine
 whether sensitivities are calculated by using an external call to PEST
-or using a user-supplied program (such as adjoint state): {[}0{]}
+or using a user-supplied program (such as adjoint state). {[}0{]}
 = use PEST, {[}1{]} = use external program identified below in the
-\texttt{model\_command\_lines} block. 
+\texttt{model\_command\_lines} block, {[}4{]} = use external derivatives in parallel (see appendix \ref{sec:parallel} for details).
 \item [{\texttt{posterior\_cov\_flag}}] \emph{integer, default=0 }Flag
-to determine whether posterior covariance matrix should be calculated:
+to determine whether posterior covariance matrix should be calculated.
 {[}0{]} = do not calculate posterior covariance matrix, {[}1{]} =
 calculate posterior covariance matrix. If \texttt{Q\_compression\_flag
 = 1}, only the diagonal of the posterior covariance matrix is calculated.
@@ -1693,7 +1693,7 @@ block.
 information about prior mean $\left(\beta\right)$ will be supplied.
 {[}0{]} = no, {[}1{]} = yes.
 \item [{\texttt{beta\_cov\_form}}] \emph{integer, default=0 }Form of the
-prior mean $\left(\beta\right)$ covariance matrix $\left(\mathbf{Q}_{\beta\beta}\right)$:
+prior mean $\left(\beta\right)$ covariance matrix $\left(\mathbf{Q}_{\beta\beta}\right)$.
 {[}0{]} = none, {[}1{]} = diagonal, {[}2{]} = full matrix. This value
 is used only if\texttt{ prior\_betas = 1}.\emph{ }
 \end{description}
@@ -1757,7 +1757,7 @@ structural parameters in the current row. {[}0{]} = do not transform,
 {[}1{]} = transform. This value is used only if \texttt{struct\_par\_opt
 = 1}. 
 \item [{\texttt{alpha\_trans}}] \emph{float, }\textit{default = 50} Exponent
-of the power transformation used only if \texttt{trans\_theta = 1}. Details of the power transformation are in  Appendix \ref{sec:methodologyDetails}.
+of the power transformation, used only if \texttt{trans\_theta = 1}. Details of the power transformation are in  Appendix \ref{sec:methodologyDetails}.
 
 \end{description}
 
@@ -1769,10 +1769,10 @@ beta association numbers.
 \begin{description}
 \item [{\texttt{BetaAssoc}}] \emph{integer }Identifier of each beta association
 (one per row). These should be sequential integers.
-\item [{\texttt{theta\_0\_1}}] \emph{float }Initial value of $\theta_{1,0}$
+\item [{\texttt{theta\_0\_1}}] \emph{float }Initial value of $\theta_{1,0}$,
 which is the starting value of the first structural parameter for
 prior covariance.
-\item [{\texttt{theta\_0\_2}}] \emph{float }Initial value of $\theta_{2,0}$
+\item [{\texttt{theta\_0\_2}}] \emph{float }Initial value of $\theta_{2,0}$,
 which is the starting value of the second structural parameter for
 prior covariance. If a linear or nugget variogram is used, an arbitrary
 negative value should be entered here indicating that the value will
@@ -1855,6 +1855,9 @@ not the same as beta associations.
 \begin{description}
 \item [{\texttt{groupname}}] \emph{string} Name of the group in the current
 row. Note that these cannot contain spaces.
+\item [{\texttt{grouptype}}] \emph{integer} Integer identifying which type of parameter the group corresponds to. This is used to ensure that beta associations do not span parameter types (for example, hydraulic conductivity parameters should not be in the same group type as recharge parameters). The specific values are arbitrary, but a distinct value should be assigned to each parameter group type.
+\item [{\texttt{derinc}}] \emph{float} The derivative increment for calculating external derivates if using 
+parallel, external derivatives calculation (\texttt{deriv\_mode = 4}).
 \end{description}
 
 \subsubsection{Parameter Data \texttt{parameter\_data} TABLE}
@@ -1862,7 +1865,7 @@ row. Note that these cannot contain spaces.
 Each row of this table provides information for one parameter.
 \begin{description}
 \item [{\texttt{ParamName}}] \emph{string} Name for the parameter.
-\item [{\texttt{StartValue}}] \emph{float }Staring parameter value.
+\item [{\texttt{StartValue}}] \emph{float }Starting parameter value.
 \item [{\texttt{GroupName}}] \emph{string} Name of the group to which the
 parameter belongs. This name must be defined in the \texttt{parameter\_groups}
 block.
@@ -1901,7 +1904,7 @@ to the epistemic error.
 
 \subsubsection{Model Command Lines \texttt{model\_command\_lines} KEYWORDS}
 
-Currently a single forward model command and an option derivative
+Currently, a single forward model command and an optional derivative
 model command can be supplied here. These string keywords can include
 path information if the command line batch files or shell scripts
 are not located in the current working directory, but spaces are not
@@ -1965,13 +1968,13 @@ output from bgaPEST is specified as a full matrix; and when
 Jacobian sensitivity matrix information is exchanged from an external
 code with bgaPEST run through, for example, a Python script. 
 
-The posterior covariance matrix may take two forms: a full matrix;
+The posterior covariance matrix may take two forms: a full matrix
 or a diagonal matrix. These options are discussed below. Two options
 are available for Jacobian sensitivity matrices $\left(\mathbf{H}\right)$
 to be read by bgaPEST. If \texttt{deriv\_mode=0}, PEST
 is used, external to bgaPEST, to calculate the Jacobian matrix
 resulting in a binary file with the extension \texttt{.jco}. If \texttt{deriv\_mode=}1
-then an external program is used to calculate $\mathbf{H}$ and a
+then an external program is used to calculate $\mathbf{H}$, and a
 file, written by the external program, must be communicated to bgaPEST.
 This file can either be a \texttt{.jco} file or a \texttt{.jac} file
 which is an ASCII file following the format of a standard matrix file
@@ -2034,7 +2037,7 @@ with 8 values per line.
   Hill}]{BantaEtAl2006}
 Banta, E.R., Poeter, E.P., Doherty, J.E., and Hill, M.C., 2006, JUPITER: \underline{J}oint \underline{U}niversal \underline{P}arameter \underline{I}den\underline{T}ification and \underline{E}valuation of \underline{R}eliability---An application programming interface (API) for model analysis: U.S. Geological Survey Techniques and Methods, book 6, chap. E1, 268 p.
 \bibitem[{Doherty(2010b)}]{PESTAdd2}
-Doherty, J., 2010, PEST, Model-independent parameter estimation---Addendum to user manual (5th ed.): Brisbane, Australia, Watermark Numerical Computing.
+Doherty, J., 2010b, PEST, Model-independent parameter estimation---Addendum to user manual (5th ed.): Brisbane, Australia, Watermark Numerical Computing.
 
 \end{thebibliography}
 
@@ -2107,7 +2110,7 @@ and the \texttt{parameter\_data} block must be completed.
 
 The \texttt{algorithmic\_cv} block contains variables that all have
 default values; however, bgaPEST must find the \texttt{algorithmic\_cv}
-block - even if it is empty. If the \texttt{algorithmic\_cv} block
+block---even if it is empty. If the \texttt{algorithmic\_cv} block
 is empty, all default values will be used.
 
 
@@ -2281,7 +2284,7 @@ where \textbf{$\mathbf{s}$ }is the $m\times1$ vector of parameter
 values at distributed spatial locations in the model, $\mathbf{X\beta^{*}}$
 is the prior mean, $\mathbf{G_{ss}}$ is the $m\times m$ prior covariance
 of $\left(\mathbf{s}-\mathbf{X\beta^{*}}\right)$, $\mathbf{h\left(\mathbf{s}\right)}$
-is the $n\times1$ vector of modeled forecasts collocated with observations
+is the $n\times1$ vector of modeled forecasts colocated with observations
 $\left(\mathbf{y}\right),$ and \textbf{$\mathbf{R}$ }is the $n\times n$
 epistemic uncertainty covariance, modeled as $\sigma_{R}^{2}\mathbf{I}$
 where $\sigma_{R}^{2}$ represents epistemic uncertainty, and $\mathbf{I}$
@@ -2431,7 +2434,7 @@ axis that may or not be aligned with the coordinate (x, y, z) axes.
 bgaPEST allows the definition of anisotropy in a horizontal plane
 at any angle from the x-axis and also in the vertical direction. The
 general layout of horizontal anisotropy is illustrated in figure \ref{fig:anisotropy}.
-The angle from the x-axis (specified in degrees) is defined by \texttt{horiz\_angle}
+The angle from the x-axis (specified in degrees) is defined by \texttt{horiz\_angle},
 and the amount of anisotropy is defined by \texttt{horiz\_ratio}. The designation 
 \texttt{p\_max} refers to the direction with maximum parameter values
 and \texttt{p\_min} refers to the direction of minimum parameter
@@ -2442,7 +2445,7 @@ beta association. If some beta associations are not meant to exhibit
 anisotropy, the user may simply set \texttt{horiz\_ratio=1.0}. If
 none of the beta associations exhibit anisotropy, the entire \texttt{parameter\_anisotropy}
 block can be eliminated by setting the algorithmic control variable
-\texttt{par\_anisotropy=0} which means the block (if present) is
+\texttt{par\_anisotropy=0}, which means the block (if present) is
 ignored.
 
 \begin{figure*}[!t]
@@ -2475,7 +2478,7 @@ y_{i}
 where $i$ indicates the $i$th point of the pair $\left(i=1,2\right)$,
 $\theta$ is the angle (in degrees) specified by \texttt{horiz\_angle},
 $x$ and $y$ constitute the point coordinates in the original coordinate
-system, and $x_{rot}$ and $y_{rot}$ are the location projected into
+system, and $x_{rot}$ and $y_{rot}$ constitute the location projected into
 the coordinate system corresponding to the orientation of horizontal
 anisotropy. 
 \parindent 0.25 in
@@ -2514,7 +2517,7 @@ where $E[\cdot]$ indicates expected value, $m$ is the number of
 parameters, $\mathbf{\beta}$ is a $(p\times1)$ vector of drift coefficients,
 and $\mathbf{X}$ is an $(m\times p)$ matrix of base functions. In
 the absence of prior drift, the $\mathbf{\beta}$ constitute the beta association
-mean values and $\mathbf{X}$ is a selection matrix mapping each value
+mean values, and $\mathbf{X}$ is a selection matrix mapping each value
 in $\mathbf{s}$ and $\mathbf{\beta}$ into their appropriate beta
 association. $\mathbf{X}$ contains all zeros except for \textbf{$\mathbf{X}_{ij}^{th}$}
 element, which maps the $i$th parameter to the $j$th beta
@@ -2536,7 +2539,7 @@ $\mathbf{\beta}$ is
 where $\mathbf{Q_{ss}}$ is a covariance function with structural
 parameters $\mathbf{\theta}.$ In bgaPEST, allowable covariance functions
 \parindent 0.25 in
-include:
+include
 \begin{enumerate}
 \item the nugget
 \begin{equation}
@@ -2638,7 +2641,7 @@ have been made in bgaPEST and compression is, therefore, allowed.
 In cases where spacing of model cells or nodes is constant in respective directions,
 $\mathbf{G}_{\mathbf{ss},\beta i}$ is a block Toeplitz matrix \citep{toeplitz}.
 A square, symmetric $j\times j$ matrix is Toeplitz in form if it
-has diagonals that all have the same value as in this example:
+has diagonals that all have the same value as in this example
 \begin{equation}
 \mathbf{T}=\text{\ensuremath{\left[\begin{array}{ccccc}
  t_{0}  &  t_{1}  &  \dots\  &  t_{j-2}  &  t_{j-1}\\
@@ -2696,7 +2699,7 @@ column, and finally by row.
 \caption{\label{fig:toep}Schematic graphical visualization of a three-level
 embedded set of Toeplitz blocks in a covariance matrix (modified from
 \citet{MarcoDiss}). The smallest squares represent individual matrix
-entries (values) and the colors correspond to distinct values. In
+entries (values), and the colors correspond to distinct values. In
 this synthetic example, it is assumed that there are three rows, three
 columns, and three layers in the underlying model}
 \end{figure*}
@@ -2715,7 +2718,7 @@ through a measurement equation
 where $\mathbf{y}$ is an $(n\times1)$ vector of observations, such
 as hydraulic heads or solute concentrations, $\mathbf{h(s)}$ is a
 transfer function or numerical model that calculates predictions which
-are collocated spatially and temporally with the observation values,
+are colocated spatially and temporally with the observation values,
 and $\mathbf{v}$ is an $(n\times1)$ vector of epistemic uncertainty
 terms, modeled as a random process with zero mean and covariance matrix
 $\mathbf{R.}$ Epistemic uncertainty is the result of imperfect or
@@ -2917,7 +2920,7 @@ Note that $\mathbf{Q_{yy}}$ is intrinsically dependent upon the values
 of $\theta.$
 
 Prior information about the structural parameters may also be included,
-with prior mean $\mathbf{\theta^{*}}$ and covariance matrix $\mathbf{Q_{\theta\theta}}$.
+with prior mean $\mathbf{\theta^{*}}$ and covariance matrix $\mathbf{Q_{\theta\theta}}$:
 \begin{equation}
 p\left(\mathbf{\theta}\right)\propto\mathrm{det}\left(\mathbf{Q_{\theta\theta}}\right)^{-\frac{1}{2}}\exp\left[-\frac{1}{2}\left(\mathbf{\theta-\theta^{*}}\right)^{T}\mathbf{Q}_{\mathbf{\theta\theta}}^{-1}\left(\mathbf{\theta-\theta^{*}}\right)\right]\label{eq:theta_prior}
 \end{equation}
@@ -3072,7 +3075,43 @@ Rubin, Y., 2003, Applied stochastic hydrogeology: Oxford, UK; New York; Oxford U
 %\begin{bibunit}
 \APPENDIX{\label{sec:parallel}Parallel Implementation of Jacobian Calculations}
 
-The parallel stuff here \citep{Condor766}.
+\subsection{Introduction}
+A substantial computational burden in quasi-linear parameter estimation is the repeated calculation of the Jacobian matrix 
+($\mathbf{H}$). Calculation of this matrix is ``embarassingly" or ``pleasingly" parallel---the number of runs required is the same as the number of parameters, but the individual model runs do not need to interact in any way. Given this property of Jacobian matrix calculation, a cluster of individual computers can be used to make the computations in parallel. Parallel implementation can be performed using a problem-specific implementation coded into the software \citep[for example,][]{beoPEST}, compiling the software against parallelization libraries \citep[for example,][]{GENIE}, or using a parallel management system outside the software \citep[for example,][]{Condor766}.
+
+As an initial step toward full support of parallel Jacobian calculations, this appendix documents an implementation using the Condor package \citep{Condor766} and Python scripts. This implementation currently calculates the Jacobian matrix using forward finite-differences with the increment set by the user in the \texttt{derinc} variable in the \texttt{parameter\_groups} table (appendix \ref{sec:Input-Instructions}).
+
+\subsection{Requirements}
+Several requirements must be met to use this parallel implementation for Jacobian calculations.
+\begin{enumerate}
+\item Condor and the related program DAGman must be installed and active on both the master node where bgaPEST is to run and at least one worker node. Details for installation are available from \cite{Condor766}.
+\item Python, including the module numpy must be installed on all compute nodes that will be used by Condor, including the master node where bgaPEST is running.
+\item In the folder where bgaPEST is running, the following files must be present
+\begin{itemize}
+\item Condor\_ATC.py
+\item parallel\_condor\_Jacobian.py
+\item jacobian\_pre.py
+\item jacobian\_pre.bat (or jacobian\_pre.sh on non-Windows operating systems)
+\item jacobian\_post.py
+\item jacobian\_post.bat (or jacobian\_post.sh on non-Windows operating systems)
+\item condor\_jacobian.sub.orig
+\item unzip.exe
+\item zip\_results.py
+\end{itemize}
+\item A folder called ``data" must be present in the same folder where bgaPEST is running on the master node. The ``data" folder must contain all forward-model related files, the \texttt{.bgp} file, and all \texttt{.tpl} and \texttt{.ins} files used by bgaPEST. Additionally, the following files must be present
+\begin{itemize}
+\item tempchek.exe (included in example files or availble from \url{http://www.pesthomepage.org})
+\item inschek.exe (included in example files or availble from \url{http://www.pesthomepage.org})
+\item condor\_single\_run.py
+\item parallel\_condor\_Jacobian.py
+
+\end{itemize}
+\end{enumerate}
+
+
+
+
+
 
 \subsection{References Cited}
 \begin{thebibliography}{17}
@@ -3085,9 +3124,14 @@ The parallel stuff here \citep{Condor766}.
 
 \bibitem[{Condor Team(2012)}]{Condor766}
 Condor Team, 2012, Condor Version 7.6.6 Manual: Madison, Wisconsin, University of Wisconsin---Madison.
+
+\bibitem[{Muffels and others(2012)Muffels, Schre\"{u}der, Doherty, Karanovic,
+  Tonkin, Hunt, and Welter}]{GENIE}
+ Muffels, C., Schre\"{u}der, W., Doherty, J., Karanovic, M., Tonkin, M., Hunt, R., and Welter, D., 2012, Approaches in highly parameterized inversion---GENIE, a general model-independent TCP/IP run manager,  U.S. Geological Survey Techniques and Methods, book 7, chap. C6, 26 p.
+ 
+\bibitem[{Schre\"{u}der(2009)}]{beoPEST}
+Schre\"{u}der, W., 2009, Running BeoPEST, \emph{in} Proceedings, PEST Conference 2009, Potomac, Md., November 1--3, 2009: Bethesda, Md., S.S. Papadopulos and Associates, p. 228--240.
 \end{thebibliography}
-
-
 
 \APPENDIX{\label{sec:example1}Single-Layer Example Application}
 

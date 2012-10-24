@@ -53,7 +53,8 @@ module bayes_pest_control
                                                        !and if nugget store just 1, if toep_flag store just a vector instead of the matrix
             integer             ::  post_cov_flag      ! [0] means do not calculate posterior covariance [1] calculate posterior covariance   
             integer             ::  deriv_mode         ! [0] means use perturbations within PEST, [1] means separate command line will be
-                                                       ! provided for running derivatives.  Typically with Adjoint State.     
+                                                       ! provided for running derivatives.  Typically with Adjoint State. [4] means external, parallel
+                                                       ! derivatives calculation will be carried out using Condor    
             character (len=6)   ::  jacobian_format    ! 'binary' for binary Jacobian file [default] or 'ascii' for standard PEST matrix text format
                                                        ! only read if deriv_mode =1       
             character(len=100)  ::  jacfle             !jacobian file - read if cv_A%deriv_mode==1, default='scratch.jco'

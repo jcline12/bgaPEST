@@ -36,7 +36,7 @@ contains
             cv_A%store_Q            = .TRUE. !flag for whether or not to store Q.  s/b false if npar is too big
             cv_A%theta_cov_form     = 0	     !Form of theta covariance:  [0] none, [1] diag, [2] full matrix
             cv_A%Q_compression_flag = 0      ! [0] none - calculate full Q0, [1] Calculate Q0 for each beta
-            cv_A%deriv_mode         = 0      ! [0] use external PEST for Jacobian, [1] look for separate dercomline
+            cv_A%deriv_mode         = 0      ! [0] use external PEST for Jacobian, [1] look for separate dercomline, [4] is parallel with Condor
             cv_A%post_cov_flag      = 0      ! [0] do not calculate posterior covariance [1] calculate post cov
             cv_A%jacobian_format    = 'binary' ! 'binary' [default] means read JCO binary, 'ascii' means read standard PEST text matrix
             cv_A%jacfle             = 'scratch.jco' ! filename for external derivatives to be read from
