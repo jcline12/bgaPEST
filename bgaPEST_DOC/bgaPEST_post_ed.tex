@@ -2978,7 +2978,7 @@ The power transformation \citep{BoxCox1964, fienenEtal2004} is defined as:
 \parindent 0 in
  where $\mathbf{s}$ is the vector of transformed parameters, $\mathbf{p}$ is the vector of non-transformed parameters, and $\alpha$ is a tuning variable that controls the strength of the transformation. The back-transformation is:
 \begin{equation}
-\mathbf{k}=\left(\frac{\mathbf{s}+\alpha}{\alpha}\right)^{\alpha}
+\mathbf{p}=\left(\frac{\mathbf{s}+\alpha}{\alpha}\right)^{\alpha}
 \end{equation} \\
 \parindent 0.25 in
 At the limit, as $\alpha$ increases to infinity, the transformation and back-transformation converge on the natural logarithm and exponential function, respectively:
@@ -2987,7 +2987,7 @@ At the limit, as $\alpha$ increases to infinity, the transformation and back-tra
 \end{equation}
 and
 \begin{equation}
-\mathbf{k}=\lim_{\alpha \rightarrow \infty}=\left(\frac{\mathbf{s}+\alpha}{\alpha}\right)^{\alpha}=\exp\left(\mathbf{s}\right).
+\mathbf{p}=\lim_{\alpha \rightarrow \infty}=\left(\frac{\mathbf{s}+\alpha}{\alpha}\right)^{\alpha}=\exp\left(\mathbf{s}\right).
 \end{equation}
 \subsection{Posterior Covariance}
 
@@ -3589,6 +3589,59 @@ Faeh, R., Mueller, R., Rousselot, P., Vetsch, D., Volz, C., Vonwiller, L.R.V., a
 %\putbib[GW]
 %\end{bibunit}
 \end{appendix}
+
+\begin{usgsglossary}
+
+\RaggedRight
+
+% ACRONYMS
+\glosssubsection{Mathematical Symbols and Variables}
+
+\item[$\emph{m}$] Number of parameters
+\item[$\emph{n}$] Number of observations
+\item[$\emph{p}$] Number of beta associations
+\item[$\mathbf{s}$] Vector of parameters
+\item[$\mathbf{y}$] Vector of observations
+\item[$\mathbf{y}_{k}^{'}$] Observations corrected for the $k^{th}$ linearization:  $\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}$
+\item[$\mathbf{h}\left(\mathbf{s}\right)$] Modeled results of $\mathbf{s}$
+\item[$\mathbf{H}$] Jacobian matrix of parameter sensitivities
+\item[$\mathbf{I}$] Identity matrix
+\item[$\sigma^2_R$] Epistemic uncertainty
+\item[$p\left(\mathbf{R}\right)$] Epistemic uncertainty covariance
+\item[$p\left(\mathbf{s}\right)$] Prior probability of parameter values
+\item[$L\left(\mathbf{y}|\mathbf{s}\right)$] Likelihood function
+\item[$p\left(\mathbf{s}|\mathbf{y}\right)$] Posterior probability of parameter values
+\item[$\mathbf{X}$] A selection matrix that can include drift of the prior mean
+\item[$\beta^*$] Vector of prior mean values for each beta association
+\item[$\theta$] Vector of the structural parameters
+\item[$\hat{\theta}$] Best estimate of the vector of the structural parameters
+\item[$\mathbf{G}_{ss}$] Prior covariance of $\left(\mathbf{s}-\mathbf{X}\beta^*\right)$
+\item[$\mathbf{G}_{sy}$] Cross covariance between observations and parameters
+\item[$\mathbf{G}_{yy}$] Auto-covariance of the observations when covariance of the prior mean is included
+\item[$\mathbf{Q}_{ss}$] Prior covariance of the parameters
+\item[$\mathbf{Q}_{yy}$] Auto-covariance of the observations
+\item[$\mathbf{Q}_{\beta\beta}$] Prior covariance of the prior mean values
+\item[$\mathbf{Q}_{\theta\theta}$] Prior covariance of the structural parameter values
+\item[$\mathbf{\tilde{s}}$] Current best estimate of $\mathbf{s}$ during quasi-linear runs
+\item[$\mathbf{\tilde{H}}$] Current sensitivity matrix, a function of $\mathbf{\tilde{s}}$ during quasi-linear runs
+\item[$\mathbf{\xi}$] Interpolation weights for the innovation in solving for $\mathbf{\hat{s}}$
+\item[$\mathbf{\hat{s}}$] Best estimate of $\mathbf{s}$
+\item[$\mathbf{\hat{\beta}}$] Best estimate of $\mathbf{\beta}$
+\item[$\Phi$] Objective function 
+\item[$\Phi_T$] Total objective function 
+\item[$\Phi_M$] Measurement component of objective function 
+\item[$\Phi_R$] Regularization component of the objective function 
+\item[$\rho$] Line search parameter
+\item[$E{\left[\cdot\right]}$] Expected value
+\item[$\mathbf{d}$] Separation distance in variogram calculation
+\item[$\ell$] Integral scale in variogram calculation
+\item[$\mathbf{v}$] Vector of epistemic uncertainty terms
+\item[$\mathbf{W}$] Observation weight matrix
+\item[$\mathbf{\omega}$] Observation weight
+\item[$\mathbf{p}$] Untransformed parameter values in the context of power transformation
+\item[$\alpha$] Exponent for power transformation
+\item[$\mathbf{V}$] Posterior covariance matrix of the parameters
+\end{usgsglossary}
 \end{document}
 
 
