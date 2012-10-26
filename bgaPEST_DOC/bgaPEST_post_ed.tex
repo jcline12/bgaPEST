@@ -3106,13 +3106,30 @@ Several requirements must be met to use this parallel implementation for Jacobia
 \item parallel\_condor\_Jacobian.py
 
 \end{itemize}
+
+\item Set the variable \texttt{deriv\_mode=4} in the \texttt{algorithmic\_cv} Keywords input block (appendix \ref{sec:Input-Instructions}). This instructs bgaPEST to write necessary data transfer files and to execute the code necessary to run the Condor-based parallel Jacobian calculation.
 \end{enumerate}
 
 
+\subsection{File modifications}
+The file \texttt{condor\_jacobian.sub.orig} must be customized to contain instructions specific to the Condor network on which bgaPEST is running for the \texttt{requirements}  and the \texttt{request\_memory} variables. Details of these variables are described by \cite{Condor766}. All other variables should remain unchanged from the files provided with this documentation.
 
-
-
-
+\subsection{Description of the Method}
+This parallel implementation of bgaPEST using Condor is a scripted approach using a combination of existing PEST utilities and custom Python code. The general approach consists of the following steps:
+\begin{enumerate}
+\item Files are written by bgaPEST to communicate to the parallel codes information specific to the current run including derivative increments (specified by the user in the \texttt{derinc} variable).
+\item At the time of each Jacobian calculation, the current parameter values are written to a temporary file
+\item The current parameter values are combined with all other necessary model files in the ``data" subfolder, which is compressed into a zipfile.
+\item The Condor submit file is updated to specify the correct number of model runs required to calculate the Jacobian matrix.
+\item A single-node directed acyclic graph (DAG) is initiated using the Condor utility \texttt{DAGman}. The need for the DAG is to monitor the set of Condor jobs corresponding to the specific model runs. \texttt{DAGman} monitors the progress of the DAG and returns control to bgaPEST ocne the entire Jacobian is calculated.
+\item On each worker node, the following tasks are performed:
+	\begin{itemize}
+	\item Model input files are written by using the \texttt{tempchek.exe} utility
+	\item The model is run once using the model command line information provided by bgaPEST
+	\item The model output files are read by using the \texttt{inschek.exe} utility. The version of \texttt{inschek.exe} provided with bgaPEST has been modified to carry maximum numerical precision.
+\end{itemize}
+\item After the model is run for each perturbation and a base case, the derivatives are calculated using forward differences and conveyed back to bgaPEST by using a text file.
+\end{enumerate}
 \subsection{References Cited}
 \begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
@@ -3154,7 +3171,7 @@ of zero and standard deviation of 0.01 m.
 \caption{True hydraulic conductivity field for the single-layer example application\label{fig:trueK1L}}
 
 
-\end{figure*}[!b]
+\end{figure*}
 The boundary conditions are constant head, highest at the northwest
 corner and linearly decreasing to the southeast, as depicted in figure
 \ref{fig:stheads1L}. There is a well at row 13, column 6, extracting
