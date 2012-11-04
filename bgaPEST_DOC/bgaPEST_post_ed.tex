@@ -265,7 +265,7 @@ This report includes an overview of theory and use of the bgaPEST
 code in the main text. Detailed input instructions for bgaPEST version
 1.0 are in appendix \ref{sec:Input-Instructions}, and quick-start instructions are in appendix
 \ref{sec:quickstart}. A detailed mathematical derivation of the BGA methods is
-in Appendix \ref{sec:methodologyDetails}, and example problems are 
+in appendix \ref{sec:methodologyDetails}, and example problems are 
 in appendixes \ref{sec:example1} through \ref{sec:example3}. 
 
 
@@ -274,7 +274,7 @@ in appendixes \ref{sec:example1} through \ref{sec:example3}.
 The software for bgaPEST Version 1.0 is available for download at
 $<$USGS LINK HERE$>$. This location includes a copy of this document and
 both executables and source code. As development of the code continues,
-a repository at $<$GITHUB LINK HERE$>$ provides a link to revisions in progress
+a repository at \url{http://github.com/mnfienen-usgs/bgaPEST} provides a link to revisions in progress
  and provides a collaborative open-source space where users may 
  submit revisions for consideration by the authors.
 As further development takes place, new code releases will be posted
@@ -284,7 +284,7 @@ at $<$USGS LINK$>$.
 \SECTION{The Bayesian Geostatistical Approach}
 
 The presentation of BGA is in two parts, first primarily as narrative then 
-later as a detailed mathematical approach in Appendix \ref{sec:methodologyDetails}. 
+later as a detailed mathematical approach in appendix \ref{sec:methodologyDetails}. 
 Those most interested in simply
 applying bgaPEST to their specific problem will likely spend most
 time with the narrative. In both presentations, the concept
@@ -523,7 +523,7 @@ by the calibration dataset.
 The Bayesian geostatistical approach is described in detail by \citet{KitanidisVomvoris1983}, \citet{HoeksemaKitanidis1984a}, \citet{Kitanidis1995}, and \citet{NowakCirpka2004}
 among others. This section is a conceptual overview of
 the method. A more detailed description, including mathematical
-details, is in Appendix \ref{sec:methodologyDetails}.
+details, is in appendix \ref{sec:methodologyDetails}.
 
 The core of the Bayesian geostatistical inverse method is Bayes' theorem,
 which states
@@ -648,7 +648,7 @@ typical parameters, however, structural parameters do not \emph{directly
 hydraulic conductivity or stream roughness do in hydrologic models.
 Instead, structural parameters control the structure of the general
 parameters. For example, the variogram values (for example variance, slope,
-and correlation length) that control to roughness of distributed parameter
+and correlation length) that control the roughness of distributed parameter
 fields are structural parameters, as is the value of variance controlling
 epistemic uncertainty. Because these parameters must be estimated
 but are not directly connected to the physics of the problem, they
@@ -834,7 +834,7 @@ For users on Macintosh\footnote[7]{``Macintosh\textsuperscript{\textregistered}"
 for the native platform and Python should already be installed so
 the Python scripts may be called directly without need to compile
 them separately. The use of external derivatives (sensitivity) calculation
-with PEST and Python can be replaced by using the parallel external derivatives capabilities described in Appendix \ref{sec:parallel}. Alternatively, it would be possible to implement the general
+with PEST and Python can be replaced by using the parallel external derivatives capabilities described in appendix \ref{sec:parallel}. Alternatively, it would be possible to implement the general
 parallel run management suite (GENIE, \citet{GENIE}). 
 
 
@@ -947,8 +947,8 @@ is evaluated as
 where $i_{out}$ is the outer iteration and $\Phi_{T}$
 is the total objective function (equation \ref{eq:phiT}).\emph{ }
 \item [{\texttt{Q\_compression\_flag}}] \emph{integer, default=0} Flag
-to determine how to calculate $Q_{0}$ {[}0{]} = no compression---calculate
-full $Q_{0}$ matrix, {[}1{]} = calculate separate $Q_{0}$ matrix
+to determine how to calculate $Q_{ss}$ {[}0{]} = no compression---calculate
+full $Q_{ss}$ matrix, {[}1{]} = calculate separate $Q_{ss}$ matrix
 for each beta association. In addition to controlling the behavior
 of prior covariance compression, this flag also determines whether
 a full posterior covariance matrix or only the diagonal is calculated.
@@ -1120,7 +1120,7 @@ efficient in the case where parameters greatly outnumber observations.
 Adjoint-state versions of commercial and government codes are not
 typically available, however, but bgaPEST is equipped to handle Jacobian
 matrices calculated outside of bgaPEST so that users who are able to write
-such codes can make use of them. Similarly, parallelization supported to a limited degree using Python scripts and Condor \citep{Condor766} for run management. This parallel implementation is documented in Appendix \ref{sec:parallel}.
+such codes can make use of them. Similarly, parallelization is supported to a limited degree using Python scripts and Condor \citep{Condor766} for run management. This parallel implementation is documented in appendix \ref{sec:parallel}.
 
 Adjoint-state Jacobian calculation is an attractive method to mitigate
 high computational expense of this method; however, production codes
@@ -1653,12 +1653,12 @@ theta covariance matrix. {[}0{]} = none, {[}1{]} = diagonal, {[}2{]}
 and it is assumed to be unknown. Used only if at least one structural
 parameter is to be estimated. 
 \item [{\texttt{Q\_compression\_flag}}] \emph{integer, default=0 }Flag
-to determine how to calculate $Q_{0}$ {[}0{]} = no compression---calculate
-full $Q_{0}$ matrix, {[}1{]} = Calculate separate $Q_{0}$ matrix
+to determine how to calculate $\mathbf{Q}_{ss}$ {[}0{]} = no compression---calculate
+full $\mathbf{Q}_{ss}$ matrix, {[}1{]} = Calculate separate $\mathbf{Q}_{ss}$ matrix
 for each beta association. 
 \item [{\texttt{par\_anisotropy}}] \emph{integer, default=0 }Flag to determine
 whether parameter anisotropy should be considered when making the
-$\mathbf{Q}$ matrix. {[}0{]} = do not consider anisotropy, {[}1{]}=consider
+$\mathbf{Q}_{ss}$ matrix. {[}0{]} = do not consider anisotropy, {[}1{]}=consider
 anisotropy. If anisotropy is considered, a \texttt{parameter\_anisotropy}
 block should be included, as defined below. 
 \item [{\texttt{deriv\_mode}}] \emph{integer, default=0 }Flag to determine
@@ -1703,7 +1703,7 @@ is used only if\texttt{ prior\_betas = 1}.\emph{ }
 This table must contain the same number of rows as there are beta
 associations to be defined. The rows must be in ascending order of
 beta association numbers. This is also the block where beta associations
-are defined, even if prior means are not defined. Parameter transformations are also defined in this table. Details about transformation options are in  Appendix \ref{sec:methodologyDetails}.
+are defined, even if prior means are not defined. Parameter transformations are also defined in this table. Details about transformation options are in  appendix \ref{sec:methodologyDetails}.
 \begin{description}
 \item [{\texttt{BetaAssoc}}] \emph{integer }Identifier of each beta association
 (one per row). These should be sequential integers.
@@ -1712,7 +1712,7 @@ whether $\beta$ values will be in physical or estimation space. Acceptable
 values are \texttt{log}, \texttt{power}, and \texttt{none}. 
 \item [{\texttt{alpha\_trans}}] \emph{float, default = 50.0 }Exponent of the power transformation if \texttt{Partrans = power}. 
 
-\item [{\texttt{beta\_0}}] \emph{float} Value of prior mean value $\left(\beta_{0}\right)$
+\item [{\texttt{beta\_0}}] \emph{float} Value of prior mean $\left(\beta_{0}\right)$
 for the row's beta association. This value is used only if\texttt{
 prior\_betas = 1}.
 \item [{\texttt{beta\_cov\_\#}}] \emph{float }The number of values provided
@@ -1757,7 +1757,7 @@ structural parameters in the current row. {[}0{]} = do not transform,
 {[}1{]} = transform. This value is used only if \texttt{struct\_par\_opt
 = 1}. 
 \item [{\texttt{alpha\_trans}}] \emph{float, }\textit{default = 50} Exponent
-of the power transformation, used only if \texttt{trans\_theta = 1}. Details of the power transformation are in  Appendix \ref{sec:methodologyDetails}.
+of the power transformation, used only if \texttt{trans\_theta = 1}. Details of the power transformation are in  appendix \ref{sec:methodologyDetails}.
 
 \end{description}
 
@@ -1800,14 +1800,14 @@ order---the placeholder value is arbitrary and will be ignored.
 
 \subsubsection{Epistemic Error Term \texttt{epistemic\_error\_term} KEYWORDS}
 \begin{description}
-\item [{\texttt{sig\_0}}] \emph{float }Initial value of the epistemic error
-$\left(\sigma_{o}\right)$.
+\item [{\texttt{sig\_0}}] \emph{float }Initial value of the epistemic uncertainty variance
+$\left(\sigma_{R_{0}}^{2}\right)$.
 \item [{\texttt{sig\_opt}}] \emph{integer }Flag indicating whether epistemic
-error should be optimized for or not. {[}0{]} = do not optimize, {[}1{]}
+uncertainty variance should be optimized for or not. {[}0{]} = do not optimize, {[}1{]}
 = optimize. If \texttt{sig\_opt = 0}, then the value of \texttt{sig\_0}
 is used throughout the inversion.
 \item [{\texttt{sig\_p\_var}}] \emph{float, }\textit{default=0}\emph{ }Prior
-variance on $\sigma$. \texttt{sig\_p\_var = 0} means no prior variance
+variance on $\sigma_{R_{0}}^{2}$. \texttt{sig\_p\_var = 0} means no prior variance
 on epistemic error is provided and it is assumed totally unknown.
 This value is used only if \texttt{sig\_opt = 1}. 
 \item [{\texttt{trans\_sig}}] \emph{integer, }\textit{default=0}\emph{
@@ -1815,7 +1815,7 @@ This value is used only if \texttt{sig\_opt = 1}.
 epistemic error. {[}0{]} = do not transform, {[}1{]} = transform.
 This value is used only if \texttt{sig\_opt = 1.} 
 \item [{\texttt{alpha\_trans}}] \emph{float, }\textit{default = 50} Exponent
-of the power transformation, used only if \texttt{trans\_sig = 1}. Details of the power transformation are in  Appendix \ref{sec:methodologyDetails}.
+of the power transformation, used only if \texttt{trans\_sig = 1}. Details of the power transformation are in  appendix \ref{sec:methodologyDetails}.
 
 \end{description}
 
@@ -1856,8 +1856,7 @@ not the same as beta associations.
 \item [{\texttt{groupname}}] \emph{string} Name of the group in the current
 row. Note that these cannot contain spaces.
 \item [{\texttt{grouptype}}] \emph{integer} Integer identifying which type of parameter the group corresponds to. This is used to ensure that beta associations do not span parameter types (for example, hydraulic conductivity parameters should not be in the same group type as recharge parameters). The specific values are arbitrary, but a distinct value should be assigned to each parameter group type.
-\item [{\texttt{derinc}}] \emph{float} The derivative increment for calculating external derivates if using 
-parallel, external derivatives calculation (\texttt{deriv\_mode = 4}).
+\item [{\texttt{derinc}}] \emph{float} The derivative increment for calculating external derivates if using external derivatives calculation (\texttt{deriv\_mode = 0 or deriv\_mode = 4}).
 \end{description}
 
 \subsubsection{Parameter Data \texttt{parameter\_data} TABLE}
@@ -2286,9 +2285,9 @@ is the prior mean, $\mathbf{G_{ss}}$ is the $m\times m$ prior covariance
 of $\left(\mathbf{s}-\mathbf{X\beta^{*}}\right)$, $\mathbf{h\left(\mathbf{s}\right)}$
 is the $n\times1$ vector of modeled forecasts colocated with observations
 $\left(\mathbf{y}\right),$ and \textbf{$\mathbf{R}$ }is the $n\times n$
-epistemic uncertainty covariance, modeled as $\sigma_{R}^{2}\mathbf{I}$
-where $\sigma_{R}^{2}$ represents epistemic uncertainty, and $\mathbf{I}$
-is an $n\times n$ identity matrix. In general terms, the likelihood
+epistemic uncertainty covariance, modeled as $\sigma_{R}^{2}\mathbf{W}$
+where $\sigma_{R}^{2}$ represents epistemic uncertainty, and $\mathbf{W}$
+is an $n\times n$ diagonal matrix containing the observation weights. In general terms, the likelihood
 function $\left(L\left(\mathbf{y}|\mathbf{s}\right)\right)$ characterizes
 the misfit between model forecasts and observations whereas the prior
 pdf $\left(p\left(\mathbf{s}\right)\right)$ defines a characteristic
@@ -2392,7 +2391,7 @@ estimates or minimal further improvement in the objective
 function. The objective function, which we seek to minimize, is $\mathbf{-}\ln p\left(\mathbf{s|y}\right)$
 which is equivalent to maximizing equation \ref{eq:BGA}
 \begin{equation}
-\Phi=\mathbf{-}\ln p\left(\mathbf{s|y}\right)=(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})+\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}
+\Phi_T=\mathbf{-}\frac{1}{2}\ln p\left(\mathbf{s|y}\right)=(\mathbf{s-X\beta}^{*})^{T}\mathbf{G_{\mathbf{ss}}^{-1}}(\mathbf{s-X\beta^{*}})-\frac{1}{2}\left(\mathbf{y-h}(\mathbf{s})\right)^{T}\mathbf{R^{-1}\left(\mathbf{y-h}(\mathbf{s})\right)}
 \end{equation}
 
 
@@ -2413,15 +2412,15 @@ as
 \end{equation}
 
 \parindent 0 in
-where $\mathbf{s}_{opt}$ minimizes the objective function, $\Phi,$
+where $\mathbf{s}_{opt}$ minimizes the objective function, $\Phi_T,$
 using a Nelder-Mead simplex \citep[see, for example, ][]{Press1992}, which
-guarantees monotonic decrease in $\Phi$ over successive
+guarantees monotonic decrease in $\Phi_T$ over successive
 iterations. It is recommended to limit the number of line-search iterations
 to a relatively low number, because the goal of handling weak linearity
 is balanced against the computations required to perform the line
 search. The greatest advantage is likely achieved in the first few
 (less than five) iterations. The role of the line search is not to
-find a minimum value of $\Phi$ because the nonlinearity
+find a minimum value of $\Phi_T$ because the nonlinearity
 of the overall problem prevents it. Rather, the line search is meant
 to be a correction of search direction for stability.
 \parindent 0.25 in
@@ -2543,32 +2542,33 @@ include
 \begin{enumerate}
 \item the nugget
 \begin{equation}
-\mathbf{R}\left(\mathbf{d}\right)=\sigma^{2}
+\mathbf{Q}_{ss}\left(\mathbf{d}\right)=\sigma^{2}
 \end{equation}
 and
 \item the exponential covariance function 
 \begin{equation}
-\mathbf{R}(\mathbf{d})=\sigma^{2}\mathrm{exp}(\mathbf{-}\frac{\left|\mathbf{d}\right|}{\ell})\label{eq:exp_GCF}
+\mathbf{R}_{ss}(\mathbf{d})=\sigma^{2}\mathrm{exp}(\mathbf{-}\frac{\left|\mathbf{d}\right|}{\ell})\label{eq:exp_GCF}
 \end{equation}
 
 \end{enumerate}
 where $\left|\mathbf{d}\right|$ is separation distance, $\sigma^{2}$
 is variance, and $\ell$ is integral scale. If the integral scale
-is set such that $\ell$>$\mathrm{max}(\left|\mathbf{d}\right|)$ we
+is set such that $\ell>\mathrm{max}(\left|\mathbf{d}\right|)$ we
 can substitute $\sigma^{2}=\theta\ell$ and restate equation \ref{eq:exp_GCF}
 as
 \begin{equation}
-\mathbf{Q_{ss}}(\mathbf{h},\theta)=\theta\ell\mathrm{exp}(-\frac{\mathbf{\left|\mathbf{d}\right|}}{\ell})\label{eq:Qss}.
+\mathbf{Q_{ss}}(\mathbf{h},\sigma^2)=\sigma^2\ell\mathrm{exp}(-\frac{\mathbf{\left|\mathbf{d}\right|}}{\ell})\label{eq:Qss}.
 \end{equation}
 
 
 We can also set $\ell=10\times\mathrm{max(\mathbf{\left|d\right|})}$
 so that the behavior of the covariance function will be as a linear variogram
 \citep{FienenWRR2008} which enforces continuity at a scale determined
-by the single free structural parameter $\theta.$ The motivation
+by the single free structural parameter $\sigma^2.$ The motivation
 for this covariance function choice is to impart minimal assumptions
-about parameter structure onto the solution. The appropriate value
-of $\mathbf{\theta}$ is calculated through restricted maximum likelihood.
+about parameter structure onto the solution. 
+
+The appropriate values of $\mathbf{\theta}$ (the vector of structural parameters including $\sigma_{R}^2$ and $\sigma^2$)are calculated through restricted maximum likelihood.
 For the remainder of this derivation, $\mathbf{\theta}$ is assumed to be 
 known. In bgaPEST, as discussed below in the input instructions, either
 the exponential or linear variogram models may be used.
@@ -2952,13 +2952,13 @@ simplex algorithm \citep[for example, ][p. 408-410]{Press1992}. Non-negativity
 in the $\mathbf{\theta}$ parameters can be enforced by using a power transformation
 \citep{BoxCox1964} discussed below. As indicated by \citet{Kitanidis1995}, nonlinearity
 requires that structural parameters to be estimated iteratively with
-the estimation of hydraulic parameters. This is accomplished through
+the estimation of model parameters. This is accomplished through
 a sequence of coupled inversion as follows.
 \parindent 0.25 in 
 \begin{enumerate}
-\item Initialize hydraulic parameters as $\left(\mathbf{s_{0}}\right)$
+\item Initialize model parameters as $\left(\mathbf{s_{0}}\right)$
 and structural parameters $\left(\mathbf{\theta_{0}}\right)$. 
-\item Solve for a new estimate of hydraulic parameters $\left(\hat{\mathbf{s}}\right)$
+\item Solve for a new estimate of model parameters $\left(\hat{\mathbf{s}}\right)$
 holding $\mathbf{\theta}$ constant. 
 \item Solve for a new estimate of structural parameters $\left(\mathbf{\hat{\theta}}\right)$
 holding $\mathbf{s}$ constant. 
@@ -2999,9 +2999,9 @@ is:
 \mathbf{V}=\mathbf{\mathbf{G}_{ss}}-\mathbf{G_{sy}G}_{\mathbf{yy}}^{-1}\mathbf{G}_{\mathbf{sy}}^{T}
 \end{equation}
  where $\mathbf{G_{sy}}=\mathbf{G_{ss}H}^{T}$ and $\mathbf{G_{yy}}=\mathbf{HG_{ss}H}^{T}+\mathbf{R}$.
-In the case where compression of $\mathbf{Q}$ is not used, the full
+In the case where compression of $\mathbf{Q}_{ss}$ is not used, the full
 matrix $\mathbf{V}$ is calculated and reported. Where compression
-of $\mathbf{Q}$ is used, however, the diagonal of $\mathbf{V}$ is
+of $\mathbf{Q}_{ss}$ is used, however, the diagonal of $\mathbf{V}$ is
 returned as a vector of variances on parameters. This information
 is reported in a separate file but is also used to calculated posterior
 95 percent confidence intervals. The full matrix, when reported, can be
@@ -3618,20 +3618,29 @@ Faeh, R., Mueller, R., Rousselot, P., Vetsch, D., Volz, C., Vonwiller, L.R.V., a
 \item[$\emph{n}$] Number of observations
 \item[$\emph{p}$] Number of beta associations
 \item[$\mathbf{s}$] Vector of parameters
+\item[$\mathbf{s}_0$] Starting values of parameters
 \item[$\mathbf{y}$] Vector of observations
-\item[$\mathbf{y}_{k}^{'}$] Observations corrected for the $k^{th}$ linearization:  $\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}(\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}$
+\item[$\mathbf{y}_{k}^{'}$] Observations corrected for the $k^{th}$ linearization:  $\mathbf{y}_{k}^{'}=\mathbf{y}-\mathbf{h}\tilde{\mathbf{s}}_{k})+\tilde{\mathbf{H}}_{k}\tilde{\mathbf{s}}_{k}$
 \item[$\mathbf{h}\left(\mathbf{s}\right)$] Modeled results of $\mathbf{s}$
 \item[$\mathbf{H}$] Jacobian matrix of parameter sensitivities
-\item[$\mathbf{I}$] Identity matrix
+\item[$\mathbf{W}$] Diagonal weight matrix
 \item[$\sigma^2_R$] Epistemic uncertainty
-\item[$p\left(\mathbf{R}\right)$] Epistemic uncertainty covariance
+\item[$\sigma^2$] Variogram variance or slope parameter
+\item[$\mathbf{R}$] Epistemic uncertainty covariance
 \item[$p\left(\mathbf{s}\right)$] Prior probability of parameter values
 \item[$L\left(\mathbf{y}|\mathbf{s}\right)$] Likelihood function
 \item[$p\left(\mathbf{s}|\mathbf{y}\right)$] Posterior probability of parameter values
 \item[$\mathbf{X}$] A selection matrix that can include drift of the prior mean
-\item[$\beta^*$] Vector of prior mean values for each beta association
+\item[$\beta$] Prior mean values for each beta association
+\item[$\beta^*$] Initial prior mean values for each beta association used in the prior PDF
+\item[$\beta_0$] Starting prior mean values for each beta association
 \item[$\theta$] Vector of the structural parameters
 \item[$\hat{\theta}$] Best estimate of the vector of the structural parameters
+\item[$\theta^*$] Initial value of structural parameters (used in the prior PDF of $\theta$)
+\item[$\theta_0$] Starting value of the structural parameters
+\item[$p\left(\mathbf{\theta}\right)$] Prior probability of structural parameter values
+\item[$L\left(\mathbf{y}_{k}^{'}|\theta\right)$] Likelihood function in structural parameter optimization
+\item[$p\left(\mathbf{\theta|\mathbf{y}_{k}^{'}}\right)$] Posterior probability of sturctural parameters given the current data
 \item[$\mathbf{G}_{ss}$] Prior covariance of $\left(\mathbf{s}-\mathbf{X}\beta^*\right)$
 \item[$\mathbf{G}_{sy}$] Cross covariance between observations and parameters
 \item[$\mathbf{G}_{yy}$] Auto-covariance of the observations when covariance of the prior mean is included
@@ -3644,10 +3653,11 @@ Faeh, R., Mueller, R., Rousselot, P., Vetsch, D., Volz, C., Vonwiller, L.R.V., a
 \item[$\mathbf{\xi}$] Interpolation weights for the innovation in solving for $\mathbf{\hat{s}}$
 \item[$\mathbf{\hat{s}}$] Best estimate of $\mathbf{s}$
 \item[$\mathbf{\hat{\beta}}$] Best estimate of $\mathbf{\beta}$
-\item[$\Phi$] Objective function 
 \item[$\Phi_T$] Total objective function 
 \item[$\Phi_M$] Measurement component of objective function 
 \item[$\Phi_R$] Regularization component of the objective function 
+\item[$\Phi_S$] Structural parameters objective function 
+\item[$\mathbf{s}_{\text{opt}}$] Optimal value of parameters in the linesearch
 \item[$\rho$] Line search parameter
 \item[$E{\left[\cdot\right]}$] Expected value
 \item[$\mathbf{d}$] Separation distance in variogram calculation
