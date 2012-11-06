@@ -31,6 +31,11 @@ if os.path.exists(os.path.join(os.getcwd(),fulljack.jacfolder)):
     shutil.rmtree(os.path.join(os.getcwd(),fulljack.jacfolder))
 os.mkdir(os.path.join(os.getcwd(),fulljack.jacfolder))
 
+# if a log folder exists, empty it -- else, create it
+if os.path.exists(os.path.join(os.getcwd(),'log')):
+    shutil.rmtree(os.path.join(os.getcwd(),'log'))
+os.mkdir(os.path.join(os.getcwd(),'log'))
+
 # perform the model runs
 fulljack.jacobian_master()
 
