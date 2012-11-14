@@ -64,9 +64,7 @@ module linesearch
         
         d_PAR%pars=xmin(1)*d_PAR%pars+(1-xmin(1))*d_PAR%pars_old 
         d_PAR%phi_T=ynewlo
-                write(*,*) "ginger"
-        write(*,*) xmin(1)
-                write(*,*) "ginger"
+
  end subroutine lns_proc
  
 end module linesearch 
