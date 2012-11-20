@@ -18,6 +18,7 @@ contains
       write(6,*) '*******************************************'
       write(6,*) '*          Welcome to bgaPEST             *'
       write(6,*) '*******************************************' 
+      write(6,*) '       Version 1.0  November 19, 2012     '
       write(6,*) '           Brought to you by:             ' 
       write(6,*) '     United States Geological Survey      '
       write(6,*) '      Watermark Numerical Computing       '

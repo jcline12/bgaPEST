@@ -18,6 +18,7 @@ program bp_main
 ! ***  Further Modifications MNF/MD 11/2010 ***
 ! ***  Further Modifications   MD   09/2011 ***
 ! ***  Further Modifications MNF/MD 12/2011 ***
+! ***   Version 1.0 --- November 19, 2012   ***
 ! *********************************************
    
    use jupiter_input_data_support
