@@ -72,18 +72,20 @@ contains
             call system('run_pest_scratch.bat')     ! run PEST externally for derivatives
             call readJCO('scratch.jco', d_A)
         case (2) ! dercom alternative Jacobian
-            call system(d_MOD%dercom) 
-            ! for now, assume this alternative is MODFLOW_ADJOINT
+            call system(d_MOD%com) !Rum forward model once to obtain the current outputs, before running external derivative model
+            !-- MIO read the ouput file results and update 
+            if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
+              call utl_bomb_out(errstruc)
+            endif
+            
+            call system(d_MOD%dercom) !Run the external derivative model 
             select case (cv_A%jacobian_format)
               case ('binary')
                 call readJCO(cv_A%jacfle, d_A)
               case ('ascii')
                 call readJAC(cv_A%jacfle, d_A)
             end select
-            !-- MIO read the ouput file results and update 
-            if(mio_read_model_output_files(errstruc,miostruc, d_OBS%h).ne.0) then
-              call utl_bomb_out(errstruc)
-            endif 
+             
         case (3) ! same as case 0, but linesearch parameters written as indicated above
             call system(d_MOD%com)
             !-- MIO read the ouput file results and update 
