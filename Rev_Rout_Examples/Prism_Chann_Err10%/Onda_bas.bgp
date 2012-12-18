@@ -52,9 +52,9 @@ BEGIN Q_compression_cv TABLE
 END Q_compression_cv
 
 BEGIN parameter_groups TABLE
-  nrow=1 ncol=2 columnlabels
-  groupname     grouptype
-  layer_uno     1
+  nrow=1 ncol=3 columnlabels
+  groupname     grouptype    derinc
+  layer_uno     1             0.01
 END parameter_groups   
 
 BEGIN parameter_data FILES  
