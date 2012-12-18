@@ -1,0 +1,79 @@
+\contentsline {section}{Abstract}{1}{section*.1}
+\contentsline {section}{Introduction}{1}{section*.2}
+\contentsline {subsection}{Purpose and Scope}{2}{subsection*.3}
+\contentsline {subsection}{Obtaining the Software}{3}{subsection*.4}
+\contentsline {section}{The Bayesian Geostatistical Approach}{3}{section*.5}
+\contentsline {subsection}{Overview}{7}{subsection*.8}
+\contentsline {subsection}{Beta Associations}{9}{subsection*.10}
+\contentsline {section}{Overview of bgaPEST}{10}{section*.11}
+\contentsline {section}{Running bgaPEST}{11}{section*.12}
+\contentsline {subsection}{Control Variables}{11}{subsection*.14}
+\contentsline {subsection}{Input Files}{13}{subsection*.15}
+\contentsline {subsection}{Output Files}{13}{subsection*.16}
+\contentsline {subsubsection}{Record File}{13}{subsubsection*.17}
+\contentsline {subsubsection}{Parameter Value Files}{13}{subsubsection*.18}
+\contentsline {subsubsection}{Observation Value Files}{14}{subsubsection*.19}
+\contentsline {subsubsection}{Posterior Covariance File }{14}{subsubsection*.20}
+\contentsline {section}{Suggestions and Guidelines for \newline {}Initial Use}{14}{section*.21}
+\contentsline {subsection}{Characteristics of Appropriate bgaPEST Uses}{15}{subsection*.22}
+\contentsline {subsection}{Guidelines}{15}{subsection*.23}
+\contentsline {section}{Limitations of bgaPEST Version 1.0}{17}{section*.24}
+\contentsline {section}{Acknowledgments }{17}{section*.25}
+\contentsline {section}{References Cited}{18}{section*.26}
+\addvspace {\appendixtocsecvsep }
+\contentsline {section}{Appendix\ 1---Input Instructions}{21}{section*.27}
+\contentsline {subsection}{General Structure of Input}{23}{subsection*.28}
+\contentsline {subsubsection}{Blocks}{23}{subsubsection*.29}
+\contentsline {subsubsection}{Keywords}{23}{subsubsection*.30}
+\contentsline {subsubsection}{Tables}{23}{subsubsection*.31}
+\contentsline {subsubsection}{Files }{23}{subsubsection*.32}
+\contentsline {subsection}{bgaPEST Input Blocks}{24}{subsection*.33}
+\contentsline {subsubsection}{Algorithmic Control Variables (\texttt {algorithmic\_cv}) KEYWORDS}{24}{subsubsection*.34}
+\contentsline {subsubsection}{Prior Mean Control Variables (\texttt {prior\_mean\_cv}) KEYWORDS}{25}{subsubsection*.35}
+\contentsline {subsubsection}{Beta Association Data (\texttt {prior\_mean\_data}) TABLE}{25}{subsubsection*.36}
+\contentsline {subsubsection}{Structural Parameter Control Variables (\texttt {structural\_parameter\_cv}) TABLE}{26}{subsubsection*.37}
+\contentsline {subsubsection}{Structural Parameter Data (\texttt {structural\_parameter\_data}) TABLE}{26}{subsubsection*.38}
+\contentsline {subsubsection}{Structural Parameter Covariance Data (\texttt {structural\_parameter\_cov}) TABLE}{27}{subsubsection*.39}
+\contentsline {subsubsection}{Epistemic Error Term (\texttt {epistemic\_error\_term}) KEYWORDS}{27}{subsubsection*.40}
+\contentsline {subsubsection}{Parameter Control Variables (\texttt {parameter\_cv}) KEYWORDS}{27}{subsubsection*.41}
+\contentsline {subsubsection}{Prior Covariance Compression Control Variables (\texttt {Q\_compression\_cv}) TABLE}{27}{subsubsection*.42}
+\contentsline {subsubsection}{Parameter Groups (\texttt {parameter\_groups}) TABLE}{28}{subsubsection*.43}
+\contentsline {subsubsection}{Parameter Data (\texttt {parameter\_data}) TABLE}{28}{subsubsection*.44}
+\contentsline {subsubsection}{Observation Groups (\texttt {observation\_groups}) TABLE}{28}{subsubsection*.45}
+\contentsline {subsubsection}{Observation Data (\texttt {observation\_data}) TABLE}{28}{subsubsection*.46}
+\contentsline {subsubsection}{Model Command Lines (\texttt {model\_command\_lines}) KEYWORDS}{29}{subsubsection*.47}
+\contentsline {subsubsection}{Model Input Files (\texttt {model\_input\_files}) TABLE}{29}{subsubsection*.48}
+\contentsline {subsubsection}{Model Output Files (\texttt {model\_output\_files}) TABLE}{29}{subsubsection*.49}
+\contentsline {subsubsection}{Parameter Anisotropy (\texttt {parameter\_anisotropy}) TABLE}{29}{subsubsection*.50}
+\contentsline {subsection}{PEST Matrix Formats for Jacobian and Posterior Covariance}{29}{subsection*.51}
+\contentsline {subsection}{References Cited}{30}{subsection*.53}
+\contentsline {section}{Appendix\ 2---Quick Start Instructions}{31}{section*.54}
+\contentsline {subsection}{Reference Cited}{37}{subsection*.57}
+\contentsline {section}{Appendix\ 3---Details of the Method}{41}{section*.58}
+\contentsline {subsection}{The Bayesian Geostatistical Approach}{43}{subsection*.59}
+\contentsline {subsection}{Line Search}{44}{subsection*.60}
+\contentsline {subsection}{Parameter Field Anisotropy}{44}{subsection*.61}
+\contentsline {subsection}{Prior Probability Density Function}{45}{subsection*.63}
+\contentsline {subsection}{Prior Covariance Matrix Storage Issues}{47}{subsection*.64}
+\contentsline {subsection}{Likelihood Function}{49}{subsection*.66}
+\contentsline {subsection}{Posterior Probability Density Function}{49}{subsection*.67}
+\contentsline {subsection}{Quasi-Linear Extension}{50}{subsection*.68}
+\contentsline {subsection}{Implementation of Partitions into Beta Associations}{50}{subsection*.69}
+\contentsline {subsection}{Structural Parameters and Restricted Maximum Likelihood}{51}{subsection*.70}
+\contentsline {subsection}{Logarithmic and Power Transformations}{52}{subsection*.71}
+\contentsline {subsection}{Posterior Covariance}{52}{subsection*.72}
+\contentsline {subsection}{References Cited}{53}{subsection*.73}
+\contentsline {section}{Appendix\ 4---Parallel Implementation of Jacobian Calculations}{55}{section*.74}
+\contentsline {subsection}{Introduction}{57}{subsection*.75}
+\contentsline {subsection}{Requirements}{57}{subsection*.76}
+\contentsline {subsection}{File modifications}{58}{subsection*.77}
+\contentsline {subsection}{Description of the Method}{58}{subsection*.78}
+\contentsline {subsection}{References Cited}{58}{subsection*.79}
+\contentsline {section}{Appendix\ 5---Single-Layer Example Application}{59}{section*.80}
+\contentsline {subsection}{Reference Cited}{65}{subsection*.87}
+\contentsline {section}{Appendix\ 6---Three-Layer Example Application}{67}{section*.88}
+\contentsline {section}{Appendix\ 7---Reverse Flood Routing Example Application}{81}{section*.101}
+\contentsline {subsection}{References Cited}{83}{subsection*.104}
+\addvspace {\appendixtocsecvsep }
+\contentsline {section}{Glossary}{85}{section*.105}
+\contentsfinish 

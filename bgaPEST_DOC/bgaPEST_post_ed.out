@@ -1,0 +1,76 @@
+\BOOKMARK [1][-]{section*.1}{Abstract}{}% 1
+\BOOKMARK [1][-]{section*.2}{Introduction}{}% 2
+\BOOKMARK [2][-]{subsection*.3}{Purpose and Scope}{section*.2}% 3
+\BOOKMARK [2][-]{subsection*.4}{Obtaining the Software}{section*.2}% 4
+\BOOKMARK [1][-]{section*.5}{The Bayesian Geostatistical Approach}{}% 5
+\BOOKMARK [2][-]{subsection*.8}{Overview}{section*.5}% 6
+\BOOKMARK [2][-]{subsection*.10}{Beta Associations}{section*.5}% 7
+\BOOKMARK [1][-]{section*.11}{Overview of bgaPEST}{}% 8
+\BOOKMARK [1][-]{section*.12}{Running bgaPEST}{}% 9
+\BOOKMARK [2][-]{subsection*.14}{Control Variables}{section*.12}% 10
+\BOOKMARK [2][-]{subsection*.15}{Input Files}{section*.12}% 11
+\BOOKMARK [2][-]{subsection*.16}{Output Files}{section*.12}% 12
+\BOOKMARK [3][-]{subsubsection*.17}{Record File}{subsection*.16}% 13
+\BOOKMARK [3][-]{subsubsection*.18}{Parameter Value Files}{subsection*.16}% 14
+\BOOKMARK [3][-]{subsubsection*.19}{Observation Value Files}{subsection*.16}% 15
+\BOOKMARK [3][-]{subsubsection*.20}{Posterior Covariance File }{subsection*.16}% 16
+\BOOKMARK [1][-]{section*.21}{Suggestions and Guidelines for Initial Use}{}% 17
+\BOOKMARK [2][-]{subsection*.22}{Characteristics of Appropriate bgaPEST Uses}{section*.21}% 18
+\BOOKMARK [2][-]{subsection*.23}{Guidelines}{section*.21}% 19
+\BOOKMARK [1][-]{section*.24}{Limitations of bgaPEST Version 1.0}{}% 20
+\BOOKMARK [1][-]{section*.25}{Acknowledgments }{}% 21
+\BOOKMARK [1][-]{section*.26}{References Cited}{}% 22
+\BOOKMARK [1][-]{section*.27}{Appendix 1\204Input Instructions}{}% 23
+\BOOKMARK [2][-]{subsection*.28}{General Structure of Input}{section*.27}% 24
+\BOOKMARK [3][-]{subsubsection*.29}{Blocks}{subsection*.28}% 25
+\BOOKMARK [3][-]{subsubsection*.30}{Keywords}{subsection*.28}% 26
+\BOOKMARK [3][-]{subsubsection*.31}{Tables}{subsection*.28}% 27
+\BOOKMARK [3][-]{subsubsection*.32}{Files }{subsection*.28}% 28
+\BOOKMARK [2][-]{subsection*.33}{bgaPEST Input Blocks}{section*.27}% 29
+\BOOKMARK [3][-]{subsubsection*.34}{Algorithmic Control Variables \(algorithmic\137cv\) KEYWORDS}{subsection*.33}% 30
+\BOOKMARK [3][-]{subsubsection*.35}{Prior Mean Control Variables \(prior\137mean\137cv\) KEYWORDS}{subsection*.33}% 31
+\BOOKMARK [3][-]{subsubsection*.36}{Beta Association Data \(prior\137mean\137data\) TABLE}{subsection*.33}% 32
+\BOOKMARK [3][-]{subsubsection*.37}{Structural Parameter Control Variables \(structural\137parameter\137cv\) TABLE}{subsection*.33}% 33
+\BOOKMARK [3][-]{subsubsection*.38}{Structural Parameter Data \(structural\137parameter\137data\) TABLE}{subsection*.33}% 34
+\BOOKMARK [3][-]{subsubsection*.39}{Structural Parameter Covariance Data \(structural\137parameter\137cov\) TABLE}{subsection*.33}% 35
+\BOOKMARK [3][-]{subsubsection*.40}{Epistemic Error Term \(epistemic\137error\137term\) KEYWORDS}{subsection*.33}% 36
+\BOOKMARK [3][-]{subsubsection*.41}{Parameter Control Variables \(parameter\137cv\) KEYWORDS}{subsection*.33}% 37
+\BOOKMARK [3][-]{subsubsection*.42}{Prior Covariance Compression Control Variables \(Q\137compression\137cv\) TABLE}{subsection*.33}% 38
+\BOOKMARK [3][-]{subsubsection*.43}{Parameter Groups \(parameter\137groups\) TABLE}{subsection*.33}% 39
+\BOOKMARK [3][-]{subsubsection*.44}{Parameter Data \(parameter\137data\) TABLE}{subsection*.33}% 40
+\BOOKMARK [3][-]{subsubsection*.45}{Observation Groups \(observation\137groups\) TABLE}{subsection*.33}% 41
+\BOOKMARK [3][-]{subsubsection*.46}{Observation Data \(observation\137data\) TABLE}{subsection*.33}% 42
+\BOOKMARK [3][-]{subsubsection*.47}{Model Command Lines \(model\137command\137lines\) KEYWORDS}{subsection*.33}% 43
+\BOOKMARK [3][-]{subsubsection*.48}{Model Input Files \(model\137input\137files\) TABLE}{subsection*.33}% 44
+\BOOKMARK [3][-]{subsubsection*.49}{Model Output Files \(model\137output\137files\) TABLE}{subsection*.33}% 45
+\BOOKMARK [3][-]{subsubsection*.50}{Parameter Anisotropy \(parameter\137anisotropy\) TABLE}{subsection*.33}% 46
+\BOOKMARK [2][-]{subsection*.51}{PEST Matrix Formats for Jacobian and Posterior Covariance}{section*.27}% 47
+\BOOKMARK [2][-]{subsection*.53}{References Cited}{section*.27}% 48
+\BOOKMARK [1][-]{section*.54}{Appendix 2\204Quick Start Instructions}{}% 49
+\BOOKMARK [2][-]{subsection*.57}{Reference Cited}{section*.54}% 50
+\BOOKMARK [1][-]{section*.58}{Appendix 3\204Details of the Method}{}% 51
+\BOOKMARK [2][-]{subsection*.59}{The Bayesian Geostatistical Approach}{section*.58}% 52
+\BOOKMARK [2][-]{subsection*.60}{Line Search}{section*.58}% 53
+\BOOKMARK [2][-]{subsection*.61}{Parameter Field Anisotropy}{section*.58}% 54
+\BOOKMARK [2][-]{subsection*.63}{Prior Probability Density Function}{section*.58}% 55
+\BOOKMARK [2][-]{subsection*.64}{Prior Covariance Matrix Storage Issues}{section*.58}% 56
+\BOOKMARK [2][-]{subsection*.66}{Likelihood Function}{section*.58}% 57
+\BOOKMARK [2][-]{subsection*.67}{Posterior Probability Density Function}{section*.58}% 58
+\BOOKMARK [2][-]{subsection*.68}{Quasi-Linear Extension}{section*.58}% 59
+\BOOKMARK [2][-]{subsection*.69}{Implementation of Partitions into Beta Associations}{section*.58}% 60
+\BOOKMARK [2][-]{subsection*.70}{Structural Parameters and Restricted Maximum Likelihood}{section*.58}% 61
+\BOOKMARK [2][-]{subsection*.71}{Logarithmic and Power Transformations}{section*.58}% 62
+\BOOKMARK [2][-]{subsection*.72}{Posterior Covariance}{section*.58}% 63
+\BOOKMARK [2][-]{subsection*.73}{References Cited}{section*.58}% 64
+\BOOKMARK [1][-]{section*.74}{Appendix 4\204Parallel Implementation of Jacobian Calculations}{}% 65
+\BOOKMARK [2][-]{subsection*.75}{Introduction}{section*.74}% 66
+\BOOKMARK [2][-]{subsection*.76}{Requirements}{section*.74}% 67
+\BOOKMARK [2][-]{subsection*.77}{File modifications}{section*.74}% 68
+\BOOKMARK [2][-]{subsection*.78}{Description of the Method}{section*.74}% 69
+\BOOKMARK [2][-]{subsection*.79}{References Cited}{section*.74}% 70
+\BOOKMARK [1][-]{section*.80}{Appendix 5\204Single-Layer Example Application}{}% 71
+\BOOKMARK [2][-]{subsection*.87}{Reference Cited}{section*.80}% 72
+\BOOKMARK [1][-]{section*.88}{Appendix 6\204Three-Layer Example Application}{}% 73
+\BOOKMARK [1][-]{section*.101}{Appendix 7\204Reverse Flood Routing Example Application}{}% 74
+\BOOKMARK [2][-]{subsection*.104}{References Cited}{section*.101}% 75
+\BOOKMARK [1][-]{section*.105}{Glossary}{}% 76
