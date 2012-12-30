@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  13 DEC 2012 09:43
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  27 DEC 2012 12:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -753,47 +753,8 @@ COMMANDS CONTROLLING THE HYPERLINKING IN USGS REPORTS
 
 Package hyperref Warning: Option `pagecolor' is not available anymore.
 
-) (./bgaPEST_post_ed.aux
-
-Package natbib Warning: Citation `BantaEtAl2006' multiply defined.
-
-
-Package natbib Warning: Citation `fienenEtal2004' multiply defined.
-
-
-Package natbib Warning: Citation `FienenWRR2008' multiply defined.
-
-
-Package natbib Warning: Citation `HoeksemaKitanidis1984a' multiply defined.
-
-
-Package natbib Warning: Citation `Kitanidis1995' multiply defined.
-
-
-Package natbib Warning: Citation `KitanidisVomvoris1983' multiply defined.
-
-
-Package natbib Warning: Citation `LiCirpka2007' multiply defined.
-
-
-Package natbib Warning: Citation `NowakCirpka2004' multiply defined.
-
-
-Package natbib Warning: Citation `Rubin2003' multiply defined.
-
-
-Package natbib Warning: Citation `Condor766' multiply defined.
-
-
-Package natbib Warning: Citation `GENIE' multiply defined.
-
-
-Package natbib Warning: Citation `beoPEST' multiply defined.
-
-
-Package natbib Warning: Citation `FienenWRR2008' multiply defined.
-
 )
+No file bgaPEST_post_ed.aux.
 \openout1 = `bgaPEST_post_ed.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 113.
@@ -812,7 +773,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 113.
 LaTeX Font Info:    ... okay on input line 113.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 113.
 
- (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+(/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 *geometry* driver: auto-detecting
@@ -882,7 +843,6 @@ LaTeX Info: Redefining \selectfont on input line 113.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package caption Info: We need package `ragged2e' on input line 113.
 \AtBeginShipoutBox=\box60
 Package hyperref Info: Link coloring ON on input line 113.
 
@@ -912,225 +872,186 @@ File: ot1fun.fd 2006/11/15 Fontinst v1.929 font definitions for OT1/fun.
 
 
 {/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-(./bgaPEST_post_ed.toc [3])
+
+Package hyperref Warning: old toc file detected, not used; run LaTeX again.
+
 \tf@toc=\write6
 \openout6 = `bgaPEST_post_ed.toc'.
 
- (./bgaPEST_post_ed.lof
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 1.
+
+Package hyperref Warning: old lof file detected, not used; run LaTeX again.
+
+\tf@lof=\write7
+\openout7 = `bgaPEST_post_ed.lof'.
 
 
+Package hyperref Warning: old lot file detected, not used; run LaTeX again.
+
+\tf@lot=\write8
+\openout8 = `bgaPEST_post_ed.lot'.
+
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 12
+2.
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 1.
-
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 12
+2.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 1.
-
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 12
+2.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 1.
-
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 12
+2.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
-
-Overfull \hbox (13.75255pt too wide) in paragraph at lines 1--1
- \OT1/fun/m/n/10.95 ues for the other pix-els. The inter-po-la-tion was done by
- using the sGeMS soft-ware pack-age ([][]Remy 
- []
-
-[4]
-Overfull \hbox (30.758pt too wide) in paragraph at lines 2--2
- \OT1/fun/m/n/10.95 i-cal var-i-ogram binned val-ues are depicted by red ``x" m
-arks whereas the con-tin-u-ous black line shows 
- []
-
-
-Overfull \hbox (15.55931pt too wide) in paragraph at lines 2--2
- \OT1/fun/m/n/10.95 the ana-lyt-i-cal var-i-ogram fit to the empir-i-cal val-ue
-s. The fit was done man-u-ally by using the sGeMS 
- []
-
-
-Overfull \hbox (23.4324pt too wide) in paragraph at lines 10--10
- \OT1/fun/m/n/10.95 ance matrix (mod-i-fied from [][]D'Oria[][] ([][]2010[][]))
-. The small-est squares rep-re-sent indi-vid-ual matrix entries 
- []
-
-
-Overfull \hbox (19.85167pt too wide) in paragraph at lines 15--15
- []|[]\OT1/fun/m/n/10.95 Parameters (hydraulic con-duc-tiv-ity field) esti-mate
-d for the single-layer exam-ple appli-ca-tion using 
- []
-
-
-Overfull \hbox (23.49797pt too wide) in paragraph at lines 16--16
- []|[]\OT1/fun/m/n/10.95 Squared resid-u-als, plot-ted at their loca-tions in t
-he model, for the 1 layer exam-ple appli-ca-tion using 
- []
-
-
-Overfull \hbox (19.85167pt too wide) in paragraph at lines 17--17
- []|[]\OT1/fun/m/n/10.95 Parameters (hydraulic con-duc-tiv-ity field) esti-mate
-d for the single-layer exam-ple appli-ca-tion using 
- []
-
-
-Overfull \hbox (19.22752pt too wide) in paragraph at lines 21--21
- []|[]\OT1/fun/m/n/10.95 Case 1: Hydraulic con-duc-tiv-ity fields esti-mated by
- using bgaPEST com-pared to the true, syn-thetic 
- []
-
-
-Overfull \hbox (16.15063pt too wide) in paragraph at lines 22--22
- []|[]\OT1/fun/m/n/10.95 Case 1: Squared dif-fer-ences between mod-eled and ``t
-rue'' head val-ues. Sym-bol size qual-i-ta-tively 
- []
-
-
-Overfull \hbox (26.11505pt too wide) in paragraph at lines 22--22
- \OT1/fun/m/n/10.95 indi-cates mag-ni-tude, and color scale quan-ti-fies mag-ni
--tude. Loca-tions of the cir-cles indi-cate obser- 
- []
-
-
-Overfull \hbox (19.22752pt too wide) in paragraph at lines 23--23
- []|[]\OT1/fun/m/n/10.95 Case 2: Hydraulic con-duc-tiv-ity fields esti-mated by
- using bgaPEST com-pared to the true, syn-thetic 
- []
-
-
-Overfull \hbox (16.15063pt too wide) in paragraph at lines 24--24
- []|[]\OT1/fun/m/n/10.95 Case 2: Squared dif-fer-ences between mod-eled and ``t
-rue'' head val-ues. Sym-bol size qual-i-ta-tively 
- []
-
-
-Overfull \hbox (26.11505pt too wide) in paragraph at lines 24--24
- \OT1/fun/m/n/10.95 indi-cates mag-ni-tude, and color scale quan-ti-fies mag-ni
--tude. Loca-tions of the cir-cles indi-cate obser- 
- []
-
-[5]
-Overfull \hbox (19.22752pt too wide) in paragraph at lines 25--25
- []|[]\OT1/fun/m/n/10.95 Case 3: Hydraulic con-duc-tiv-ity fields esti-mated by
- using bgaPEST com-pared to the true, syn-thetic 
- []
-
-
-Overfull \hbox (16.15063pt too wide) in paragraph at lines 26--26
- []|[]\OT1/fun/m/n/10.95 Case 3: Squared dif-fer-ences between mod-eled and ``t
-rue'' head val-ues. Sym-bol size qual-i-ta-tively 
- []
-
-
-Overfull \hbox (26.11505pt too wide) in paragraph at lines 26--26
- \OT1/fun/m/n/10.95 indi-cates mag-ni-tude, and color scale quan-ti-fies mag-ni
--tude. Loca-tions of the cir-cles indi-cate obser- 
- []
-
-
-Overfull \hbox (38.15138pt too wide) in paragraph at lines 26--26
- \OT1/fun/m/n/10.95 va-tion loca-tion in the model domain in plan view. $\OML/z
-tmcm/m/it/10.95 ^^[[]$ \OT1/fun/m/n/10.95 is ini-tially $\OT1/ztmcm/m/n/10.95 1
-\OML/ztmcm/m/it/10.95 :\OT1/ztmcm/m/n/10.95 00 \OMS/ztmcm/m/n/10.95 ^^B \OT1/zt
-mcm/m/n/10.95 10[]$ \OT1/fun/m/n/10.95 and esti-mated by bgaPEST 
- []
-
-
-Overfull \hbox (19.22752pt too wide) in paragraph at lines 27--27
- []|[]\OT1/fun/m/n/10.95 Case 4: Hydraulic con-duc-tiv-ity fields esti-mated by
- using bgaPEST com-pared to the true, syn-thetic 
- []
-
-
-Overfull \hbox (16.15063pt too wide) in paragraph at lines 28--28
- []|[]\OT1/fun/m/n/10.95 Case 4: Squared dif-fer-ences between mod-eled and ``t
-rue'' head val-ues. Sym-bol size qual-i-ta-tively 
- []
-
-
-Overfull \hbox (26.11505pt too wide) in paragraph at lines 28--28
- \OT1/fun/m/n/10.95 indi-cates mag-ni-tude, and color scale quan-ti-fies mag-ni
--tude. Loca-tions of the cir-cles indi-cate obser- 
- []
-
-
-Overfull \hbox (38.15138pt too wide) in paragraph at lines 28--28
- \OT1/fun/m/n/10.95 va-tion loca-tion in the model domain in plan view. $\OML/z
-tmcm/m/it/10.95 ^^[[]$ \OT1/fun/m/n/10.95 is ini-tially $\OT1/ztmcm/m/n/10.95 1
-\OML/ztmcm/m/it/10.95 :\OT1/ztmcm/m/n/10.95 00 \OMS/ztmcm/m/n/10.95 ^^B \OT1/zt
-mcm/m/n/10.95 10[]$ \OT1/fun/m/n/10.95 and esti-mated by bgaPEST 
- []
-
-
-Overfull \hbox (12.60509pt too wide) in paragraph at lines 30--30
- \OT1/fun/m/n/10.95 cate obser-va-tion loca-tion in the model domain in plan vi
-ew. $\OML/ztmcm/m/it/10.95 ^^[[]$ \OT1/fun/m/n/10.95 is held con-stant at $\OT1
-/ztmcm/m/n/10.95 1\OML/ztmcm/m/it/10.95 :\OT1/ztmcm/m/n/10.95 00 \OMS/ztmcm/m/n
-/10.95 ^^B \OT1/ztmcm/m/n/10.95 10[]$\OT1/fun/m/n/10.95 . 
- []
-
-
-Overfull \hbox (12.50426pt too wide) in paragraph at lines 32--32
- []|[]\OT1/fun/m/n/10.95 Reverse rout-ing: inflow and out-flow hydro-graphs for
- the pris-matic chan-nel. (a) the obser-va-tions 
- []
-
-)
-\tf@lof=\write7
-\openout7 = `bgaPEST_post_ed.lof'.
-
- (./bgaPEST_post_ed.lot
-Overfull \hbox (17.37706pt too wide) in paragraph at lines 9--9
- []|[]\OT1/fun/m/n/10.95 Summary of the five cases inves-ti-gated. The table sh
-ows which struc-tural param-e-ters were esti- 
- []
-
-)
-\tf@lot=\write8
-\openout8 = `bgaPEST_post_ed.lot'.
-
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 122.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 122.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [6]
-[7] [8
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 122.
+ [3] [4
 
 ]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 122.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 122.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 127.
- [1
 
 
-] [2] [3]
+Package natbib Warning: Citation `PEST4' on page 1 undefined on input line 171.
+
+
+
+Package natbib Warning: Citation `PESTAdd4' on page 1 undefined on input line 1
+71.
+
+[1
+
+
+]
+
+Package natbib Warning: Citation `PEST4' on page 2 undefined on input line 241.
+
+
+
+Package natbib Warning: Citation `BantaEtAl2006' on page 2 undefined on input l
+ine 249.
+
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 2 undefined on input 
+line 252.
+
+
+Package natbib Warning: Citation `PEST4' on page 2 undefined on input line 254.
+
+
+[2]
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 3 undefined on input 
+line 268.
+
+
+LaTeX Warning: Reference `sec:quickstart' on page 3 undefined on input line 269
+.
+
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 3 undefined on input 
+line 270.
+
+
+LaTeX Warning: Reference `sec:example1' on page 3 undefined on input line 271.
+
+
+LaTeX Warning: Reference `sec:example3' on page 3 undefined on input line 271.
+
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 3 undefined on input 
+line 289.
+
+
+LaTeX Warning: Reference `eq:bayes1' on page 3 undefined on input line 339.
+
+
+Package natbib Warning: Citation `Tikhonov1963a' on page 3 undefined on input l
+ine 350.
+
+
+Package natbib Warning: Citation `Tikhonov1963b' on page 3 undefined on input l
+ine 350.
+
+
+Package natbib Warning: Citation `AsterEtal2005' on page 3 undefined on input l
+ine 350.
+
+
+Package natbib Warning: Citation `jaynesBook' on page 3 undefined on input line
+ 353.
+
+[3]
+
+Package natbib Warning: Citation `fienenIsthmusWRR' on page 4 undefined on inpu
+t line 379.
+
+
 Underfull \vbox (badness 5681) has occurred while \output is active []
 
- [4]
-<figures/Kriging_image.pdf, id=589, 578.16pt x 360.62932pt>
+
+
+LaTeX Warning: Reference `eq:bayes1' on page 4 undefined on input line 407.
+
+
+Package natbib Warning: Citation `PEST4' on page 4 undefined on input line 413.
+
+
+
+Package natbib Warning: Citation `Isaaks1989' on page 4 undefined on input line
+ 431.
+
+
+Package natbib Warning: Citation `DeutschJourneal1992' on page 4 undefined on i
+nput line 431.
+
+
+Package natbib Warning: Citation `Kitanidis1997' on page 4 undefined on input l
+ine 431.
+
+
+Package natbib Warning: Citation `sgems' on page 4 undefined on input line 431.
+
+
+[4]
+
+LaTeX Warning: Reference `fig:mikephoto' on page 5 undefined on input line 435.
+
+
+
+LaTeX Warning: Reference `fig:mikephoto' on page 5 undefined on input line 447.
+
+
+<figures/Kriging_image.pdf, id=362, 578.16pt x 360.62932pt>
 File: figures/Kriging_image.pdf Graphic file (type pdf)
 
 <use figures/Kriging_image.pdf>
 Package pdftex.def Info: figures/Kriging_image.pdf used on input line 457.
 (pdftex.def)             Requested size: 289.07928pt x 180.31421pt.
+
+
+Package caption Warning: `ragged2e' support has been changed.
+(caption)                Rerun to get captions right on input line 466.
+See the caption package documentation for explanation.
+
 LaTeX Font Info:    Calculating math sizes for size <9.5> on input line 466.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9.5> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 466.
@@ -1139,31 +1060,148 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.03004> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5.70006> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 466.
 
-<figures/exponential_variogram.pdf, id=592, 538.73573pt x 371.84723pt>
+Package natbib Warning: Citation `sgems' on page 5 undefined on input line 466.
+
+
+<figures/exponential_variogram.pdf, id=363, 538.73573pt x 371.84723pt>
 File: figures/exponential_variogram.pdf Graphic file (type pdf)
 
 <use figures/exponential_variogram.pdf>
 Package pdftex.def Info: figures/exponential_variogram.pdf used on input line 4
 70.
 (pdftex.def)             Requested size: 269.3672pt x 185.92316pt.
- [5] [6 <./figures/Kriging_image.pdf> <./figures/exponential_variogram.pdf>]
-<figures/normals.pdf, id=851, 614.295pt x 371.3875pt>
+
+
+Package natbib Warning: Citation `sgems' on page 5 undefined on input line 476.
+
+
+
+LaTeX Warning: Reference `fig:varill' on page 5 undefined on input line 500.
+
+
+LaTeX Warning: Reference `fig:varill' on page 5 undefined on input line 512.
+
+[5] [6 <./figures/Kriging_image.pdf> <./figures/exponential_variogram.pdf>]
+
+Package natbib Warning: Citation `KitanidisVomvoris1983' on page 7 undefined on
+ input line 525.
+
+
+Package natbib Warning: Citation `HoeksemaKitanidis1984a' on page 7 undefined o
+n input line 525.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 7 undefined on input l
+ine 525.
+
+
+Package natbib Warning: Citation `NowakCirpka2004' on page 7 undefined on input
+ line 525.
+
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 7 undefined on input 
+line 528.
+
+<figures/normals.pdf, id=608, 614.295pt x 371.3875pt>
 File: figures/normals.pdf Graphic file (type pdf)
 
 <use figures/normals.pdf>
 Package pdftex.def Info: figures/normals.pdf used on input line 544.
 (pdftex.def)             Requested size: 276.43019pt x 167.12282pt.
- [7
+
+
+LaTeX Warning: Reference `fig:normals' on page 7 undefined on input line 551.
+
+
+LaTeX Warning: Reference `eq:bayes' on page 7 undefined on input line 552.
+
+
+Package natbib Warning: Citation `Robbins1956' on page 7 undefined on input lin
+e 564.
+
+
+Package natbib Warning: Citation `casella1985' on page 7 undefined on input lin
+e 564.
+
+
+Package natbib Warning: Citation `Chamberlin1890' on page 7 undefined on input 
+line 581.
+
+
+Package natbib Warning: Citation `drapersmith66' on page 7 undefined on input l
+ine 605.
+
+
+Package natbib Warning: Citation `Hill2006' on page 7 undefined on input line 6
+05.
+
+
+Package natbib Warning: Citation `Rubin2003' on page 7 undefined on input line 
+609.
+
+
+Package natbib Warning: Citation `NowakCirpka2004' on page 7 undefined on input
+ line 612.
+
+[7
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package natbib Warning: Citation `Rubin2003' on page 8 undefined on input line 
+634.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8 <./figures/normals.pdf>] [9] [10]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <./figures/normals.pdf>]
+
+Package natbib Warning: Citation `fienenEtal2004' on page 9 undefined on input 
+line 690.
+
+
+Package natbib Warning: Citation `FienenWRR2008' on page 9 undefined on input l
+ine 691.
+
+
+Package natbib Warning: Citation `fienenIsthmusWRR' on page 9 undefined on inpu
+t line 709.
+
+
+Package natbib Warning: Citation `Collinson1969' on page 9 undefined on input l
+ine 713.
+
+
+Package natbib Warning: Citation `Walker1984' on page 9 undefined on input line
+ 713.
+
+
+Package natbib Warning: Citation `Walker1992' on page 9 undefined on input line
+ 713.
+
+
+Package natbib Warning: Citation `SwiftEtAl2003' on page 9 undefined on input l
+ine 713.
+
+
+LaTeX Warning: Reference `eq:bestest' on page 9 undefined on input line 726.
+
+[9]
+
+Package natbib Warning: Citation `PEST4' on page 10 undefined on input line 783
+.
+
+
+Package natbib Warning: Citation `PESTAdd4' on page 10 undefined on input line 
+783.
+
+
+Package natbib Warning: Citation `PEST4' on page 10 undefined on input line 822
+.
+
 LaTeX Font Info:    Try loading font information for OMS+ptm on input line 828.
-
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
@@ -1171,21 +1209,56 @@ File: omsptm.fd
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <6> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 828.
 
-<figures/flowchart_short2.pdf, id=978, 526.96875pt x 372.39125pt>
+
+LaTeX Warning: Reference `sec:parallel' on page 10 undefined on input line 839.
+
+
+
+Package natbib Warning: Citation `GENIE' on page 10 undefined on input line 840
+.
+
+[10]
+
+LaTeX Warning: Reference `fig:flowchart' on page 11 undefined on input line 848
+.
+
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 11 undefined on input
+ line 858.
+
+<figures/flowchart_short2.pdf, id=674, 526.96875pt x 372.39125pt>
 File: figures/flowchart_short2.pdf Graphic file (type pdf)
 
 <use figures/flowchart_short2.pdf>
 Package pdftex.def Info: figures/flowchart_short2.pdf used on input line 883.
 (pdftex.def)             Requested size: 395.22559pt x 279.29274pt.
- [11]
+
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 11 undefined on input
+ line 904.
+
+[11]
 
 LaTeX Font Warning: Font shape `OT1/cmtt/b/n' undefined
 (Font)              using `OT1/cmtt/m/n' instead on input line 909.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: Reference `eq:phiT' on page 12 undefined on input line 939.
 
- [12 <./figures/flowchart_short2.pdf>] [13]
+[12 <./figures/flowchart_short2.pdf>]
+
+LaTeX Warning: Reference `eq:phiT' on page 13 undefined on input line 950.
+
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 13 undefined on input
+ line 972.
+
+[13]
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 14 undefined on input
+ line 1049.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1193,12 +1266,128 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\newline' on input line 1076.
 
-[14] [15]
+
+Package natbib Warning: Citation `SnodgrassPKK1998' on page 14 undefined on inp
+ut line 1091.
+
+
+Package natbib Warning: Citation `LiCirpka2007' on page 14 undefined on input l
+ine 1092.
+
+
+Package natbib Warning: Citation `FienenWRR2008' on page 14 undefined on input 
+line 1092.
+
+
+Package natbib Warning: Citation `LiCirpka2008' on page 14 undefined on input l
+ine 1092.
+
+
+Package natbib Warning: Citation `CardiffPKK2009' on page 14 undefined on input
+ line 1092.
+
+
+Package natbib Warning: Citation `cardiff2012' on page 14 undefined on input li
+ne 1092.
+
+
+Package natbib Warning: Citation `fienenEtal2004' on page 14 undefined on input
+ line 1093.
+
+
+Package natbib Warning: Citation `SnodgrassPKK1997' on page 14 undefined on inp
+ut line 1094.
+
+
+Package natbib Warning: Citation `MichalakPKK2002a' on page 14 undefined on inp
+ut line 1094.
+
+
+Package natbib Warning: Citation `MichalakPKK2003' on page 14 undefined on inpu
+t line 1094.
+
+
+Package natbib Warning: Citation `FienenWRR2006' on page 14 undefined on input 
+line 1095.
+
+
+Package natbib Warning: Citation `MIchalak2004' on page 14 undefined on input l
+ine 1097.
+
+
+Package natbib Warning: Citation `MuellerEtAl2008' on page 14 undefined on inpu
+t line 1097.
+
+[14]
+
+Package natbib Warning: Citation `Condor766' on page 15 undefined on input line
+ 1125.
+
+
+LaTeX Warning: Reference `sec:parallel' on page 15 undefined on input line 1125
+.
+
+
+Package natbib Warning: Citation `TownleyWilson1985' on page 15 undefined on in
+put line 1130.
+
+
+Package natbib Warning: Citation `Sykes1985' on page 15 undefined on input line
+ 1130.
+
+
+Package natbib Warning: Citation `SamperNeuman1986' on page 15 undefined on inp
+ut line 1130.
+
+
+Package natbib Warning: Citation `RamaRao1995' on page 15 undefined on input li
+ne 1130.
+
+
+Package natbib Warning: Citation `neupauerWilson1999' on page 15 undefined on i
+nput line 1130.
+
+
+Package natbib Warning: Citation `LiNowakCirpka2005' on page 15 undefined on in
+put line 1146.
+
+
+Package natbib Warning: Citation `R' on page 15 undefined on input line 1147.
+
+
+Package natbib Warning: Citation `TSPROC' on page 15 undefined on input line 11
+48.
+
+[15]
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 16 undefined on input
+ line 1199.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 16 undefined on input 
+line 1238.
+
+
 Underfull \vbox (badness 4416) has occurred while \output is active []
 
  [16]
+
+Package natbib Warning: Citation `beoPEST' on page 17 undefined on input line 1
+270.
+
+
+Package natbib Warning: Citation `GENIE' on page 17 undefined on input line 127
+0.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 17 undefined on input 
+line 1302.
+
 [17]
 Missing character: There is no Õ in font ptmr7t!
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1211,9 +1400,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [19]
 Missing character: There is no Õ in font ptmr7t!
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[20
 
- [20]
+]
 LaTeX Font Info:    Calculating math sizes for size <16> on input line 1495.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <16> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1495.
@@ -1221,28 +1410,84 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11.84009> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1495.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9.6001> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1495.
-
-[21
+ [21
 
 
 ] [22
 
 
-] [23
+]
+
+Package natbib Warning: Citation `BantaEtAl2006' on page 23 undefined on input 
+line 1507.
+
+[23
 
 ]
 
 LaTeX Font Warning: Font shape `OT1/cmtt/m/n' in size <13> not available
 (Font)              size <12> substituted on input line 1621.
 
-[24] [25] [26] [27] [28] [29]
-<figures/standard_PEST_matrix.pdf, id=1209, 1447.4075pt x 470.75874pt>
+[24]
+
+LaTeX Warning: Reference `sec:parallel' on page 25 undefined on input line 1669
+.
+
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 25 undefined on input
+ line 1707.
+
+[25]
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 26 undefined on input
+ line 1761.
+
+[26]
+
+LaTeX Warning: Reference `sec:methodologyDetails' on page 27 undefined on input
+ line 1819.
+
+[27] [28]
+
+LaTeX Warning: Reference `fig:anisotropy' on page 29 undefined on input line 19
+53.
+
+
+LaTeX Warning: Reference `fig:anisotropy' on page 29 undefined on input line 19
+56.
+
+
+LaTeX Warning: Reference `fig:anisotropy' on page 29 undefined on input line 19
+59.
+
+
+Package natbib Warning: Citation `PESTAdd2' on page 29 undefined on input line 
+1981.
+
+
+Package natbib Warning: Citation `PESTAdd2' on page 29 undefined on input line 
+1983.
+
+[29]
+
+LaTeX Warning: Reference `fig:matrix' on page 30 undefined on input line 1985.
+
+<figures/standard_PEST_matrix.pdf, id=851, 1447.4075pt x 470.75874pt>
 File: figures/standard_PEST_matrix.pdf Graphic file (type pdf)
 
 <use figures/standard_PEST_matrix.pdf>
 Package pdftex.def Info: figures/standard_PEST_matrix.pdf used on input line 19
 90.
 (pdftex.def)             Requested size: 361.851pt x 117.68939pt.
+
+
+Package natbib Warning: Citation `PESTAdd2' on page 30 undefined on input line 
+1991.
+
+
+Package natbib Warning: Citation `PESTAdd2' on page 30 undefined on input line 
+2014.
+
 pdfTeX warning (ext4): destination with the same identifier (name{cite.BantaEtA
 l2006}) has been already used, duplicate ignored
 <to be read again> 
@@ -1255,13 +1500,30 @@ l.2037   Hill}]{BantaEtAl2006}
 ] [32
 
 
-] [33
+]
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 33 undefined on input
+ line 2051.
+
+
+Package natbib Warning: Citation `PEST3' on page 33 undefined on input line 206
+5.
+
+[33
 
 ] [34] [35]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [36]
-<Variables_for_documentation1.pdf, id=1305, 1007.04233pt x 1303.22884pt>
+
+LaTeX Warning: Reference `tab:variables1-1' on page 37 undefined on input line 
+2235.
+
+
+LaTeX Warning: Reference `tab:variables1-2' on page 37 undefined on input line 
+2235.
+
+<Variables_for_documentation1.pdf, id=939, 1007.04233pt x 1303.22884pt>
 File: Variables_for_documentation1.pdf Graphic file (type pdf)
 
 <use Variables_for_documentation1.pdf>
@@ -1276,7 +1538,7 @@ Overfull \hbox (16.92587pt too wide) in paragraph at lines 2240--2240
 
 LaTeX Warning: Float too large for page by 50.41254pt on input line 2243.
 
-<Variables_for_documentation2.pdf, id=1306, 1007.04233pt x 1303.22884pt>
+<Variables_for_documentation2.pdf, id=940, 1007.04233pt x 1303.22884pt>
 File: Variables_for_documentation2.pdf Graphic file (type pdf)
 
 <use Variables_for_documentation2.pdf>
@@ -1300,28 +1562,248 @@ on2.pdf>] [40
 ] [42
 
 
-] [43
+]
+
+Package natbib Warning: Citation `KitanidisVomvoris1983' on page 43 undefined o
+n input line 2270.
+
+
+Package natbib Warning: Citation `HoeksemaKitanidis1984a' on page 43 undefined 
+on input line 2270.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 43 undefined on input 
+line 2270.
+
+
+Package natbib Warning: Citation `NowakCirpka2004' on page 43 undefined on inpu
+t line 2270.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 43 undefined on input 
+line 2351.
+
+[43
 
 ]
-<figures/anisotropy.pdf, id=1450, 278.03876pt x 198.7425pt>
+
+LaTeX Warning: Reference `eq:cokriging-1' on page 44 undefined on input line 23
+67.
+
+
+LaTeX Warning: Reference `eq:BGA' on page 44 undefined on input line 2393.
+
+
+Package natbib Warning: Citation `Press1992' on page 44 undefined on input line
+ 2417.
+
+
+LaTeX Warning: Reference `fig:anisotropy' on page 44 undefined on input line 24
+36.
+
+<figures/anisotropy.pdf, id=1072, 278.03876pt x 198.7425pt>
 File: figures/anisotropy.pdf Graphic file (type pdf)
 
 <use figures/anisotropy.pdf>
 Package pdftex.def Info: figures/anisotropy.pdf used on input line 2452.
 (pdftex.def)             Requested size: 278.03807pt x 198.742pt.
- [44] [45 <./figures/anisotropy.pdf>] [46] [47]
-<figures/toeplitz_3_level.pdf, id=1545, 556.39969pt x 575.60744pt>
+ [44]
+
+Package natbib Warning: Citation `fienenEtal2004' on page 45 undefined on input
+ line 2527.
+
+
+Package natbib Warning: Citation `FienenWRR2008' on page 45 undefined on input 
+line 2527.
+
+[45 <./figures/anisotropy.pdf>]
+
+LaTeX Warning: Reference `eq:exp_GCF' on page 46 undefined on input line 2557.
+
+
+Package natbib Warning: Citation `FienenWRR2008' on page 46 undefined on input 
+line 2566.
+
+
+LaTeX Warning: Reference `eq:prior' on page 46 undefined on input line 2585.
+
+[46]
+
+Package natbib Warning: Citation `NowakCirpka2004' on page 47 undefined on inpu
+t line 2602.
+
+
+Package natbib Warning: Citation `KitanidisVomvoris1983' on page 47 undefined o
+n input line 2607.
+
+
+Package natbib Warning: Citation `HoeksemaKitanidis1984a' on page 47 undefined 
+on input line 2607.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 47 undefined on input 
+line 2607.
+
+
+Package natbib Warning: Citation `toeplitz' on page 47 undefined on input line 
+2642.
+
+[47]
+
+Package natbib Warning: Citation `MarcoDiss' on page 48 undefined on input line
+ 2671.
+
+
+LaTeX Warning: Reference `fig:toep' on page 48 undefined on input line 2674.
+
+
+Package natbib Warning: Citation `Nowak2003' on page 48 undefined on input line
+ 2685.
+
+
+Package natbib Warning: Citation `NowakCirpka2004' on page 48 undefined on inpu
+t line 2685.
+
+
+Package natbib Warning: Citation `LiCirpka2006' on page 48 undefined on input l
+ine 2687.
+
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 48 undefined on input
+ line 2691.
+
+<figures/toeplitz_3_level.pdf, id=1136, 556.39969pt x 575.60744pt>
 File: figures/toeplitz_3_level.pdf Graphic file (type pdf)
 
 <use figures/toeplitz_3_level.pdf>
 Package pdftex.def Info: figures/toeplitz_3_level.pdf used on input line 2697.
 (pdftex.def)             Requested size: 306.02077pt x 316.58507pt.
 
+
+Package natbib Warning: Citation `MarcoDiss' on page 48 undefined on input line
+ 2704.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [48 <./figures/toeplitz_3_level.pdf>] [49] [50] [51] [52]pdfTeX warning (ext4)
-: destination with the same identifier (name{cite.fienenEtal2004}) has been alr
-eady used, duplicate ignored
+ [48 <./figures/toeplitz_3_level.pdf>]
+
+Package natbib Warning: Citation `Rubin2003' on page 49 undefined on input line
+ 2726.
+
+
+Package natbib Warning: Citation `GaganisSmith2001' on page 49 undefined on inp
+ut line 2740.
+
+
+Package natbib Warning: Citation `GallagherDoherty2007' on page 49 undefined on
+ input line 2742.
+
+
+LaTeX Warning: Reference `eq:R' on page 49 undefined on input line 2745.
+
+
+LaTeX Warning: Reference `eq:R' on page 49 undefined on input line 2747.
+
+
+LaTeX Warning: Reference `eq:final_prior' on page 49 undefined on input line 27
+60.
+
+
+LaTeX Warning: Reference `eq:likelihood' on page 49 undefined on input line 276
+1.
+
+
+Underfull \vbox (badness 1776) has occurred while \output is active []
+
+ [49]
+
+Package natbib Warning: Citation `Kitanidis1995' on page 50 undefined on input 
+line 2805.
+
+
+LaTeX Warning: Reference `eq:cokriging' on page 50 undefined on input line 2808
+.
+
+
+LaTeX Warning: Reference `eq:cokriging_nonlinear' on page 50 undefined on input
+ line 2824.
+
+
+LaTeX Warning: Reference `eq:shat' on page 50 undefined on input line 2826.
+
+
+LaTeX Warning: Reference `eq:posterior' on page 50 undefined on input line 2827
+.
+
+
+LaTeX Warning: Reference `eq:phiT' on page 50 undefined on input line 2843.
+
+
+LaTeX Warning: Reference `eq:Es' on page 50 undefined on input line 2876.
+
+[50]
+
+LaTeX Warning: Reference `eq:R' on page 51 undefined on input line 2892.
+
+
+LaTeX Warning: Reference `eq:Qss' on page 51 undefined on input line 2893.
+
+
+Package natbib Warning: Citation `KitanidisVomvoris1983' on page 51 undefined o
+n input line 2895.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 51 undefined on input 
+line 2895.
+
+
+Package natbib Warning: Citation `LiCirpka2007' on page 51 undefined on input l
+ine 2896.
+
+
+LaTeX Warning: Reference `eq:theta_prior' on page 51 undefined on input line 29
+29.
+
+
+LaTeX Warning: Reference `eq:theta_like' on page 51 undefined on input line 293
+0.
+
+
+Package natbib Warning: Citation `Press1992' on page 51 undefined on input line
+ 2951.
+
+
+Package natbib Warning: Citation `BoxCox1964' on page 51 undefined on input lin
+e 2953.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 51 undefined on input 
+line 2953.
+
+[51]
+
+Package natbib Warning: Citation `BoxCox1964' on page 52 undefined on input lin
+e 2974.
+
+
+Package natbib Warning: Citation `fienenEtal2004' on page 52 undefined on input
+ line 2974.
+
+
+Package natbib Warning: Citation `NowakCirpka2004' on page 52 undefined on inpu
+t line 2995.
+
+
+Package natbib Warning: Citation `Kitanidis1995' on page 52 undefined on input 
+line 3008.
+
+
+Package natbib Warning: Citation `Kitanidis1996ana' on page 52 undefined on inp
+ut line 3008.
+
+[52]pdfTeX warning (ext4): destination with the same identifier (name{cite.fien
+enEtal2004}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.3024   Jardine}]{fienenEtal2004}
@@ -1376,10 +1858,42 @@ l.3068 \bibitem[{Rubin(2003)}]{Rubin2003}
 
 
 ]
+
+Package natbib Warning: Citation `beoPEST' on page 57 undefined on input line 3
+080.
+
+
+Package natbib Warning: Citation `GENIE' on page 57 undefined on input line 308
+0.
+
+
+Package natbib Warning: Citation `Condor766' on page 57 undefined on input line
+ 3080.
+
+
+Package natbib Warning: Citation `Condor766' on page 57 undefined on input line
+ 3082.
+
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 57 undefined on input
+ line 3082.
+
+
+Package natbib Warning: Citation `Condor766' on page 57 undefined on input line
+ 3087.
+
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 3091.
 
- [57
+
+LaTeX Warning: Reference `sec:Input-Instructions' on page 57 undefined on input
+ line 3110.
+
+
+Package natbib Warning: Citation `Condor766' on page 57 undefined on input line
+ 3115.
+
+[57
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{cite.Condor7
 66}) has been already used, duplicate ignored
@@ -1405,20 +1919,32 @@ l.3149 \bibitem[{Schre\"{u}der(2009)}]{beoPEST}
 
 
 ]
-<figures/TrueK.pdf, id=1861, 578.16pt x 433.62pt>
+
+LaTeX Warning: Reference `fig:trueK1L' on page 61 undefined on input line 3160.
+
+
+
+LaTeX Warning: Reference `fig:residL1-sigfixed' on page 61 undefined on input l
+ine 3161.
+
+<figures/TrueK.pdf, id=1394, 578.16pt x 433.62pt>
 File: figures/TrueK.pdf Graphic file (type pdf)
  <use figures/TrueK.pdf>
 Package pdftex.def Info: figures/TrueK.pdf used on input line 3169.
 (pdftex.def)             Requested size: 231.2599pt x 173.44492pt.
 
-<figures/starting_heads.pdf, id=1863, 465.74pt x 362.15298pt>
+
+LaTeX Warning: Reference `fig:stheads1L' on page 61 undefined on input line 317
+7.
+
+<figures/starting_heads.pdf, id=1395, 465.74pt x 362.15298pt>
 File: figures/starting_heads.pdf Graphic file (type pdf)
 
 <use figures/starting_heads.pdf>
 Package pdftex.def Info: figures/starting_heads.pdf used on input line 3182.
 (pdftex.def)             Requested size: 232.86943pt x 181.07603pt.
 
-<figures/1_lay_best_pars_sigma_fixed.pdf, id=1864, 512.37924pt x 210.70518pt>
+<figures/1_lay_best_pars_sigma_fixed.pdf, id=1396, 512.37924pt x 210.70518pt>
 File: figures/1_lay_best_pars_sigma_fixed.pdf Graphic file (type pdf)
 
 <use figures/1_lay_best_pars_sigma_fixed.pdf>
@@ -1426,7 +1952,7 @@ Package pdftex.def Info: figures/1_lay_best_pars_sigma_fixed.pdf used on input
 line 3203.
 (pdftex.def)             Requested size: 358.66302pt x 147.49261pt.
 
-<figures/1_layer_fixed_sigma_residuals.pdf, id=1865, 578.16pt x 433.62pt>
+<figures/1_layer_fixed_sigma_residuals.pdf, id=1397, 578.16pt x 433.62pt>
 File: figures/1_layer_fixed_sigma_residuals.pdf Graphic file (type pdf)
 
 <use figures/1_layer_fixed_sigma_residuals.pdf>
@@ -1438,7 +1964,19 @@ t line 3212.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-<figures/1_lay_best_pars_sigma_estimated.pdf, id=1870, 512.37924pt x 210.70518p
+LaTeX Warning: Reference `fig:KL1-sigfixed' on page 61 undefined on input line 
+3220.
+
+
+LaTeX Warning: Reference `fig:residL1-sigfixed' on page 61 undefined on input l
+ine 3220.
+
+
+Package natbib Warning: Citation `FienenWRR2008' on page 61 undefined on input 
+line 3230.
+
+
+<figures/1_lay_best_pars_sigma_estimated.pdf, id=1398, 512.37924pt x 210.70518p
 t>
 File: figures/1_lay_best_pars_sigma_estimated.pdf Graphic file (type pdf)
  <use figures/1_lay_best_pars_sigma_estimated.pdf>
@@ -1450,12 +1988,25 @@ put line 3243.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-<figures/1_layer_estimated_sigma_residuals.pdf, id=1871, 578.16pt x 451.6875pt>
+<figures/1_layer_estimated_sigma_residuals.pdf, id=1399, 578.16pt x 451.6875pt>
 File: figures/1_layer_estimated_sigma_residuals.pdf Graphic file (type pdf)
 <use figures/1_layer_estimated_sigma_residuals.pdf>
 Package pdftex.def Info: figures/1_layer_estimated_sigma_residuals.pdf used on 
 input line 3252.
 (pdftex.def)             Requested size: 231.2599pt x 180.67178pt.
+
+
+LaTeX Warning: Reference `fig:KL1-sigEstimated' on page 61 undefined on input l
+ine 3260.
+
+
+LaTeX Warning: Reference `fig:residL1-sigEstimated' on page 61 undefined on inp
+ut line 3260.
+
+
+LaTeX Warning: Reference `fig:KL1-sigEstimated' on page 61 undefined on input l
+ine 3267.
+
 
 Underfull \vbox (badness 1917) has occurred while \output is active []
 
@@ -1484,7 +2035,10 @@ l.3281 ...n, Clemo, and Kitanidis}]{FienenWRR2008}
 
 
 ]
-<figures/3_layer_TRUE_K_field.pdf, id=2085, 163.61125pt x 353.98447pt>
+
+LaTeX Warning: Reference `3Ltruek' on page 69 undefined on input line 3304.
+
+<figures/3_layer_TRUE_K_field.pdf, id=1614, 163.61125pt x 353.98447pt>
 File: figures/3_layer_TRUE_K_field.pdf Graphic file (type pdf)
 
 <use figures/3_layer_TRUE_K_field.pdf>
@@ -1492,12 +2046,19 @@ Package pdftex.def Info: figures/3_layer_TRUE_K_field.pdf used on input line 33
 08.
 (pdftex.def)             Requested size: 163.61084pt x 353.98358pt.
 
+
+LaTeX Warning: Reference `tab:3lay' on page 69 undefined on input line 3318.
+
+
+LaTeX Warning: Reference `3Ltruek' on page 69 undefined on input line 3334.
+
+
 Underfull \vbox (badness 2221) has occurred while \output is active []
 
  [69
 
  <./figures/3_layer_TRUE_K_field.pdf>]
-<tables/3_layer_tables_for_structural_parameters.pdf, id=2120, 463.08809pt x 27
+<tables/3_layer_tables_for_structural_parameters.pdf, id=1649, 463.08809pt x 27
 2.5332pt>
 File: tables/3_layer_tables_for_structural_parameters.pdf Graphic file (type pd
 f)
@@ -1505,96 +2066,180 @@ f)
 Package pdftex.def Info: tables/3_layer_tables_for_structural_parameters.pdf us
 ed on input line 3345.
 (pdftex.def)             Requested size: 416.77544pt x 245.2776pt.
- [70 <./tables/3_layer_tables_for_structural_parameters.pdf>]
-<figures/3KL_case1.pdf, id=2172, 261.97774pt x 359.67575pt>
+
+
+LaTeX Warning: Reference `fig:3LK_case1' on page 70 undefined on input line 335
+3.
+
+
+LaTeX Warning: Reference `fig:3Lresid_case1' on page 70 undefined on input line
+ 3353.
+
+[70 <./tables/3_layer_tables_for_structural_parameters.pdf>]
+<figures/3KL_case1.pdf, id=1701, 261.97774pt x 359.67575pt>
 File: figures/3KL_case1.pdf Graphic file (type pdf)
 
 <use figures/3KL_case1.pdf>
 Package pdftex.def Info: figures/3KL_case1.pdf used on input line 3364.
 (pdftex.def)             Requested size: 261.97708pt x 359.67487pt.
 
-<figures/3L_resid_case1.pdf, id=2173, 369.54964pt x 794.97pt>
+<figures/3L_resid_case1.pdf, id=1702, 369.54964pt x 794.97pt>
 File: figures/3L_resid_case1.pdf Graphic file (type pdf)
 
 <use figures/3L_resid_case1.pdf>
 Package pdftex.def Info: figures/3L_resid_case1.pdf used on input line 3373.
 (pdftex.def)             Requested size: 184.77435pt x 397.48402pt.
 
-<figures/3KL_case2.pdf, id=2176, 261.97774pt x 359.67575pt>
+
+LaTeX Warning: Reference `fig:3LK_case2' on page 71 undefined on input line 338
+2.
+
+
+LaTeX Warning: Reference `fig:3Lresid_case2' on page 71 undefined on input line
+ 3382.
+
+<figures/3KL_case2.pdf, id=1703, 261.97774pt x 359.67575pt>
 File: figures/3KL_case2.pdf Graphic file (type pdf)
 
 <use figures/3KL_case2.pdf>
 Package pdftex.def Info: figures/3KL_case2.pdf used on input line 3392.
 (pdftex.def)             Requested size: 261.97708pt x 359.67487pt.
 
-<figures/3L_resid_case2.pdf, id=2177, 369.54964pt x 794.97pt>
+<figures/3L_resid_case2.pdf, id=1704, 369.54964pt x 794.97pt>
 File: figures/3L_resid_case2.pdf Graphic file (type pdf)
 
 <use figures/3L_resid_case2.pdf>
 Package pdftex.def Info: figures/3L_resid_case2.pdf used on input line 3401.
 (pdftex.def)             Requested size: 184.77435pt x 397.48402pt.
 
-<figures/3KL_case3.pdf, id=2180, 261.97774pt x 359.67575pt>
+
+LaTeX Warning: Reference `fig:3LK_case3' on page 71 undefined on input line 341
+0.
+
+
+LaTeX Warning: Reference `fig:3Lresid_case3' on page 71 undefined on input line
+ 3410.
+
+<figures/3KL_case3.pdf, id=1705, 261.97774pt x 359.67575pt>
 File: figures/3KL_case3.pdf Graphic file (type pdf)
 
 <use figures/3KL_case3.pdf>
 Package pdftex.def Info: figures/3KL_case3.pdf used on input line 3424.
 (pdftex.def)             Requested size: 261.97708pt x 359.67487pt.
 
-<figures/3L_resid_case3.pdf, id=2181, 369.54964pt x 794.97pt>
+<figures/3L_resid_case3.pdf, id=1706, 369.54964pt x 794.97pt>
 File: figures/3L_resid_case3.pdf Graphic file (type pdf)
 
 <use figures/3L_resid_case3.pdf>
 Package pdftex.def Info: figures/3L_resid_case3.pdf used on input line 3433.
 (pdftex.def)             Requested size: 184.77435pt x 397.48402pt.
 
+
+LaTeX Warning: Reference `fig:3LK_case5' on page 71 undefined on input line 344
+2.
+
+
+LaTeX Warning: Reference `fig:3Lresid_case5' on page 71 undefined on input line
+ 3442.
+
+
 Underfull \vbox (badness 1838) has occurred while \output is active []
 
  [71
 
  <./figures/3KL_case1.pdf>]
-<figures/3KL_case5.pdf, id=2228, 261.97774pt x 359.67575pt>
+<figures/3KL_case5.pdf, id=1751, 261.97774pt x 359.67575pt>
 File: figures/3KL_case5.pdf Graphic file (type pdf)
 
 <use figures/3KL_case5.pdf>
 Package pdftex.def Info: figures/3KL_case5.pdf used on input line 3459.
 (pdftex.def)             Requested size: 261.97708pt x 359.67487pt.
 
-<figures/3L_resid_case5.pdf, id=2230, 369.54964pt x 794.97pt>
+
+LaTeX Warning: Reference `tab:3lay' on page 72 undefined on input line 3463.
+
+<figures/3L_resid_case5.pdf, id=1752, 369.54964pt x 794.97pt>
 File: figures/3L_resid_case5.pdf Graphic file (type pdf)
 
 <use figures/3L_resid_case5.pdf>
 Package pdftex.def Info: figures/3L_resid_case5.pdf used on input line 3468.
 (pdftex.def)             Requested size: 184.77435pt x 397.48402pt.
 
-<figures/3KL_case6.pdf, id=2234, 261.97774pt x 359.67575pt>
+
+LaTeX Warning: Reference `tab:3lay' on page 72 undefined on input line 3473.
+
+
+LaTeX Warning: Reference `fig:3LK_case6' on page 72 undefined on input line 347
+7.
+
+
+LaTeX Warning: Reference `fig:3Lresid_case6' on page 72 undefined on input line
+ 3477.
+
+<figures/3KL_case6.pdf, id=1753, 261.97774pt x 359.67575pt>
 File: figures/3KL_case6.pdf Graphic file (type pdf)
 
 <use figures/3KL_case6.pdf>
 Package pdftex.def Info: figures/3KL_case6.pdf used on input line 3494.
 (pdftex.def)             Requested size: 261.97708pt x 359.67487pt.
 
-<figures/3L_resid_case6.pdf, id=2236, 369.54964pt x 794.97pt>
+
+LaTeX Warning: Reference `tab:3lay' on page 72 undefined on input line 3498.
+
+<figures/3L_resid_case6.pdf, id=1754, 369.54964pt x 794.97pt>
 File: figures/3L_resid_case6.pdf Graphic file (type pdf)
 
 <use figures/3L_resid_case6.pdf>
 Package pdftex.def Info: figures/3L_resid_case6.pdf used on input line 3503.
 (pdftex.def)             Requested size: 184.77435pt x 397.48402pt.
- [72 <./figures/3L_resid_case1.pdf>] [73 <./figures/3KL_case2.pdf>] [74 <./figu
-res/3L_resid_case2.pdf>] [75 <./figures/3KL_case3.pdf>] [76 <./figures/3L_resid
-_case3.pdf>] [77 <./figures/3KL_case5.pdf>]
-[78 <./figures/3L_resid_case5.pdf>] [79 <./figures/3KL_case6.pdf>] [80 <./figur
-es/3L_resid_case6.pdf>] [81
 
 
-] [82
+LaTeX Warning: Reference `tab:3lay' on page 72 undefined on input line 3508.
+
+[72 <./figures/3L_resid_case1.pdf>] [73 <./figures/3KL_case2.pdf>] [74 <./figur
+es/3L_resid_case2.pdf>] [75 <./figures/3KL_case3.pdf>] [76 <./figures/3L_resid_
+case3.pdf>] [77 <./figures/3KL_case5.pdf>] [78 <./figures/3L_resid_case5.pdf>]
+[79 <./figures/3KL_case6.pdf>] [80 <./figures/3L_resid_case6.pdf>] [81
+
+
+]
+[82
 
 
 ]
 
+Package natbib Warning: Citation `doriareverserouting' on page 83 undefined on 
+input line 3518.
+
+
+Package natbib Warning: Citation `Basement' on page 83 undefined on input line 
+3529.
+
+
+LaTeX Warning: Reference `fig:Reverse-routing' on page 83 undefined on input li
+ne 3547.
+
+
+LaTeX Warning: Reference `tab:Reverse-routing' on page 83 undefined on input li
+ne 3551.
+
+
+LaTeX Warning: Reference `fig:Reverse-routing' on page 83 undefined on input li
+ne 3553.
+
+
+LaTeX Warning: Reference `fig:Reverse-routing' on page 83 undefined on input li
+ne 3555.
+
+
+LaTeX Warning: Reference `tab:Reverse-routing' on page 83 undefined on input li
+ne 3559.
+
+
+
 pdfTeX warning: /usr/texbin/pdflatex (file ./figures/Reverse_Routing.pdf): PDF 
 inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<figures/Reverse_Routing.pdf, id=2569, 418.08194pt x 325.33545pt>
+<figures/Reverse_Routing.pdf, id=2087, 418.08194pt x 325.33545pt>
 File: figures/Reverse_Routing.pdf Graphic file (type pdf)
 
 <use figures/Reverse_Routing.pdf>
@@ -1609,7 +2254,7 @@ Package pdftex.def Info: figures/Reverse_Routing.pdf used on input line 3563.
 
 ] [86]
 
-Package natbib Warning: There were multiply defined citations.
+Package natbib Warning: There were undefined citations.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3673.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 3673.
@@ -1632,16 +2277,22 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3673.
  ) 
 Here is how much of TeX's memory you used:
- 10989 strings out of 493488
- 165150 string characters out of 3141326
- 276925 words of memory out of 3000000
+ 10978 strings out of 493488
+ 164966 string characters out of 3141326
+ 261997 words of memory out of 3000000
  13594 multiletter control sequences out of 15000+200000
- 99958 words of font info for 216 fonts, out of 3000000 for 9000
+ 101065 words of font info for 217 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 49i,15n,47p,724b,684s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,15n,47p,724b,704s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
@@ -1662,10 +2313,10 @@ t/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/ty
 pe1/urw/times/utmbi8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/urw/t
 imes/utmr8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/urw/times/utmri
 8a.pfb>
-Output written on bgaPEST_post_ed.pdf (94 pages, 5743727 bytes).
+Output written on bgaPEST_post_ed.pdf (90 pages, 5716752 bytes).
 PDF statistics:
- 2727 PDF objects out of 2984 (max. 8388607)
- 1847 compressed objects within 19 object streams
- 342 named destinations out of 1000 (max. 500000)
+ 2244 PDF objects out of 2487 (max. 8388607)
+ 1385 compressed objects within 14 object streams
+ 338 named destinations out of 1000 (max. 500000)
  749 words of extra memory for PDF output out of 10000 (max. 10000000)
 

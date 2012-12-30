@@ -19,7 +19,7 @@
 \contentsline {subsection}{Guidelines}{15}{subsection*.23}
 \contentsline {section}{Limitations of bgaPEST Version 1.0}{17}{section*.24}
 \contentsline {section}{Acknowledgments }{17}{section*.25}
-\contentsline {section}{References Cited}{18}{section*.26}
+\contentsline {section}{References Cited}{17}{section*.26}
 \addvspace {\appendixtocsecvsep }
 \contentsline {section}{Appendix\ 1---Input Instructions}{21}{section*.27}
 \contentsline {subsection}{General Structure of Input}{23}{subsection*.28}
@@ -62,7 +62,7 @@
 \contentsline {subsection}{Structural Parameters and Restricted Maximum Likelihood}{51}{subsection*.70}
 \contentsline {subsection}{Logarithmic and Power Transformations}{52}{subsection*.71}
 \contentsline {subsection}{Posterior Covariance}{52}{subsection*.72}
-\contentsline {subsection}{References Cited}{53}{subsection*.73}
+\contentsline {subsection}{References Cited}{52}{subsection*.73}
 \contentsline {section}{Appendix\ 4---Parallel Implementation of Jacobian Calculations}{55}{section*.74}
 \contentsline {subsection}{Introduction}{57}{subsection*.75}
 \contentsline {subsection}{Requirements}{57}{subsection*.76}
